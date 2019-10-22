@@ -12,5 +12,6 @@ type Repo interface {
 
 // UserRepo for user repo
 type UserRepo interface {
-	GetUser(string) (models.Member, error)
+	GetMember(models.Member) (models.Member, error)
+	CreateMember(models.Member) error
 }

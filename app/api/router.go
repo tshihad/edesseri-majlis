@@ -13,7 +13,7 @@ func (a *App) Router() http.Handler {
 		r.Use(loggerhandler(a.FieldLogger))
 		// user routers
 		r.With(validateUser(a.FieldLogger)).Route("/member", func(r chi.Router) {
-			r.Get("/{member_id}", a.handleGetUser)
+			r.Get("/{member_id}", a.handleGetMember)
 		})
 		// admin routers
 		r.With(validateAdmin(a.FieldLogger)).Route("/admin", func(r chi.Router) {
