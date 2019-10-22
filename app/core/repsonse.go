@@ -41,7 +41,7 @@ func (r *Response) Success(w http.ResponseWriter, status int, data interface{}) 
 
 // Fail attach fail message along with error code in failResponse
 // struct
-func (r *Response) Fail(w http.ResponseWriter, message string, status int) {
+func (r *Response) Fail(w http.ResponseWriter, status int, message string) {
 	w.WriteHeader(status)
 	f := failResponse{
 		Status:  "error",
