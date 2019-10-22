@@ -10,8 +10,9 @@ import (
 func (a *App) Router() http.Handler {
 	r := chi.NewRouter()
 	r.Route("/majlis", func(r chi.Router) {
+		r.Use(loggerhandler(a.FieldLogger))
 		// user routers
-		r.With(validateUser(a.FieldLogger)).Route("/user", func(r chi.Router) {
+		r.With(validateUser(a.FieldLogger)).Route("/member", func(r chi.Router) {
 			r.Get("/{member_id}", a.handleGetUser)
 		})
 		// admin routers
