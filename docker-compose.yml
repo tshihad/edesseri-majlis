@@ -1,0 +1,25 @@
+version: '3.0'
+services:
+  db:
+    build:
+      dockerfile: DB.Dockerfile
+      context: .
+    ports:
+      - 5432:5432
+    container_name: majlis-db-cont
+    networks:
+      - v1
+  app:
+    build:
+      dockerfile: App.Dockerfile
+      context: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    restart: on-failure:10
+    networks:
+      - v1
+
+networks:
+  v1:

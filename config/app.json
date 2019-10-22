@@ -1,0 +1,8 @@
+{
+    "db": {
+        "db_name": "majlis",
+        "db_pass": "pass123",
+        "db_host": "localhost",
+        "db_user": "postgres"
+    }
+}
