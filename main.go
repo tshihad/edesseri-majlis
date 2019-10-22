@@ -1,5 +1,7 @@
 package main
 
-func main(){
+import "majlis/app/cmd"
 
+func main() {
+	cmd.Execute()
 }

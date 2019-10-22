@@ -23,6 +23,17 @@ GO111MODULE=on go run main.go
 #### Requiments
 * Install docker https://docs.docker.com/install/
 #### Procedure
+* change 
+    ```
+    "db":{
+    "host":"localhost"
+    ``` 
+    to
+    ```
+    "db":{
+    "host":"db"
+    ```
+    in `config/app.json` 
 * Run following command
 ```
 docker-compose up
