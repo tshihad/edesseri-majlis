@@ -12,7 +12,7 @@ func (a *App) Router() http.Handler {
 	r.Route("/majlis", func(r chi.Router) {
 		// user routers
 		r.With(validateUser(a.FieldLogger)).Route("/user", func(r chi.Router) {
-
+			r.Get("/{member_id}", a.handleGetUser)
 		})
 		// admin routers
 		r.With(validateAdmin(a.FieldLogger)).Route("/admin", func(r chi.Router) {
