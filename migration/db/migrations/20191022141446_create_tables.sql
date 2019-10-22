@@ -36,13 +36,13 @@ CREATE TABLE admin(
 );
 
 CREATE TABLE loan(
-    id SERIAL PRIMARY KEY
-    member_id VARCHAR(8) REFERENCES member(member_id) NOT NULL,
+    id SERIAL PRIMARY KEY,
+    member_id VARCHAR(8) REFERENCES member (member_id) NOT NULL,
     request_amount INTEGER NOT NULL,
     installment INTEGER NOT NULL,
     purpose VARCHAR(500) NOT NULL,
     requset_date DATE NOT NULL,
-    g_member_id REFERENCES member(member_id) NOT NULL,
+    g_member_id VARCHAR(8) REFERENCES member (member_id) NOT NULL,
     status VARCHAR(50),
     reason VARCHAR(200),
     office_date DATE,
@@ -69,3 +69,8 @@ CREATE TABLE event_gallery(
 -- +goose Down
 -- SQL section 'Down' is executed when this migration is rolled back
 
+DROP TABLE member CASCADE;
+DROP TABLE loan CASCADE;
+DROP TABLE event_gallery CASCADE;
+DROP TABLE admin CASCADE;
+DROP TABLE contact_majlis CASCADE;
