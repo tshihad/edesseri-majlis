@@ -11,11 +11,11 @@ func (a *App) Router() http.Handler {
 	r := chi.NewRouter()
 	r.Route("/majlis", func(r chi.Router) {
 		// user routers
-		r.With(nil).Route("/user", func(r chi.Router) {
+		r.With(validateUser(a.FieldLogger)).Route("/user", func(r chi.Router) {
 
 		})
 		// admin routers
-		r.With(nil).Route("/admin", func(r chi.Router) {
+		r.With(validateAdmin(a.FieldLogger)).Route("/admin", func(r chi.Router) {
 
 		})
 	})

@@ -11,6 +11,7 @@ Follow any one of the below (local or docker)
 #### Requirments
 * Go 1.11 or above
 * Postgresql 9 or above
+* goose https://bitbucket.org/liamstask/goose/src/master/
 #### Procedure
 * Create database 'majlis'
 * Configure database password and user in config/app.json
@@ -23,17 +24,6 @@ GO111MODULE=on go run main.go
 #### Requiments
 * Install docker https://docs.docker.com/install/
 #### Procedure
-* change 
-    ```
-    "db":{
-    "host":"localhost"
-    ``` 
-    to
-    ```
-    "db":{
-    "host":"db"
-    ```
-    in `config/app.json` 
 * Run following command
 ```
 docker-compose up
