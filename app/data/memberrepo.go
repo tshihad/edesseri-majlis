@@ -15,3 +15,8 @@ func (r *RepoImp) CreateMember(member models.Member) error {
 	err := r.db.Create(member).Error
 	return err
 }
+
+// UpdateMember for update member in db
+func (r *RepoImp) UpdateMember(member models.Member) (models.Member, error) {
+	return member, nil
+}

@@ -38,3 +38,16 @@ func (a *App) handlePostMember(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusCreated)
 }
+func (a *App) handlePutMember(w http.ResponseWriter, r *http.Request) {
+	memberID := chi.URLParam(r, "member_id")
+	member := models.Member{MemberID: memberID}
+	if err := json.NewDecoder(r.Body).Decode(member); err != nil {
+		a.Fail(w, http.StatusBadRequest, "Invalid request", err)
+		return
+	}
+	member, err := a.UpdateMember(member)
+	if err != nil {
+		a.Fail(w, http.StatusInternalServerError, "Failed to update user", err)
+		return
+	}
+}

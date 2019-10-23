@@ -7,11 +7,12 @@ import (
 // Repo - repository layer. Any database or service (eg: redis )related query
 // and task should be implemented here.
 type Repo interface {
-	UserRepo
+	MemberRepo
 }
 
-// UserRepo for user repo
-type UserRepo interface {
+// MemberRepo for user repo
+type MemberRepo interface {
 	GetMember(models.Member) (models.Member, error)
 	CreateMember(models.Member) error
+	UpdateMember(models.Member) (models.Member, error)
 }
