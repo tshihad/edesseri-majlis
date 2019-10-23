@@ -2,7 +2,7 @@ package models
 
 // Majlis model
 type Majlis struct {
-	ID       int
+	ID       int `gorm:"primary_key"`
 	FName    string
 	LastName string
 	Phone    string `validate:"number"`

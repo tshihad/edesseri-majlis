@@ -14,5 +14,7 @@ type Repo interface {
 type MemberRepo interface {
 	GetMember(models.Member) (models.Member, error)
 	CreateMember(models.Member) error
-	UpdateMember(models.Member) (models.Member, error)
+	UpdateMember(string, models.Member) (models.Member, error)
+	DeleteMember(string) error
+	CreateNewMemberID() (string, error)
 }

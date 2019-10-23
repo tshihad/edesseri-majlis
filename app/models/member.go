@@ -2,7 +2,7 @@ package models
 
 // Member model
 type Member struct {
-	MemberID             string `json:"member_id" gorm:"column:member_id" validate:"required"`
+	MemberID             string `json:"member_id" gorm:"primary_key" validate:"required"`
 	PasswordHash         string `json:"-" gorm:"column:password_hash"`
 	Password             string `json:"password" validate:"required" gorm:"-"`
 	FName                string `json:"fname" gorm:"column:fname" validate:"required"`
