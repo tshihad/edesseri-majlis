@@ -17,4 +17,7 @@ type MemberRepo interface {
 	UpdateMember(string, models.Member) (models.Member, error)
 	DeleteMember(string) error
 	CreateNewMemberID() (string, error)
+	CreateEGallery(models.EventGallery) (int, error)
+	GetEGallerys(category string) ([]models.EventGallery, error)
+	DeleteEGallery(id int) error
 }

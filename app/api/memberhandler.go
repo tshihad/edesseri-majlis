@@ -74,3 +74,7 @@ func (a *App) handleDeleteMember(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusOK)
 }
+
+func (a *App) handleGetMembers(w http.ResponseWriter, r *http.Request) {
+
+}
