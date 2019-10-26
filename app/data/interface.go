@@ -20,4 +20,7 @@ type MemberRepo interface {
 	CreateEGallery(models.EventGallery) (int, error)
 	GetEGallerys(category string) ([]models.EventGallery, error)
 	DeleteEGallery(id int) error
+	CreateSubscription(models.Subscription) (models.Subscription, error)
+	GetSubscription(memberID string) (models.Subscription, error)
+	DeleteSubscriton(id int) error
 }

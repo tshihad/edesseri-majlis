@@ -30,7 +30,7 @@ func (r *RepoImp) UpdateMember(memberID string, member models.Member) (models.Me
 
 // DeleteMember deletes member data using member_id
 func (r *RepoImp) DeleteMember(memberID string) error {
-	return r.db.Model(models.Member{}).Delete(models.Member{MemberID: memberID}).Error
+	return r.db.Delete(models.Member{MemberID: memberID}).Error
 }
 
 // CreateNewMemberID will fetch last member id in member table and create next member id
