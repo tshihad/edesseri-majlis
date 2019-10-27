@@ -2,15 +2,16 @@ import React from 'react';
 import styled from 'styled-components'
 
 const Footer = styled.div`
+bottom: 0;
 width: 100%;
-background-color: #05335a;
-padding: 1.5vh 10vw 0 10vw;
-margin-top:200vh;
+background-color: #033d19;
+color: white;
+padding: 1.5vh 10vw 1.5vh 10vw;
 `;
 export default function MainFooter(){
     return(
         <Footer>
-            <div>hsgafhcfhgfcgf</div>
+            <div>EdasseriMajlis</div>
         </Footer>
     )
 }

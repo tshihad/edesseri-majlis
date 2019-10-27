@@ -7,7 +7,7 @@ import ArrowRight from '@material-ui/icons/KeyboardArrowRight';
 
 const Control = styled.div`
 background-color: transparent;
-color: black;
+color: #033d19;
 text-align: center;
 padding-top: 1vw;
 width: 4vw;

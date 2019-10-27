@@ -10,10 +10,11 @@ font-style:'arial';
 font-family:Open Sans,sans-serif;
 `;
 const Headline = styled.h2`
-color:#09579b`;
+color:#088d35`;
 const Content = styled.p`
 line-height: 1.4em;
-font-family:Open Sans,sans-serif;
+font-family: Open Sans,sans-serif;
+color: #000f05;
 `;
 export default function Home(props){
   useEffect(()=>{

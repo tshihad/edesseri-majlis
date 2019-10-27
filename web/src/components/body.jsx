@@ -18,7 +18,7 @@ import '../styles/navbar.css';
 const Head = styled.div`
 width: 100%;
 z-index:2;
-background-color: #05335a;
+background-color: #033d19;
 color: white;
 padding: 1.5vh 10vw 0 10vw;
 text-align: left;
@@ -37,12 +37,13 @@ border-bottom: 1px #a3d0f8 solid;
 const Body = styled.div`
 width: 100%;
 padding: 22vh 10vw 0 10vw;
+min-height: 95vh;
 `;
 
 const Language= styled.button`
 border: 0;
 outline: 0;
-background-color: #04233f;
+background-color: #022911;
 color: white;
 float: right;
 width: 9vw;
@@ -77,14 +78,14 @@ export default function Header() {
               <button class="dropbtn"
                 onClick={() => buttonClick("Home")} style={{
                   borderBottom: isButtonActive === "Home" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "Home" && " #01223f"
+                  backgroundColor: isButtonActive === "Home" && " #021806"
                 }}>Home</button>
             </Link>
             <Link to="/WhatWeDo" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("WhatWeDo")} style={{
                   borderBottom: isButtonActive === "WhatWeDo" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "WhatWeDo" && " #01223f"
+                  backgroundColor: isButtonActive === "WhatWeDo" && " #021806"
                 }}>What We Do</button>
               <div class="dropdown-content" onClick={() => buttonClick("WhatWeDo")}>
                 <Link to="/WhatWeDo/Familywelfare">Family Welfare</Link>
@@ -95,7 +96,7 @@ export default function Header() {
               <button class="dropbtn"
                 onClick={() => buttonClick("WhoLeadUs")} style={{
                   borderBottom: isButtonActive === "WhoLeadUs" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "WhoLeadUs" && " #01223f"
+                  backgroundColor: isButtonActive === "WhoLeadUs" && " #021806"
                 }}>Who Lead Us</button>
               <div class="dropdown-content" onClick={() => buttonClick("WhoLeadUs")}>
                 <Link to="/WhoLeadUs/Current">Current</Link>
@@ -109,7 +110,7 @@ export default function Header() {
               <button class="dropbtn"
                 onClick={() => buttonClick("EventGallery")} style={{
                   borderBottom: isButtonActive === "EventGallery" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "EventGallery" && " #01223f"
+                  backgroundColor: isButtonActive === "EventGallery" && " #021806"
                 }}>Event Gallery</button>
               <div class="dropdown-content" onClick={() => buttonClick("EventGallery")}>
                 <Link to="/EventGallery/Milad">Milad</Link>
@@ -124,28 +125,28 @@ export default function Header() {
               <button class="dropbtn"
                 onClick={() => buttonClick("JoinMajlis")} style={{
                   borderBottom: isButtonActive === "JoinMajlis" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "JoinMajlis" && " #01223f"
+                  backgroundColor: isButtonActive === "JoinMajlis" && " #021806"
                 }}>Join Majlis</button>
             </Link>
             <Link to="/MemberLogin" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("MemberLogin")} style={{
                   borderBottom: isButtonActive === "MemberLogin" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "MemberLogin" && " #01223f"
+                  backgroundColor: isButtonActive === "MemberLogin" && " #021806"
                 }}>Member Login</button>
             </Link>
             <Link to="/Downloads" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("Downloads")} style={{
                   borderBottom: isButtonActive === "Downloads" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "Downloads" && " #01223f"
+                  backgroundColor: isButtonActive === "Downloads" && " #021806"
                 }}>Downloads</button>
             </Link>
             <Link to="/ContactMajlis" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("ContactMajlis")} style={{
                   borderBottom: isButtonActive === "ContactMajlis" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "ContactMajlis" && " #01223f"
+                  backgroundColor: isButtonActive === "ContactMajlis" && " #021806"
                 }}>Contact Majlis</button>
             </Link>
 

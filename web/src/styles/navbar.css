@@ -3,7 +3,7 @@
   background-color: white;
 }
 .navbar{
-  background-color: #042d52;
+  background-color: #022911;
   font-style:'Arial';
 }
 .dropbtn {
@@ -14,11 +14,11 @@
   color: white;
   font-weight:400;
   font-size:1vw;
-  background-color: #042d52;
-  border-bottom: .2vw #042d52 solid;
+  background-color: #022911;
+  border-bottom: .2vw #022911 solid;
 }
 .dropbtn:hover {
-  background-color: #04233f;
+  background-color: #021806;
 }
 
 .dropdown {
@@ -32,7 +32,7 @@
   font-size:1vw;
   display: none;
   position: absolute;
-   background-color: #173753;
+   background-color: #033d19;
   min-width: 10vw;
   text-align: center;
 }
@@ -44,9 +44,9 @@
   display: block;
 }
 
-.dropdown-content a:hover {background-color: #042d52;}
+.dropdown-content a:hover {background-color: #022911;}
 
 .dropdown:hover .dropdown-content {display: block;}
 
-.lastmenu:hover .navbar {background-color: #04233f}
+.lastmenu:hover .navbar {background-color: #000f05}
 
