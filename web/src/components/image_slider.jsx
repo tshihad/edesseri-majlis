@@ -6,24 +6,24 @@ import ArrowRight from '@material-ui/icons/KeyboardArrowRight';
 
 
 const Control = styled.div`
-width: 3vw
-height: 3vw
-color: white;
+background-color: transparent;
+color: black;
 text-align: center;
-padding-top:.6vw;
-background-color: #011b306b;
-border-radius: 3vw;
+padding-top: 1vw;
+width: 4vw;
+height: 4vw;
+border-radius: 4vw;
 `;
 export default function Slider() {
   return (
     <Carousel dragging={true} speed={600} renderCenterLeftControls={({ previousSlide }) => (
       <Control onClick={previousSlide}>
-        <ArrowLeft style={{fontSize:"2vw"}}/>
+        <ArrowLeft style={{fontSize:"3vw",fontWeight:"bolder"}}/>
       </Control>
     )}
     renderCenterRightControls={({ nextSlide }) => (
       <Control onClick={nextSlide}>
-        <ArrowRight style={{fontSize:"2vw"}}/>
+        <ArrowRight style={{fontSize:"3vw"}}/>
       </Control>
     )}
   >      

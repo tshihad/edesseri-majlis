@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Route, Link, Redirect, BrowserRouter as Router, Switch } from 'react-router-dom';
 import logo from '../images/logo.png';
@@ -12,6 +12,8 @@ import JoinMajlis from './join_majlis';
 import MemberLogin from './member_login';
 import Downloads from './downloads';
 import ContactMajlis from './contact_majlis';
+import Footer from './footer'
+import '../styles/navbar.css';
 
 const Head = styled.div`
 width: 100%;
@@ -29,38 +31,140 @@ font-family: Open Sans,sans-serif;
 font-weight: 500;
 font-size: 1.5vw;
 padding: 1% 2%;
-display: inline-flex;
+display: inline-block;
 border-bottom: 1px #a3d0f8 solid;
 `;
 const Body = styled.div`
 width: 100%;
-padding: 20vh 10vw 0 10vw;
+padding: 22vh 10vw 0 10vw;
+`;
+
+const Language= styled.button`
+border: 0;
+outline: 0;
+background-color: #04233f;
+color: white;
+float: right;
+width: 9vw;
+height: 4vw;
+border-radius: .5vw;
 `;
 
 export default function Header() {
+  const [isButtonActive, setActive] = React.useState("Home")
+  const [language, setLanguage] = React.useState("മലയാളം")
+
+  const buttonClick = (value) => {
+    setActive(value)
+  }
+
+  const changeLanguage = () => {
+    setLanguage(language === "മലയാളം" ? "English" : "മലയാളം")
+  }
   return (
     <div class="mainhead">
       <Router>
         <Head>
           <Heading style={{ maxHeight: "100%", overflowY: "auto" }}>
-            <img src={logo} alt="logo" style={{ width: "3.5vw", height: "3.5vw" }} />
-            <div style={{ padding: "1.5vw 0 0 .8vw" }}>Edassery Majlis</div>
+            <div style={{display:"inline-flex"}}>
+            <img src={logo} alt="logo" style={{ width: "3.5vw", height: "3.5vw",display:"inline-block" }} />
+            <div style={{ margin: "1.5vw 0 0 .8vw",display:"inline-block" }}>Edassery Majlis</div>
+            </div>
+            <Language style={{display:"inline-block",fontSize: language === "English"?"1.3vw":"1.7vw"}} onClick={changeLanguage}>{language}</Language>
           </Heading>
-          <NavBar></NavBar>
+          <div class="navbar">
+            <Link to="/Home" class="dropdown">
+              <button class="dropbtn"
+                onClick={() => buttonClick("Home")} style={{
+                  borderBottom: isButtonActive === "Home" && ".2vw solid white",
+                  backgroundColor: isButtonActive === "Home" && " #01223f"
+                }}>Home</button>
+            </Link>
+            <Link to="/WhatWeDo" class="dropdown">
+              <button class="dropbtn"
+                onClick={() => buttonClick("WhatWeDo")} style={{
+                  borderBottom: isButtonActive === "WhatWeDo" && ".2vw solid white",
+                  backgroundColor: isButtonActive === "WhatWeDo" && " #01223f"
+                }}>What We Do</button>
+              <div class="dropdown-content" onClick={() => buttonClick("WhatWeDo")}>
+                <Link to="/WhatWeDo/Familywelfare">Family Welfare</Link>
+                <Link to="/WhatWeDo/Projects">Projects</Link>
+              </div>
+            </Link>
+            <Link to="/WhoLeadUs" class="dropdown">
+              <button class="dropbtn"
+                onClick={() => buttonClick("WhoLeadUs")} style={{
+                  borderBottom: isButtonActive === "WhoLeadUs" && ".2vw solid white",
+                  backgroundColor: isButtonActive === "WhoLeadUs" && " #01223f"
+                }}>Who Lead Us</button>
+              <div class="dropdown-content" onClick={() => buttonClick("WhoLeadUs")}>
+                <Link to="/WhoLeadUs/Current">Current</Link>
+                <Link to="/WhoLeadUs/Term1">Term-1</Link>
+                <Link to="/WhoLeadUs/Term2">Term-2</Link>
+                <Link to="/WhoLeadUs/Term3">Term-3</Link>
+
+              </div>
+            </Link>
+            <Link to="/EventGallery" class="dropdown">
+              <button class="dropbtn"
+                onClick={() => buttonClick("EventGallery")} style={{
+                  borderBottom: isButtonActive === "EventGallery" && ".2vw solid white",
+                  backgroundColor: isButtonActive === "EventGallery" && " #01223f"
+                }}>Event Gallery</button>
+              <div class="dropdown-content" onClick={() => buttonClick("EventGallery")}>
+                <Link to="/EventGallery/Milad">Milad</Link>
+                <Link to="/EventGallery/Eid">Eid</Link>
+                <Link to="/EventGallery/Iftar">Iftar</Link>
+                <Link to="/EventGallery/Sports">Sports</Link>
+                <Link to="/EventGallery/MeetandGreet">Meet and Greet</Link>
+                <Link to="/EventGallery/Other">Other</Link>
+              </div>
+            </Link>
+            <Link to="/JoinMajlis" class="dropdown">
+              <button class="dropbtn"
+                onClick={() => buttonClick("JoinMajlis")} style={{
+                  borderBottom: isButtonActive === "JoinMajlis" && ".2vw solid white",
+                  backgroundColor: isButtonActive === "JoinMajlis" && " #01223f"
+                }}>Join Majlis</button>
+            </Link>
+            <Link to="/MemberLogin" class="dropdown">
+              <button class="dropbtn"
+                onClick={() => buttonClick("MemberLogin")} style={{
+                  borderBottom: isButtonActive === "MemberLogin" && ".2vw solid white",
+                  backgroundColor: isButtonActive === "MemberLogin" && " #01223f"
+                }}>Member Login</button>
+            </Link>
+            <Link to="/Downloads" class="dropdown">
+              <button class="dropbtn"
+                onClick={() => buttonClick("Downloads")} style={{
+                  borderBottom: isButtonActive === "Downloads" && ".2vw solid white",
+                  backgroundColor: isButtonActive === "Downloads" && " #01223f"
+                }}>Downloads</button>
+            </Link>
+            <Link to="/ContactMajlis" class="dropdown">
+              <button class="dropbtn"
+                onClick={() => buttonClick("ContactMajlis")} style={{
+                  borderBottom: isButtonActive === "ContactMajlis" && ".2vw solid white",
+                  backgroundColor: isButtonActive === "ContactMajlis" && " #01223f"
+                }}>Contact Majlis</button>
+            </Link>
+
+          </div>
         </Head>
         <Body>
           <Switch>
             <Redirect exact from="/" to="/Home" />
-            <Route path="/Home" component={Home} />
-            <Route path="/WhatweDo" component={WhatweDo} />
-            <Route path="/WhoLeadUs" component={WhoLeadUs} />
-            <Route path="/EventGallery" component={EventGallery} />
-            <Route path="/JoinMajlis" component={JoinMajlis} />
-            <Route path="/MemberLogin" component={MemberLogin} />
-            <Route path="/Downloads" component={Downloads} />
-            <Route path="/ContactMajlis" component={ContactMajlis} />
+            <Route path="/Home" ><Home setState={buttonClick} language={language}/></Route>
+            <Route path="/WhatweDo" ><WhatweDo setState={buttonClick} language={language}/></Route>
+            <Route path="/WhoLeadUs"><WhoLeadUs setState={buttonClick} language={language}/></Route>
+            <Route path="/EventGallery" ><EventGallery setState={buttonClick} language={language}/></Route>
+            <Route path="/JoinMajlis" ><JoinMajlis setState={buttonClick} language={language}/></Route>
+            <Route path="/MemberLogin" ><MemberLogin setState={buttonClick} language={language}/></Route>
+            <Route path="/Downloads" ><Downloads setState={buttonClick} language={language}/></Route>
+            <Route path="/ContactMajlis" ><ContactMajlis setState={buttonClick} language={language}/></Route>
           </Switch>
         </Body>
+        <Footer />
       </Router>
     </div>
 

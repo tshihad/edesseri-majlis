@@ -1,6 +1,9 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 
-export default function MemberLogin(){
+export default function MemberLogin(props){
+  useEffect(() => {
+    props.setState("MemberLogin")
+  }, [props])
   return(
     <div>Member Login</div>
   )
