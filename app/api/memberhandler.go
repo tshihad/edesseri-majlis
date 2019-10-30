@@ -76,5 +76,15 @@ func (a *App) handleDeleteMember(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *App) handleGetMembers(w http.ResponseWriter, r *http.Request) {
-
+	limit, offset, err := getParams(r)
+	if err != nil {
+		a.Fail(w, http.StatusBadRequest, "Invalid limit/offset", err)
+		return
+	}
+	members, err := a.GetMembers(limit, offset)
+	if err != nil {
+		a.Fail(w, http.StatusBadRequest, "Failed to get members", err)
+		return
+	}
+	a.Success(w, http.StatusOK, members)
 }

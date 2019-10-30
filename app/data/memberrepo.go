@@ -33,6 +33,13 @@ func (r *RepoImp) DeleteMember(memberID string) error {
 	return r.db.Delete(models.Member{MemberID: memberID}).Error
 }
 
+// GetMembers returns members in given range( according to memberid)
+func (r *RepoImp) GetMembers(limit, offset int) ([]models.Member, error) {
+	var members []models.Member
+	err := r.db.Limit(limit).Offset(offset).Find(&members).Error
+	return members, err
+}
+
 // CreateNewMemberID will fetch last member id in member table and create next member id
 // with the help of retrieved member id. look test file for more info
 func (r *RepoImp) CreateNewMemberID() (string, error) {

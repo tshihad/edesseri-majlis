@@ -23,6 +23,7 @@ func (a *App) handlePostSubscription(w http.ResponseWriter, r *http.Request) {
 	a.Success(w, http.StatusCreated, subs)
 }
 
+// TODO update with filtering
 func (a *App) handleGetSubscription(w http.ResponseWriter, r *http.Request) {
 	memberID := chi.URLParam(r, "member_id")
 	subs, err := a.GetSubscription(memberID)

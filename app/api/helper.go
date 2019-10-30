@@ -4,8 +4,10 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strconv"
 	"time"
 
+	"github.com/go-chi/chi"
 	"github.com/pkg/errors"
 )
 
@@ -27,4 +29,16 @@ func uploadImage(r *http.Request, formTag string, uploadLocation string) (string
 	defer newFile.Close()
 	io.Copy(newFile, file)
 	return fileLocation, nil
+}
+
+func getParams(r *http.Request) (int, int, error) {
+	limit, err := strconv.Atoi(chi.URLParam(r, "limit"))
+	if err != nil {
+		return 0, 0, err
+	}
+	offset, err := strconv.Atoi(chi.URLParam(r, "offset"))
+	if err != nil {
+		return 0, 0, err
+	}
+	return limit, offset, nil
 }
