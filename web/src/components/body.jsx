@@ -14,6 +14,8 @@ import Downloads from './downloads';
 import ContactMajlis from './contact_majlis';
 import Footer from './footer'
 import AddMember from './addMember'
+import Members from './members'
+import Subscription from './subscription'
 import '../styles/navbar.css';
 
 const Head = styled.div`
@@ -37,7 +39,7 @@ border-bottom: 1px #a3d0f8 solid;
 `;
 const Body = styled.div`
 width: 100%;
-padding: 22vh 10vw 0 10vw;
+padding: 20vh 10vw 0 10vw;
 min-height: 95vh;
 `;
 
@@ -72,7 +74,7 @@ export default function Header() {
     <div class="mainhead">
       <Router>
         <Head>
-          <Heading style={{ maxHeight: "100%", overflowY: "auto" }}>
+          <Heading style={{ maxHeight: "100%", overflowX: "hidden" }}>
             <div style={{ display: "inline-flex" }}>
               <img src={logo} alt="logo" style={{ width: "3.5vw", height: "3.5vw", display: "inline-block" }} />
               <div style={{ margin: "1.5vw 0 0 .8vw", display: "inline-block" }}>Edassery Majlis</div>
@@ -174,19 +176,12 @@ export default function Header() {
                   backgroundColor: isButtonActive === "WhatWeDo" && " #021806"
                 }}>Add Member</button>
             </Link>
-            <Link to="/WhoLeadUs" class="dropdown">
+            <Link to="/Admin/Subscriptions" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("WhoLeadUs")} style={{
                   borderBottom: isButtonActive === "WhoLeadUs" && ".2vw solid white",
                   backgroundColor: isButtonActive === "WhoLeadUs" && " #021806"
-                }}>Who Lead Us</button>
-              <div class="dropdown-content" onClick={() => buttonClick("WhoLeadUs")}>
-                <Link to="/WhoLeadUs/Current">Current</Link>
-                <Link to="/WhoLeadUs/Term1">Term-1</Link>
-                <Link to="/WhoLeadUs/Term2">Term-2</Link>
-                <Link to="/WhoLeadUs/Term3">Term-3</Link>
-
-              </div>
+                }}>Subscriptions</button>
             </Link>
             <Link to="/EventGallery" class="dropdown">
               <button class="dropbtn"
@@ -194,35 +189,27 @@ export default function Header() {
                   borderBottom: isButtonActive === "EventGallery" && ".2vw solid white",
                   backgroundColor: isButtonActive === "EventGallery" && " #021806"
                 }}>Event Gallery</button>
-              <div class="dropdown-content" onClick={() => buttonClick("EventGallery")}>
-                <Link to="/EventGallery/Milad">Milad</Link>
-                <Link to="/EventGallery/Eid">Eid</Link>
-                <Link to="/EventGallery/Iftar">Iftar</Link>
-                <Link to="/EventGallery/Sports">Sports</Link>
-                <Link to="/EventGallery/MeetandGreet">Meet and Greet</Link>
-                <Link to="/EventGallery/Other">Other</Link>
-              </div>
             </Link>
             <Link to="/JoinMajlis" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("JoinMajlis")} style={{
                   borderBottom: isButtonActive === "JoinMajlis" && ".2vw solid white",
                   backgroundColor: isButtonActive === "JoinMajlis" && " #021806"
-                }}>Join Majlis</button>
+                }}>Loans</button>
             </Link>
             <Link to="/MemberLogin" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("MemberLogin")} style={{
                   borderBottom: isButtonActive === "MemberLogin" && ".2vw solid white",
                   backgroundColor: isButtonActive === "MemberLogin" && " #021806"
-                }}>Member Login</button>
+                }}>Family Welfare</button>
             </Link>
             <Link to="/Downloads" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("Downloads")} style={{
                   borderBottom: isButtonActive === "Downloads" && ".2vw solid white",
                   backgroundColor: isButtonActive === "Downloads" && " #021806"
-                }}>Downloads</button>
+                }}>Upload Forms</button>
             </Link>
             <Link to="/ContactMajlis" class="dropdown">
               <button class="dropbtn"
@@ -244,7 +231,10 @@ export default function Header() {
             <Route path="/MemberLogin" ><MemberLogin setState={buttonClick} language={language} /></Route>
             <Route path="/Downloads" ><Downloads setState={buttonClick} language={language} /></Route>
             <Route path="/ContactMajlis" ><ContactMajlis setState={buttonClick} language={language} /></Route>
+            <Redirect exact from="/Admin" to="/Admin/Members" />
+            <Route path="/Admin/Members" ><Members setUser={setThisUser}/></Route>
             <Route path="/Admin/AddMember" ><AddMember setUser={setThisUser}/></Route>
+            <Route path="/Admin/Subscriptions" ><Subscription setUser={setThisUser}/></Route>
           </Switch>
         </Body>
         <Footer />

@@ -11,7 +11,6 @@ export default function Admin(props) {
     useEffect(() => {
         props.setUser("admin")
     })
-
     return (
         <Form>
            <TextField id="name"
