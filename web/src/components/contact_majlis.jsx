@@ -6,6 +6,6 @@ export default function ContactMajlis(props) {
   }, [props])
 
   return (
-    <div>Contact Majlis</div>
+    <div >Contact Majlis</div>
   )
 }
