@@ -1,7 +1,6 @@
 import React,{useEffect} from 'react';
 import styled from 'styled-components';
-import Slider from './image_slider';
-
+import Slider from './sub_components/image_slider';
 
 
 
@@ -12,7 +11,7 @@ props.setState("Home")
 return(
   <div>
     <Slider/>
-    <CalenderEvents/>
+    <div style={{padding:"0 10vw"}}>
     {props.language === "മലയാളം" ? <Topic headline="About Majlis" content ="Allah has bestowed special blessings on each of His creatures.
 Each of us should strive to do our best to use all these
 blessings given to us in the way Allah wants.
@@ -32,6 +31,7 @@ of activities."/> : <Topic headline="About Majlis" content ="അള്ളാഹ�
 നിവാസികൾക്ുും രവണ്ടി നിസവാർത്ഥമായ സമുദായ
 രസവനും നടത്തുന്നയിനായി ഒത്തുരേർന്ന പ്രവാസി
 കൂട്ടുകാ ുറട ഒ ു കൂട്ടായ്മയാണ് മജ്‌ല്ിസ്‌."/>}
+<CalenderEvents/>
 {props.language === "മലയാളം" ? <Topic headline="The Rise Majlis" content="The full of goodness tree, which our ancestors planted in the early 70s, sprouted 
 and blossomed once again in the land of Dubai the dream land of expats on August 3, 2012 (1433 Ramadan 15). Yes, that's, that's Majlis"/>:<Topic headline="The Rise Majlis" content="70 കളിൽ നമ്മുറട രൂർവ്വികർ നട്ടുവളർത്തിയ നന്മമ ും,
 റകാല്ലവർഷും 2012 ആരസ്‌് 3-ന് (1433 െമളാൻ 15)-ന്
@@ -76,12 +76,12 @@ rehabilitation of expat members."/>:<Topic headline="Majlis Priority" content="�
 വിജയക മായ രുന ധിവാസത്തിനുള്ള രദ്ധയികൾ
 നടെില്ാക്ുക."/>}
   </div>
+  </div>
 )
 }
 
 const Card = styled.div`
 width:100%;
-padding:0 10vw;
 text-align:center;
 font-style:'arial';
 font-family:Open Sans,sans-serif;
@@ -156,7 +156,7 @@ function CalenderEvents(){
 
 const List = styled.div`
 display: block;
-padding: 1vh 3vh 2vh 3vh;
+padding:1vw 2vw;
 `;
 
 const Event = styled.div`
@@ -167,7 +167,6 @@ vertical-align: top
 line-height: 1.4em;
 display: inline-block;
 color: white;
-paddding: ;
 `;
 
 const Date = styled.span`

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Route, Link, Redirect, BrowserRouter as Router, Switch } from 'react-router-dom';
 import logo from '../images/logo.png';
 import '../styles/navbar.css';
-import NavBar from './navbar';
+import NavBar from './sub_components/navbar';
 import Home from './home';
 import WhatweDo from './what_we_do';
 import WhoLeadUs from './who_lead_us';
@@ -12,10 +12,15 @@ import JoinMajlis from './join_majlis';
 import MemberLogin from './member_login';
 import Downloads from './downloads';
 import ContactMajlis from './contact_majlis';
-import Footer from './footer'
-import AddMember from './addMember'
-import Members from './members'
-import Subscription from './subscription'
+import Footer from './footer';
+import AddMember from './addMember';
+import Members from './members';
+import Subscription from './subscription';
+import Loans from './loans';
+import FamilyWelfare from './family_welfare';
+import UploadForms from './upload_forms';
+import ContactMajlisAdmin from './contact_majlis_admin';
+import EventGalleryAdmin from './evevnt_gallery_admin';
 import '../styles/navbar.css';
 
 const Head = styled.div`
@@ -39,7 +44,7 @@ border-bottom: 1px #a3d0f8 solid;
 `;
 const Body = styled.div`
 width: 100%;
-padding: 20vh 10vw 0 10vw;
+padding: 19vh 0 0 0;
 min-height: 95vh;
 `;
 
@@ -164,58 +169,58 @@ export default function Header() {
           <div class="navbar" style={{display : user === "admin" ? "block" : "none"}}>
             <Link to="/Admin/Members" class="dropdown">
               <button class="dropbtn"
-                onClick={() => buttonClick("Home")} style={{
-                  borderBottom: isButtonActive === "Home" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "Home" && " #021806"
+                onClick={() => buttonClick("Members")} style={{
+                  borderBottom: isButtonActive === "Members" && ".2vw solid white",
+                  backgroundColor: isButtonActive === "Members" && " #021806"
                 }}>Members</button>
             </Link>
             <Link to="/Admin/AddMember" class="dropdown">
               <button class="dropbtn"
-                onClick={() => buttonClick("WhatWeDo")} style={{
-                  borderBottom: isButtonActive === "WhatWeDo" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "WhatWeDo" && " #021806"
+                onClick={() => buttonClick("AddMember")} style={{
+                  borderBottom: isButtonActive === "AddMember" && ".2vw solid white",
+                  backgroundColor: isButtonActive === "AddMember" && " #021806"
                 }}>Add Member</button>
             </Link>
             <Link to="/Admin/Subscriptions" class="dropdown">
               <button class="dropbtn"
-                onClick={() => buttonClick("WhoLeadUs")} style={{
-                  borderBottom: isButtonActive === "WhoLeadUs" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "WhoLeadUs" && " #021806"
+                onClick={() => buttonClick("Subscriptions")} style={{
+                  borderBottom: isButtonActive === "Subscriptions" && ".2vw solid white",
+                  backgroundColor: isButtonActive === "Subscriptions" && " #021806"
                 }}>Subscriptions</button>
             </Link>
-            <Link to="/EventGallery" class="dropdown">
+            <Link to="/Admin/EventGallery" class="dropdown">
               <button class="dropbtn"
-                onClick={() => buttonClick("EventGallery")} style={{
-                  borderBottom: isButtonActive === "EventGallery" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "EventGallery" && " #021806"
+                onClick={() => buttonClick("EventGalleryAdmin")} style={{
+                  borderBottom: isButtonActive === "EventGalleryAdmin" && ".2vw solid white",
+                  backgroundColor: isButtonActive === "EventGalleryAdmin" && " #021806"
                 }}>Event Gallery</button>
             </Link>
-            <Link to="/JoinMajlis" class="dropdown">
+            <Link to="/Admin/Loans" class="dropdown">
               <button class="dropbtn"
-                onClick={() => buttonClick("JoinMajlis")} style={{
-                  borderBottom: isButtonActive === "JoinMajlis" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "JoinMajlis" && " #021806"
+                onClick={() => buttonClick("Loans")} style={{
+                  borderBottom: isButtonActive === "Loans" && ".2vw solid white",
+                  backgroundColor: isButtonActive === "Loans" && " #021806"
                 }}>Loans</button>
             </Link>
-            <Link to="/MemberLogin" class="dropdown">
+            <Link to="/Admin/FamlilyWelfare" class="dropdown">
               <button class="dropbtn"
-                onClick={() => buttonClick("MemberLogin")} style={{
-                  borderBottom: isButtonActive === "MemberLogin" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "MemberLogin" && " #021806"
+                onClick={() => buttonClick("FamilyWelfare")} style={{
+                  borderBottom: isButtonActive === "FamilyWelfare" && ".2vw solid white",
+                  backgroundColor: isButtonActive === "FamilyWelfare" && " #021806"
                 }}>Family Welfare</button>
             </Link>
-            <Link to="/Downloads" class="dropdown">
+            <Link to="/Admin/UploadForms" class="dropdown">
               <button class="dropbtn"
-                onClick={() => buttonClick("Downloads")} style={{
-                  borderBottom: isButtonActive === "Downloads" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "Downloads" && " #021806"
+                onClick={() => buttonClick("UploadForms")} style={{
+                  borderBottom: isButtonActive === "UploadForms" && ".2vw solid white",
+                  backgroundColor: isButtonActive === "UploadForms" && " #021806"
                 }}>Upload Forms</button>
             </Link>
-            <Link to="/ContactMajlis" class="dropdown">
+            <Link to="/Admin/ContactMajlisAdmin" class="dropdown">
               <button class="dropbtn"
-                onClick={() => buttonClick("ContactMajlis")} style={{
-                  borderBottom: isButtonActive === "ContactMajlis" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "ContactMajlis" && " #021806"
+                onClick={() => buttonClick("ContactMajlisAdmin")} style={{
+                  borderBottom: isButtonActive === "ContactMajlisAdmin" && ".2vw solid white",
+                  backgroundColor: isButtonActive === "ContactMajlisAdmin" && " #021806"
                 }}>Contact Majlis</button>
             </Link>
           </div>
@@ -232,9 +237,14 @@ export default function Header() {
             <Route path="/Downloads" ><Downloads setState={buttonClick} language={language} /></Route>
             <Route path="/ContactMajlis" ><ContactMajlis setState={buttonClick} language={language} /></Route>
             <Redirect exact from="/Admin" to="/Admin/Members" />
-            <Route path="/Admin/Members" ><Members setUser={setThisUser}/></Route>
-            <Route path="/Admin/AddMember" ><AddMember setUser={setThisUser}/></Route>
-            <Route path="/Admin/Subscriptions" ><Subscription setUser={setThisUser}/></Route>
+            <Route path="/Admin/Members" ><Members setState={buttonClick} setUser={setThisUser}/></Route>
+            <Route path="/Admin/AddMember" ><AddMember setState={buttonClick} setUser={setThisUser}/></Route>
+            <Route path="/Admin/Subscriptions" ><Subscription setState={buttonClick} setUser={setThisUser}/></Route>
+            <Route path="/Admin/EventGallery" ><EventGalleryAdmin setState={buttonClick} setUser={setThisUser}/></Route>
+            <Route path="/Admin/Loans" ><Loans setState={buttonClick} setUser={setThisUser}/></Route>
+            <Route path="/Admin/FamlilyWelfare" ><FamilyWelfare setState={buttonClick} setUser={setThisUser}/></Route>
+            <Route path="/Admin/UploadForms" ><UploadForms setState={buttonClick} setUser={setThisUser}/></Route>
+            <Route path="/Admin/ContactMajlisAdmin" ><ContactMajlisAdmin setState={buttonClick} setUser={setThisUser}/></Route>
           </Switch>
         </Body>
         <Footer />
