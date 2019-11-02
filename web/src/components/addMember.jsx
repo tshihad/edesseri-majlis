@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { TextField, Radio, Select, TextField_NoRequired } from './form_components/simple_text_field';
+import { TextField, Radio, Select, TextField_NoRequired } from './sub_components/simple_text_field';
 import styled from 'styled-components';
 import '../styles/form.css'
 const Form = styled.form`
