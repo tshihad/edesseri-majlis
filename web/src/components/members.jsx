@@ -14,6 +14,7 @@ padding-left: 2.5%;
 export default function MembersList(props) {
     useEffect(() => {
         props.setUser("admin")
+        props.setState("Members")
     })
     return (
         <Members>
