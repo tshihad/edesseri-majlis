@@ -1,5 +1,5 @@
 
-FROM postgres:9.6.6-alpine
+FROM postgres:9.6.5-alpine
 ENV POSTGRES_USER postgres
 ENV POSTGRES_DB majlis
 ENV POSTGRES_PASSWORD pass123
