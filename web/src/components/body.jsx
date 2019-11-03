@@ -22,12 +22,13 @@ import UploadForms from './upload_forms';
 import ContactMajlisAdmin from './contact_majlis_admin';
 import EventGalleryAdmin from './evevnt_gallery_admin';
 import '../styles/navbar.css';
+import '../styles/header.css'
 
 const Head = styled.div`
 width: 100%;
 z-index:2;
-background-color: #033d19;
-color: white;
+background-color: #e5eee5;
+color: #bab86c;
 padding: 1.5vh 10vw 0 10vw;
 text-align: left;
 position: fixed;
@@ -40,29 +41,36 @@ font-weight: 500;
 font-size: 1.5vw;
 padding: 1% 2%;
 display: inline-block;
-border-bottom: 1px #a3d0f8 solid;
+border-bottom: 1px #556b2f solid;
 `;
 const Body = styled.div`
 width: 100%;
 padding: 19vh 0 0 0;
 min-height: 95vh;
+background-color: #edeeed;
+font-family: 'Comfortaa', cursive;
 `;
 
 const Language = styled.button`
 border: 0;
 outline: 0;
-background-color: #022911;
+background-color: #556b2f;
 color: white;
 float: right;
 width: 9vw;
-height: 4vw;
+height: 5vh;
+margin-top: 2.7vh;
 border-radius: .5vw;
+font-family: 'Comfortaa', cursive;
 `;
 
+const Span = styled.span`
+font-size: 2vw;
+`;
 export default function Header() {
   const [isButtonActive, setActive] = React.useState("Home")
   const [language, setLanguage] = React.useState("മലയാളം")
-  const [user,setUser] = React.useState("general")
+  const [user, setUser] = React.useState("general")
 
   const buttonClick = (value) => {
     setActive(value)
@@ -82,25 +90,25 @@ export default function Header() {
           <Heading style={{ maxHeight: "100%", overflowX: "hidden" }}>
             <div style={{ display: "inline-flex" }}>
               <img src={logo} alt="logo" style={{ width: "3.5vw", height: "3.5vw", display: "inline-block" }} />
-              <div style={{ margin: "1.5vw 0 0 .8vw", display: "inline-block" }}>Edassery Majlis</div>
+              <div style={{ margin: "1.5vw 0 0 .8vw", color: "#556b2f", display: "inline-block", fontFamily: "Aroma", fontSize: "1.4vw" }}><Span>E</Span>DASSERY <Span>M</Span>AJLIS <Span>G</Span>ROUP</div>
             </div>
-            <Language style={{ display: "inline-block", fontSize: language === "English" ? "1.3vw" : "1.7vw" }} onClick={changeLanguage}>{language}</Language>
+            <Language style={{ display: "inline-block", fontSize: language === "English" ? "1.1vw" : "1.5vw" }} onClick={changeLanguage}>{language}</Language>
           </Heading>
 
           {/* NAVBAR for general user */}
-          <div class="navbar" style={{display : user === "general" ? "block" : "none"}}>
+          <div class="navbar" style={{ display: user === "general" ? "block" : "none" }}>
             <Link to="/Home" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("Home")} style={{
-                  borderBottom: isButtonActive === "Home" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "Home" && " #021806"
+                  backgroundColor: isButtonActive === "Home" && " #556b2f",
+                  color: isButtonActive === "Home" && "white"
                 }}>Home</button>
             </Link>
             <Link to="/WhatWeDo" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("WhatWeDo")} style={{
-                  borderBottom: isButtonActive === "WhatWeDo" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "WhatWeDo" && " #021806"
+                  backgroundColor: isButtonActive === "WhatWeDo" && " #556b2f",
+                  color: isButtonActive === "WhatWeDo" && "white"
                 }}>What We Do</button>
               <div class="dropdown-content" onClick={() => buttonClick("WhatWeDo")}>
                 <Link to="/WhatWeDo/Familywelfare">Family Welfare</Link>
@@ -110,8 +118,8 @@ export default function Header() {
             <Link to="/WhoLeadUs" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("WhoLeadUs")} style={{
-                  borderBottom: isButtonActive === "WhoLeadUs" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "WhoLeadUs" && " #021806"
+                  backgroundColor: isButtonActive === "WhoLeadUs" && " #556b2f",
+                  color: isButtonActive === "WhoLeadUs" && "white"
                 }}>Who Lead Us</button>
               <div class="dropdown-content" onClick={() => buttonClick("WhoLeadUs")}>
                 <Link to="/WhoLeadUs/Current">Current</Link>
@@ -124,8 +132,8 @@ export default function Header() {
             <Link to="/EventGallery" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("EventGallery")} style={{
-                  borderBottom: isButtonActive === "EventGallery" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "EventGallery" && " #021806"
+                  backgroundColor: isButtonActive === "EventGallery" && " #556b2f",
+                  color: isButtonActive === "EventGallery" && "white"
                 }}>Event Gallery</button>
               <div class="dropdown-content" onClick={() => buttonClick("EventGallery")}>
                 <Link to="/EventGallery/Milad">Milad</Link>
@@ -139,88 +147,88 @@ export default function Header() {
             <Link to="/JoinMajlis" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("JoinMajlis")} style={{
-                  borderBottom: isButtonActive === "JoinMajlis" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "JoinMajlis" && " #021806"
+                  backgroundColor: isButtonActive === "JoinMajlis" && " #556b2f",
+                  color: isButtonActive === "JoinMajlis" && "white"
                 }}>Join Majlis</button>
             </Link>
             <Link to="/MemberLogin" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("MemberLogin")} style={{
-                  borderBottom: isButtonActive === "MemberLogin" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "MemberLogin" && " #021806"
+                  backgroundColor: isButtonActive === "MemberLogin" && " #556b2f",
+                  color: isButtonActive === "MemberLogin" && "white"
                 }}>Member Login</button>
             </Link>
             <Link to="/Downloads" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("Downloads")} style={{
-                  borderBottom: isButtonActive === "Downloads" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "Downloads" && " #021806"
+                  backgroundColor: isButtonActive === "Downloads" && " #556b2f",
+                  color: isButtonActive === "Downloads" && "white"
                 }}>Downloads</button>
             </Link>
             <Link to="/ContactMajlis" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("ContactMajlis")} style={{
-                  borderBottom: isButtonActive === "ContactMajlis" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "ContactMajlis" && " #021806"
+                  backgroundColor: isButtonActive === "ContactMajlis" && " #556b2f",
+                  color: isButtonActive === "ContactMajlis" && "white"
                 }}>Contact Majlis</button>
             </Link>
           </div>
           {/* NAVBAR for Admin user */}
-          <div class="navbar" style={{display : user === "admin" ? "block" : "none"}}>
+          <div class="navbar" style={{ display: user === "admin" ? "block" : "none" }}>
             <Link to="/Admin/Members" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("Members")} style={{
-                  borderBottom: isButtonActive === "Members" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "Members" && " #021806"
+                  backgroundColor: isButtonActive === "Members" && " #556b2f",
+                  color: isButtonActive === "Members" && "white"
                 }}>Members</button>
             </Link>
             <Link to="/Admin/AddMember" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("AddMember")} style={{
-                  borderBottom: isButtonActive === "AddMember" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "AddMember" && " #021806"
+                  backgroundColor: isButtonActive === "AddMember" && " #556b2f",
+                  color: isButtonActive === "AddMember" && "white"
                 }}>Add Member</button>
             </Link>
             <Link to="/Admin/Subscriptions" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("Subscriptions")} style={{
-                  borderBottom: isButtonActive === "Subscriptions" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "Subscriptions" && " #021806"
+                  backgroundColor: isButtonActive === "Subscriptions" && " #556b2f",
+                  color: isButtonActive === "Subscriptions" && "white"
                 }}>Subscriptions</button>
             </Link>
             <Link to="/Admin/EventGallery" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("EventGalleryAdmin")} style={{
-                  borderBottom: isButtonActive === "EventGalleryAdmin" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "EventGalleryAdmin" && " #021806"
+                  backgroundColor: isButtonActive === "EventGalleryAdmin" && " #556b2f",
+                  color: isButtonActive === "EventGalleryAdmin" && "white"
                 }}>Event Gallery</button>
             </Link>
             <Link to="/Admin/Loans" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("Loans")} style={{
-                  borderBottom: isButtonActive === "Loans" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "Loans" && " #021806"
+                  backgroundColor: isButtonActive === "Loans" && " #556b2f",
+                  color: isButtonActive === "Loans" && "white"
                 }}>Loans</button>
             </Link>
             <Link to="/Admin/FamlilyWelfare" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("FamilyWelfare")} style={{
-                  borderBottom: isButtonActive === "FamilyWelfare" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "FamilyWelfare" && " #021806"
+                  backgroundColor: isButtonActive === "FamilyWelfare" && " #556b2f",
+                  color: isButtonActive === "FamilyWelfare" && "white"
                 }}>Family Welfare</button>
             </Link>
             <Link to="/Admin/UploadForms" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("UploadForms")} style={{
-                  borderBottom: isButtonActive === "UploadForms" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "UploadForms" && " #021806"
+                  backgroundColor: isButtonActive === "UploadForms" && " #556b2f",
+                  color: isButtonActive === "UploadForms" && "white"
                 }}>Upload Forms</button>
             </Link>
             <Link to="/Admin/ContactMajlisAdmin" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("ContactMajlisAdmin")} style={{
-                  borderBottom: isButtonActive === "ContactMajlisAdmin" && ".2vw solid white",
-                  backgroundColor: isButtonActive === "ContactMajlisAdmin" && " #021806"
+                  backgroundColor: isButtonActive === "ContactMajlisAdmin" && " #556b2f",
+                  color: isButtonActive === "ContactMajlisAdmin" && "white"
                 }}>Contact Majlis</button>
             </Link>
           </div>
@@ -237,14 +245,14 @@ export default function Header() {
             <Route path="/Downloads" ><Downloads setState={buttonClick} language={language} /></Route>
             <Route path="/ContactMajlis" ><ContactMajlis setState={buttonClick} language={language} /></Route>
             <Redirect exact from="/Admin" to="/Admin/Members" />
-            <Route path="/Admin/Members" ><Members setState={buttonClick} setUser={setThisUser}/></Route>
-            <Route path="/Admin/AddMember" ><AddMember setState={buttonClick} setUser={setThisUser}/></Route>
-            <Route path="/Admin/Subscriptions" ><Subscription setState={buttonClick} setUser={setThisUser}/></Route>
-            <Route path="/Admin/EventGallery" ><EventGalleryAdmin setState={buttonClick} setUser={setThisUser}/></Route>
-            <Route path="/Admin/Loans" ><Loans setState={buttonClick} setUser={setThisUser}/></Route>
-            <Route path="/Admin/FamlilyWelfare" ><FamilyWelfare setState={buttonClick} setUser={setThisUser}/></Route>
-            <Route path="/Admin/UploadForms" ><UploadForms setState={buttonClick} setUser={setThisUser}/></Route>
-            <Route path="/Admin/ContactMajlisAdmin" ><ContactMajlisAdmin setState={buttonClick} setUser={setThisUser}/></Route>
+            <Route path="/Admin/Members" ><Members setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/AddMember" ><AddMember setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/Subscriptions" ><Subscription setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/EventGallery" ><EventGalleryAdmin setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/Loans" ><Loans setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/FamlilyWelfare" ><FamilyWelfare setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/UploadForms" ><UploadForms setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/ContactMajlisAdmin" ><ContactMajlisAdmin setState={buttonClick} setUser={setThisUser} /></Route>
           </Switch>
         </Body>
         <Footer />

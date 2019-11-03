@@ -22,13 +22,13 @@ export default function Slider() {
     <Carousel dragging={true}
       speed={1500}
       autoplay={true}
-      autoplayInterval={2000}
+      autoplayInterval={3000}
       pauseOnHover={true}
       enableKeyboardControls={true}
       heightMode={'first'}
       renderCenterLeftControls={({ previousSlide }) => (
         <Control onClick={previousSlide}>
-          <ArrowLeft style={{ fontSize: "3vw", fontWeight: "bolder" }} />
+          <ArrowLeft style={{ fontSize: "3vw", fontWeight: "bolder", color:"#e5eee5"}} />
         </Control>
       )}
       renderCenterRightControls={({ nextSlide }) => (

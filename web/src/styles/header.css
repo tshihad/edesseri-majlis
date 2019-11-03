@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Aroma';
+    src: local('Aroma'), url(../fonts/AROMA-Bold.ttf) format('truetype');
+  }
+
+
+.titleFont{
+    font-family: Aroma;
+}

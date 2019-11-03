@@ -1,17 +1,18 @@
 import React,{useEffect} from 'react';
 import styled from 'styled-components';
 import Slider from './sub_components/image_slider';
-
+import bc from '../images/background.jpg';
+import EventNoteIcon from '@material-ui/icons/EventNote';
 
 
 export default function Home(props){
   useEffect(()=>{
-props.setState("Home")
+  props.setState("Home")
   },[props])
 return(
   <div>
     <Slider/>
-    <div style={{padding:"0 10vw"}}>
+    <div style={{padding:"0 0"}}>
     {props.language === "മലയാളം" ? <Topic headline="About Majlis" content ="Allah has bestowed special blessings on each of His creatures.
 Each of us should strive to do our best to use all these
 blessings given to us in the way Allah wants.
@@ -58,17 +59,19 @@ rehabilitation of expat members."/>:<Topic headline="Majlis Priority" content="�
 
 const Card = styled.div`
 width:100%;
+padding: 5vh 20vw;
 text-align:center;
-font-style:'arial';
 font-family:Open Sans,sans-serif;
 `;
-const Headline = styled.h2`
-color:#088d35;
-font-size: 4vh`;
+const Headline = styled.h3`
+color:#1d4219;
+font-size: 3vh;
+font-family: 'Comfortaa', cursive;
+`;
 const Content = styled.p`
 line-height: 1.4em;
-font-size: 1.2vw;
-font-family: Open Sans,sans-serif;
+font-size: 1.1vw;
+font-family: 'Comfortaa', cursive;
 color: #000f05;
 `;
 export function Topic(props){
@@ -81,29 +84,22 @@ export function Topic(props){
 }
 
 const Paper = styled.div`
-width: 100%;
-margin: 0;
-background-color: #018d37;
+margin: 0 20vh;
+color:#556b2f;
+background-color: #e5eee5;
+border-top: 1.5px #7ead2b solid;
+border-bottom: 1.5px #7ead2b solid;
 `;
 const Heading = styled.div`
-color: white;
 width: 100%;
-font-size: 2.9vh;
-padding: 1vh 2vw;
-background-color: #00772e;
+text-align: center;
+font-size: 3vh;
+font-weight: bolder;
+padding: 2vw 2vw 1vh 2vw;
+background-color: #e5eee5;
 font-weight: 500;
 `;
 
-const Button = styled.button`
-border: 0;
-outline: 0;
-width: 10vw;
-float :right
-color: white;
-padding: 1.5vh 0;
-background-color: #033d19;
-
-`;
 function CalenderEvents(){
   const events = [
     {
@@ -132,30 +128,36 @@ function CalenderEvents(){
 
 const List = styled.div`
 display: block;
-padding:1vw 2vw;
+padding:2vw 2vw;
 `;
 
 const Event = styled.div`
-width: 50%;
+width: 48%;
+margin: .5% 1%;
 font-weight: 400;
 font-size: 1.2vw;
 vertical-align: top
-line-height: 1.4em;
 display: inline-block;
-color: white;
+`;
+
+const Pic = styled.div`
+width: 15vh;
+height: 10vh;
+display: inline-block;
+
 `;
 
 const Date = styled.span`
 vertical-align: top;
-font-weight: 500;
+font-weight: 600;
 display: inline-block;
-color: white;
+color: #556b2f;
 `;
 const Item = styled.div`
 vertical-align: top;
 font-weight: 300;
 display: inline-block;
-color: white;
+color: #556b2f;
 `;
 
 const Dot = styled.span`
@@ -164,7 +166,14 @@ function Events(props){
   return(
     <List>
     {props.events.map(event => (
-      <Event><Item><Dot >&#8226; </Dot><Date>{event.date}</Date> - {event.title}</Item></Event>
+      // <Event><Item><Dot >&#8226; </Dot><Date>{event.date}</Date> - {event.title}</Item></Event>
+      <Event>
+        <EventNoteIcon style={{fontSize:"6vh"}}/>
+        <Item>
+          <Date>{event.date}</Date>
+          <div>{event.title.slice(0,50)}</div>
+          </Item>
+      </Event>
     ))}
     </List>
 
