@@ -32,6 +32,7 @@ color: #bab86c;
 padding: 1.5vh 10vw 0 10vw;
 text-align: left;
 position: fixed;
+border-bottom: 1px #556b2f solid;
 `;
 
 const Heading = styled.div`
