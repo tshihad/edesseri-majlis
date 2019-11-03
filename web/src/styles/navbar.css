@@ -1,0 +1,52 @@
+.mainhead{
+  min-height:100vh;
+  background-color: white;
+}
+.navbar{
+  background-color: #022911;
+  font-style:'Arial';
+}
+.dropbtn {
+  border:0;
+  outline:0;
+  width:9.85vw;
+  height:3.3vw;
+  color: white;
+  font-weight:400;
+  font-size:1vw;
+  background-color: #022911;
+  border-bottom: .2vw #022911 solid;
+}
+.dropbtn:hover {
+  background-color: #021806;
+}
+
+.dropdown {
+  border:0;
+  outline: 0;
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  font-size:1vw;
+  display: none;
+  position: absolute;
+   background-color: #033d19;
+  min-width: 10vw;
+  text-align: center;
+}
+
+.dropdown-content a {
+  color: white;
+  padding:5% 5%;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #02a03f;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.lastmenu:hover .navbar {background-color: #147439}
+
