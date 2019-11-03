@@ -12,6 +12,7 @@ import JoinMajlis from './join_majlis';
 import MemberLogin from './member_login';
 import Downloads from './downloads';
 import ContactMajlis from './contact_majlis';
+import EventCalendar from './even_calendar';
 import Footer from './footer';
 import AddMember from './addMember';
 import Members from './members';
@@ -224,12 +225,12 @@ export default function Header() {
                   color: isButtonActive === "UploadForms" && "white"
                 }}>Upload Forms</button>
             </Link>
-            <Link to="/Admin/ContactMajlisAdmin" class="dropdown">
+            <Link to="/Admin/EventCalendar" class="dropdown">
               <button class="dropbtn"
-                onClick={() => buttonClick("ContactMajlisAdmin")} style={{
-                  backgroundColor: isButtonActive === "ContactMajlisAdmin" && " #556b2f",
-                  color: isButtonActive === "ContactMajlisAdmin" && "white"
-                }}>Contact Majlis</button>
+                onClick={() => buttonClick("EventCalendar")} style={{
+                  backgroundColor: isButtonActive === "EventCalendar" && " #556b2f",
+                  color: isButtonActive === "EventCalendar" && "white"
+                }}>Event Calendar</button>
             </Link>
           </div>
         </Head>
@@ -253,6 +254,7 @@ export default function Header() {
             <Route path="/Admin/FamlilyWelfare" ><FamilyWelfare setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/UploadForms" ><UploadForms setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/ContactMajlisAdmin" ><ContactMajlisAdmin setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/EventCalendar" ><EventCalendar setState={buttonClick} setUser={setThisUser} /></Route>
           </Switch>
         </Body>
         <Footer />
