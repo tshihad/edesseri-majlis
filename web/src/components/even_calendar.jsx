@@ -79,7 +79,7 @@ export default function EventCalendar(props) {
                             <TextField
                                 id="add_event"
                                 className={classes.textField}
-                                label="Standard"
+                                label="Event Name"
                                 margin="normal"
                             />
                         </Grid>
