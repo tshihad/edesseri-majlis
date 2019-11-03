@@ -10,6 +10,7 @@ type Repo interface {
 	MemberRepo
 	SubscriptionRepo
 	LoanRepo
+	EgallerRepo
 }
 
 // MemberRepo for user repo
@@ -38,5 +39,5 @@ type SubscriptionRepo interface {
 
 // LoanRepo for loans
 type LoanRepo interface {
-	GetLoan(int) ([]models.Loan, error)
+	GetLoan(string) ([]models.Loan, error)
 }
