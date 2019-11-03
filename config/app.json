@@ -2,7 +2,7 @@
     "db": {
         "name": "majlis",
         "pass": "pass123",
-        "host": "db",
+        "host": "localhost",
         "user": "postgres"
     },
     "app":{
