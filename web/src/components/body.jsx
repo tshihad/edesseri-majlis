@@ -46,8 +46,8 @@ border-bottom: 1px #556b2f solid;
 `;
 const Body = styled.div`
 width: 100%;
-padding: 19vh 0 0 0;
-min-height: 95vh;
+padding: 9.8vw 0 0 0;
+min-height: 75vh;
 background-color: #edeeed;
 font-family: 'Comfortaa', cursive;
 `;

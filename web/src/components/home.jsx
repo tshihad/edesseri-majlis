@@ -100,7 +100,6 @@ const Card = styled.div`
 width:100%;
 padding: 5vh 20vw;
 text-align:center;
-font-family:Open Sans,sans-serif;
 `;
 const Headline = styled.h3`
 color:#1d4219;
@@ -228,7 +227,7 @@ const MiniCard = styled.div`
 width: 50%;
 font-weight: 400;
 font-size: 1.2vw;
-vertical-align: top
+vertical-align: top;
 display: inline-block;
 `;
 const Main = styled.div`
