@@ -10,15 +10,20 @@ color: #f1f1f1;
 padding: 1.5vh 10vw 1.5vh 10vw;
 `;
 const Head = styled.h4`
-font-size:1vw;
+font-size:1em;
 `;
 const Content = styled.div`
+font-size:.8em;
 line-height: 2em;
 `;
 const A = styled.a`
-padding-right: 3%
+padding-right: 3%;
+font-size:.8em;
 text-decoration: none;
 color: #f1c37d;
+&:hover{
+    color: #fda31b;
+}
 `;
 const Links = styled.div`
 padding-top: 5%`;

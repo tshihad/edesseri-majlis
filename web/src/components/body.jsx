@@ -145,20 +145,6 @@ export default function Header() {
                 <Link to="/EventGallery/Other">Other</Link>
               </div>
             </Link>
-            <Link to="/JoinMajlis" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("JoinMajlis")} style={{
-                  backgroundColor: isButtonActive === "JoinMajlis" && " #556b2f",
-                  color: isButtonActive === "JoinMajlis" && "white"
-                }}>Join Majlis</button>
-            </Link>
-            <Link to="/MemberLogin" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("MemberLogin")} style={{
-                  backgroundColor: isButtonActive === "MemberLogin" && " #556b2f",
-                  color: isButtonActive === "MemberLogin" && "white"
-                }}>Member Login</button>
-            </Link>
             <Link to="/Downloads" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("Downloads")} style={{
@@ -172,6 +158,20 @@ export default function Header() {
                   backgroundColor: isButtonActive === "ContactMajlis" && " #556b2f",
                   color: isButtonActive === "ContactMajlis" && "white"
                 }}>Contact Majlis</button>
+            </Link>
+            <Link to="/JoinMajlis" class="dropdown">
+              <button class="dropbtn"
+                onClick={() => buttonClick("JoinMajlis")} style={{
+                  backgroundColor: isButtonActive === "JoinMajlis" && " #556b2f",
+                  color: isButtonActive === "JoinMajlis" && "white"
+                }}>Join Majlis</button>
+            </Link>
+            <Link to="/MemberLogin" class="dropdown">
+              <button class="dropbtn"
+                onClick={() => buttonClick("MemberLogin")} style={{
+                  backgroundColor: isButtonActive === "MemberLogin" && " #556b2f",
+                  color: isButtonActive === "MemberLogin" && "white"
+                }}>Member Login</button>
             </Link>
           </div>
           {/* NAVBAR for Admin user */}
