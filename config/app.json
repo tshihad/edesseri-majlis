@@ -1,8 +1,12 @@
 {
     "db": {
-        "db_name": "majlis",
-        "db_pass": "pass123",
-        "db_host": "localhost",
-        "db_user": "postgres"
+        "name": "majlis",
+        "pass": "pass123",
+        "host": "localhost",
+        "user": "postgres"
+    },
+    "app":{
+        "host":"0.0.0.0",
+        "port":8080
     }
 }

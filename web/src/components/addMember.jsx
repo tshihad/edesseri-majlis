@@ -129,6 +129,7 @@ const licenceValues = [
 export default function Form(props) {
     useEffect(() => {
         props.setUser("admin")
+        props.setState("AddMember")
     })
     const [bgroup, setGroup] = React.useState('A+');
     const [country, setCountry] = React.useState('IN');

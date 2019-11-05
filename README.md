@@ -11,6 +11,7 @@ Follow any one of the below (local or docker)
 #### Requirments
 * Go 1.11 or above
 * Postgresql 9 or above
+* goose https://bitbucket.org/liamstask/goose/src/master/
 #### Procedure
 * Create database 'majlis'
 * Configure database password and user in config/app.json
