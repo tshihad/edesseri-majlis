@@ -2,6 +2,7 @@ package api
 
 import (
 	"encoding/json"
+	"majlis/app/core"
 	"majlis/app/models"
 	"net/http"
 
@@ -21,9 +22,26 @@ func (a *App) handleGetMember(w http.ResponseWriter, r *http.Request) {
 	a.Success(w, http.StatusOK, member)
 }
 
+func (a *App) handlePostProfileImage(w http.ResponseWriter, r *http.Request) {
+	location, err := uploadImage(r, "profileImage", core.PROFILE_LOCATION)
+	if err != nil {
+		a.Fail(w, http.StatusBadRequest, "Failed to upload image", err)
+		return
+	}
+	imLocation := models.Profile{
+		ImageLocation: location,
+	}
+	a.Success(w, http.StatusCreated, imLocation)
+}
+
 // create new member handler
 func (a *App) handlePostMember(w http.ResponseWriter, r *http.Request) {
 	var member models.Member
+	location, err := uploadImage(r, "profileImage", core.PROFILE_LOCATION)
+	if err != nil {
+		a.Fail(w, http.StatusBadRequest, "Failed to upload image", err)
+		return
+	}
 	if err := json.NewDecoder(r.Body).Decode(&member); err != nil {
 		a.Fail(w, http.StatusBadRequest, "Invalid request", err)
 		return
@@ -35,6 +53,7 @@ func (a *App) handlePostMember(w http.ResponseWriter, r *http.Request) {
 	}
 	memberID, err := a.CreateNewMemberID()
 	member.MemberID = memberID
+	member.ImageLocation = location
 	if err != nil {
 		a.Fail(w, http.StatusInternalServerError, "failed to create member id", err)
 		return

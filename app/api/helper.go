@@ -21,7 +21,7 @@ func uploadImage(r *http.Request, formTag string, uploadLocation string) (string
 		return "", errors.Wrap(err, "failed to read "+formTag+" in form")
 	}
 	defer file.Close()
-	fileLocation := uploadLocation + time.Now().String() + handler.Filename
+	fileLocation := uploadLocation + "/" + time.Now().String() + handler.Filename
 	newFile, err := os.OpenFile(fileLocation, os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		return "", errors.Wrap(err, "Failed to create tmp file")
