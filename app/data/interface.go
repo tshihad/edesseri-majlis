@@ -11,6 +11,8 @@ type Repo interface {
 	SubscriptionRepo
 	LoanRepo
 	EgallerRepo
+	ContactRepo
+	DownloadRepo
 }
 
 // MemberRepo for user repo
@@ -40,4 +42,13 @@ type SubscriptionRepo interface {
 // LoanRepo for loans
 type LoanRepo interface {
 	GetLoan(string) ([]models.Loan, error)
+}
+
+// ContactRepo for contact informations
+type ContactRepo interface {
+	CreateContact(models.Contact) error
+}
+
+type DownloadRepo interface {
+	CreateDownload(models.Downloads) error
 }

@@ -9,7 +9,9 @@ FROM node:12.13.0-alpine as frontend
 WORKDIR /majlis/web
 COPY web /majlis
 COPY config /majlis
-RUN npm build
+RUN npm i
+RUN npm install -g serve
+RUN npm run build
 
 
 FROM alpine:latest
