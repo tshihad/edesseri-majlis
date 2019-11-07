@@ -21,10 +21,10 @@ func TestRepoImp_CreateNewMemberID(t *testing.T) {
 				mock.ExpectQuery(core.FixedFullRe(qry)).WillReturnRows(
 					sqlmock.NewRows([]string{
 						"member_id",
-					}).AddRow("EDR00200"),
+					}).AddRow("E0001"),
 				)
 			},
-			want: "EDR00201",
+			want: "E0001",
 		},
 		{
 			name: "Normal test case 2 - empty table",
@@ -35,7 +35,7 @@ func TestRepoImp_CreateNewMemberID(t *testing.T) {
 					}).AddRow(""),
 				)
 			},
-			want: "EDR00001",
+			want: "E0001",
 		},
 	}
 	mock, db := core.NewSQLMock()

@@ -46,7 +46,7 @@ func (r *RepoImp) CreateNewMemberID() (string, error) {
 	var memberID string
 	var newID string
 	var member models.Member
-	zeroArr := "00000"
+	zeroArr := "0000"
 	err := r.db.Select("member_id").Last(&member).Error
 	memberID = member.MemberID
 	if err == gorm.ErrRecordNotFound || memberID == "" {
