@@ -33,6 +33,7 @@ color: #bab86c;
 padding: 1.5vh 10vw 0 10vw;
 text-align: left;
 position: fixed;
+border-bottom: 1px #556b2f solid;
 `;
 
 const Heading = styled.div`
@@ -46,9 +47,9 @@ border-bottom: 1px #556b2f solid;
 `;
 const Body = styled.div`
 width: 100%;
-padding: 19vh 0 0 0;
-min-height: 95vh;
-background-color: #edeeed;
+padding: 9.8vw 0 0 0;
+min-height: 75vh;
+background-color: #f2f7f2;
 font-family: 'Comfortaa', cursive;
 `;
 
@@ -145,20 +146,6 @@ export default function Header() {
                 <Link to="/EventGallery/Other">Other</Link>
               </div>
             </Link>
-            <Link to="/JoinMajlis" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("JoinMajlis")} style={{
-                  backgroundColor: isButtonActive === "JoinMajlis" && " #556b2f",
-                  color: isButtonActive === "JoinMajlis" && "white"
-                }}>Join Majlis</button>
-            </Link>
-            <Link to="/MemberLogin" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("MemberLogin")} style={{
-                  backgroundColor: isButtonActive === "MemberLogin" && " #556b2f",
-                  color: isButtonActive === "MemberLogin" && "white"
-                }}>Member Login</button>
-            </Link>
             <Link to="/Downloads" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("Downloads")} style={{
@@ -172,6 +159,20 @@ export default function Header() {
                   backgroundColor: isButtonActive === "ContactMajlis" && " #556b2f",
                   color: isButtonActive === "ContactMajlis" && "white"
                 }}>Contact Majlis</button>
+            </Link>
+            <Link to="/JoinMajlis" class="dropdown">
+              <button class="dropbtn"
+                onClick={() => buttonClick("JoinMajlis")} style={{
+                  backgroundColor: isButtonActive === "JoinMajlis" && " #556b2f",
+                  color: isButtonActive === "JoinMajlis" && "white"
+                }}>Join Majlis</button>
+            </Link>
+            <Link to="/MemberLogin" class="dropdown">
+              <button class="dropbtn"
+                onClick={() => buttonClick("MemberLogin")} style={{
+                  backgroundColor: isButtonActive === "MemberLogin" && " #556b2f",
+                  color: isButtonActive === "MemberLogin" && "white"
+                }}>Member Login</button>
             </Link>
           </div>
           {/* NAVBAR for Admin user */}
