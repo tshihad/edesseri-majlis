@@ -1,276 +1,719 @@
 import React, { useEffect } from 'react';
-import { TextField, Radio, Select, TextField_NoRequired } from './sub_components/simple_text_field';
-import styled from 'styled-components';
-import '../styles/form.css'
-const Form = styled.form`
-width:100%;
-padding:5%;
-background-color:#f7fff6;
-box-shadow: 6px 6px 28px 3px rgba(0,0,0,0.6);`;
+import {
+    Paper,
+    Grid,
+    Typography,
+    MenuItem,
+    TextField,
+    makeStyles,
+    Button,
+    ThemeProvider,
+    createMuiTheme
+} from '@material-ui/core';
+import {
+    MuiPickersUtilsProvider,
+    KeyboardDatePicker,
+} from '@material-ui/pickers';
+import { green } from '@material-ui/core/colors';
+import PhoneInput from 'material-ui-phone-number';
+import DateFnsUtils from '@date-io/date-fns';
 
-const radioValues = ["Govt", "Semi-Govt", "Private", "Self-owned"];
-const licenceValues = ["Light", "heavy", "Motor-Cycle", "others"]
-const marriedValues = ["Yes", "No"]
-const bloodGroupOptions = ["O+", "O-", "A+", "A-", "B+", "B-", "AB+", "AB-", "Other"];
-export default function Admin(props) {
+const useStyles = makeStyles(theme => ({
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        margin: '4% 8% 2% 8%',
+        backgroundColor: '#c5d2dd',
+        padding: '.2%',
+        borderRadius: '10px',
+    },
+    textField: {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        width: '95%',
+    },
+    root: {
+        padding: theme.spacing(3, 2),
+        width: '100%',
+        marginTop: '.3%',
+    },
+    margin: {
+        margin: theme.spacing(2.5),
+    },
+}));
+
+const theme = createMuiTheme({
+    palette: {
+        primary: green,
+    },
+});
+
+const yesNoValues = [
+    {
+        value: 'yes',
+        label: 'Yes',
+    },
+    {
+        value: 'no',
+        label: 'No',
+    },
+]
+
+const bloodGroup = [
+    {
+        value: 'aplus',
+        label: 'A+',
+    },
+    {
+        value: 'bplus',
+        label: 'B+',
+    },
+    {
+        value: 'cplus',
+        label: 'AB+',
+    },
+    {
+        value: 'oplus',
+        label: 'O+',
+    },
+    {
+        value: 'aminus',
+        label: 'A-',
+    },
+    {
+        value: 'bminus',
+        label: 'B-',
+    },
+    {
+        value: 'cminus',
+        label: 'AB-',
+    },
+    {
+        value: 'bminus',
+        label: 'B-',
+    },
+    {
+        value: 'ominus',
+        label: 'O-',
+    },
+];
+const institution = [
+    {
+        value: 'govt',
+        label: 'Govt',
+    },
+    {
+        value: 'semi-govt',
+        label: 'Semi-Govt',
+    },
+    {
+        value: 'private',
+        label: 'Private',
+    },
+    {
+        value: 'self-owned',
+        label: 'Self-Owned',
+    },
+];
+
+const licenceValues = [
+    {
+        value: "light",
+        label: 'Light'
+    },
+    {
+        value: 'heavy',
+        label: 'Heavy',
+    },
+    {
+        value: 'motorCycle',
+        label: 'Motor-Cycle',
+    },
+    {
+        value: 'others',
+        label: 'Others',
+    },
+]
+export default function Form(props) {
     useEffect(() => {
         props.setUser("admin")
         props.setState("AddMember")
     })
+    const [bgroup, setGroup] = React.useState('A+');
+    const [country, setCountry] = React.useState('IN');
+    const [insgroup, setInsGruop] = React.useState('Self-Owned')
+    const [licence, setLicence] = React.useState('Other')
+    const [yesno, setYesNo] = React.useState('No')
+    function handleOnChange(value) {
+        setCountry(value);
+    };
+    function handleInChange(value) {
+        setInsGruop(value)
+    }
+    function handleLicenceChange(value) {
+        setLicence(value)
+    }
+    const [selectedDate, setSelectedDate] = React.useState(new Date());
+
+    const handleDateChange = date => {
+        setSelectedDate(date);
+    };
+
+    function handleYesNo(value) {
+        setYesNo(value)
+    }
+    const handleChange = event => {
+        setGroup(event.target.value);
+    };
+    const classes = useStyles()
     return (
-        <form style={{ display: "block" }} >
-            <TextField
-                id="name"
-                type="text"
-                placeholder="Your Name"
-                style="form-field"
-            />
-            <TextField
-                id="house_name"
-                type="text"
-                placeholder="House Name"
-                style="form-field"
-            />
-            <TextField
-                id="father_name"
-                type="text"
-                placeholder="Father's Name"
-                style="form-field"
-            />
+        <form className={classes.container} noValidate autoComplete="off">
+            <ThemeProvider theme={theme}>
+                <Paper className={classes.root}>
+                    <Grid container spacing={1}>
+                        <Grid item xs={12}>
+                            <Typography component="p">
+                                Personal Details
+                    </Typography>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                required
+                                id="name"
+                                className={classes.textField}
+                                label="Name"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                required
+                                id="house_name"
+                                className={classes.textField}
+                                label="House Name"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                required
+                                id="father_name"
+                                className={classes.textField}
+                                label="Father's Name"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <PhoneInput
+                                className={classes.textField} defaultCountry={'in'} onChange={handleOnChange}
+                                variant="outlined"
+                                id="ph_number_1"
+                                margin="normal"
+                                disableAreaCodes
+                                label="Phone number 1"
+                                required
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <PhoneInput
+                                className={classes.textField} defaultCountry={'in'} onChange={handleOnChange}
+                                variant="outlined"
+                                id="ph_number_2"
+                                margin="normal"
+                                disableAreaCodes
+                                label="Phone number 2"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <PhoneInput
+                                className={classes.textField} defaultCountry={'ae'} onChange={handleOnChange}
+                                variant="outlined"
+                                id="office_ph_number"
+                                margin="normal"
+                                disableAreaCodes
+                                label="Office Phone number"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <PhoneInput
+                                className={classes.textField} defaultCountry={'ae'} onChange={handleOnChange}
+                                variant="outlined"
+                                id="uae_home_ph_number"
+                                margin="normal"
+                                disableAreaCodes
+                                label="Home Phone number (UAE)"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                id="email"
+                                className={classes.textField}
+                                label="Email"
+                                margin="normal"
+                                variant="outlined"
+                                type="email"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                id="blood_group"
+                                select
+                                label="Blood Group"
+                                className={classes.textField}
+                                value={bgroup}
+                                onChange={handleChange}
+                                SelectProps={{
+                                    MenuProps: {
+                                        className: classes.menu,
+                                    },
+                                }}
+                                margin="normal"
+                                variant="outlined"
+                                style={{ width: '30%' }}
+                            >
+                                {bloodGroup.map(option => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                        </Grid>
+                    </Grid>
+                </Paper>
+                <Paper className={classes.root}>
+                    <Grid container spacing={1}>
+                        <Grid item xs={12}>
+                            <Typography component="p">
+                                Personal Identification
+                    </Typography>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                required
+                                id="passport_number"
+                                className={classes.textField}
+                                label="Passport Number"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                <KeyboardDatePicker
+                                    required
+                                    disableToolbar
+                                    variant="inline"
+                                    format="MM/dd/yyyy"
+                                    margin="normal"
+                                    id="dob"
+                                    label="Date of birth"
+                                    value={selectedDate}
+                                    onChange={handleDateChange}
+                                    KeyboardButtonProps={{
+                                        'aria-label': 'change date',
+                                    }}
+                                />
+                            </MuiPickersUtilsProvider>
+                        </Grid>
+                    </Grid>
+                </Paper>
 
-            <TextField
-                id="ph_number_1"
-                type="text"
-                placeholder="Phone Number 1"
-                style="form-field"
-                pattern="^\+?[0-9]{11,12}$"
-                title="Phone number format +920123456789"
-            />
-            <TextField_NoRequired
-                id="ph_number_2"
-                type="text"
-                placeholder="Phone Number 2"
-                style="form-field"
-                pattern="^\+?[0-9]{11,12}$"
-                title="Phone number format +920123456789"
-            />
+                <Paper className={classes.root}>
+                    <Grid container spacing={1}>
+                        <Grid item xs={12}>
+                            <Typography component="p">
+                                Company Information
+                    </Typography>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                required
+                                id="job"
+                                className={classes.textField}
+                                label="Job"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                required
+                                id="comapny_name"
+                                className={classes.textField}
+                                label="Company Name"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                id="company_post_code"
+                                className={classes.textField}
+                                label="Post Code"
+                                type="number"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                id="comapny_area"
+                                className={classes.textField}
+                                label="Area"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                id="comapny_emirates"
+                                className={classes.textField}
+                                label="Emirates"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                required
+                                id="comapny_institution"
+                                select
+                                label="Institution"
+                                className={classes.textField}
+                                onChange={handleInChange}
+                                SelectProps={{
+                                    MenuProps: {
+                                        className: classes.menu,
+                                    },
+                                }}
+                                margin="normal"
+                                variant="outlined"
+                            >
+                                {institution.map(option => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                        </Grid>
+                    </Grid>
+                </Paper>
+                <Paper className={classes.root}>
+                    <Grid container spacing={1}>
+                        <Grid item xs={12}>
+                            <Typography component="p">
+                                Educational Details
+                    </Typography>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                required
+                                id="qualification"
+                                className={classes.textField}
+                                label="Educational Qualification"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                required
+                                id="job_qualification"
+                                className={classes.textField}
+                                label="Job/Tech Qualification"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                required
+                                id="uae_licence_type"
+                                select
+                                label="Licence (UAE)"
+                                className={classes.textField}
+                                onChange={handleLicenceChange}
+                                SelectProps={{
+                                    MenuProps: {
+                                        className: classes.menu,
+                                    },
+                                }}
+                                margin="normal"
+                                variant="outlined"
+                            >
+                                {licenceValues.map(option => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                        </Grid>
+                    </Grid>
+                </Paper>
+                <Paper className={classes.root}>
+                    <Grid container spacing={1}>
+                        <Grid item xs={12}>
+                            <Typography component="p">
+                                Resedential Details
+                    </Typography>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                required
+                                id="uae_residential"
+                                className={classes.textField}
+                                label="Residential (UAE)"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                id="uae_area"
+                                className={classes.textField}
+                                label="Area"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                id="uae_building"
+                                className={classes.textField}
+                                label="Building"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                id="uae_flatno"
+                                className={classes.textField}
+                                label="Fat/Room no"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                id="uae_emirate"
+                                className={classes.textField}
+                                label="Emirates"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                required
+                                id="is_married"
+                                select
+                                label="Married"
+                                className={classes.textField}
+                                onChange={handleYesNo}
+                                SelectProps={{
+                                    MenuProps: {
+                                        className: classes.menu,
+                                    },
+                                }}
+                                margin="normal"
+                                variant="outlined"
+                            >
+                                {yesNoValues.map(option => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                required
+                                id="is_family_near"
+                                select
+                                label="Family living with you"
+                                className={classes.textField}
+                                onChange={handleYesNo}
+                                SelectProps={{
+                                    MenuProps: {
+                                        className: classes.menu,
+                                    },
+                                }}
+                                margin="normal"
+                                variant="outlined"
+                            >
+                                {yesNoValues.map(option => (
+                                    <MenuItem key={option.value} value={option.value}>
+                                        {option.label}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                id="no_boys_children"
+                                className={classes.textField}
+                                label="Number of children (boy)"
+                                margin="normal"
+                                variant="outlined"
+                                type="number"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                id="no_girls_children"
+                                className={classes.textField}
+                                label="Number of children (girl)"
+                                margin="normal"
+                                variant="outlined"
+                                type="number"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                id="uae_relative"
+                                className={classes.textField}
+                                label="Closest relative in UAE"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <PhoneInput
+                                className={classes.textField} defaultCountry={'ae'} onChange={handleOnChange}
+                                variant="outlined"
+                                id="uae_relative_ph"
+                                margin="normal"
+                                disableAreaCodes
+                                label="Relative's Phone (UAE)"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                id="uae_relationship"
+                                className={classes.textField}
+                                label="Relationship"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
 
-            <TextField_NoRequired
-                id="office_number"
-                type="text"
-                placeholder="Office Number"
-                style="form-field"
-                pattern="^\+?[0-9]{11,12}$"
-                title="Phone number format +920123456789"
-            />
-            <TextField_NoRequired
-                id="home_number_uae"
-                type="text"
-                placeholder="Home Number (UAE)"
-                style="form-field"
-                pattern="^\+?[0-9]{11,12}$"
-                title="Phone number format +920123456789"
-            />
-            <TextField
-                id="email"
-                type="email"
-                placeholder="Your email"
-                style="form-field"
-                title="Please provide valid email id"
-            />
-            <Select
-                id="blood_group"
-                placeholder="Blood Group"
-                style="form-field"
-                values={bloodGroupOptions}
-                title="Allowed values A+,B+,AB+,O+,A-,AB-,B-,O-"
-            />
-            <br />
-            <TextField
-                id="passpoer_no"
-                type="text"
-                placeholder="Passport number"
-                style="form-field-1"
-            />
-            <TextField
-                id="dob"
-                type="date"
-                placeholder="Date of birth"
-                style="form-field-1"
-            />
-            <br />
-            <TextField
-                id="job"
-                type="text"
-                placeholder="Job"
-                style="form-field"
-            />
-            <TextField
-                id="company"
-                type="text"
-                placeholder="Company name"
-                style="form-field"
-            />
-            <TextField_NoRequired
-                id="post"
-                type="text"
-                placeholder="post code"
-                style="form-field"
-            />
-            <TextField_NoRequired
-                id="area"
-                type="text"
-                placeholder="Area"
-                style="form-field"
-            />
-            <TextField_NoRequired
-                id="emirates"
-                type="text"
-                placeholder="emirates"
-                style="form-field"
-            />
-            <Radio
-                id="institution"
-                style="form-field"
-                values={radioValues}
-                label="Institution"
-            />
+                    </Grid>
+                </Paper>
 
-            <TextField
-                id="education"
-                type="text"
-                placeholder="Education"
-                style="form-field-1"
-            />
-            <TextField
-                id="job"
-                type="text"
-                placeholder="Job/Tech Qualification"
-                style="form-field-1"
-            />
-            <Radio
-                id="uae_licence"
-                style="form-field-1"
-                values={licenceValues}
-                label="UAE Licence"
-            />
-            <TextField
-                id="uae_residential"
-                type="text"
-                placeholder="UAE residential"
-                style="form-field-1"
-            />
-            <TextField_NoRequired
-                id="uae_area"
-                type="text"
-                placeholder="Area"
-                style="form-field-1"
-            />
-            <TextField_NoRequired
-                id="uae_building"
-                type="text"
-                placeholder="Building"
-                style="form-field-1"
-            />
-            <TextField_NoRequired
-                id="uae_flatno"
-                type="text"
-                placeholder="Fat/Room no"
-                style="form-field-1"
-            />
-            <TextField_NoRequired
-                id="uae_emirate"
-                type="text"
-                placeholder="Emirates"
-                style="form-field-1"
-            />
-            <TextField_NoRequired
-                id="uae_building"
-                type="text"
-                placeholder="Building"
-                style="form-field-1"
-            />
-            <Radio
-                id="married"
-                style="form-field-1"
-                values={marriedValues}
-                label="Married"
-            />
-            <Radio
-                id="family_near"
-                style="form-field-1"
-                values={marriedValues}
-                label="Family living in UAE"
-            />
-            <TextField_NoRequired
-                id="no_boys_children"
-                type="number"
-                placeholder="Number of Boys"
-                style="form-field-1"
-            />
-            <TextField_NoRequired
-                id="no_girls_children"
-                type="number"
-                placeholder="Number of Girls"
-                style="form-field-1"
-            />
-            <TextField_NoRequired
-                id="uae_relative"
-                type="text"
-                placeholder="Closest relative in UAE"
-                style="form-field-1"
-            />
-            <TextField_NoRequired
-                id="relative_ph"
-                type="text"
-                placeholder="Relative's phone"
-                pattern="^\+?[0-9]{11,12}$"
-                style="form-field-1"
-            />
-            <TextField_NoRequired
-                id="uae_relatitionship"
-                type="text"
-                placeholder="Relationship"
-                style="form-field-1"
-            />
-            <TextField
-                id="home_addres"
-                type="text"
-                placeholder="Address (Home)"
-                style="form-field"
-            />
-            <TextField
-                id="home_place"
-                type="text"
-                placeholder="Place (Home)"
-                style="form-field"
-            />
-            <TextField
-                id="person_to_contact"
-                type="text"
-                placeholder="Person to contact (Home)"
-                style="form-field"
-            />
-            <TextField
-                id="person_to_contact_relationship"
-                type="text"
-                placeholder="Relationship"
-                style="form-field"
-            />
-            <TextField
-                id="home_number"
-                type="text"
-                placeholder="Relationship"
-                style="form-field"
-            />
+                <Paper className={classes.root}>
+                    <Grid container spacing={1}>
+                        <Grid item xs={12}>
+                            <Typography component="p">
+                                Resedential Details (Home)
+                    </Typography>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                required
+                                id="home_addres"
+                                className={classes.textField}
+                                label="Address (Home)"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                required
+                                id="home_place"
+                                className={classes.textField}
+                                label="Place"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                required
+                                id="person_to_contact"
+                                className={classes.textField}
+                                label="Person to contact"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                required
+                                id="person_to_contact_relationship"
+                                className={classes.textField}
+                                label="Relationship"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <PhoneInput
+                                required
+                                className={classes.textField} defaultCountry={'in'} onChange={handleOnChange}
+                                variant="outlined"
+                                id="home_number"
+                                margin="normal"
+                                disableAreaCodes
+                                label="Phone Number (Home)"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                required
+                                id="mahal_number"
+                                className={classes.textField}
+                                label="Mahal Number"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <TextField
+                                required
+                                id="mahal_number"
+                                className={classes.textField}
+                                label="Mahal Number"
+                                margin="normal"
+                                variant="outlined"
+                            />
+                        </Grid>
+                        <Grid item xs={8}></Grid>
+                        <Grid item xs={5}>
+                            <input
+                                accept="image/*"
+                                className={classes.input}
+                                id="Profile Picture"
+                                multiple
+                                type="file"
+                            />
+                            <label htmlFor="raised-button-file">
+                                <Button
+                                    variant="contained"
+                                    className={classes.margin}
+                                    size="small"
+                                >Upload</Button>
+                            </label>
+                        </Grid>
+                        <Grid item xs={12}></Grid>
+                        <Grid item xs={5}></Grid>
+                        <Grid item xs={1}>
+                            <Button
+                                id="submit"
+                                variant="contained"
+                                size="medium"
+                                color="primary"
+                                className={classes.margin}
+                            > Submit</Button>
+                        </Grid>
+                    </Grid>
 
-            <TextField
-                id="mahal_number"
-                type="text"
-                placeholder="Mahall membership Number"
-                style="form-field-1"
-            />
-            <input type="submit" />
+                </Paper>
+            </ThemeProvider>
         </form>
-    )
+    );
 }
