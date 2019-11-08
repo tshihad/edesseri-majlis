@@ -37,11 +37,6 @@ func (a *App) handlePostProfileImage(w http.ResponseWriter, r *http.Request) {
 // create new member handler
 func (a *App) handlePostMember(w http.ResponseWriter, r *http.Request) {
 	var member models.Member
-	location, err := uploadImage(r, "profileImage", core.PROFILE_LOCATION)
-	if err != nil {
-		a.Fail(w, http.StatusBadRequest, "Failed to upload image", err)
-		return
-	}
 	if err := json.NewDecoder(r.Body).Decode(&member); err != nil {
 		a.Fail(w, http.StatusBadRequest, "Invalid request", err)
 		return
@@ -53,7 +48,6 @@ func (a *App) handlePostMember(w http.ResponseWriter, r *http.Request) {
 	}
 	memberID, err := a.CreateNewMemberID()
 	member.MemberID = memberID
-	member.ImageLocation = location
 	if err != nil {
 		a.Fail(w, http.StatusInternalServerError, "failed to create member id", err)
 		return
