@@ -56,7 +56,7 @@ border-bottom: 1px #556b2f solid;
 const Body = styled.div`
 width: 100%;
 padding: 9.8vw 0 0 0;
-min-height: 75vh;
+min-height: 90vh;
 background-color: #f2f7f2;
 font-family: 'Comfortaa', cursive;
 `;

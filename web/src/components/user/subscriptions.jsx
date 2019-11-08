@@ -4,15 +4,15 @@ import { Grid } from '@material-ui/core'
 
 
 const SubscriptionCard = styled.div`
-margin: 5vh 10vw 0 10vw`;
+margin: 5vh 10vw 0 10vw;
+`;
 const Headline = styled.h3`
 color:#1d4219;
 font-size: 3vh;
 font-family: 'Comfortaa', cursive;
 `;
 const Matrix = styled.div`
-margin: 3vw 5vw;
-border : solid 1px #556b2f;
+padding: 3vw 5vw;
 color: #556b2f`;
 const Head = styled.div`
 border : solid 1px #556b2f;
