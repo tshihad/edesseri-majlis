@@ -16,9 +16,10 @@ func (a *App) Router() http.Handler {
 	r.Use(loggerhandler(a.FieldLogger))
 	r.Route("/majlis", func(r chi.Router) {
 		r.Use(getCors())
-		r.Post("/member", a.handlePostMember)
-		r.Post("/member/image", a.handlePostProfileImage)
-		r.With(validateUser(a.FieldLogger)).Route("/member"+memberPattern, func(r chi.Router) {
+		r.Post("/signin", a.handleSignin)
+		r.Post("/add/member", a.handlePostMember)
+		r.Post("/add/member/image", a.handlePostProfileImage)
+		r.With(a.validateUser()).Route("/member"+memberPattern, func(r chi.Router) {
 			r.Get("/", a.handleGetMember)
 			r.Put("/", a.handlePutMember)
 			r.Delete("/", a.handleDeleteMember)
@@ -42,10 +43,7 @@ func (a *App) Router() http.Handler {
 		r.Get("/gallery/{category:(all|"+strings.Join(core.CATEGORIES, "|")+")}", a.handleGetEGallerys)
 		r.Post("/contact", a.handlePostcontact)
 		r.Get("/downloads", a.handleGetDownloads)
-
-		r.Route("/static", func(r chi.Router) {
-			r.Get("/public/{file}", a.serveFile(r))
-		})
+		// r.Get("/auth", a.handleVerifyAuth)
 	})
 	return r
 }

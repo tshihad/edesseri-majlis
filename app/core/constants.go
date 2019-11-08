@@ -7,3 +7,5 @@ const DOWNLOAD_LOCATION = "upload/downloads"
 const DOWNLOAD_TAG = "upload_file"
 
 var CATEGORIES = []string{"eid", "milad"}
+var RANDOM_LENGTH = 32
+var CACHE_RETRY = 2

@@ -13,11 +13,12 @@ type Repo interface {
 	EgallerRepo
 	ContactRepo
 	DownloadRepo
+	Cache
 }
 
 // MemberRepo for user repo
 type MemberRepo interface {
-	GetMember(models.Member) (models.Member, error)
+	GetMember(string) (models.Member, error)
 	CreateMember(models.Member) error
 	UpdateMember(string, models.Member) (models.Member, error)
 	DeleteMember(string) error
@@ -51,4 +52,9 @@ type ContactRepo interface {
 
 type DownloadRepo interface {
 	CreateDownload(models.Downloads) error
+}
+
+type Cache interface {
+	VerifyToken(string) (string, error)
+	CreateToken(string) (string, error)
 }

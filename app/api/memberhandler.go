@@ -1,6 +1,8 @@
 package api
 
 import (
+	"crypto/md5"
+	"encoding/hex"
 	"encoding/json"
 	"majlis/app/core"
 	"majlis/app/models"
@@ -13,8 +15,7 @@ import (
 // retrieve member handler
 func (a *App) handleGetMember(w http.ResponseWriter, r *http.Request) {
 	memberID := chi.URLParam(r, "member_id")
-	member := models.Member{MemberID: memberID}
-	member, err := a.GetMember(member)
+	member, err := a.GetMember(memberID)
 	if err != nil {
 		a.Fail(w, http.StatusInternalServerError, "Failed to fetch user", err)
 		return
@@ -100,4 +101,29 @@ func (a *App) handleGetMembers(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	a.Success(w, http.StatusOK, members)
+}
+
+func (a *App) handleSignin(w http.ResponseWriter, r *http.Request) {
+	var signin models.MemberSignIn
+	if err := json.NewDecoder(r.Body).Decode(&signin); err != nil {
+		a.Fail(w, http.StatusBadRequest, "Failed to parse sign in form", err)
+		return
+	}
+	member, err := a.GetMember(signin.MemberID)
+	if err != nil || member.MemberID == "" || member.PasswordHash == "" {
+		a.Fail(w, http.StatusNotFound, "Failed to authenticate", err)
+		return
+	}
+	m := md5.New()
+	m.Write([]byte(signin.Password))
+	if hex.EncodeToString(m.Sum(nil)) != member.PasswordHash {
+		a.Fail(w, http.StatusUnauthorized, "Failed to authenticate", err)
+		return
+	}
+	token, err := a.CreateToken(member.MemberID)
+	if err != nil {
+		a.Fail(w, http.StatusInternalServerError, "Failed to generate token", err)
+		return
+	}
+	a.Success(w, http.StatusOK, token)
 }
