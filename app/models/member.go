@@ -48,8 +48,17 @@ type Member struct {
 	ImageLocation               string    `json:"image_location" gorm:"column:image_location"`
 	CreatedAt                   time.Time `json:"-"`
 	UpdatedAt                   time.Time `json:"-"`
+	Password                    string    `gorm:"-"`
+	PasswordHash                string    `json:"-" gorm:"column:password_hash"`
 }
 
+// Profile model for updating profile image api
 type Profile struct {
 	ImageLocation string `json:"image_location"`
+}
+
+// MemberSignIn for signin member
+type MemberSignIn struct {
+	MemberID string `json:"memeber_id"`
+	Password string `json:"password"`
 }

@@ -4,6 +4,8 @@ import (
 	"majlis/app/core"
 	"majlis/app/data"
 
+	"github.com/go-redis/redis/v7"
+
 	"github.com/jinzhu/gorm"
 	"github.com/sirupsen/logrus"
 )
@@ -17,8 +19,8 @@ type App struct {
 }
 
 // NewApp create new App instance
-func NewApp(db *gorm.DB, logger logrus.FieldLogger) *App {
-	repo := data.NewRepo(db)
+func NewApp(db *gorm.DB, logger logrus.FieldLogger, r *redis.Ring) *App {
+	repo := data.NewRepo(db, r)
 	return &App{
 		Repo:        repo,
 		FieldLogger: logger,

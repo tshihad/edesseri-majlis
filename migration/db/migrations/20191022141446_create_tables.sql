@@ -42,12 +42,13 @@ CREATE TABLE member(
     mahal_number VARCHAR(30) NOT NULL,
     image_location VARCHAR(200),
     created_at DATE,
-    updated_at DATE
+    updated_at DATE,
+    password_hash VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE admin(
     name VARCHAR(50) NOT NULL,
-    password_hash VARCHAR(50) NOT NULL
+    password_hash VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE loan(

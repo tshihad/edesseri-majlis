@@ -9,8 +9,9 @@ import (
 )
 
 // GetMember get user from db
-func (r *RepoImp) GetMember(member models.Member) (models.Member, error) {
-	err := r.db.Where(member).First(&member).Error
+func (r *RepoImp) GetMember(memberID string) (models.Member, error) {
+	var member models.Member
+	err := r.db.Where(models.Member{MemberID: memberID}).First(&member).Error
 	return member, err
 }
 
