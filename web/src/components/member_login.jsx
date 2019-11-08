@@ -74,13 +74,13 @@ export default function MemberLogin(props) {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value)
   }
-  const handleSubmit = (value) => {
+  const handleSubmit = () => {
     axios.post('http://10.4.5.22:8080/majlis/signin', {
       member_id: username,
       password: password
     })
-    .then(function (response) {
-      alert(response.result);
+    .then((data) => {
+      alert(data.result);
     })
     
   }
