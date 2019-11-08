@@ -42,6 +42,10 @@ func (a *App) Router() http.Handler {
 		r.Get("/gallery/{category:(all|"+strings.Join(core.CATEGORIES, "|")+")}", a.handleGetEGallerys)
 		r.Post("/contact", a.handlePostcontact)
 		r.Get("/downloads", a.handleGetDownloads)
+
+		r.Route("/static", func(r chi.Router) {
+			r.Get("/public/{file}", a.serveFile(r))
+		})
 	})
 	return r
 }

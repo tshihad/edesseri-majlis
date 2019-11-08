@@ -5,8 +5,6 @@ import (
 	"majlis/app/models"
 	"strconv"
 
-	"github.com/jinzhu/gorm"
-
 	"github.com/pkg/errors"
 )
 
@@ -18,7 +16,7 @@ func (r *RepoImp) GetMember(member models.Member) (models.Member, error) {
 
 // CreateMember insert new member to db
 func (r *RepoImp) CreateMember(member models.Member) error {
-	err := r.db.Create(member).Error
+	err := r.db.Create(&member).Error
 	return err
 }
 
@@ -48,13 +46,13 @@ func (r *RepoImp) CreateNewMemberID() (string, error) {
 	var member models.Member
 	zeroArr := "0000"
 	err := r.db.Select("member_id").Last(&member).Error
-	memberID = member.MemberID
-	if err == gorm.ErrRecordNotFound || memberID == "" {
-		newID = core.MEMBER_PREFIX + zeroArr[:len(zeroArr)-1] + "1"
-		return newID, nil
-	}
 	if err != nil {
 		return memberID, err
+	}
+	memberID = member.MemberID
+	if memberID == "" {
+		newID = core.MEMBER_PREFIX + zeroArr[:len(zeroArr)-1] + "1"
+		return newID, nil
 	}
 	num, err := strconv.Atoi(memberID[3:])
 	if err != nil {
