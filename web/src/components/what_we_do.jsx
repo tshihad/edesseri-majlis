@@ -66,7 +66,7 @@ export default function WhatWeDo(props) {
     <WhatWeDoDiv>
       <WhatWeDoCard headline="Welfare Programs" contents={WelfareProgramsContents} language={props.language === "മലയാളം" ?"malayalam" :"english"} colorcode="1" />
       <WhatWeDoCard headline="Services To The Society" contents={ServiceSocietyContents} language={props.language === "മലയാളം" ?"malayalam" :"english"} colorcode="2" />
-      <WhatWeDoCard headline="Help Oen Members" contents={HelpMembersContents} language={props.language === "മലയാളം" ?"malayalam" :"english"} colorcode="1" />
+      <WhatWeDoCard headline="Help Own Members" contents={HelpMembersContents} language={props.language === "മലയാളം" ?"malayalam" :"english"} colorcode="1" />
     </WhatWeDoDiv>
   )
 }
