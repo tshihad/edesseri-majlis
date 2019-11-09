@@ -6,6 +6,8 @@ import visionBullet from '../../images/icons/vision.svg'
 import MissionBullet from '../../images/icons/mission.svg'
 import RiseOfMajlisBullet from '../../images/icons/riseofmajlis.svg'
 import MajlisPriorityBullet from '../../images/icons/majlispriority.svg'
+import axios from 'axios'
+import { Link } from 'react-router-dom';
 
  const RiseOfMajlisContents = {
    english:[
@@ -139,28 +141,28 @@ padding: 2vw 2vw 1vh 2vw;
 background-color: #e5eee5;
 `;
 
+
+const NoData = styled.div`
+padding: 5vh 0;
+text-align: center;
+color:#304d00;
+font-weight: 500;`;
+
 function CalenderEvents(){
-  const events = [
-    {
-      index:1,
-      date: "12-02-2019",
-      title:"majlis website launching",
-  },
-  {
-    index:2,
-    date: "14-02-2019",
-    title:"majlis ramsan celebration with the whole members",
-  },
-  {
-  index:3,
-  date: "16-02-2019",
-  title:"majlis website launching in dubai",
-  },]
+  const [events,setEvents] = React.useState([])
   
+  useEffect(()=>{
+    axios.get("http://10.4.5.22:8080/majlis/upcoming-events")
+      .then(({ data }) => {
+        setEvents(data.result)
+      }).catch((err) =>
+        alert(err))
+  })
   return(
     <Paper>
-      <Heading>Upcoming Events</Heading>
-      <Events events={events}/>      
+      <Link to="/User/EventCalender" title="Complete Event List" style={{color:"#556b2f" ,textDecoration:"none"}}><Heading>Upcoming Events</Heading></Link>
+      {events.length === 0 ? <NoData>--No Upcoming Events--</NoData> :
+      <Events events={events}/>}
     </Paper>
   )
 }
@@ -192,17 +194,23 @@ display: inline-block;
 color: #556b2f;
 `;
 
-const Dot = styled.span`
-`;
+
 function Events(props){
+
+  const toStdDate = (date)=>{
+    var year = date.slice(0,4)
+    var month = date.slice(5,7)
+    var day = date.slice(8,10)
+    return day+"-"+month+"-"+year
+  }
   return(
     <List>
     {props.events.map(event => (
       <Event>
         <EventNoteIcon style={{fontSize:"6vh"}}/>
         <Item>
-          <Date>{event.date}</Date>
-          <div>{event.title.slice(0,50)}</div>
+          <Date>{toStdDate(event.EventDate)}</Date>
+          <div>{event.Title.slice(0,50)}</div>
           </Item>
       </Event>
     ))}

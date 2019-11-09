@@ -12,7 +12,7 @@ import JoinMajlis from './join_majlis';
 import MemberLogin from './member_login';
 import Downloads from './downloads';
 import ContactMajlis from './contact_majlis';
-import EventCalendar from './even_calendar';
+import AdminEventCalendar from './even_calendar';
 import Footer from './footer';
 import AddMember from './addMember';
 import Members from './members';
@@ -30,6 +30,8 @@ import UserOptions from './user/user_options';
 import Profile from './user/profile';
 import UserDownloads from './user/downloads';
 import UserContactMajlis from './user/contact_majlis';
+import EventCalendar from './event_calendar'
+import UserEventCalendar from './user/event_calendar'
 import '../styles/navbar.css';
 import '../styles/header.css'
 
@@ -312,7 +314,7 @@ export default function Header() {
                   backgroundColor: isButtonActive === "UserOptions" && " #556b2f",
                   color: isButtonActive === "UserOptions" && "white"
                 }}>User Options</button>
-                <div class="dropdown-content" onClick={() => buttonClick("UserOptions")}>
+              <div class="dropdown-content" onClick={() => buttonClick("UserOptions")}>
                 <Link to="/User/UserOptions/Subscriptions">Subscriptions</Link>
                 <Link to="/User/UserOptions/Loans">Loans</Link>
               </div>
@@ -337,6 +339,8 @@ export default function Header() {
             <Route path="/MemberLogin" ><MemberLogin setState={buttonClick} language={language} /></Route>
             <Route path="/Downloads" ><Downloads setState={buttonClick} language={language} /></Route>
             <Route path="/ContactMajlis" ><ContactMajlis setState={buttonClick} language={language} /></Route>
+            <Router path="/EventCalender"><EventCalendar setState={buttonClick} /></Router>
+
             <Redirect exact from="/Admin" to="/Admin/Members" />
             <Route path="/Admin/Members" ><Members setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/AddMember" ><AddMember setState={buttonClick} setUser={setThisUser} /></Route>
@@ -346,7 +350,8 @@ export default function Header() {
             <Route path="/Admin/FamlilyWelfare" ><FamilyWelfare setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/UploadForms" ><UploadForms setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/ContactMajlisAdmin" ><ContactMajlisAdmin setState={buttonClick} setUser={setThisUser} /></Route>
-            <Route path="/Admin/EventCalendar" ><EventCalendar setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/EventCalendarAdmin" ><AdminEventCalendar setState={buttonClick} setUser={setThisUser} /></Route>
+
             <Redirect exact from="/User" to="/User/Home" />
             <Route path="/User/Home" ><UserHome setState={buttonClick} language={language} setUser={setThisUser} /></Route>
             <Route path="/User/WhatweDo" ><UserWhatweDo setState={buttonClick} language={language} setUser={setThisUser} /></Route>
@@ -357,7 +362,7 @@ export default function Header() {
             <Route path="/User/UserOptions/Subscriptions" ><UserOptions component="subscription" setState={buttonClick} language={language} setUser={setThisUser} /></Route>
             <Route path="/User/UserOptions/Loans" ><UserOptions component="loans" setState={buttonClick} language={language} setUser={setThisUser} /></Route>
             <Route path="/User/Profile" ><Profile setState={buttonClick} language={language} setUser={setThisUser} /></Route>
-
+            <Router path="/User/EventCalender"><UserEventCalendar setState={buttonClick} setUser={setThisUser}/></Router>
           </Switch>
         </Body>
         <Footer />

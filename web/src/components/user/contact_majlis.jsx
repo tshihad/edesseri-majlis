@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import '../../styles/contact.css';
@@ -10,7 +10,11 @@ import PhoneInput from '../sub_components/phone_number_input'
 
 const Contact = styled.div`
 margin: 10vh 10vw 0 10vw;`;
-export default function Contactmajlis() {
+export default function Contactmajlis(props) {
+  useEffect(()=>{
+    props.setUser("user")
+    props.setState("ContactMajlis")
+  })
   return (
     <Contact>
       <div className="head">Contact Majlis</div>
