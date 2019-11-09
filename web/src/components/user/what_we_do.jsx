@@ -60,6 +60,7 @@ const HelpMembersContents = {
 }
 export default function WhatWeDo(props) {
   useEffect(() => {
+    props.setUser("user")
     props.setState("WhatWeDo")
   }, [props])
   return (

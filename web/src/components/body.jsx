@@ -22,6 +22,14 @@ import FamilyWelfare from './family_welfare';
 import UploadForms from './upload_forms';
 import ContactMajlisAdmin from './contact_majlis_admin';
 import EventGalleryAdmin from './evevnt_gallery_admin';
+import UserHome from './user/home';
+import UserWhatweDo from './user/what_we_do';
+import UserWhoLeadUs from './user/who_lead_us';
+import UserEventGallery from './user/event_gallery';
+import UserOptions from './user/user_options';
+import Profile from './user/profile';
+import UserDownloads from './user/downloads';
+import UserContactMajlis from './user/contact_majlis';
 import '../styles/navbar.css';
 import '../styles/header.css'
 
@@ -48,7 +56,7 @@ border-bottom: 1px #556b2f solid;
 const Body = styled.div`
 width: 100%;
 padding: 9.8vw 0 0 0;
-min-height: 75vh;
+min-height: 90vh;
 background-color: #f2f7f2;
 font-family: 'Comfortaa', cursive;
 `;
@@ -234,6 +242,88 @@ export default function Header() {
                 }}>Event Calendar</button>
             </Link>
           </div>
+          {/* NAVBAR FOR USER */}
+          <div class="navbar" style={{ display: user === "user" ? "block" : "none" }}>
+            <Link to="/User/Home" class="dropdown">
+              <button class="dropbtn"
+                onClick={() => buttonClick("Home")} style={{
+                  backgroundColor: isButtonActive === "Home" && " #556b2f",
+                  color: isButtonActive === "Home" && "white"
+                }}>Home</button>
+            </Link>
+            <Link to="/User/WhatWeDo" class="dropdown">
+              <button class="dropbtn"
+                onClick={() => buttonClick("WhatWeDo")} style={{
+                  backgroundColor: isButtonActive === "WhatWeDo" && " #556b2f",
+                  color: isButtonActive === "WhatWeDo" && "white"
+                }}>What We Do</button>
+              <div class="dropdown-content" onClick={() => buttonClick("WhatWeDo")}>
+                <Link to="/WhatWeDo/Familywelfare">Family Welfare</Link>
+                <Link to="/WhatWeDo/Projects">Projects</Link>
+              </div>
+            </Link>
+            <Link to="/User/WhoLeadUs" class="dropdown">
+              <button class="dropbtn"
+                onClick={() => buttonClick("WhoLeadUs")} style={{
+                  backgroundColor: isButtonActive === "WhoLeadUs" && " #556b2f",
+                  color: isButtonActive === "WhoLeadUs" && "white"
+                }}>Who Lead Us</button>
+              <div class="dropdown-content" onClick={() => buttonClick("WhoLeadUs")}>
+                <Link to="/WhoLeadUs/Current">Current</Link>
+                <Link to="/WhoLeadUs/Term1">Term-1</Link>
+                <Link to="/WhoLeadUs/Term2">Term-2</Link>
+                <Link to="/WhoLeadUs/Term3">Term-3</Link>
+
+              </div>
+            </Link>
+            <Link to="/User/EventGallery" class="dropdown">
+              <button class="dropbtn"
+                onClick={() => buttonClick("EventGallery")} style={{
+                  backgroundColor: isButtonActive === "EventGallery" && " #556b2f",
+                  color: isButtonActive === "EventGallery" && "white"
+                }}>Event Gallery</button>
+              <div class="dropdown-content" onClick={() => buttonClick("EventGallery")}>
+                <Link to="/EventGallery/Milad">Milad</Link>
+                <Link to="/EventGallery/Eid">Eid</Link>
+                <Link to="/EventGallery/Iftar">Iftar</Link>
+                <Link to="/EventGallery/Sports">Sports</Link>
+                <Link to="/EventGallery/MeetandGreet">Meet and Greet</Link>
+                <Link to="/EventGallery/Other">Other</Link>
+              </div>
+            </Link>
+            <Link to="/User/Downloads" class="dropdown">
+              <button class="dropbtn"
+                onClick={() => buttonClick("Downloads")} style={{
+                  backgroundColor: isButtonActive === "Downloads" && " #556b2f",
+                  color: isButtonActive === "Downloads" && "white"
+                }}>Downloads</button>
+            </Link>
+            <Link to="/User/ContactMajlis" class="dropdown">
+              <button class="dropbtn"
+                onClick={() => buttonClick("ContactMajlis")} style={{
+                  backgroundColor: isButtonActive === "ContactMajlis" && " #556b2f",
+                  color: isButtonActive === "ContactMajlis" && "white"
+                }}>Contact Majlis</button>
+            </Link>
+            <Link to="/User/UserOptions/Subscriptions" class="dropdown">
+              <button class="dropbtn"
+                onClick={() => buttonClick("UserOptions")} style={{
+                  backgroundColor: isButtonActive === "UserOptions" && " #556b2f",
+                  color: isButtonActive === "UserOptions" && "white"
+                }}>User Options</button>
+                <div class="dropdown-content" onClick={() => buttonClick("UserOptions")}>
+                <Link to="/User/UserOptions/Subscriptions">Subscriptions</Link>
+                <Link to="/User/UserOptions/Loans">Loans</Link>
+              </div>
+            </Link>
+            <Link to="/User/Profile" class="dropdown">
+              <button class="dropbtn"
+                onClick={() => buttonClick("Profile")} style={{
+                  backgroundColor: isButtonActive === "Profile" && " #556b2f",
+                  color: isButtonActive === "Profile" && "white"
+                }}>Profile</button>
+            </Link>
+          </div>
         </Head>
         <Body>
           <Switch>
@@ -256,6 +346,17 @@ export default function Header() {
             <Route path="/Admin/UploadForms" ><UploadForms setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/ContactMajlisAdmin" ><ContactMajlisAdmin setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/EventCalendar" ><EventCalendar setState={buttonClick} setUser={setThisUser} /></Route>
+            <Redirect exact from="/User" to="/User/Home" />
+            <Route path="/User/Home" ><UserHome setState={buttonClick} language={language} setUser={setThisUser} /></Route>
+            <Route path="/User/WhatweDo" ><UserWhatweDo setState={buttonClick} language={language} setUser={setThisUser} /></Route>
+            <Route path="/User/WhoLeadUs"><UserWhoLeadUs setState={buttonClick} language={language} setUser={setThisUser} /></Route>
+            <Route path="/User/EventGallery" ><UserEventGallery setState={buttonClick} language={language} setUser={setThisUser} /></Route>
+            <Route path="/User/Downloads" ><UserDownloads setState={buttonClick} language={language} setUser={setThisUser} /></Route>
+            <Route path="/User/ContactMajlis" ><UserContactMajlis setState={buttonClick} language={language} setUser={setThisUser} /></Route>
+            <Route path="/User/UserOptions/Subscriptions" ><UserOptions component="subscription" setState={buttonClick} language={language} setUser={setThisUser} /></Route>
+            <Route path="/User/UserOptions/Loans" ><UserOptions component="loans" setState={buttonClick} language={language} setUser={setThisUser} /></Route>
+            <Route path="/User/Profile" ><Profile setState={buttonClick} language={language} setUser={setThisUser} /></Route>
+
           </Switch>
         </Body>
         <Footer />
