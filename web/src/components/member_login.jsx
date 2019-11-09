@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { green } from '@material-ui/core/colors';
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 import {
   ThemeProvider,
   createMuiTheme
@@ -65,7 +66,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function MemberLogin(props) {
+function MemberLogin(props) {
   const [username, setUsername] = React.useState()
   const [password, setPassword] = React.useState()
   const handleUsernameChange = (e) => {
@@ -79,10 +80,17 @@ export default function MemberLogin(props) {
       member_id: username,
       password: password
     })
-    .then((data) => {
-      alert(data.result);
-    })
-    
+      .then((response) => {
+        if (response.status === 200) {
+          localStorage.setItem('EdasseryMajlisToken', response.data.result)
+          props.history.replace("/Admin");
+        } else {
+          alert(response.data.message + " : " + response.data.message)
+        }
+      }).catch((err) => {
+        alert(err)
+      })
+
   }
   useEffect(() => {
     props.setState("MemberLogin")
@@ -148,3 +156,5 @@ export default function MemberLogin(props) {
     </Container>
   )
 }
+
+export default withRouter(MemberLogin);
