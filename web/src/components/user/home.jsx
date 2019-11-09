@@ -2,10 +2,10 @@ import React,{useEffect} from 'react';
 import styled from 'styled-components';
 import Slider from '../sub_components/image_slider';
 import EventNoteIcon from '@material-ui/icons/EventNote';
-import visionBullet from '../../images/vision.svg'
-import MissionBullet from '../../images/mission.svg'
-import RiseOfMajlisBullet from '../../images/riseofmajlis.svg'
-import MajlisPriorityBullet from '../../images/majlispriority.svg'
+import visionBullet from '../../images/icons/vision.svg'
+import MissionBullet from '../../images/icons/mission.svg'
+import RiseOfMajlisBullet from '../../images/icons/riseofmajlis.svg'
+import MajlisPriorityBullet from '../../images/icons/majlispriority.svg'
 
  const RiseOfMajlisContents = {
    english:[

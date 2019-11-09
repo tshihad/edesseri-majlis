@@ -46,38 +46,39 @@ export default function WhoLeadUs(props) {
           </Grid>
         </Grid>
         <Grid container spacing={8} justify="center">
-          <Grid item xs={2.4}>
-            <Grid container spacing={0} justify="left">
+          <Grid item xs={3}>
+            <Grid container spacing={0} justify="center">
               <MemberCard position="Member" image={img} name="Shajahan Shamsudeen" date="01/01/2019" len="large"/>
             </Grid>
-          </Grid><Grid item xs={2.4}>
-            <Grid container spacing={0} justify="left">
+          </Grid><Grid item xs={3}>
+            <Grid container spacing={0} justify="center">
               <MemberCard position="Member" image={img} name="Abdul Kader P M" date="01/01/2019" />
             </Grid>
-          </Grid><Grid item xs={2.4}>
+          </Grid><Grid item xs={3}>
             <Grid container spacing={0} justify="center">
               <MemberCard position="Member" image={img} name="Mufeed" date="01/01/2019" />
             </Grid>
-          </Grid><Grid item xs={2.4}>
+          </Grid><Grid item xs={3}>
             <Grid container spacing={0} justify="center">
               <MemberCard position="Member" image={img} name="Rahmath Ali R A" date="01/01/2019" />
-            </Grid>
-          </Grid><Grid item xs={2.4}>
-            <Grid container spacing={0} justify="center">
-              <MemberCard position="Member" image={img} name="Sudheer P s" date="01/01/2019" />
             </Grid>
           </Grid>
         </Grid>
         <Grid container spacing={8} justify="center">
-          <Grid item xs={2.4}>
-            <Grid container spacing={0} justify="left">
+        <Grid item xs={3}>
+            <Grid container spacing={0} justify="center">
+              <MemberCard position="Member" image={img} name="Sudheer P s" date="01/01/2019" />
+            </Grid>
+          </Grid>
+          <Grid item xs={3}>
+            <Grid container spacing={0} justify="center">
               <MemberCard position="Member" image={img} name="Ameer" date="01/01/2019" />
             </Grid>
-          </Grid><Grid item xs={2.4}>
-            <Grid container spacing={0} justify="left">
+          </Grid><Grid item xs={3}>
+            <Grid container spacing={0} justify="center">
               <MemberCard position="Advicory" image={img} name="Shajeer P S" date="01/01/2019" />
             </Grid>
-          </Grid><Grid item xs={2.4}>
+          </Grid><Grid item xs={3}>
             <Grid container spacing={0} justify="center">
               <MemberCard position="Advicory" image={img} name="Noushad" date="01/01/2019" />
             </Grid>

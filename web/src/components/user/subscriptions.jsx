@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components';
-import { Grid } from '@material-ui/core'
+import { Grid } from '@material-ui/core';
+import axios from 'axios'
 
 
 const SubscriptionCard = styled.div`
@@ -47,12 +48,33 @@ const MatrixHead = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep
 export default function Subscription(props) {
   const [rows, setrows] = React.useState(Rows)
   const [columns, setcolumns] = React.useState(Columns)
+  useEffect(() => {
+    axios.get('http://10.4.5.22:8080/majlis/member/subscription',
+      { headers: { "Authorization": "9db1c7121041d0d0831cdb4e4e384761" } })
+      .then((response) => {
+        alert(response)
+        var years = []
+        var subscriptions = []
+        response.data.result.map((row) => {
+          years.push(row.Year)
+          var subscription = []
+          rows.rows.map((month)=>{
+            subscription.push(month.Amount)
+          })
+          subscriptions.push(subscription)
+        })
+        setrows(years)
+        setcolumns(subscriptions)
+      }).catch((err)=>{
+        alert(err)
+      })
+  })
   return (
     <SubscriptionCard>
       <Headline>Your Subscriptions</Headline>
       <Matrix>
         <Grid container spacing={0}>
-          <Grid item xs={2} style={{border : "solid 1px #556b2f"}}></Grid>
+          <Grid item xs={2} style={{ border: "solid 1px #556b2f" }}></Grid>
           <Grid container xs={10}>
             {MatrixHead.map((head) => (
               <Grid item xs={1}>

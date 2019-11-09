@@ -10,7 +10,7 @@ import {
   Button
 } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
-import pdfImage from '../images/pdf-icon.png'
+import pdfImage from '../images/icons/pdf-icon.png'
 import styled from 'styled-components'
 
 const useStyles = makeStyles(theme => ({
