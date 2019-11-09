@@ -14,6 +14,7 @@ type Repo interface {
 	ContactRepo
 	DownloadRepo
 	Cache
+	CalendarRepo
 }
 
 // MemberRepo for user repo
@@ -50,11 +51,19 @@ type ContactRepo interface {
 	CreateContact(models.Contact) error
 }
 
+// DownloadRepo for downloadn repo
 type DownloadRepo interface {
 	CreateDownload(models.Downloads) error
 }
 
+// Cache wraps redis functions
 type Cache interface {
 	VerifyToken(string) (string, error)
 	CreateToken(string) (string, error)
+}
+
+// CalendarRepo event calendar
+type CalendarRepo interface {
+	GetCalendarEvents() ([]models.EventCalendar, error)
+	GetUpcomingEvents(int) ([]models.EventCalendar, error)
 }

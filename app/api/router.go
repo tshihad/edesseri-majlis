@@ -16,14 +16,19 @@ func (a *App) Router() http.Handler {
 	r.Route("/majlis", func(r chi.Router) {
 		r.Use(loggerhandler(a.FieldLogger))
 		r.Use(getCors())
+
 		r.Post("/signin", a.handleSignin)
 		r.Post("/add/member", a.handlePostMember)
 		r.Post("/add/member/image", a.handlePostProfileImage)
+
+		r.Get("/upcoming-events", a.handleGetUpcomingEvents)
+
 		r.With(a.validateUser()).Route("/member", func(r chi.Router) {
 			r.Get("/", a.handleGetMember)
 			r.Put("/", a.handlePutMember)
 			r.Delete("/", a.handleDeleteMember)
 			r.Get("/subscription", a.handleGetSubscription)
+			r.Get("/event-calendar", a.handleGetEvents)
 		})
 		r.With(validateAdmin(a.FieldLogger)).Route("/admin", func(r chi.Router) {
 			r.Route("/gallery", func(r chi.Router) {
