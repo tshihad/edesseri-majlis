@@ -2,6 +2,7 @@ package api
 
 import (
 	"io"
+	"majlis/app/core"
 	"net/http"
 	"os"
 	"strconv"
@@ -11,7 +12,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-func uploadImage(r *http.Request, formTag string, uploadLocation string) (string, error) {
+func uploadFile(r *http.Request, formTag string, uploadLocation string) (string, error) {
 
 	// Parse our multipart form, 10 << 20 specifies a maximum
 	// upload of 10 MB files.
@@ -21,8 +22,8 @@ func uploadImage(r *http.Request, formTag string, uploadLocation string) (string
 		return "", errors.Wrap(err, "failed to read "+formTag+" in form")
 	}
 	defer file.Close()
-	fileLocation := uploadLocation + "/" + time.Now().String() + handler.Filename
-	newFile, err := os.OpenFile(fileLocation, os.O_CREATE|os.O_WRONLY, 0666)
+	fileLocation := uploadLocation + "/" + strconv.Itoa(int(time.Now().Unix())) + "_" + handler.Filename
+	newFile, err := os.OpenFile(core.STATIC+fileLocation, os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
 		return "", errors.Wrap(err, "Failed to create tmp file")
 	}

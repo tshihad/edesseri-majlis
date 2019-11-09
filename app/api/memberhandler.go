@@ -24,7 +24,7 @@ func (a *App) handleGetMember(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *App) handlePostProfileImage(w http.ResponseWriter, r *http.Request) {
-	location, err := uploadImage(r, "profileImage", core.PROFILE_LOCATION)
+	location, err := uploadFile(r, "profileImage", core.PROFILE_LOCATION)
 	if err != nil {
 		a.Fail(w, http.StatusBadRequest, "Failed to upload image", err)
 		return
