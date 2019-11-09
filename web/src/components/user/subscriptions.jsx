@@ -34,6 +34,10 @@ color: #013801;
 padding: 1em;
 border : solid 1px #556b2f;`;
 
+const Footer = styled.footer`
+padding: 2px;
+font-weight:600;
+float:right`;
 const Rows = ["2019", "2018", "2017", "2016", "2015"]
 
 const Columns = [
@@ -50,16 +54,19 @@ export default function Subscription(props) {
   const [columns, setcolumns] = React.useState(Columns)
   useEffect(() => {
     axios.get('http://10.4.5.22:8080/majlis/member/subscription',
-      { headers: { "Authorization": "9db1c7121041d0d0831cdb4e4e384761" } })
-      .then((response) => {
-        alert(response)
-        var years = []
-        var subscriptions = []
+      { headers: { "Authorization": "24c9eb980f6d81809193243d0f6a9892" } })
+      .then((response) => {  
+        var years =[]
+        var subscriptions =[]      
         response.data.result.map((row) => {
           years.push(row.Year)
           var subscription = []
-          rows.rows.map((month)=>{
-            subscription.push(month.Amount)
+          row.Rows.map((month)=>{
+            if (month.Amount === ""){
+              subscription.push("-")
+            }else{
+              subscription.push(month.Amount)
+            }
           })
           subscriptions.push(subscription)
         })
@@ -68,7 +75,7 @@ export default function Subscription(props) {
       }).catch((err)=>{
         alert(err)
       })
-  })
+  },[])
   return (
     <SubscriptionCard>
       <Headline>Your Subscriptions</Headline>
@@ -97,6 +104,7 @@ export default function Subscription(props) {
             </Grid>
           </Grid>
         ))}
+        <Footer>Amount In Dirhams*</Footer>
       </Matrix>
     </SubscriptionCard>
   )
