@@ -11,6 +11,7 @@
     },
     "app":{
         "host":"0.0.0.0",
-        "port":8081
+        "port":8081,
+        "static_host":"http://localhost/static"
     }
 }

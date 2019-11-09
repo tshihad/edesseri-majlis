@@ -27,7 +27,7 @@ func (a *App) handlePostEGallery(w http.ResponseWriter, r *http.Request) {
 		a.Fail(w, http.StatusBadRequest, "invalid category", nil)
 		return
 	}
-	eGallery.PhotoLocaltion, err = uploadImage(r, "image", core.GALLERY_LOCATION)
+	eGallery.PhotoLocaltion, err = uploadFile(r, "image", core.GALLERY_LOCATION)
 	if err != nil {
 		a.Fail(w, http.StatusInternalServerError, "failed to upload photo", err)
 		return

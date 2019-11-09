@@ -22,13 +22,13 @@ func (a *App) Router() http.Handler {
 		r.Post("/add/member/image", a.handlePostProfileImage)
 
 		r.Get("/upcoming-events", a.handleGetUpcomingEvents)
+		r.Get("/event-calendar", a.handleGetEvents)
 
 		r.With(a.validateUser()).Route("/member", func(r chi.Router) {
 			r.Get("/", a.handleGetMember)
 			r.Put("/", a.handlePutMember)
 			r.Delete("/", a.handleDeleteMember)
 			r.Get("/subscription", a.handleGetSubscription)
-			r.Get("/event-calendar", a.handleGetEvents)
 		})
 		r.With(validateAdmin(a.FieldLogger)).Route("/admin", func(r chi.Router) {
 			r.Route("/gallery", func(r chi.Router) {
@@ -40,14 +40,19 @@ func (a *App) Router() http.Handler {
 				r.Get("/member"+memberPattern, a.handleGetSubscription)
 				r.Delete("/{id}", a.handleDeleteSubscription)
 			})
+
 			r.Get("/members", a.handleGetMembers)
 			r.Get("/members/limit={limit}&offset={offset}", a.handleGetMembers)
 			r.Post("/member", a.handlePostMember)
 			r.Post("/member/image", a.handlePostProfileImage)
+
+			r.Post("/downloads", a.handlePostDownload)
 		})
+
 		r.Get("/gallery/{category:(all|"+strings.Join(core.CATEGORIES, "|")+")}", a.handleGetEGallerys)
 		r.Post("/contact", a.handlePostcontact)
-		r.Get("/downloads", a.handleGetDownloads)
+
+		r.Get("/downloads", a.handleGetPublicDownloads)
 		// r.Get("/auth", a.handleVerifyAuth)
 	})
 	return r

@@ -54,6 +54,7 @@ type ContactRepo interface {
 // DownloadRepo for downloadn repo
 type DownloadRepo interface {
 	CreateDownload(models.Downloads) error
+	GetDownloads(bool) ([]models.Downloads, error)
 }
 
 // Cache wraps redis functions
