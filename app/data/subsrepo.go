@@ -2,6 +2,8 @@ package data
 
 import (
 	"majlis/app/models"
+
+	"github.com/jinzhu/gorm"
 )
 
 // CreateSubscription Create new subscription
@@ -11,14 +13,15 @@ func (r *RepoImp) CreateSubscription(subs models.Subscription) (models.Subscript
 }
 
 // GetSubscription returns member subscription
-func (r *RepoImp) GetSubscription(memberID string) (models.Subscription, error) {
-	var subs models.Subscription
-	subs.MemberID = memberID
-	err := r.db.Where(subs).Find(&subs).Error
+func (r *RepoImp) GetSubscription(memberID string) ([]models.Subscription, error) {
+	var subs []models.Subscription
+	err := r.db.Where(models.Subscription{MemberID: memberID}).Order("sub_year ASC, sub_month ASC").Find(&subs).Error
 	return subs, err
 }
 
 // DeleteSubscriton delete subscription
-func (r *RepoImp) DeleteSubscriton(id int) error {
-	return r.db.Delete(models.Subscription{ID: id}).Error
+func (r *RepoImp) DeleteSubscriton(id uint) error {
+	return r.db.Delete(models.Subscription{
+		Model: gorm.Model{ID: id},
+	}).Error
 }

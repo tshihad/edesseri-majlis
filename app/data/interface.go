@@ -36,8 +36,8 @@ type EgallerRepo interface {
 // SubscriptionRepo wrapper subscriptions
 type SubscriptionRepo interface {
 	CreateSubscription(models.Subscription) (models.Subscription, error)
-	GetSubscription(memberID string) (models.Subscription, error)
-	DeleteSubscriton(id int) error
+	GetSubscription(memberID string) ([]models.Subscription, error)
+	DeleteSubscriton(id uint) error
 }
 
 // LoanRepo for loans

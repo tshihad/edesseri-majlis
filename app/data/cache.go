@@ -33,7 +33,7 @@ func (r *RepoImp) CreateToken(memberID string) (string, error) {
 			Key:    token,
 			Object: memberID,
 		})
-		if err != nil {
+		if err == nil {
 			return token, nil
 		}
 	}

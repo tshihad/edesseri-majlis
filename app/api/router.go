@@ -13,13 +13,13 @@ var memberPattern = "/{member_id:" + core.MEMBER_PREFIX + "[0-9]{4}}"
 // Router api routing. to create new api list url here
 func (a *App) Router() http.Handler {
 	r := chi.NewRouter()
-	r.Use(loggerhandler(a.FieldLogger))
 	r.Route("/majlis", func(r chi.Router) {
+		r.Use(loggerhandler(a.FieldLogger))
 		r.Use(getCors())
 		r.Post("/signin", a.handleSignin)
 		r.Post("/add/member", a.handlePostMember)
 		r.Post("/add/member/image", a.handlePostProfileImage)
-		r.With(a.validateUser()).Route("/member"+memberPattern, func(r chi.Router) {
+		r.With(a.validateUser()).Route("/member", func(r chi.Router) {
 			r.Get("/", a.handleGetMember)
 			r.Put("/", a.handlePutMember)
 			r.Delete("/", a.handleDeleteMember)

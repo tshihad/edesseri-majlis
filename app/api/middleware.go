@@ -3,7 +3,6 @@ package api
 import (
 	"context"
 	"net/http"
-	"strings"
 
 	"github.com/go-chi/cors"
 
@@ -13,19 +12,13 @@ import (
 func (a *App) validateUser() func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		fn := func(w http.ResponseWriter, r *http.Request) {
-			tokenString := r.Header.Get("Autherization")
-			if tokenString == "" {
+			token := r.Header.Get("Authorization")
+			if token == "" {
 				w.WriteHeader(http.StatusForbidden)
 				a.Error("Autherization header not set")
 				return
 			}
-			tokenArr := strings.Split(tokenString, " ")
-			if len(tokenArr) != 2 || tokenArr[0] != "Bearer" {
-				w.WriteHeader(http.StatusForbidden)
-				a.Error("Invalid autherization, failed to parse Bearer")
-				return
-			}
-			memberID, err := a.VerifyToken(tokenArr[1])
+			memberID, err := a.VerifyToken(token)
 			if err != nil {
 				w.WriteHeader(http.StatusUnauthorized)
 				return
@@ -49,6 +42,15 @@ func validateAdmin(logger logrus.FieldLogger) func(http.Handler) http.Handler {
 func loggerhandler(logger logrus.FieldLogger) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		fn := func(w http.ResponseWriter, r *http.Request) {
+			fields := logrus.Fields{}
+			for i, v := range r.Header {
+				for _, vv := range v {
+					fields[i] = vv
+				}
+			}
+			fields["Path"] = r.URL.Path
+			fields["Method"] = r.Method
+			logger.WithFields(fields).Info("HTTP Logger")
 			next.ServeHTTP(w, r)
 		}
 		return http.HandlerFunc(fn)
