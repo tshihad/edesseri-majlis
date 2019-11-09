@@ -18,12 +18,12 @@ export default function ImageGallery() {
   };
 
   return (
-    <div>
+    <div >
       <Gallery photos={photos} onClick={openLightbox} />
       <ModalGateway>
         {viewerIsOpen ? (
           <Modal onClose={closeLightbox}>
-            <Carousel
+            <Carousel style={{zIndex:3}}
               currentIndex={currentImage}
               views={photos.map(x => ({
                 ...x,
