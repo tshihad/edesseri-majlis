@@ -10,6 +10,4 @@ var CATEGORIES = []string{"eid", "milad"}
 
 const RANDOM_LENGTH = 32
 const CACHE_RETRY = 2
-const SUBS_YEAR_SHOW = 5
-const SUBS_TO_SHOW = 12 * SUBS_YEAR_SHOW
-const MONTHS = 12
+const UPCOMING_EVENT_COUNT = 4

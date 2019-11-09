@@ -2,7 +2,7 @@
 -- +goose Up
 -- SQL in section 'Up' is executed when this migration is applied
 CREATE TABLE subscription(
-    id SERIAL,
+    id SERIAL PRIMARY KEY,
     member_id VARCHAR(10) REFERENCES member(member_id) NOT NULL,
     sub_year INTEGER,
     sub_month INTEGER,

@@ -33,16 +33,21 @@ func (a *App) handleGetSubscription(w http.ResponseWriter, r *http.Request) {
 		a.Fail(w, http.StatusInternalServerError, "Failed to find Subscription", err)
 		return
 	}
-	resp := make(map[int]models.SubsTableResponse)
+	var resp []models.SubsTableResponse
+	yearHistory := -1
+	i := -1
 	for _, s := range subs {
-		tr, ok := resp[s.SubYear]
-		if !ok {
-			tr = models.SubsTableResponse{
+		if s.SubYear != yearHistory {
+			t := models.SubsTableResponse{
 				Year: s.SubYear,
 			}
+			t.Rows[s.SubMonth].Amount = strconv.Itoa(s.SubAmount)
+			resp = append(resp, t)
+			i++
+			yearHistory = s.SubYear
+		} else {
+			resp[i].Rows[s.SubMonth].Amount = strconv.Itoa(s.SubAmount)
 		}
-		tr.Rows[s.SubMonth].Amount = strconv.Itoa(s.SubAmount)
-		resp[s.SubYear] = tr
 
 	}
 	a.Success(w, http.StatusOK, resp)
