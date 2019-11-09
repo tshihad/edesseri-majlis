@@ -334,7 +334,13 @@ export default function Header() {
             <Route path="/Home" ><Home setState={buttonClick} language={language} /></Route>
             <Route path="/WhatweDo" ><WhatweDo setState={buttonClick} language={language} /></Route>
             <Route path="/WhoLeadUs"><WhoLeadUs setState={buttonClick} language={language} /></Route>
-            <Route path="/EventGallery" ><EventGallery setState={buttonClick} language={language} /></Route>
+            <Redirect exact path="/EventGallery" to="/EventGallery/Milad"/>
+            <Route path="/EventGallery/Milad" ><EventGallery category="milad" setState={buttonClick} language={language} /></Route>
+            <Route path="/EventGallery/Eid" ><EventGallery category="eid" setState={buttonClick} language={language} /></Route>
+            <Route path="/EventGallery/Iftar" ><EventGallery category="iftar" setState={buttonClick} language={language} /></Route>
+            <Route path="/EventGallery/Sports" ><EventGallery category="sports" setState={buttonClick} language={language} /></Route>
+            <Route path="/EventGallery/MeetandGreet" ><EventGallery category="meetandgreet" setState={buttonClick} language={language} /></Route>
+            <Route path="/EventGallery/Other" ><EventGallery category="other" setState={buttonClick} language={language} /></Route>
             <Route path="/JoinMajlis" ><JoinMajlis setState={buttonClick} language={language} /></Route>
             <Route path="/MemberLogin" ><MemberLogin setState={buttonClick} language={language} /></Route>
             <Route path="/Downloads" ><Downloads setState={buttonClick} language={language} /></Route>
@@ -356,7 +362,13 @@ export default function Header() {
             <Route path="/User/Home" ><UserHome setState={buttonClick} language={language} setUser={setThisUser} /></Route>
             <Route path="/User/WhatweDo" ><UserWhatweDo setState={buttonClick} language={language} setUser={setThisUser} /></Route>
             <Route path="/User/WhoLeadUs"><UserWhoLeadUs setState={buttonClick} language={language} setUser={setThisUser} /></Route>
-            <Route path="/User/EventGallery" ><UserEventGallery setState={buttonClick} language={language} setUser={setThisUser} /></Route>
+            <Redirect exact path="/User/EventGallery" to="/User/EventGallery/Milad"/>
+            <Route path="/User/EventGallery/Milad" ><UserEventGallery category="milad" setState={buttonClick} language={language} setUser={setThisUser}/></Route>
+            <Route path="/User/EventGallery/Eid" ><UserEventGallery category="eid" setState={buttonClick} language={language} setUser={setThisUser}/></Route>
+            <Route path="/User/EventGallery/Iftar" ><UserEventGallery category="iftar" setState={buttonClick} language={language} setUser={setThisUser}/></Route>
+            <Route path="/User/EventGallery/Sports" ><UserEventGallery category="sports" setState={buttonClick} language={language} setUser={setThisUser}/></Route>
+            <Route path="/User/EventGallery/MeetandGreet" ><UserEventGallery category="meetandgreet" setState={buttonClick} language={language} setUser={setThisUser}/></Route>
+            <Route path="/User/EventGallery/Other" ><UserEventGallery category="other" setState={buttonClick} language={language} setUser={setThisUser}/></Route>
             <Route path="/User/Downloads" ><UserDownloads setState={buttonClick} language={language} setUser={setThisUser} /></Route>
             <Route path="/User/ContactMajlis" ><UserContactMajlis setState={buttonClick} language={language} setUser={setThisUser} /></Route>
             <Route path="/User/UserOptions/Subscriptions" ><UserOptions component="subscription" setState={buttonClick} language={language} setUser={setThisUser} /></Route>

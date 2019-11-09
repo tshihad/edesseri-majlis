@@ -32,6 +32,9 @@ const useStyles = makeStyles(theme => ({
     width: 60,
     height: 60,
   },
+  link:{
+    textDecoration:"none",
+  }
 }));
 
 const theme = createMuiTheme({
@@ -109,9 +112,11 @@ export function DownloadCard(props) {
               </Grid>
               <Grid item xs={1} >
                 <div style={{ marginTop: "35px" }}>
-                  <Button variant="outlined" size="medium" onClick={handleButtonClick} color="primary" className={classes.margin}
-                    id="download" style={{ backgroundColor: "#556b2f", color: "white" }}>
-                    Download</Button>
+                <a href={props.downloadLink}
+                    target="_blank" rel="noopener noreferrer" title="Get Document" className={classes.link}>
+                       <Button variant="outlined" size="medium" color="primary" className={classes.margin}
+                      id="download" style={{ backgroundColor: "#556b2f", color: "white" }}>
+                      Download</Button></a>
                 </div>
               </Grid>
             </Grid>

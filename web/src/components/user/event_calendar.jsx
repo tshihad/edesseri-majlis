@@ -50,7 +50,7 @@ export default function EventCalendar(props) {
 
     return (
         <EventCalendarCard>
-            <Table tablename='Event List' columns={EventColumns} rows={rows} />
+            <Table tablename='Event Calender' columns={EventColumns} rows={rows} />
         </EventCalendarCard>
     )
 }

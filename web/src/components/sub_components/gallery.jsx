@@ -2,8 +2,16 @@ import React, { useState, useCallback } from "react";
 import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
 import { photos } from "./photos";
+import styled from 'styled-components'
 
-export default function ImageGallery() {
+const Head = styled.div`
+ display: inline-block;
+ padding: 1em;
+ color: #1d4219;
+ font-size: 1.7em;
+ font-weight: 600;
+ `;
+export default function ImageGallery(props) {
   const [currentImage, setCurrentImage] = useState(0);
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
 
@@ -19,6 +27,7 @@ export default function ImageGallery() {
 
   return (
     <div >
+        <Head>{props.head}</Head>
       <Gallery photos={photos} onClick={openLightbox} />
       <ModalGateway>
         {viewerIsOpen ? (

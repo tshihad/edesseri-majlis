@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
 import pdfImage from '../images/icons/pdf-icon.png'
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -32,6 +32,9 @@ const useStyles = makeStyles(theme => ({
     width: 60,
     height: 60,
   },
+  link:{
+    textDecoration:"none"
+  }
 }));
 
 const theme = createMuiTheme({
@@ -76,8 +79,8 @@ margin-bottom: 1.5%
 `;
 export function DownloadCard(props) {
   const classes = useStyles()
-  const handleButtonClick = () => {
-    alert("downloading.....")
+  const handleButtonClick = (downloadLink) => {
+    axios.get(downloadLink)
   }
   return (
     <Card>
@@ -108,9 +111,12 @@ export function DownloadCard(props) {
               </Grid>
               <Grid item xs={1} >
                 <div style={{ marginTop: "35px" }}>
-                  <Button variant="outlined" size="medium" onClick={handleButtonClick} color="primary" className={classes.margin}
-                    id="download" style={{ backgroundColor: "#556b2f", color: "white" }}>
-                    Download</Button>
+                  <a href={props.downloadLink}
+                    target="_blank" rel="noopener noreferrer" title="Get Document" className={classes.link}>
+                       <Button variant="outlined" size="medium" color="primary" className={classes.margin}
+                      id="download" style={{ backgroundColor: "#556b2f", color: "white" }}>
+                      Download</Button></a>
+
                 </div>
               </Grid>
             </Grid>

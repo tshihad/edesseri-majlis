@@ -13,7 +13,12 @@ export default function EventGallery(props) {
   }, [props])
   return (
     <EventGalleryCard>
-      <Gallery/>
+      {props.category === "milad" && <Gallery head="Milad"/>}
+      {props.category === "eid" && <Gallery head="Eid"/>}
+      {props.category === "iftar" && <Gallery head="Iftar"/>}
+      {props.category === "sports" && <Gallery head="Sports"/>}
+      {props.category === "meetandgreet" && <Gallery head="Meet And Greet"/>}
+      {props.category === "other" && <Gallery head="Other"/>}
     </EventGalleryCard>
   )
 }
