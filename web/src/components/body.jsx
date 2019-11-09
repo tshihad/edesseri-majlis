@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { Route, Link, Redirect, BrowserRouter as Router, Switch } from 'react-router-dom';
+import { Route, Link, Redirect, BrowserRouter as Router, Switch, withRouter } from 'react-router-dom';
 import logo from '../images/logo.png';
 import '../styles/navbar.css';
 import NavBar from './sub_components/navbar';
@@ -93,6 +93,7 @@ export default function Header() {
   const changeLanguage = () => {
     setLanguage(language === "മലയാളം" ? "English" : "മലയാളം")
   }
+
   return (
     <div class="mainhead">
       <Router>

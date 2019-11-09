@@ -12,12 +12,15 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { green } from '@material-ui/core/colors';
+import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 import {
   ThemeProvider,
   createMuiTheme
 } from '@material-ui/core';
 
 function Copyright() {
+
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
@@ -63,7 +66,32 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-export default function MemberLogin(props) {
+function MemberLogin(props) {
+  const [username, setUsername] = React.useState()
+  const [password, setPassword] = React.useState()
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value)
+  }
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value)
+  }
+  const handleSubmit = () => {
+    axios.post('http://10.4.5.22:8080/majlis/signin', {
+      member_id: username,
+      password: password
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          localStorage.setItem('EdasseryMajlisToken', response.data.result)
+          props.history.replace("/Admin");
+        } else {
+          alert(response.data.message + " : " + response.data.message)
+        }
+      }).catch((err) => {
+        alert(err)
+      })
+
+  }
   useEffect(() => {
     props.setState("MemberLogin")
   }, [props])
@@ -87,8 +115,10 @@ export default function MemberLogin(props) {
               fullWidth
               id="memberid"
               label="Member ID"
-              name="email"
+              name="username"
               autoFocus
+              value={username}
+              onChange={handleUsernameChange}
             />
             <TextField
               variant="outlined"
@@ -100,6 +130,8 @@ export default function MemberLogin(props) {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password}
+              onChange={handlePasswordChange}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -110,7 +142,7 @@ export default function MemberLogin(props) {
               fullWidth
               variant="contained"
               color="primary"
-
+              onClick={handleSubmit}
               className={classes.submit}
             >
               Sign In
@@ -124,3 +156,5 @@ export default function MemberLogin(props) {
     </Container>
   )
 }
+
+export default withRouter(MemberLogin);
