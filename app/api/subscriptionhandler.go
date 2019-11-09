@@ -2,11 +2,9 @@ package api
 
 import (
 	"encoding/json"
-	"majlis/app/core"
 	"majlis/app/models"
 	"net/http"
 	"strconv"
-	"time"
 
 	"github.com/jinzhu/gorm"
 
@@ -35,14 +33,19 @@ func (a *App) handleGetSubscription(w http.ResponseWriter, r *http.Request) {
 		a.Fail(w, http.StatusInternalServerError, "Failed to find Subscription", err)
 		return
 	}
-	subsMap := fillJunkValue()
+	resp := make(map[int]models.SubsTableResponse)
 	for _, s := range subs {
-		year := strconv.Itoa(s.SubYear)
-		if _, ok := subsMap[year]; ok {
-			subsMap[year] = [12]string{}
+		tr, ok := resp[s.SubYear]
+		if !ok {
+			tr = models.SubsTableResponse{
+				Year: s.SubYear,
+			}
 		}
+		tr.Rows[s.SubMonth].Amount = strconv.Itoa(s.SubAmount)
+		resp[s.SubYear] = tr
+
 	}
-	a.Success(w, http.StatusOK, subs)
+	a.Success(w, http.StatusOK, resp)
 }
 
 func (a *App) handleDeleteSubscription(w http.ResponseWriter, r *http.Request) {
@@ -57,14 +60,4 @@ func (a *App) handleDeleteSubscription(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusOK)
-}
-
-func fillJunkValue() map[string][core.MONTHS]string {
-	lyear := time.Now().Year()
-	m := make(map[string][core.MONTHS]string)
-	fyear := lyear - core.SUBS_YEAR_SHOW + 1
-	for i := 0; i <= fyear; i++ {
-		m[strconv.Itoa(i)] = [core.MONTHS]string{"-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"}
-	}
-	return m
 }

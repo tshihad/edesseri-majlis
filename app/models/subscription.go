@@ -12,8 +12,8 @@ type Subscription struct {
 	MemberID     string
 	SubYear      int
 	SubMonth     int
-	SubAmount    string
-	SubStatus    string
+	SubAmount    int
+	SubStatus    int
 	PaymentDate  time.Time
 	PaymentEvent string
 	CreatedBy    string
