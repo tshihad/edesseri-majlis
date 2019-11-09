@@ -22,6 +22,9 @@
   background-color: #e5eee5;
   border-top-left-radius: .3vw;
   border-top-right-radius: .3vw;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  margin:0;
 }
 .dropbtn:hover {
   background-color: #768b56;
