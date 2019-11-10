@@ -2,7 +2,15 @@ package models
 
 // EventGallery model
 type EventGallery struct {
-	ID             int
+	ID             int `gorm:"primary_key"`
 	PhotoLocaltion string
 	Category       string
+	Height         int
+	Width          int
+}
+
+// Dimension for image dimension
+type Dimension struct {
+	Height int
+	Width  int
 }

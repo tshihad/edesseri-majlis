@@ -10,7 +10,7 @@ CREATE TABLE member(
     office_ph_number VARCHAR(15),
     uae_home_ph_number VARCHAR(200),
     email VARCHAR(200) NOT NULL,
-    blood_group VARCHAR(5),
+    blood_group VARCHAR(8),
     passport_number VARCHAR(200) NOT NULL,
     dob VARCHAR(200) NOT NULL,
     job VARCHAR(200) NOT NULL,
@@ -42,12 +42,13 @@ CREATE TABLE member(
     mahal_number VARCHAR(30) NOT NULL,
     image_location VARCHAR(200),
     created_at DATE,
-    updated_at DATE
+    updated_at DATE,
+    password_hash VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE admin(
     name VARCHAR(50) NOT NULL,
-    password_hash VARCHAR(50) NOT NULL
+    password_hash VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE loan(
@@ -67,8 +68,11 @@ CREATE TABLE loan(
 CREATE TABLE contact(
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    email VARCHAR(50) NOT NULL,
-    content VARCHAR(1000) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    phone VARCHAR(50) NOT NULL,
+    country VARCHAR(1000) NOT NULL,
+    place VARCHAR(100) NOT NULL,
+    content VARCHAR(100) NOT NULL,
     created_at DATE,
     updated_at DATE,
     deleted_at DATE
@@ -89,6 +93,7 @@ CREATE TABLE downloads (
     updated_at DATE,
     deleted_at DATE
 );
+
 -- +goose Down
 -- SQL section 'Down' is executed when this migration is rolled back
 DROP TABLE member CASCADE;
