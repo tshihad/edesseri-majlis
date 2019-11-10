@@ -1,8 +1,13 @@
 package api
 
 import (
+	"fmt"
+	"image"
+	_ "image/jpeg"
+	_ "image/png"
 	"io"
 	"majlis/app/core"
+	"majlis/app/models"
 	"net/http"
 	"os"
 	"strconv"
@@ -22,6 +27,8 @@ func uploadFile(r *http.Request, formTag, uploadLocation string, ext []string) (
 	if err != nil {
 		return "", errors.Wrap(err, "failed to read "+formTag+" in form")
 	}
+	a := handler.Header
+	fmt.Println(a)
 	fname := strings.Split(handler.Filename, ".")
 	if len(fname) < 1 || !contains(fname[len(fname)-1], ext) {
 		return "", errors.New("Invalid file or extension")
@@ -56,4 +63,21 @@ func contains(s1 string, s2 []string) bool {
 		}
 	}
 	return false
+}
+
+func getDimensions(location string) (models.Dimension, error) {
+	var d models.Dimension
+	f, err := os.Open(location)
+	if err != nil {
+		return d, errors.New("Failed to get image dimension")
+	}
+	m, _, err := image.DecodeConfig(f)
+	if err != nil {
+		return d, errors.New("Failed to get image dimension")
+	}
+	d = models.Dimension{
+		Height: m.Height,
+		Width:  m.Width,
+	}
+	return d, nil
 }

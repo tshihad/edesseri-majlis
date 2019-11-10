@@ -23,6 +23,13 @@ func (a *App) handlePostEGallery(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	eGallery.PhotoLocaltion = core.GetStaticHost() + location
+	d, err := getDimensions(core.STATIC + location)
+	if err != nil {
+		a.Fail(w, http.StatusInternalServerError, "Failed to get dimension", err)
+		return
+	}
+	eGallery.Height = d.Height
+	eGallery.Width = d.Width
 	category := r.FormValue(core.CATEGORY_TAG)
 	if !contains(category, core.CATEGORIES) {
 		a.Fail(w, http.StatusBadRequest, "invalid category", nil)

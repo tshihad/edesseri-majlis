@@ -45,6 +45,7 @@ type SubscriptionRepo interface {
 // LoanRepo for loans
 type LoanRepo interface {
 	GetLoan(string) ([]models.Loan, error)
+	CreateLoan(models.Loan) error
 }
 
 // ContactRepo for contact informations
