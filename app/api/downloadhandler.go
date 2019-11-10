@@ -46,7 +46,7 @@ func (a *App) handlePostDownload(w http.ResponseWriter, r *http.Request) {
 			a.Fail(w, http.StatusInternalServerError, "Failed to move file", err)
 			return
 		}
-		d.Location = newLocation
+		d.Location = core.GetStaticHost() + newLocation
 	}
 
 	err = a.CreateDownload(d)
