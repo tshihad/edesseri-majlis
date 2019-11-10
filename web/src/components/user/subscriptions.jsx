@@ -5,7 +5,6 @@ import axios from 'axios'
 
 
 const SubscriptionCard = styled.div`
-margin: 5vh 10vw 0 10vw;
 `;
 const Headline = styled.h3`
 color:#1d4219;
@@ -50,11 +49,11 @@ const Columns = [
 const MatrixHead = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 export default function Subscription(props) {
-  const [rows, setrows] = React.useState(Rows)
+  const [rows, setrows] = React.useState([Rows])
   const [columns, setcolumns] = React.useState(Columns)
   useEffect(() => {
     axios.get('http://10.4.5.22:8080/majlis/member/subscription',
-      { headers: { "Authorization": "24c9eb980f6d81809193243d0f6a9892" } })
+      { headers: { "Authorization": "c305ce823193ae5d2aa51b877eeecbfa" } })
       .then((response) => {  
         var years =[]
         var subscriptions =[]      

@@ -55,8 +55,10 @@ font-weight: 500;`;
 export default function Downloads(props) {
   const [documents, setDocuments] = React.useState([{ updatedAt: "b" }])
   useEffect(() => {
+    props.setUser("user")
     props.setState("Downloads")
-    axios.get("http://10.4.5.22:8080/majlis/downloads")
+    axios.get("http://10.4.5.22:8080/majlis/downloads",
+    { headers: { "Authorization": "c305ce823193ae5d2aa51b877eeecbfa" } })
       .then(({ data }) => {
         data.result.map((element) => {
           element.UpdatedAt = element.UpdatedAt.slice(0, 10)

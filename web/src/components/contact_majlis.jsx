@@ -1,5 +1,5 @@
 
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import '../styles/contact.css';
@@ -11,7 +11,7 @@ import PhoneInput from './sub_components/phone_number_input'
 const Contact = styled.div`
 margin: 10vh 10vw 0 10vw;`;
 export default function Contactmajlis(props) {
-  useEffect(()=>{
+  useEffect(() => {
     props.setState("ContactMajlis")
   })
   return (
@@ -83,12 +83,13 @@ export default function Contactmajlis(props) {
                     onBlur={handleBlur}
                     className={
                       errors.firstname && touched.firstname ? 'inputs text-input error' : 'inputs text-input'}
+                    style={{ width: "340px" }}
                   />
                   {errors.firstname && touched.firstname ? (
                     <div className="input-feedback">{errors.firstname}</div>
                   ) : <div className="input-feedback">&nbsp;</div>}
                 </div>
-                <div className="field" style={{ display: "inline-block", marginLeft: "2%" }}>
+                <div className="field" style={{ display: "inline-block", marginLeft: "3%" }}>
                   <label htmlFor="lastname" style={{ display: "inline-block" }}>
                     Last Name                </label>
                   <input

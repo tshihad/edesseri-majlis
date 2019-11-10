@@ -317,6 +317,7 @@ export default function Header() {
               <div class="dropdown-content" onClick={() => buttonClick("UserOptions")}>
                 <Link to="/User/UserOptions/Subscriptions">Subscriptions</Link>
                 <Link to="/User/UserOptions/Loans">Loans</Link>
+                <Link to="/User/UserOptions/FamilyWElfare">Family Welfare</Link>
               </div>
             </Link>
             <Link to="/User/Profile" class="dropdown">
@@ -373,6 +374,7 @@ export default function Header() {
             <Route path="/User/ContactMajlis" ><UserContactMajlis setState={buttonClick} language={language} setUser={setThisUser} /></Route>
             <Route path="/User/UserOptions/Subscriptions" ><UserOptions component="subscription" setState={buttonClick} language={language} setUser={setThisUser} /></Route>
             <Route path="/User/UserOptions/Loans" ><UserOptions component="loans" setState={buttonClick} language={language} setUser={setThisUser} /></Route>
+            <Route path="/User/UserOptions/FamilyWelfare" ><UserOptions component="familywelfare" setState={buttonClick} language={language} setUser={setThisUser} /></Route>
             <Route path="/User/Profile" ><Profile setState={buttonClick} language={language} setUser={setThisUser} /></Route>
             <Router path="/User/EventCalender"><UserEventCalendar setState={buttonClick} setUser={setThisUser}/></Router>
           </Switch>
