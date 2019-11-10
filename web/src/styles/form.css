@@ -1,0 +1,14 @@
+.form-field{
+    width: 33%;
+    background-color: rgb(175, 175, 175);
+    display: inline-block;
+    padding: 1%;
+}
+.form-field-1{
+    width: 33%;
+    background-color: rgb(255, 225, 188);
+    display: inline-block;
+    padding: 1%;
+    height: 10%;
+
+}

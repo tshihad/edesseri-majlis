@@ -1,0 +1,62 @@
+@font-face {
+  font-family: 'Aroma';
+  src: local('Aroma'), url(../fonts/AROMA-Bold.ttf) format('truetype');
+}
+
+.mainhead{
+  min-height:100vh;
+  overflow-y: hidden;
+}
+.navbar{
+  background-color: #e5eee5;
+  font-style:'Arial';
+}
+.dropbtn {
+  border:0;
+  outline:0;
+  width:9.85vw;
+  height:3.3vw;
+  color: #556b2f;
+  font-weight:500;
+  font-size:1.1vw;
+  background-color: #e5eee5;
+  border-top-left-radius: .3vw;
+  border-top-right-radius: .3vw;
+}
+.dropbtn:hover {
+  background-color: #768b56;
+  color: white;
+}
+
+.dropdown {
+  border:0;
+  outline: 0;
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  font-weight:500;
+  font-size:1vw;
+  display: none;
+  position: absolute;
+  background-color: #dcecdc;
+  min-width: 10vw;
+  text-align: center;
+}
+
+.dropdown-content a {
+  color: #556b2f;
+  padding:5% 5%;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #768b56; color:white;}
+
+a:hover .dropbtn{background-color: #768b56;color:white;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.lastmenu:hover .navbar {background-color: #f8faf8;}
+
