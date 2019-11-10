@@ -369,7 +369,7 @@ export default function Header() {
             <Route path="/EventGallery/MeetandGreet" ><EventGallery category="meetandgreet" setState={buttonClick} setLanButton={setButton} /></Route>
             <Route path="/EventGallery/Other" ><EventGallery category="other" setState={buttonClick} setLanButton={setButton} /></Route>
             <Route path="/JoinMajlis" ><JoinMajlis setState={buttonClick} setLanButton={setButton} /></Route>
-            <Route path="/MemberLogin" ><MemberLogin setState={buttonClick} setLoggedIn={setLoggedIn} setLanButton={setButton} /></Route>
+            <Route path="/MemberLogin" ><MemberLogin setState={buttonClick} setLoggedIn={setLoggedIn} setLanButton={setButton} setUser={setThisUser} /></Route>
             <Route path="/Downloads" ><Downloads setState={buttonClick} setLanButton={setButton} /></Route>
             <Route path="/ContactMajlis" ><ContactMajlis setState={buttonClick} setLanButton={setButton} /></Route>
             <Router path="/EventCalender"><EventCalendar setState={buttonClick} setLanButton={setButton} /></Router>

@@ -69,6 +69,8 @@ export default function Home(props){
   },[props])
 return(
   <div>
+        {props.isLogged === true ?
+  <div>
     <Slider/>
     <div style={{padding:"0 0", display: "block"}}>
     {props.language === "മലയാളം" ? <Topic headline="About Majlis" content ="Allah has bestowed special blessings on each of His creatures.
@@ -98,6 +100,7 @@ language= {props.language === "മലയാളം" ?"malayalam" :"english"} bull
 </MainCard>
   </div>
   </div>
+  :<Redirect to='/MemberLogin'/>}</div>
 )
 }
 
