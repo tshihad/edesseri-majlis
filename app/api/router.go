@@ -54,7 +54,7 @@ func (a *App) Router() http.Handler {
 		r.Post("/contact", a.handlePostcontact)
 
 		r.Get("/downloads", a.handleGetPublicDownloads)
-		// r.Get("/auth", a.handleVerifyAuth)
+		r.Get("/auth", a.handleVerifyAuth)
 	})
 	return r
 }
