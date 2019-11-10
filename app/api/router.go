@@ -30,6 +30,7 @@ func (a *App) Router() http.Handler {
 			r.Delete("/", a.handleDeleteMember)
 			r.Get("/subscription", a.handleGetSubscription)
 			r.Get("/family-welfare", a.handleGetWelfare)
+			r.Post("/loan", a.handlePostLoan)
 		})
 		r.With(validateAdmin(a.FieldLogger)).Route("/admin", func(r chi.Router) {
 			r.Route("/event-gallery", func(r chi.Router) {

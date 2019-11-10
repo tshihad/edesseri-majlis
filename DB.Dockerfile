@@ -1,9 +1,0 @@
-
-FROM postgres:9.6.5-alpine
-ENV POSTGRES_USER postgres
-ENV POSTGRES_DB majlis
-ENV POSTGRES_PASSWORD pass123
-ENV POSTGRES_PORT 5432
-EXPOSE 5432
-
-ADD database.sql /docker-entrypoint-initdb.d/

@@ -1,11 +1,14 @@
 version: '3.0'
 services:
   db:
-    build:
-      dockerfile: DB.Dockerfile
-      context: .
+    image: postgres:9.6.5-alpine
     ports:
       - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=majlis
+      - POSTGRES_PASSWORD=sjrty12m43
+      - POSTGRES_PORT=5432
     container_name: majlis-db-cont
     networks:
       - v1
