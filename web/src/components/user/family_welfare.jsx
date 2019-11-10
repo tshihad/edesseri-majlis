@@ -4,15 +4,20 @@ import Table from '../sub_components/simple_table';
 import axios from 'axios'
 
 const FamilyWelfareCard = styled.div`
-margin: 2vh 10vw 0 10vw;
-`;
+margin-top: 2vh`;
 
 const EventColumns = [
     {
-        id: 'Date',
+        id: 'WelfareDate',
         label: 'Date',
         align: 'center',
         minWidth: 90
+    },
+    {
+        id: 'Title',
+        label: 'Title',
+        align: 'center',
+        minWidth: 120
     },
     {
         id: 'Description',
@@ -34,22 +39,21 @@ const EventColumns = [
     }]
 export default function EventCalendar(props) {
     const [rows, setrows] = React.useState([])
-    props.setUser("user")
-    const toStdDate = (date)=>{
-        var year = date.slice(0,4)
-        var month = date.slice(5,7)
-        var day = date.slice(8,10)
-        return day+"-"+month+"-"+year
-      }
+    const toStdDate = (date) => {
+        var year = date.slice(0, 4)
+        var month = date.slice(5, 7)
+        var day = date.slice(8, 10)
+        return day + "-" + month + "-" + year
+    }
     useEffect(() => {
-        props.setState("Home")
-        axios.get("http://10.4.5.22:8080/majlis/event-calendar")
+        axios.get("http://10.4.5.22:8080/majlis/member/family-welfare",
+            { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } })
             .then(({ data }) => {
-                data.result.map((row)=>{
-                    row.EventDate = toStdDate(row.EventDate)
+                data.result.map((row) => {
+                    row.WelfareDate = toStdDate(row.WelfareDate)
                 })
                 setrows(data.result)
-            }).catch((err)=>{
+            }).catch((err) => {
                 alert(err)
             })
     }, []);

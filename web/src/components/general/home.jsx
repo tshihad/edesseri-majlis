@@ -1,11 +1,11 @@
 import React,{useEffect} from 'react';
 import styled from 'styled-components';
-import Slider from './sub_components/image_slider';
+import Slider from '../sub_components/image_slider';
 import EventNoteIcon from '@material-ui/icons/EventNote';
-import visionBullet from '../images/icons/vision.svg'
-import MissionBullet from '../images/icons/mission.svg'
-import RiseOfMajlisBullet from '../images/icons/riseofmajlis.svg'
-import MajlisPriorityBullet from '../images/icons/majlispriority.svg'
+import visionBullet from '../../images/icons/vision.svg'
+import MissionBullet from '../../images/icons/mission.svg'
+import RiseOfMajlisBullet from '../../images/icons/riseofmajlis.svg'
+import MajlisPriorityBullet from '../../images/icons/majlispriority.svg'
 import axios from 'axios'
 import { Link } from 'react-router-dom';
 
@@ -62,6 +62,7 @@ const MIsionContents = {
 }
 export default function Home(props){
   useEffect(()=>{
+  props.setLanButton(true)
   props.setState("Home")
   },[props])
 return(

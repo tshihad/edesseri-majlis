@@ -9,9 +9,10 @@ import PhoneInput from '../sub_components/phone_number_input'
 
 
 const Contact = styled.div`
-margin: 10vh 10vw 0 10vw;`;
+margin: 5vh 10vw 0 10vw;`;
 export default function Contactmajlis(props) {
   useEffect(()=>{
+    props.setLanButton(false)
     props.setUser("user")
     props.setState("ContactMajlis")
   })

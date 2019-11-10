@@ -2,16 +2,17 @@
 import React, { useEffect } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import '../styles/contact.css';
+import '../../styles/contact.css';
 import styled from 'styled-components';
 import axios from 'axios';
-import PhoneInput from './sub_components/phone_number_input'
+import PhoneInput from '../sub_components/phone_number_input'
 
 
 const Contact = styled.div`
-margin: 10vh 10vw 0 10vw;`;
+margin: 5vh 10vw 0 10vw;`;
 export default function Contactmajlis(props) {
   useEffect(() => {
+    props.setLanButton(false)
     props.setState("ContactMajlis")
   })
   return (

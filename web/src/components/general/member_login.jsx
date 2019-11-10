@@ -93,6 +93,7 @@ function MemberLogin(props) {
 
   }
   useEffect(() => {
+    props.setLanButton(false)
     props.setState("MemberLogin")
   }, [props])
   const classes = useStyles();

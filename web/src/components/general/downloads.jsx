@@ -10,7 +10,7 @@ import {
   Button
 } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
-import pdfImage from '../images/icons/pdf-icon.png'
+import pdfImage from '../../images/icons/pdf-icon.png'
 import styled from 'styled-components';
 
 const useStyles = makeStyles(theme => ({
@@ -55,6 +55,7 @@ font-weight: 500;`;
 export default function Downloads(props) {
   const [documents, setDocuments] = React.useState([])
   useEffect(() => {
+    props.setLanButton(false)
     props.setState("Downloads")
     axios.get("http://10.4.5.22:8080/majlis/downloads")
       .then(({ data }) => {

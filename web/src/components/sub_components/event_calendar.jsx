@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import Table from '../sub_components/simple_table';
+import Table from './simple_table';
 import axios from 'axios'
 
 const EventCalendarCard = styled.div`
@@ -28,7 +28,6 @@ const EventColumns = [
     }]
 export default function EventCalendar(props) {
     const [rows, setrows] = React.useState([])
-    props.setUser("user")
     const toStdDate = (date)=>{
         var year = date.slice(0,4)
         var month = date.slice(5,7)
@@ -50,7 +49,7 @@ export default function EventCalendar(props) {
 
     return (
         <EventCalendarCard>
-            <Table tablename='Event Calender' columns={EventColumns} rows={rows} />
+            <Table tablename='Event List' columns={EventColumns} rows={rows} />
         </EventCalendarCard>
     )
 }

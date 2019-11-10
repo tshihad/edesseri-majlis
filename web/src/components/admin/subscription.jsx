@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import SearchField from './sub_components/search'
+import SearchField from '../sub_components/search'
 const Members = styled.div`
 width: 100%;
 display: inline-block;

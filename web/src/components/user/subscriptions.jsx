@@ -37,14 +37,11 @@ const Footer = styled.footer`
 padding: 2px;
 font-weight:600;
 float:right`;
-const Rows = ["2019", "2018", "2017", "2016", "2015"]
+const Rows = ["-", "-"]
 
 const Columns = [
-  ["25", "25", "25", "25", "25", "25", "25", "25", "25", "25", "25", "25"],
-  ["25", "25", "25", "25", "25", "25", "25", "25", "25", "25", "25", "25"],
-  ["25", "25", "25", "25", "25", "25", "25", "25", "25", "25", "25", "25"],
-  ["25", "25", "25", "25", "25", "25", "25", "25", "25", "25", "25", "25"],
-  ["25", "25", "25", "-", "-", "-", "-", "-", "-", "-", "-", "-"]]
+  ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"],
+  ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"]]
 
 const MatrixHead = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
@@ -53,17 +50,17 @@ export default function Subscription(props) {
   const [columns, setcolumns] = React.useState(Columns)
   useEffect(() => {
     axios.get('http://10.4.5.22:8080/majlis/member/subscription',
-      { headers: { "Authorization": "c305ce823193ae5d2aa51b877eeecbfa" } })
-      .then((response) => {  
-        var years =[]
-        var subscriptions =[]      
+      { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } })
+      .then((response) => {
+        var years = []
+        var subscriptions = []
         response.data.result.map((row) => {
           years.push(row.Year)
           var subscription = []
-          row.Rows.map((month)=>{
-            if (month.Amount === ""){
+          row.Rows.map((month) => {
+            if (month.Amount === "") {
               subscription.push("-")
-            }else{
+            } else {
               subscription.push(month.Amount)
             }
           })
@@ -71,10 +68,10 @@ export default function Subscription(props) {
         })
         setrows(years)
         setcolumns(subscriptions)
-      }).catch((err)=>{
+      }).catch((err) => {
         alert(err)
       })
-  },[])
+  }, [])
   return (
     <SubscriptionCard>
       <Headline>Your Subscriptions</Headline>

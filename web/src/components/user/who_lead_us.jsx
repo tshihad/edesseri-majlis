@@ -10,6 +10,7 @@ padding-bottem: 200px;
 `;
 export default function WhoLeadUs(props) {
   useEffect(() => {
+    props.setLanButton(false)
     props.setUser("user")
     props.setState("WhoLeadUs")
   }, [props])

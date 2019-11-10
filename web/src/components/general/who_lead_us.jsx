@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { Grid } from '@material-ui/core'
-import { MemberCard } from './sub_components/committe';
-import img from '../images/member.jpg'
+import { MemberCard } from '../sub_components/committe';
+import img from '../../images/member.jpg'
 
 const WhoLeadUsDiv = styled.div`
 margin: 0vh 10vw;
@@ -10,6 +10,7 @@ padding-bottem: 200px;
 `;
 export default function WhoLeadUs(props) {
   useEffect(() => {
+    props.setLanButton(false)
     props.setState("WhoLeadUs")
   }, [props])
   return (

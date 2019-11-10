@@ -62,6 +62,7 @@ const MIsionContents = {
 }
 export default function Home(props){
   useEffect(()=>{
+    props.setLanButton(true)
     props.setUser("user")
   props.setState("Home")
   },[props])

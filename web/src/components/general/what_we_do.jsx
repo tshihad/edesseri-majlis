@@ -79,6 +79,7 @@ const MajlisStandsForContents = {
 
 export default function WhatWeDo(props) {
   useEffect(() => {
+    props.setLanButton(true)
     props.setState("WhatWeDo")
   }, [props])
   return (

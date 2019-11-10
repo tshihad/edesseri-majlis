@@ -8,6 +8,7 @@ margin: 5vh 10vw 0 10vw;
 
 export default function EventGallery(props) {
   useEffect(() => {
+    props.setLanButton(false)
     props.setUser("user")
     props.setState("EventGallery")
   }, [props])

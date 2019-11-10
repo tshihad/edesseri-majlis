@@ -4,24 +4,24 @@ import { Route, Link, Redirect, BrowserRouter as Router, Switch, withRouter } fr
 import logo from '../images/logo.png';
 import '../styles/navbar.css';
 import NavBar from './sub_components/navbar';
-import Home from './home';
-import WhatweDo from './what_we_do';
-import WhoLeadUs from './who_lead_us';
-import EventGallery from './event_gallery';
-import JoinMajlis from './join_majlis';
-import MemberLogin from './member_login';
-import Downloads from './downloads';
-import ContactMajlis from './contact_majlis';
-import AdminEventCalendar from './even_calendar';
+import Home from './general/home';
+import WhatweDo from './general/what_we_do';
+import WhoLeadUs from './general/who_lead_us';
+import EventGallery from './general/event_gallery';
+import JoinMajlis from './general/join_majlis';
+import MemberLogin from './general/member_login';
+import Downloads from './general/downloads';
+import ContactMajlis from './general/contact_majlis';
+import AdminEventCalendar from './user/even_calendar';
 import Footer from './footer';
-import AddMember from './addMember';
-import Members from './members';
-import Subscription from './subscription';
-import Loans from './loans';
-import FamilyWelfare from './family_welfare';
-import UploadForms from './upload_forms';
-import ContactMajlisAdmin from './contact_majlis_admin';
-import EventGalleryAdmin from './evevnt_gallery_admin';
+import AddMember from './admin/addMember';
+import Members from './admin/members';
+import Subscription from './admin/subscription';
+import Loans from './admin/loans';
+import FamilyWelfare from './admin/family_welfare';
+import UploadForms from './admin/upload_forms';
+import ContactMajlisAdmin from './admin/contact_majlis_admin';
+import EventGalleryAdmin from './admin/evevnt_gallery_admin';
 import UserHome from './user/home';
 import UserWhatweDo from './user/what_we_do';
 import UserWhoLeadUs from './user/who_lead_us';
@@ -30,8 +30,7 @@ import UserOptions from './user/user_options';
 import Profile from './user/profile';
 import UserDownloads from './user/downloads';
 import UserContactMajlis from './user/contact_majlis';
-import EventCalendar from './event_calendar'
-import UserEventCalendar from './user/event_calendar'
+import EventCalendar from './sub_components/event_calendar'
 import '../styles/navbar.css';
 import '../styles/header.css'
 
@@ -82,8 +81,12 @@ font-size: 2vw;
 export default function Header() {
   const [isButtonActive, setActive] = React.useState("Home")
   const [language, setLanguage] = React.useState("മലയാളം")
+  const [isLanguageOption, setLanguageButton] = React.useState(false)
   const [user, setUser] = React.useState("general")
 
+  const setButton = (value) => {
+    setLanguageButton(value)
+  }
   const buttonClick = (value) => {
     setActive(value)
   }
@@ -95,7 +98,9 @@ export default function Header() {
   const changeLanguage = () => {
     setLanguage(language === "മലയാളം" ? "English" : "മലയാളം")
   }
-
+  useEffect(()=>{
+  localStorage.setItem('EdasseryMajlisToken','b8d6eba907099b0bb3d265b52be7d188')
+  },[])
   return (
     <div class="mainhead">
       <Router>
@@ -105,7 +110,7 @@ export default function Header() {
               <img src={logo} alt="logo" style={{ width: "3.5vw", height: "3.5vw", display: "inline-block" }} />
               <div style={{ margin: "1.5vw 0 0 .8vw", color: "#556b2f", display: "inline-block", fontFamily: "Aroma", fontSize: "1.4vw" }}><Span>E</Span>DASSERY <Span>M</Span>AJLIS <Span>G</Span>ROUP</div>
             </div>
-            <Language style={{ display: "inline-block", fontSize: language === "English" ? "1.1vw" : "1.5vw" }} onClick={changeLanguage}>{language}</Language>
+            {isLanguageOption && <Language style={{ display: "inline-block", fontSize: language === "English" ? "1.1vw" : "1.5vw" }} onClick={changeLanguage}>{language}</Language>}
           </Heading>
 
           {/* NAVBAR for general user */}
@@ -124,7 +129,6 @@ export default function Header() {
                   color: isButtonActive === "WhatWeDo" && "white"
                 }}>What We Do</button>
               <div class="dropdown-content" onClick={() => buttonClick("WhatWeDo")}>
-                <Link to="/WhatWeDo/Familywelfare">Family Welfare</Link>
                 <Link to="/WhatWeDo/Projects">Projects</Link>
               </div>
             </Link>
@@ -261,7 +265,6 @@ export default function Header() {
                   color: isButtonActive === "WhatWeDo" && "white"
                 }}>What We Do</button>
               <div class="dropdown-content" onClick={() => buttonClick("WhatWeDo")}>
-                <Link to="/WhatWeDo/Familywelfare">Family Welfare</Link>
                 <Link to="/WhatWeDo/Projects">Projects</Link>
               </div>
             </Link>
@@ -317,7 +320,7 @@ export default function Header() {
               <div class="dropdown-content" onClick={() => buttonClick("UserOptions")}>
                 <Link to="/User/UserOptions/Subscriptions">Subscriptions</Link>
                 <Link to="/User/UserOptions/Loans">Loans</Link>
-                <Link to="/User/UserOptions/FamilyWElfare">Family Welfare</Link>
+                <Link to="/User/UserOptions/FamilyWelfare">Family Welfare</Link>
               </div>
             </Link>
             <Link to="/User/Profile" class="dropdown">
@@ -332,51 +335,51 @@ export default function Header() {
         <Body>
           <Switch>
             <Redirect exact from="/" to="/Home" />
-            <Route path="/Home" ><Home setState={buttonClick} language={language} /></Route>
-            <Route path="/WhatweDo" ><WhatweDo setState={buttonClick} language={language} /></Route>
-            <Route path="/WhoLeadUs"><WhoLeadUs setState={buttonClick} language={language} /></Route>
-            <Redirect exact path="/EventGallery" to="/EventGallery/Milad"/>
-            <Route path="/EventGallery/Milad" ><EventGallery category="milad" setState={buttonClick} language={language} /></Route>
-            <Route path="/EventGallery/Eid" ><EventGallery category="eid" setState={buttonClick} language={language} /></Route>
-            <Route path="/EventGallery/Iftar" ><EventGallery category="iftar" setState={buttonClick} language={language} /></Route>
-            <Route path="/EventGallery/Sports" ><EventGallery category="sports" setState={buttonClick} language={language} /></Route>
-            <Route path="/EventGallery/MeetandGreet" ><EventGallery category="meetandgreet" setState={buttonClick} language={language} /></Route>
-            <Route path="/EventGallery/Other" ><EventGallery category="other" setState={buttonClick} language={language} /></Route>
-            <Route path="/JoinMajlis" ><JoinMajlis setState={buttonClick} language={language} /></Route>
-            <Route path="/MemberLogin" ><MemberLogin setState={buttonClick} language={language} /></Route>
-            <Route path="/Downloads" ><Downloads setState={buttonClick} language={language} /></Route>
-            <Route path="/ContactMajlis" ><ContactMajlis setState={buttonClick} language={language} /></Route>
-            <Router path="/EventCalender"><EventCalendar setState={buttonClick} /></Router>
+            <Route path="/Home" ><Home setState={buttonClick} setLanButton={setButton}  language={language} /></Route>
+            <Route path="/WhatweDo" ><WhatweDo setState={buttonClick} setLanButton={setButton}  language={language} /></Route>
+            <Route path="/WhoLeadUs"><WhoLeadUs setState={buttonClick} setLanButton={setButton} /></Route>
+            <Redirect exact path="/EventGallery" to="/EventGallery/Milad" />
+            <Route path="/EventGallery/Milad" ><EventGallery category="milad" setState={buttonClick} setLanButton={setButton} /></Route>
+            <Route path="/EventGallery/Eid" ><EventGallery category="eid" setState={buttonClick} setLanButton={setButton} /></Route>
+            <Route path="/EventGallery/Iftar" ><EventGallery category="iftar" setState={buttonClick} setLanButton={setButton} /></Route>
+            <Route path="/EventGallery/Sports" ><EventGallery category="sports" setState={buttonClick} setLanButton={setButton} /></Route>
+            <Route path="/EventGallery/MeetandGreet" ><EventGallery category="meetandgreet" setState={buttonClick} setLanButton={setButton} /></Route>
+            <Route path="/EventGallery/Other" ><EventGallery category="other" setState={buttonClick} setLanButton={setButton} /></Route>
+            <Route path="/JoinMajlis" ><JoinMajlis setState={buttonClick} setLanButton={setButton} /></Route>
+            <Route path="/MemberLogin" ><MemberLogin setState={buttonClick} setLanButton={setButton} /></Route>
+            <Route path="/Downloads" ><Downloads setState={buttonClick} setLanButton={setButton} /></Route>
+            <Route path="/ContactMajlis" ><ContactMajlis setState={buttonClick} setLanButton={setButton} /></Route>
+            <Router path="/EventCalender"><EventCalendar setState={buttonClick} setLanButton={setButton} /></Router>
 
             <Redirect exact from="/Admin" to="/Admin/Members" />
-            <Route path="/Admin/Members" ><Members setState={buttonClick} setUser={setThisUser} /></Route>
-            <Route path="/Admin/AddMember" ><AddMember setState={buttonClick} setUser={setThisUser} /></Route>
-            <Route path="/Admin/Subscriptions" ><Subscription setState={buttonClick} setUser={setThisUser} /></Route>
-            <Route path="/Admin/EventGallery" ><EventGalleryAdmin setState={buttonClick} setUser={setThisUser} /></Route>
-            <Route path="/Admin/Loans" ><Loans setState={buttonClick} setUser={setThisUser} /></Route>
-            <Route path="/Admin/FamlilyWelfare" ><FamilyWelfare setState={buttonClick} setUser={setThisUser} /></Route>
-            <Route path="/Admin/UploadForms" ><UploadForms setState={buttonClick} setUser={setThisUser} /></Route>
-            <Route path="/Admin/ContactMajlisAdmin" ><ContactMajlisAdmin setState={buttonClick} setUser={setThisUser} /></Route>
-            <Route path="/Admin/EventCalendarAdmin" ><AdminEventCalendar setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/Members" ><Members setState={buttonClick}  setUser={setThisUser} /></Route>
+            <Route path="/Admin/AddMember" ><AddMember setState={buttonClick}  setUser={setThisUser} /></Route>
+            <Route path="/Admin/Subscriptions" ><Subscription setState={buttonClick}  setUser={setThisUser} /></Route>
+            <Route path="/Admin/EventGallery" ><EventGalleryAdmin setState={buttonClick}  setUser={setThisUser} /></Route>
+            <Route path="/Admin/Loans" ><Loans setState={buttonClick}  setUser={setThisUser} /></Route>
+            <Route path="/Admin/FamlilyWelfare" ><FamilyWelfare setState={buttonClick}  setUser={setThisUser} /></Route>
+            <Route path="/Admin/UploadForms" ><UploadForms setState={buttonClick}  setUser={setThisUser} /></Route>
+            <Route path="/Admin/ContactMajlisAdmin" ><ContactMajlisAdmin setState={buttonClick}  setUser={setThisUser} /></Route>
+            <Route path="/Admin/EventCalendarAdmin" ><AdminEventCalendar setState={buttonClick}  setUser={setThisUser} /></Route>
 
             <Redirect exact from="/User" to="/User/Home" />
-            <Route path="/User/Home" ><UserHome setState={buttonClick} language={language} setUser={setThisUser} /></Route>
-            <Route path="/User/WhatweDo" ><UserWhatweDo setState={buttonClick} language={language} setUser={setThisUser} /></Route>
-            <Route path="/User/WhoLeadUs"><UserWhoLeadUs setState={buttonClick} language={language} setUser={setThisUser} /></Route>
-            <Redirect exact path="/User/EventGallery" to="/User/EventGallery/Milad"/>
-            <Route path="/User/EventGallery/Milad" ><UserEventGallery category="milad" setState={buttonClick} language={language} setUser={setThisUser}/></Route>
-            <Route path="/User/EventGallery/Eid" ><UserEventGallery category="eid" setState={buttonClick} language={language} setUser={setThisUser}/></Route>
-            <Route path="/User/EventGallery/Iftar" ><UserEventGallery category="iftar" setState={buttonClick} language={language} setUser={setThisUser}/></Route>
-            <Route path="/User/EventGallery/Sports" ><UserEventGallery category="sports" setState={buttonClick} language={language} setUser={setThisUser}/></Route>
-            <Route path="/User/EventGallery/MeetandGreet" ><UserEventGallery category="meetandgreet" setState={buttonClick} language={language} setUser={setThisUser}/></Route>
-            <Route path="/User/EventGallery/Other" ><UserEventGallery category="other" setState={buttonClick} language={language} setUser={setThisUser}/></Route>
-            <Route path="/User/Downloads" ><UserDownloads setState={buttonClick} language={language} setUser={setThisUser} /></Route>
-            <Route path="/User/ContactMajlis" ><UserContactMajlis setState={buttonClick} language={language} setUser={setThisUser} /></Route>
-            <Route path="/User/UserOptions/Subscriptions" ><UserOptions component="subscription" setState={buttonClick} language={language} setUser={setThisUser} /></Route>
-            <Route path="/User/UserOptions/Loans" ><UserOptions component="loans" setState={buttonClick} language={language} setUser={setThisUser} /></Route>
-            <Route path="/User/UserOptions/FamilyWelfare" ><UserOptions component="familywelfare" setState={buttonClick} language={language} setUser={setThisUser} /></Route>
-            <Route path="/User/Profile" ><Profile setState={buttonClick} language={language} setUser={setThisUser} /></Route>
-            <Router path="/User/EventCalender"><UserEventCalendar setState={buttonClick} setUser={setThisUser}/></Router>
+            <Route path="/User/Home" ><UserHome setState={buttonClick} setLanButton={setButton} languageButton={true} language={language} setUser={setThisUser} /></Route>
+            <Route path="/User/WhatweDo" ><UserWhatweDo setState={buttonClick} setLanButton={setButton} languageButton={true} language={language} setUser={setThisUser} /></Route>
+            <Route path="/User/WhoLeadUs"><UserWhoLeadUs setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
+            <Redirect exact path="/User/EventGallery" to="/User/EventGallery/Milad" />
+            <Route path="/User/EventGallery/Milad" ><UserEventGallery category="milad" setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
+            <Route path="/User/EventGallery/Eid" ><UserEventGallery category="eid" setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
+            <Route path="/User/EventGallery/Iftar" ><UserEventGallery category="iftar" setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
+            <Route path="/User/EventGallery/Sports" ><UserEventGallery category="sports" setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
+            <Route path="/User/EventGallery/MeetandGreet" ><UserEventGallery category="meetandgreet" setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
+            <Route path="/User/EventGallery/Other" ><UserEventGallery category="other" setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
+            <Route path="/User/Downloads" ><UserDownloads setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
+            <Route path="/User/ContactMajlis" ><UserContactMajlis setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
+            <Route path="/User/UserOptions/Subscriptions" ><UserOptions component="subscription" setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
+            <Route path="/User/UserOptions/Loans" ><UserOptions component="loans" setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
+            <Route path="/User/UserOptions/FamilyWelfare" ><UserOptions component="familywelfare" setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
+            <Route path="/User/Profile" ><Profile setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
+            <Router path="/User/EventCalender"><EventCalendar setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Router>
           </Switch>
         </Body>
         <Footer />
