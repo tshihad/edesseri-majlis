@@ -1,20 +1,20 @@
 local:
     driver: postgres
-    open: host='localhost' port='5432' user='postgres' password='pass123' dbname='majlis' sslmode=disable
+    open: host='localhost' port='5432' user='postgres' password='sjrty12m43' dbname='majlis' sslmode=disable
     dbversion: 
 development:
     driver: postgres
-    open: host='localhost' port='5432' user='postgres' password='pass123' dbname='majlis' sslmode=disable
+    open: host='localhost' port='5432' user='postgres' password='sjrty12m43' dbname='majlis' sslmode=disable
     dbversion: 
 staging:
     driver: postgres
-    open: host='localhost' port='5432' user='postgres' password='pass123' dbname='majlis' sslmode=disable
+    open: host='localhost' port='5432' user='postgres' password='sjrty12m43' dbname='majlis' sslmode=disable
     dbversion: 
 production:
     driver: postgres
-    open: host='localhost' port='5432' user='postgres' password='pass123' dbname='majlis' sslmode=disable
+    open: host='localhost' port='5432' user='postgres' password='sjrty12m43' dbname='majlis' sslmode=disable
     dbversion: 
 docker:
     driver: postgres
-    open: host='db' port='5432' user='postgres' password='pass123' dbname='majlis' sslmode=disable
+    open: host='db' port='5432' user='postgres' password='sjrty12m43' dbname='majlis' sslmode=disable
     dbversion: 

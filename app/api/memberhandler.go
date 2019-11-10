@@ -9,7 +9,6 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi"
-	"gopkg.in/go-playground/validator.v9"
 )
 
 // retrieve member handler
@@ -42,17 +41,15 @@ func (a *App) handlePostMember(w http.ResponseWriter, r *http.Request) {
 		a.Fail(w, http.StatusBadRequest, "Invalid request", err)
 		return
 	}
-	v := validator.New()
-	if err := v.Struct(member); err != nil {
-		a.Fail(w, http.StatusBadRequest, "Failed to validate struct", err)
-		return
-	}
 	memberID, err := a.CreateNewMemberID()
 	member.MemberID = memberID
 	if err != nil {
 		a.Fail(w, http.StatusInternalServerError, "failed to create member id", err)
 		return
 	}
+	m := md5.New()
+	m.Write([]byte(member.Password))
+	member.PasswordHash = hex.EncodeToString(m.Sum(nil))
 	err = a.CreateMember(member)
 	if err != nil {
 		a.Fail(w, http.StatusInternalServerError, "Failed to create user", err)

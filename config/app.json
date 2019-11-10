@@ -1,7 +1,7 @@
 {
     "db": {
         "name": "majlis",
-        "pass": "pass123",
+        "pass": "sjrty12m43",
         "host": "localhost",
         "user": "postgres"
     },
@@ -11,7 +11,7 @@
     },
     "app":{
         "host":"0.0.0.0",
-        "port":8081,
-        "static_host":"http://localhost/static"
+        "port":8080,
+        "static_host":"http://10.4.5.22/static"
     }
 }
