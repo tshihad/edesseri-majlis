@@ -10,7 +10,7 @@ import '../../styles/contact.css';
 
 
 const Loan = styled.div`
- padding: 0 8vw;
+ padding: 3vh 5vw;
 `;
 
 export default function Loans(props) {
@@ -19,7 +19,7 @@ export default function Loans(props) {
     })
     return (
         <Loan>
-            <div className="head">Loan</div>
+            <div className="head">Loan Application</div>
             <Formik
                 initialValues={{ request_amount: '', phone: '', installment: '', purpose: '', membership_id: '' }}
                 onSubmit={(values, { setSubmitting }) => {
@@ -68,103 +68,105 @@ export default function Loans(props) {
                     return (
                         <form onSubmit={handleSubmit} className="form" style={{ padding: "2% 4% 4% 6%" }}>
                             <div className="head" style={{ paddingBottom: "2%" }}>Requester</div>
-                            <div>
-                                <div className="field" style={{ display: "inline-block" }}>
-                                    <label htmlFor="request_amount" style={{ display: "inline-block", width: "200px", paddingRight: "2em" }}>
-                                        Request Amount
+                            <div style={{ paddingLeft: "2%" }}>
+                                <div>
+                                    <div className="field" style={{ display: "inline-block" }}>
+                                        <label htmlFor="request_amount" style={{ display: "inline-block", width: "200px", paddingRight: "2em" }}>
+                                            Request Amount
                                     </label>
-                                    <input
-                                        id="request_amount"
-                                        placeholder="Enter your Request Amount"
-                                        type="number"
-                                        value={values.request_amount}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        className={
-                                            errors.request_amount && touched.request_amount ? 'inputs text-input error' : 'inputs text-input'
-                                        }
-                                    />
-                                    {errors.request_amount && touched.request_amount ? (
-                                        <div className="input-feedback" style={{ marginLeft: "200px" }}>{errors.request_amount}</div>)
-                                        : <div className="input-feedback">&nbsp;</div>}
+                                        <input
+                                            id="request_amount"
+                                            placeholder="Enter your Request Amount"
+                                            type="number"
+                                            value={values.request_amount}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            className={
+                                                errors.request_amount && touched.request_amount ? 'inputs text-input error' : 'inputs text-input'
+                                            }
+                                        />
+                                        {errors.request_amount && touched.request_amount ? (
+                                            <div className="input-feedback" style={{ marginLeft: "200px" }}>{errors.request_amount}</div>)
+                                            : <div className="input-feedback">&nbsp;</div>}
+                                    </div>
                                 </div>
-                            </div>
-                            <div>
-                                <div className="field" style={{ display: "inline-block" }}>
-                                    <label htmlFor="installment" style={{ display: "inline-block", width: "200px", paddingRight: "2em" }}>
-                                        Installment                </label>
-                                    <input
-                                        id="installment"
-                                        placeholder="Enter your Installmemt Amount"
-                                        type="number"
-                                        value={values.installment}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        className={
-                                            errors.installment && touched.installment ? 'inputs text-input error' : 'inputs text-input'}
-                                    />
-                                    {errors.installment && touched.installment ? (
-                                        <div className="input-feedback" style={{ marginLeft: "200px" }}>{errors.installment}</div>
-                                    ) : <div className="input-feedback">&nbsp;</div>}
+                                <div>
+                                    <div className="field" style={{ display: "inline-block" }}>
+                                        <label htmlFor="installment" style={{ display: "inline-block", width: "200px", paddingRight: "2em" }}>
+                                            Installment                </label>
+                                        <input
+                                            id="installment"
+                                            placeholder="Enter your Installmemt Amount"
+                                            type="number"
+                                            value={values.installment}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            className={
+                                                errors.installment && touched.installment ? 'inputs text-input error' : 'inputs text-input'}
+                                        />
+                                        {errors.installment && touched.installment ? (
+                                            <div className="input-feedback" style={{ marginLeft: "200px" }}>{errors.installment}</div>
+                                        ) : <div className="input-feedback">&nbsp;</div>}
+                                    </div>
                                 </div>
-                            </div>
-                            <div>
-                                <div className="field" style={{ display: "inline-block" }}>
-                                    <label htmlFor="purpose" style={{ verticalAlign: "top", width: "200px", paddingRight: "2em" }}>
-                                        Purpose
+                                <div>
+                                    <div className="field" style={{ display: "inline-block" }}>
+                                        <label htmlFor="purpose" style={{ verticalAlign: "top", width: "200px", paddingRight: "2em" }}>
+                                            Purpose
                                     </label>
-                                    <textarea style={{ width: "50%" }}
-                                        id="purpose"
-                                        type="textArea"
-                                        rows="8"
-                                        cols="83"
-                                        placeholder="Type Purpose Here"
-                                        value={values.purpose}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        className={
-                                            errors.purpose && touched.purpose ? 'text-input error' : 'text-input'
-                                        }
-                                    />
-                                    {errors.purpose && touched.purpose ? (
-                                        <div className="input-feedback" style={{ marginLeft: "200px" }}>{errors.purpose}</div>)
-                                        : <div className="input-feedback">&nbsp;</div>}
+                                        <textarea style={{ width: "50%" }}
+                                            id="purpose"
+                                            type="textArea"
+                                            rows="8"
+                                            cols="83"
+                                            placeholder="Type Purpose Here"
+                                            value={values.purpose}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            className={
+                                                errors.purpose && touched.purpose ? 'text-input error' : 'text-input'
+                                            }
+                                        />
+                                        {errors.purpose && touched.purpose ? (
+                                            <div className="input-feedback" style={{ marginLeft: "200px" }}>{errors.purpose}</div>)
+                                            : <div className="input-feedback">&nbsp;</div>}
+                                    </div>
                                 </div>
                             </div>
-
                             <div className="head" style={{ paddingBottom: "2%" }}>Guarenter</div>
-                            <div>
-                                <div className="field" style={{ display: "inline-block" }}>
-                                    <label htmlFor="membership_id" style={{ display: "inline-block", width: "200px", paddingRight: "2em" }}>
-                                        Membership Id  </label>
-                                    <input
-                                        id="membership_id"
-                                        placeholder="Enter your Membership Id"
-                                        type="text"
-                                        value={values.membership_id}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        className={
-                                            errors.membership_id && touched.membership_id ? 'inputs text-input error' : 'inputs text-input'}
-                                    />
-                                    {errors.membership_id && touched.membership_id ? (
-                                        <div className="input-feedback" style={{ marginLeft: "200px" }}>{errors.membership_id}</div>
-                                    ) : <div className="input-feedback">&nbsp;</div>}
+                            <div style={{ paddingLeft: "2%" }}>
+                                <div>
+                                    <div className="field" style={{ display: "inline-block" }}>
+                                        <label htmlFor="membership_id" style={{ display: "inline-block", width: "200px", paddingRight: "2em" }}>
+                                            Membership Id  </label>
+                                        <input
+                                            id="membership_id"
+                                            placeholder="Enter your Membership Id"
+                                            type="text"
+                                            value={values.membership_id}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            className={
+                                                errors.membership_id && touched.membership_id ? 'inputs text-input error' : 'inputs text-input'}
+                                        />
+                                        {errors.membership_id && touched.membership_id ? (
+                                            <div className="input-feedback" style={{ marginLeft: "200px" }}>{errors.membership_id}</div>
+                                        ) : <div className="input-feedback">&nbsp;</div>}
+                                    </div>
                                 </div>
-                            </div>
-                            <div>
-                                <div style={{ display: "inline-block", verticalAlign: "top" }}>
-                                    <label htmlFor="phone" style={{ display: "inline-block", width: "200px", paddingRight: "2em" }}>
-                                        Phone
+                                <div>
+                                    <div style={{ display: "inline-block", verticalAlign: "top" }}>
+                                        <label htmlFor="phone" style={{ display: "inline-block", width: "200px", paddingRight: "2em" }}>
+                                            Phone
                                     </label>
-                                    <PhoneInput id="phone" value={values.phone}
-                                    />
-                                    {errors.phone && touched.phone ? (
-                                        <div className="input-feedback" style={{ marginLeft: "200px" }}>{errors.phone}</div>
-                                    ) : <div className="input-feedback">&nbsp;</div>}
+                                        <PhoneInput id="phone" value={values.phone}
+                                        />
+                                        {errors.phone && touched.phone ? (
+                                            <div className="input-feedback" style={{ marginLeft: "200px" }}>{errors.phone}</div>
+                                        ) : <div className="input-feedback">&nbsp;</div>}
+                                    </div>
                                 </div>
                             </div>
-
                             <div style={{ textAlign: "center" }}>
                                 <button
                                     type="button"
