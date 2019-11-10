@@ -6,13 +6,14 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/go-chi/chi"
 	"github.com/pkg/errors"
 )
 
-func uploadFile(r *http.Request, formTag string, uploadLocation string) (string, error) {
+func uploadFile(r *http.Request, formTag, uploadLocation string, ext []string) (string, error) {
 
 	// Parse our multipart form, 10 << 20 specifies a maximum
 	// upload of 10 MB files.
@@ -20,6 +21,10 @@ func uploadFile(r *http.Request, formTag string, uploadLocation string) (string,
 	file, handler, err := r.FormFile(formTag)
 	if err != nil {
 		return "", errors.Wrap(err, "failed to read "+formTag+" in form")
+	}
+	fname := strings.Split(handler.Filename, ".")
+	if len(fname) < 1 || !contains(fname[len(fname)-1], ext) {
+		return "", errors.New("Invalid file or extension")
 	}
 	defer file.Close()
 	fileLocation := uploadLocation + "/" + strconv.Itoa(int(time.Now().Unix())) + "_" + handler.Filename
@@ -42,4 +47,13 @@ func getParams(r *http.Request) (int, int, error) {
 		return 0, 0, err
 	}
 	return limit, offset, nil
+}
+
+func contains(s1 string, s2 []string) bool {
+	for _, v := range s2 {
+		if v == s1 {
+			return true
+		}
+	}
+	return false
 }

@@ -14,7 +14,7 @@ import (
 
 // retrieve member handler
 func (a *App) handleGetMember(w http.ResponseWriter, r *http.Request) {
-	memberID := chi.URLParam(r, "member_id")
+	memberID := chi.URLParam(r, core.MEMBERID_TAG)
 	member, err := a.GetMember(memberID)
 	if err != nil {
 		a.Fail(w, http.StatusInternalServerError, "Failed to fetch user", err)
@@ -24,7 +24,7 @@ func (a *App) handleGetMember(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *App) handlePostProfileImage(w http.ResponseWriter, r *http.Request) {
-	location, err := uploadFile(r, "profileImage", core.PROFILE_LOCATION)
+	location, err := uploadFile(r, "profileImage", core.PROFILE_LOCATION, core.ALLOW_GALLERY_EXT)
 	if err != nil {
 		a.Fail(w, http.StatusBadRequest, "Failed to upload image", err)
 		return
@@ -63,7 +63,7 @@ func (a *App) handlePostMember(w http.ResponseWriter, r *http.Request) {
 
 // update member handler
 func (a *App) handlePutMember(w http.ResponseWriter, r *http.Request) {
-	memberID := chi.URLParam(r, "member_id")
+	memberID := chi.URLParam(r, core.MEMBERID_TAG)
 	var member models.Member
 	if err := json.NewDecoder(r.Body).Decode(&member); err != nil {
 		a.Fail(w, http.StatusBadRequest, "Invalid request", err)
@@ -80,7 +80,7 @@ func (a *App) handlePutMember(w http.ResponseWriter, r *http.Request) {
 
 // Delete member handler
 func (a *App) handleDeleteMember(w http.ResponseWriter, r *http.Request) {
-	memberID := chi.URLParam(r, "member_id")
+	memberID := chi.URLParam(r, core.MEMBERID_TAG)
 	err := a.DeleteMember(memberID)
 	if err != nil {
 		a.Fail(w, http.StatusInternalServerError, "Failed to update user", err)
