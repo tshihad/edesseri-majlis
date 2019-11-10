@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
+import {Redirect} from 'react-router-dom'
 
 const WhatWeDoDiv = styled.div`
 margin: 0vh 10vw;
@@ -110,14 +111,18 @@ vertical-align: top;
 const Headline = styled.h3`
 color:#1d4219;
 margin-top: 5%;
+font-size: 1.5em;
 font-family: 'Comfortaa', cursive;`;
 const Content = styled.div`
 width: 60%;
 padding-left: 5%;
+font-size: 1.2em;
 display:inline-block;
 `;
 export function WhatWeDoCard(props) {
   return (
+    <div>
+    {props.isLogged === true ?
     <Card style={{ backgroundColor: props.colorcode === "1" ? "#e9e9dfbe" : "#e5eee5", borderBottom: props.colorcode === "1" ? "1.5px #c7ab21 solid" : "1.5px #7ead2b solid" }}>
       <Div><Headline>{props.headline}</Headline></Div>
       <Content>
@@ -131,5 +136,6 @@ export function WhatWeDoCard(props) {
 
       </Content>
     </Card>
+    :<Redirect to='/MemberLogin'/>}</div>
   )
 }

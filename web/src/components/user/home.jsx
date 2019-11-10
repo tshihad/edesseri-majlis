@@ -8,6 +8,7 @@ import RiseOfMajlisBullet from '../../images/icons/riseofmajlis.svg'
 import MajlisPriorityBullet from '../../images/icons/majlispriority.svg'
 import axios from 'axios'
 import { Link } from 'react-router-dom';
+import {Redirect} from 'react-router-dom'
 
  const RiseOfMajlisContents = {
    english:[
@@ -107,7 +108,7 @@ text-align:center;
 `;
 const Headline = styled.h3`
 color:#1d4219;
-font-size: 3vh;
+font-size: 2em;
 font-family: 'Comfortaa', cursive;
 `;
 const Content = styled.p`
@@ -158,7 +159,7 @@ function CalenderEvents(){
         setEvents(data.result)
       }).catch((err) =>
         alert(err))
-  })
+  },[])
   return(
     <Paper>
       <Link to="/User/EventCalender" title="Complete Event List" style={{color:"#556b2f" ,textDecoration:"none"}}><Heading>Upcoming Events</Heading></Link>
@@ -205,6 +206,8 @@ function Events(props){
     return day+"-"+month+"-"+year
   }
   return(
+    <div>
+    {props.isLogged === true ?
     <List>
     {props.events.map(event => (
       <Event>
@@ -216,6 +219,7 @@ function Events(props){
       </Event>
     ))}
     </List>
+    :<Redirect to='/MemberLogin'/>}</div>
   )
 }
 

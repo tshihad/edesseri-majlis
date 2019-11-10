@@ -84,6 +84,7 @@ function MemberLogin(props) {
         if (response.status === 200) {
           alert(response.data.result)
           localStorage.setItem('EdasseryMajlisToken', response.data.result)
+          props.setLoggedIn(true)
           window.location = '/User/UserOptions/Subscriptions'
         } else {
           alert(response.data.message + " : " + response.data.message)

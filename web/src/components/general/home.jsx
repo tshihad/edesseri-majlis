@@ -106,7 +106,7 @@ text-align:center;
 `;
 const Headline = styled.h3`
 color:#1d4219;
-font-size: 3vh;
+font-size: 2em;
 font-family: 'Comfortaa', cursive;
 `;
 const Content = styled.p`

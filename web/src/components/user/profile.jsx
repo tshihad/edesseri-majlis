@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import {Redirect} from 'react-router-dom'
 
 export default function Profile(props) {
     useEffect(() => {
@@ -7,6 +8,10 @@ export default function Profile(props) {
         props.setState("Profile")
     }, [props])
     return (
+        <div>
+        {props.isLogged === true ?
         <div>Profile</div>
+        :<Redirect to='/MemberLogin'/>}</div>
+
     )
 }

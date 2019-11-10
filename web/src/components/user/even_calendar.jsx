@@ -13,6 +13,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import {Redirect} from 'react-router-dom'
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -54,6 +55,8 @@ export default function EventCalendar(props) {
     };
     const classes = useStyles();
     return (
+        <div>
+        {props.isLogged === true ?
         <div >
             <Grid container spacing={4}>
                 <Grid item xs={2}></Grid>
@@ -120,5 +123,6 @@ export default function EventCalendar(props) {
 
             </Grid>
         </div>
+        :<Redirect to='/MemberLogin'/>}</div>
     )
 }

@@ -107,9 +107,11 @@ vertical-align: top;
 const Headline = styled.h3`
 color:#1d4219;
 margin-top: 5%;
+font-size: 1.5em;
 font-family: 'Comfortaa', cursive;`;
 const Content = styled.div`
 width: 60%;
+font-size: 1.2em;
 padding-left: 5%;
 display:inline-block;
 `;

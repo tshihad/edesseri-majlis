@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Table from '../sub_components/simple_table';
 import axios from 'axios'
+import {Redirect} from 'react-router-dom'
 
 const FamilyWelfareCard = styled.div`
 margin-top: 2vh`;
@@ -59,8 +60,11 @@ export default function EventCalendar(props) {
     }, []);
 
     return (
+        <div>
+        {props.isLogged === true ?
         <FamilyWelfareCard>
             <Table tablename='Family Welfare' columns={EventColumns} rows={rows} />
         </FamilyWelfareCard>
+        :<Redirect to='/MemberLogin'/>}</div>
     )
 }

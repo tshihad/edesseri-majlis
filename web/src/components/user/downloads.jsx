@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
+import {Redirect} from 'react-router-dom'
 import {
   Grid,
   ThemeProvider,
@@ -69,12 +70,15 @@ export default function Downloads(props) {
         alert(err))
   }, [props])
   return (
+    <div>
+    {props.isLogged === true ?
     <DownloadMainCard>
       {documents.length === 0 ? <NoDownloads>--No Downloadable Fies--</NoDownloads> :
         documents.map((document) => (
           <DownloadCard title={document.Title} description={document.Description} updatedAt={document.UpdatedAt} downloadLink={document.Location} />
         ))}
     </DownloadMainCard>
+    :<Redirect to='/MemberLogin'/>}</div>
   )
 }
 

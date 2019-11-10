@@ -1,6 +1,6 @@
 
 import React, { useEffect } from 'react';
-import { Formik } from 'formik';
+import { Formik, yupToFormErrors } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
 import axios from 'axios';
@@ -10,27 +10,32 @@ import '../../styles/contact.css';
 
 
 const Loan = styled.div`
- padding: 3vh 5vw;
+margin-top: 5vh;
 `;
-
+const Headline = styled.h1`
+color:#1d4219;
+font-size: 1.8em;
+font-family: 'Comfortaa', cursive;
+`;
 export default function Loans(props) {
     useEffect(() => {
         // props.setUser("user")
     })
     return (
         <Loan>
-            <div className="head">Loan Application</div>
+            <Headline>Loan Application</Headline>
             <Formik
                 initialValues={{ request_amount: '', phone: '', installment: '', purpose: '', membership_id: '' }}
+              
                 onSubmit={(values, { setSubmitting }) => {
-
-                    axios.post('http://10.4.5.22:8080/majlis/contact', {
+                    alert("hello")
+                    axios.post('http://10.4.5.22:8080/majlis/member/loan', {
                         request_amount: values.request_amount,
-                        phone: values.phone,
                         installment: values.installment,
                         purpose: values.purpose,
-                        membership_id: values.membership_id
-                    })
+                        g_member_id: values.membership_id,
+                        g_phone: values.phone,
+                    }, { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } })
                         .then((response) => {
                             alert(response.statusText);
                         })
@@ -38,13 +43,12 @@ export default function Loans(props) {
                             alert(error);
                         });
                     setSubmitting(false);
-
                 }}
                 validationSchema={Yup.object().shape({
                     request_amount: Yup.number()
-                        .required('Required'),
-                    installment: Yup.string()
-                        .required('Required'),
+                        .required('A Number Value Required'),
+                    installment: Yup.number()
+                        .required('A Number Value Required'),
                     purpose: Yup.string()
                         .required('Required'),
                     membership_id: Yup.string()
@@ -66,9 +70,9 @@ export default function Loans(props) {
                         handleReset,
                     } = props;
                     return (
-                        <form onSubmit={handleSubmit} className="form" style={{ padding: "2% 4% 4% 6%" }}>
+                        <form onSubmit={handleSubmit} className="form">
                             <div className="head" style={{ paddingBottom: "2%" }}>Requester</div>
-                            <div style={{ paddingLeft: "2%" }}>
+                            <div style={{ paddingLeft: "3vw" }}>
                                 <div>
                                     <div className="field" style={{ display: "inline-block" }}>
                                         <label htmlFor="request_amount" style={{ display: "inline-block", width: "200px", paddingRight: "2em" }}>
@@ -134,7 +138,7 @@ export default function Loans(props) {
                                 </div>
                             </div>
                             <div className="head" style={{ paddingBottom: "2%" }}>Guarenter</div>
-                            <div style={{ paddingLeft: "2%" }}>
+                            <div style={{ paddingLeft: "3vw" }}>
                                 <div>
                                     <div className="field" style={{ display: "inline-block" }}>
                                         <label htmlFor="membership_id" style={{ display: "inline-block", width: "200px", paddingRight: "2em" }}>
@@ -159,11 +163,8 @@ export default function Loans(props) {
                                         <label htmlFor="phone" style={{ display: "inline-block", width: "200px", paddingRight: "2em" }}>
                                             Phone
                                     </label>
-                                        <PhoneInput id="phone" value={values.phone}
+                                        <PhoneInput type="number " id="phone" value={values.phone}
                                         />
-                                        {errors.phone && touched.phone ? (
-                                            <div className="input-feedback" style={{ marginLeft: "200px" }}>{errors.phone}</div>
-                                        ) : <div className="input-feedback">&nbsp;</div>}
                                     </div>
                                 </div>
                             </div>

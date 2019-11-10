@@ -5,14 +5,15 @@ import axios from 'axios'
 
 
 const SubscriptionCard = styled.div`
+margin-top: 5vh;
 `;
 const Headline = styled.h3`
 color:#1d4219;
-font-size: 3vh;
+font-size: 1.8em;
 font-family: 'Comfortaa', cursive;
 `;
 const Matrix = styled.div`
-padding: 3vw 5vw;
+padding: 2vh 5vw;
 color: #556b2f`;
 const Head = styled.div`
 border : solid 1px #556b2f;

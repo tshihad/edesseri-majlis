@@ -2,7 +2,8 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { Grid } from '@material-ui/core'
 import { MemberCard } from '../sub_components/committe';
-import img from '../../images/member.jpg'
+import img from '../../images/member.jpg';
+import {Redirect} from 'react-router-dom'
 
 const WhoLeadUsDiv = styled.div`
 margin: 0vh 10vw;
@@ -15,6 +16,8 @@ export default function WhoLeadUs(props) {
     props.setState("WhoLeadUs")
   }, [props])
   return (
+    <div>
+      {props.isLogged === true ?
     <WhoLeadUsDiv>
       <Grid container spacing={0} justify="center">
         <Grid item xs={4}></Grid>
@@ -87,5 +90,7 @@ export default function WhoLeadUs(props) {
         </Grid>
       </Grid>
     </WhoLeadUsDiv>
+     : <Redirect to='/MemberLogin' />}</div>
+
   )
 }

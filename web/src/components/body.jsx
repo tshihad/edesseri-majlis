@@ -30,7 +30,8 @@ import UserOptions from './user/user_options';
 import Profile from './user/profile';
 import UserDownloads from './user/downloads';
 import UserContactMajlis from './user/contact_majlis';
-import EventCalendar from './sub_components/event_calendar'
+import EventCalendar from './sub_components/event_calendar';
+import LogoutIcon from '@material-ui/icons/Person'
 import '../styles/navbar.css';
 import '../styles/header.css'
 
@@ -65,7 +66,7 @@ font-family: 'Comfortaa', cursive;
 const Language = styled.button`
 border: 0;
 outline: 0;
-background-color: #556b2f;
+background-color: #6a7e4b;
 color: white;
 float: right;
 width: 9vw;
@@ -73,8 +74,25 @@ height: 5vh;
 margin-top: 2.7vh;
 border-radius: .5vw;
 font-family: 'Comfortaa', cursive;
+margin-right:2%;
+&:hover{
+  background-color: #556b2f;
+}
 `;
-
+const Logout =styled.button`
+border: 0;
+outline: 0;
+width: 3.5vw;
+height: 3.5vw;
+background-color: #6a7e4b;
+color: white;
+float: right;
+margin-top: 1vh;
+border-radius: 1.75vw;
+&:hover{
+  background-color: #556b2f;
+}
+`;
 const Span = styled.span`
 font-size: 2vw;
 `;
@@ -82,8 +100,15 @@ export default function Header() {
   const [isButtonActive, setActive] = React.useState("Home")
   const [language, setLanguage] = React.useState("മലയാളം")
   const [isLanguageOption, setLanguageButton] = React.useState(false)
+    const [isLoggedin, setIsLoggedin] = React.useState(false)
   const [user, setUser] = React.useState("general")
-
+ const handleLogout =()=>{
+   localStorage.clear()
+   setIsLoggedin(false)
+ }
+ const setLoggedIn =(value)=>{
+  setIsLoggedin(value)
+}
   const setButton = (value) => {
     setLanguageButton(value)
   }
@@ -107,7 +132,8 @@ export default function Header() {
               <img src={logo} alt="logo" style={{ width: "3.5vw", height: "3.5vw", display: "inline-block" }} />
               <div style={{ margin: "1.5vw 0 0 .8vw", color: "#556b2f", display: "inline-block", fontFamily: "Aroma", fontSize: "1.4vw" }}><Span>E</Span>DASSERY <Span>M</Span>AJLIS <Span>G</Span>ROUP</div>
             </div>
-            {isLanguageOption && <Language style={{ display: "inline-block", fontSize: language === "English" ? "1.1vw" : "1.5vw" }} onClick={changeLanguage}>{language}</Language>}
+            {isLoggedin && <Logout title="Logout" onClick={handleLogout}><LogoutIcon style={{fontSize:"3em"}}/></Logout>}
+            {isLanguageOption && <Language title="Change Language" style={{ display: "inline-block", fontSize: language === "English" ? "1.1vw" : "1.5vw" }} onClick={changeLanguage}>{language}</Language>}
           </Heading>
 
           {/* NAVBAR for general user */}
@@ -343,7 +369,7 @@ export default function Header() {
             <Route path="/EventGallery/MeetandGreet" ><EventGallery category="meetandgreet" setState={buttonClick} setLanButton={setButton} /></Route>
             <Route path="/EventGallery/Other" ><EventGallery category="other" setState={buttonClick} setLanButton={setButton} /></Route>
             <Route path="/JoinMajlis" ><JoinMajlis setState={buttonClick} setLanButton={setButton} /></Route>
-            <Route path="/MemberLogin" ><MemberLogin setState={buttonClick} setLanButton={setButton} /></Route>
+            <Route path="/MemberLogin" ><MemberLogin setState={buttonClick} setLoggedIn={setLoggedIn} setLanButton={setButton} /></Route>
             <Route path="/Downloads" ><Downloads setState={buttonClick} setLanButton={setButton} /></Route>
             <Route path="/ContactMajlis" ><ContactMajlis setState={buttonClick} setLanButton={setButton} /></Route>
             <Router path="/EventCalender"><EventCalendar setState={buttonClick} setLanButton={setButton} /></Router>
@@ -360,23 +386,23 @@ export default function Header() {
             <Route path="/Admin/EventCalendarAdmin" ><AdminEventCalendar setState={buttonClick}  setUser={setThisUser} /></Route>
 
             <Redirect exact from="/User" to="/User/Home" />
-            <Route path="/User/Home" ><UserHome setState={buttonClick} setLanButton={setButton} languageButton={true} language={language} setUser={setThisUser} /></Route>
-            <Route path="/User/WhatweDo" ><UserWhatweDo setState={buttonClick} setLanButton={setButton} languageButton={true} language={language} setUser={setThisUser} /></Route>
-            <Route path="/User/WhoLeadUs"><UserWhoLeadUs setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
+            <Route path="/User/Home" ><UserHome setState={buttonClick} setLanButton={setButton} isLogged={isLoggedin} languageButton={true} language={language} setUser={setThisUser} /></Route>
+            <Route path="/User/WhatweDo" ><UserWhatweDo setState={buttonClick} setLanButton={setButton} isLogged={isLoggedin} languageButton={true} language={language} setUser={setThisUser} /></Route>
+            <Route path="/User/WhoLeadUs"><UserWhoLeadUs setState={buttonClick} setLanButton={setButton} isLogged={isLoggedin} setUser={setThisUser} /></Route>
             <Redirect exact path="/User/EventGallery" to="/User/EventGallery/Milad" />
-            <Route path="/User/EventGallery/Milad" ><UserEventGallery category="milad" setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
-            <Route path="/User/EventGallery/Eid" ><UserEventGallery category="eid" setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
-            <Route path="/User/EventGallery/Iftar" ><UserEventGallery category="iftar" setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
-            <Route path="/User/EventGallery/Sports" ><UserEventGallery category="sports" setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
-            <Route path="/User/EventGallery/MeetandGreet" ><UserEventGallery category="meetandgreet" setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
-            <Route path="/User/EventGallery/Other" ><UserEventGallery category="other" setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
-            <Route path="/User/Downloads" ><UserDownloads setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
-            <Route path="/User/ContactMajlis" ><UserContactMajlis setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
-            <Route path="/User/UserOptions/Subscriptions" ><UserOptions component="subscription" setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
-            <Route path="/User/UserOptions/Loans" ><UserOptions component="loans" setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
-            <Route path="/User/UserOptions/FamilyWelfare" ><UserOptions component="familywelfare" setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
-            <Route path="/User/Profile" ><Profile setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Route>
-            <Router path="/User/EventCalender"><EventCalendar setState={buttonClick} setLanButton={setButton} setUser={setThisUser} /></Router>
+            <Route path="/User/EventGallery/Milad" ><UserEventGallery category="milad" setState={buttonClick} isLogged={isLoggedin} setLanButton={setButton} setUser={setThisUser} /></Route>
+            <Route path="/User/EventGallery/Eid" ><UserEventGallery category="eid" setState={buttonClick} isLogged={isLoggedin} setLanButton={setButton} setUser={setThisUser} /></Route>
+            <Route path="/User/EventGallery/Iftar" ><UserEventGallery category="iftar" setState={buttonClick} isLogged={isLoggedin} setLanButton={setButton} setUser={setThisUser} /></Route>
+            <Route path="/User/EventGallery/Sports" ><UserEventGallery category="sports" setState={buttonClick} isLogged={isLoggedin} setLanButton={setButton} setUser={setThisUser} /></Route>
+            <Route path="/User/EventGallery/MeetandGreet" ><UserEventGallery category="meetandgreet" setState={buttonClick} isLogged={isLoggedin} setLanButton={setButton} setUser={setThisUser} /></Route>
+            <Route path="/User/EventGallery/Other" ><UserEventGallery category="other" setState={buttonClick} isLogged={isLoggedin} setLanButton={setButton} setUser={setThisUser} /></Route>
+            <Route path="/User/Downloads" ><UserDownloads setState={buttonClick} setLanButton={setButton} isLogged={isLoggedin} setUser={setThisUser} /></Route>
+            <Route path="/User/ContactMajlis" ><UserContactMajlis setState={buttonClick} setLanButton={setButton} isLogged={isLoggedin} setUser={setThisUser} /></Route>
+            <Route path="/User/UserOptions/Subscriptions" ><UserOptions component="subscription" setState={buttonClick} isLogged={isLoggedin} setLanButton={setButton} setUser={setThisUser} /></Route>
+            <Route path="/User/UserOptions/Loans" ><UserOptions component="loans" setState={buttonClick} isLogged={isLoggedin} setLanButton={setButton} setUser={setThisUser} /></Route>
+            <Route path="/User/UserOptions/FamilyWelfare" ><UserOptions component="familywelfare" setState={buttonClick} isLogged={isLoggedin} setLanButton={setButton} setUser={setThisUser} /></Route>
+            <Route path="/User/Profile" ><Profile setState={buttonClick} setLanButton={setButton} isLogged={isLoggedin} setUser={setThisUser} /></Route>
+            <Router path="/User/EventCalender"><EventCalendar setState={buttonClick} setLanButton={setButton} isLogged={isLoggedin} setUser={setThisUser} /></Router>
           </Switch>
         </Body>
         <Footer />
