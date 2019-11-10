@@ -11,6 +11,11 @@ import (
 	"github.com/go-redis/cache/v7"
 )
 
+func init() {
+	mapCache = make(map[string]string)
+}
+
+var mapCache map[string]string
 var letterRunes = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
 // VerifyToken verify token and retuns memberID aling with that
@@ -34,6 +39,10 @@ func (r *RepoImp) CreateToken(memberID string) (string, error) {
 			Object: memberID,
 		})
 		if err == nil {
+			if tk, ok := mapCache[memberID]; ok {
+				r.Codec.Delete(tk)
+			}
+			mapCache[memberID] = token
 			return token, nil
 		}
 	}
