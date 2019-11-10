@@ -13,32 +13,29 @@ func (a *App) handlePostEGallery(w http.ResponseWriter, r *http.Request) {
 	eGallery := models.EventGallery{}
 	err := r.ParseForm()
 	if err != nil {
-		a.Fail(w, http.StatusBadRequest, "Invalid request", err)
+		a.Fail(w, http.StatusBadRequest, "Failed to parse form", err)
 		return
 	}
-	eGallery.Category = r.FormValue("category")
-	flag := false
-	for _, val := range core.CATEGORIES {
-		if eGallery.Category == val {
-			flag = true
-		}
-	}
-	if !flag {
-		a.Fail(w, http.StatusBadRequest, "invalid category", nil)
-		return
-	}
-	eGallery.PhotoLocaltion, err = uploadFile(r, "image", core.GALLERY_LOCATION)
+
+	location, err := uploadFile(r, core.DOWNLOAD_TAG, core.GALLERY_LOCATION, core.ALLOW_GALLERY_EXT)
 	if err != nil {
 		a.Fail(w, http.StatusInternalServerError, "failed to upload photo", err)
 		return
 	}
-	id, err := a.CreateEGallery(eGallery)
+	eGallery.PhotoLocaltion = core.GetStaticHost() + location
+	category := r.FormValue(core.CATEGORY_TAG)
+	if !contains(category, core.CATEGORIES) {
+		a.Fail(w, http.StatusBadRequest, "invalid category", nil)
+		return
+	}
+
+	eGallery.Category = category
+	_, err = a.CreateEGallery(eGallery)
 	if err != nil {
 		a.Fail(w, http.StatusInternalServerError, "failed to create e gallery", err)
 		return
 	}
-	eGallery.ID = id
-	a.Success(w, http.StatusCreated, eGallery)
+	w.WriteHeader(http.StatusCreated)
 }
 
 // retrieve egallery items filtered by category. if category is all

@@ -29,9 +29,10 @@ func (a *App) Router() http.Handler {
 			r.Put("/", a.handlePutMember)
 			r.Delete("/", a.handleDeleteMember)
 			r.Get("/subscription", a.handleGetSubscription)
+			r.Get("/family-welfare", a.handleGetWelfare)
 		})
 		r.With(validateAdmin(a.FieldLogger)).Route("/admin", func(r chi.Router) {
-			r.Route("/gallery", func(r chi.Router) {
+			r.Route("/event-gallery", func(r chi.Router) {
 				r.Post("/", a.handlePostEGallery)
 				r.Delete("/{id}", a.handleDeleteEGallery)
 			})
@@ -49,7 +50,7 @@ func (a *App) Router() http.Handler {
 			r.Post("/downloads", a.handlePostDownload)
 		})
 
-		r.Get("/gallery/{category:(all|"+strings.Join(core.CATEGORIES, "|")+")}", a.handleGetEGallerys)
+		r.Get("/event-gallery/{category:(all|"+strings.Join(core.CATEGORIES, "|")+")}", a.handleGetEGallerys)
 		r.Post("/contact", a.handlePostcontact)
 
 		r.Get("/downloads", a.handleGetPublicDownloads)

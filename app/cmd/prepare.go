@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"majlis/app/core"
 
 	"github.com/go-redis/redis/v7"
 
@@ -35,6 +36,7 @@ func mustPrepareConfig() {
 	if err := viper.ReadInConfig(); err != nil {
 		panic(err)
 	}
+	core.SetStaticHost(viper.GetString("app.static_host"))
 }
 
 func mustPrepareRedis() *redis.Ring {

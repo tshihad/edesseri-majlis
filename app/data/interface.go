@@ -15,6 +15,7 @@ type Repo interface {
 	DownloadRepo
 	Cache
 	CalendarRepo
+	WelfareRepo
 }
 
 // MemberRepo for user repo
@@ -67,4 +68,10 @@ type Cache interface {
 type CalendarRepo interface {
 	GetCalendarEvents() ([]models.EventCalendar, error)
 	GetUpcomingEvents(int) ([]models.EventCalendar, error)
+}
+
+// WelfareRepo wraps welfare functions
+type WelfareRepo interface {
+	CreateWelfare(models.Welfare) error
+	GetWelfare(string) ([]models.Welfare, error)
 }

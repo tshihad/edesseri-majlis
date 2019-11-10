@@ -2,7 +2,7 @@ package models
 
 // Loan model
 type Loan struct {
-	ID                int    `json:"id,omit_empty"`
+	ID                int    `json:"id,omit_empty" gorm:"primary_key"`
 	MemberID          string `json:"member_id" gorm:"column:member_id"`
 	RequestAmount     string `json:"request_amount" gorm:"column:request_amount"`
 	Installment       string `json:"installment" gorm:"column:installment"`

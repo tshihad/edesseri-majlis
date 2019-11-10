@@ -4,8 +4,11 @@ var staticHost = "http://localhost/static/"
 
 // SetStaticHost set host
 func SetStaticHost(host string) {
-	if staticHost[len(staticHost)-1] != '/' {
-		staticHost += "/"
+	if host == "" {
+		panic("static_host is not defined app")
+	}
+	if host[len(host)-1] != '/' {
+		host += "/"
 	}
 	staticHost = host
 }

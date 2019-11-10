@@ -20,7 +20,7 @@ func (a *App) handleGetPublicDownloads(w http.ResponseWriter, r *http.Request) {
 
 func (a *App) handlePostDownload(w http.ResponseWriter, r *http.Request) {
 
-	location, err := uploadFile(r, core.DOWNLOAD_TAG, core.PRIVATE_DOWNLOAD_LOCATION)
+	location, err := uploadFile(r, core.DOWNLOAD_TAG, core.PRIVATE_DOWNLOAD_LOCATION, core.ALLOW_DOWNLOAD_EXT)
 	if err != nil {
 		a.Fail(w, http.StatusBadRequest, "Failed to upload image", err)
 		return
