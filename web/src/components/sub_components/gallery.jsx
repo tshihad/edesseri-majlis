@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useEffect } from "react";
 import Gallery from "react-photo-gallery";
 import Carousel, { Modal, ModalGateway } from "react-images";
-import { photos } from "./photos";
-import axios from 'axios'
-import styled from 'styled-components'
+import axios from 'axios';
+import styled from 'styled-components';
+import {SamplePhotos} from './photos'
 
 const Head = styled.div`
  display: inline-block;
@@ -13,6 +13,7 @@ const Head = styled.div`
  font-weight: 600;
  `;
 export default function ImageGallery(props) {
+    const [GalleryPhotos, setPhotos] = React.useState(SamplePhotos)
     const [currentImage, setCurrentImage] = useState(0);
     const [viewerIsOpen, setViewerIsOpen] = useState(false);
 
@@ -26,13 +27,13 @@ export default function ImageGallery(props) {
         setViewerIsOpen(false);
     };
     useEffect(() => {
-        axios.get("10.4.5.22:8080/majlis/event-gallery/" + props.category)
+        axios.get("http://10.4.5.22:8080/majlis/event-gallery/" + props.category)
             .then(({ data }) => {
-                var photos = []
-                data.result.map((image)=>{
-                  photos.push()  
+                var picrures = []
+                data.result.map((image) => {
+                    picrures.push({ "src": image.PhotoLocaltion, width:image.Width, height: image.Height })
                 })
-
+                    setPhotos(picrures)
             }).catch((err) => {
                 alert(err)
             })
@@ -40,13 +41,13 @@ export default function ImageGallery(props) {
     return (
         <div >
             <Head>{props.head}</Head>
-            <Gallery photos={photos} onClick={openLightbox} />
+            <Gallery photos={GalleryPhotos} onClick={openLightbox} />
             <ModalGateway>
                 {viewerIsOpen ? (
                     <Modal onClose={closeLightbox}>
                         <Carousel style={{ zIndex: 3 }}
                             currentIndex={currentImage}
-                            views={photos.map(x => ({
+                            views={GalleryPhotos.map(x => ({
                                 ...x,
                                 srcset: x.srcSet,
                                 caption: x.title

@@ -21,7 +21,7 @@ import Loans from './admin/loans';
 import FamilyWelfare from './admin/family_welfare';
 import UploadForms from './admin/upload_forms';
 import ContactMajlisAdmin from './admin/contact_majlis_admin';
-import EventGalleryAdmin from './admin/evevnt_gallery_admin';
+import EventGalleryAdmin from './admin/event_gallery_admin';
 import UserHome from './user/home';
 import UserWhatweDo from './user/what_we_do';
 import UserWhoLeadUs from './user/who_lead_us';
@@ -99,7 +99,7 @@ export default function Header() {
     setLanguage(language === "മലയാളം" ? "English" : "മലയാളം")
   }
   useEffect(()=>{
-  localStorage.setItem('EdasseryMajlisToken','b8d6eba907099b0bb3d265b52be7d188')
+  localStorage.setItem('EdasseryMajlisToken','20cf7d678f3dd6efb0ee300837cb7e9b')
   },[])
   return (
     <div class="mainhead">
