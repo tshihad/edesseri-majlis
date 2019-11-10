@@ -158,8 +158,8 @@ export default function Contactmajlis(props) {
                       <Grid item xs={8}>
                         <PhoneInput id="phone" value={values.lastname}
                         />
-                        {errors.place && touched.place ? (
-                          <div className="input-feedback">{errors.place}</div>
+                        {errors.phone && touched.phone ? (
+                          <div className="input-feedback">{errors.phone}</div>
                         ) : <div className="input-feedback">&nbsp;</div>}
                       </Grid>
                   </Grid>

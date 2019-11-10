@@ -98,9 +98,6 @@ export default function Header() {
   const changeLanguage = () => {
     setLanguage(language === "മലയാളം" ? "English" : "മലയാളം")
   }
-  useEffect(()=>{
-  localStorage.setItem('EdasseryMajlisToken','20cf7d678f3dd6efb0ee300837cb7e9b')
-  },[])
   return (
     <div class="mainhead">
       <Router>

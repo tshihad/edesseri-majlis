@@ -82,8 +82,9 @@ function MemberLogin(props) {
     })
       .then((response) => {
         if (response.status === 200) {
+          alert(response.data.result)
           localStorage.setItem('EdasseryMajlisToken', response.data.result)
-          props.history.replace("/Admin");
+          window.location = '/User/UserOptions/Subscriptions'
         } else {
           alert(response.data.message + " : " + response.data.message)
         }
