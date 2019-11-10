@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     container: {
         display: 'flex',
         flexWrap: 'wrap',
-        margin: '4% 8% 2% 8%',
+        margin: '5vh 10vw 0 10vw',
         backgroundColor: '#c5d2dd',
         padding: '.2%',
         borderRadius: '10px',
