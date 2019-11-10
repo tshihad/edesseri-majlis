@@ -15,7 +15,7 @@ export default function PhoneNumberInput() {
                     name: 'phone',
                     required: true,
                 }}
-                inputStyle={{ backgroundColor: "#eefaece0", width: "350px", fontSize: "16px" }}
+                inputStyle={{ backgroundColor: "#eefaece0", minWidth: "300px", fontSize: "16px" }}
                 buttonStyle={{ width: "40px", backgroundColor: "#7bb419" }}
             />
         </div>
