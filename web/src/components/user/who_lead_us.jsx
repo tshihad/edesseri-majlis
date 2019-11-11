@@ -4,13 +4,23 @@ import { Grid } from '@material-ui/core'
 import { MemberCard } from '../sub_components/committe';
 import img from '../../images/member.jpg';
 import {Redirect} from 'react-router-dom'
-
+import axios from 'axios'
 const WhoLeadUsDiv = styled.div`
 margin: 0vh 10vw;
 padding-bottem: 200px;
 `;
 export default function WhoLeadUs(props) {
   useEffect(() => {
+    axios.get('http://10.4.5.22:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+      repsonse => {
+        if (repsonse.status === 200) {
+          window.location = "/MemberLogin"
+        }
+      }
+    ).catch(error => {
+      alert(error)
+      window.location = "/MemberLogin"
+    })
     props.setLanButton(false)
     props.setUser("user")
     props.setState("WhoLeadUs")

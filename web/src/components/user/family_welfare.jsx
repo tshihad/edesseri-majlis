@@ -47,6 +47,16 @@ export default function EventCalendar(props) {
         return day + "-" + month + "-" + year
     }
     useEffect(() => {
+        axios.get('http://10.4.5.22:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+            repsonse => {
+              if (repsonse.status != 200) {
+                window.location = "/MemberLogin"
+              }
+            }
+          ).catch(error => {
+            alert(error)
+            window.location = "/MemberLogin"
+          })
         axios.get("http://10.4.5.22:8080/majlis/member/family-welfare",
             { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } })
             .then(({ data }) => {

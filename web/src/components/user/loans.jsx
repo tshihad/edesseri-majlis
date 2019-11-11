@@ -19,8 +19,18 @@ font-family: 'Comfortaa', cursive;
 `;
 export default function Loans(props) {
     useEffect(() => {
+        axios.get('http://10.4.5.22:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+            repsonse => {
+              if (repsonse.status != 200) {
+                window.location = "/MemberLogin"
+              }
+            }
+          ).catch(error => {
+            alert(error)
+            window.location = "/MemberLogin"
+          })
         // props.setUser("user")
-    })
+    },[])
     return (
         <Loan>
             <Headline>Loan Application</Headline>

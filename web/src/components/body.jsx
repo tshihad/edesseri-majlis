@@ -31,7 +31,8 @@ import Profile from './user/profile';
 import UserDownloads from './user/downloads';
 import UserContactMajlis from './user/contact_majlis';
 import EventCalendar from './sub_components/event_calendar';
-import LogoutIcon from '@material-ui/icons/Person'
+import LogoutIcon from '@material-ui/icons/Person';
+import axios from 'axios';
 import '../styles/navbar.css';
 import '../styles/header.css'
 
@@ -79,7 +80,7 @@ margin-right:2%;
   background-color: #556b2f;
 }
 `;
-const Logout =styled.button`
+const Logout = styled.button`
 border: 0;
 outline: 0;
 width: 3.5vw;
@@ -100,15 +101,15 @@ export default function Header() {
   const [isButtonActive, setActive] = React.useState("Home")
   const [language, setLanguage] = React.useState("മലയാളം")
   const [isLanguageOption, setLanguageButton] = React.useState(false)
-    const [isLoggedin, setIsLoggedin] = React.useState(false)
+  const [isLoggedin, setIsLoggedin] = React.useState(false)
   const [user, setUser] = React.useState("general")
- const handleLogout =()=>{
-   localStorage.clear()
-   setIsLoggedin(false)
- }
- const setLoggedIn =(value)=>{
-  setIsLoggedin(value)
-}
+  const handleLogout = () => {
+    localStorage.clear()
+    setIsLoggedin(false)
+  }
+  const setLogIn = (value) => {
+    setIsLoggedin(value)
+  }
   const setButton = (value) => {
     setLanguageButton(value)
   }
@@ -123,6 +124,14 @@ export default function Header() {
   const changeLanguage = () => {
     setLanguage(language === "മലയാളം" ? "English" : "മലയാളം")
   }
+  useEffect(() => {
+    axios.get('http://10.4.5.22:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+      repsonse => {
+        if (repsonse.status === 200) {
+          setIsLoggedin(true)
+        }
+      })
+  })
   return (
     <div class="mainhead">
       <Router>
@@ -132,7 +141,7 @@ export default function Header() {
               <img src={logo} alt="logo" style={{ width: "3.5vw", height: "3.5vw", display: "inline-block" }} />
               <div style={{ margin: "1.5vw 0 0 .8vw", color: "#556b2f", display: "inline-block", fontFamily: "Aroma", fontSize: "1.4vw" }}><Span>E</Span>DASSERY <Span>M</Span>AJLIS <Span>G</Span>ROUP</div>
             </div>
-            {isLoggedin && <Logout title="Logout" onClick={handleLogout}><LogoutIcon style={{fontSize:"3em"}}/></Logout>}
+            {isLoggedin && <Logout title="Logout" onClick={handleLogout}><LogoutIcon style={{ fontSize: "3em" }} /></Logout>}
             {isLanguageOption && <Language title="Change Language" style={{ display: "inline-block", fontSize: language === "English" ? "1.1vw" : "1.5vw" }} onClick={changeLanguage}>{language}</Language>}
           </Heading>
 
@@ -358,8 +367,8 @@ export default function Header() {
         <Body>
           <Switch>
             <Redirect exact from="/" to="/Home" />
-            <Route path="/Home" ><Home setState={buttonClick} setLanButton={setButton}  language={language} /></Route>
-            <Route path="/WhatweDo" ><WhatweDo setState={buttonClick} setLanButton={setButton}  language={language} /></Route>
+            <Route path="/Home" ><Home setState={buttonClick} setLanButton={setButton} language={language} /></Route>
+            <Route path="/WhatweDo" ><WhatweDo setState={buttonClick} setLanButton={setButton} language={language} /></Route>
             <Route path="/WhoLeadUs"><WhoLeadUs setState={buttonClick} setLanButton={setButton} /></Route>
             <Redirect exact path="/EventGallery" to="/EventGallery/Milad" />
             <Route path="/EventGallery/Milad" ><EventGallery category="milad" setState={buttonClick} setLanButton={setButton} /></Route>
@@ -369,21 +378,21 @@ export default function Header() {
             <Route path="/EventGallery/MeetandGreet" ><EventGallery category="meetandgreet" setState={buttonClick} setLanButton={setButton} /></Route>
             <Route path="/EventGallery/Other" ><EventGallery category="other" setState={buttonClick} setLanButton={setButton} /></Route>
             <Route path="/JoinMajlis" ><JoinMajlis setState={buttonClick} setLanButton={setButton} /></Route>
-            <Route path="/MemberLogin" ><MemberLogin setState={buttonClick} setLoggedIn={setLoggedIn} setLanButton={setButton} setUser={setThisUser} /></Route>
+            <Route path="/MemberLogin" ><MemberLogin setState={buttonClick} log={isLoggedin} setLoggedIn={setLogIn} setLanButton={setButton} setUser={setThisUser} /></Route>
             <Route path="/Downloads" ><Downloads setState={buttonClick} setLanButton={setButton} /></Route>
             <Route path="/ContactMajlis" ><ContactMajlis setState={buttonClick} setLanButton={setButton} /></Route>
             <Router path="/EventCalender"><EventCalendar setState={buttonClick} setLanButton={setButton} /></Router>
 
             <Redirect exact from="/Admin" to="/Admin/Members" />
-            <Route path="/Admin/Members" ><Members setState={buttonClick}  setUser={setThisUser} /></Route>
-            <Route path="/Admin/AddMember" ><AddMember setState={buttonClick}  setUser={setThisUser} /></Route>
-            <Route path="/Admin/Subscriptions" ><Subscription setState={buttonClick}  setUser={setThisUser} /></Route>
-            <Route path="/Admin/EventGallery" ><EventGalleryAdmin setState={buttonClick}  setUser={setThisUser} /></Route>
-            <Route path="/Admin/Loans" ><Loans setState={buttonClick}  setUser={setThisUser} /></Route>
-            <Route path="/Admin/FamlilyWelfare" ><FamilyWelfare setState={buttonClick}  setUser={setThisUser} /></Route>
-            <Route path="/Admin/UploadForms" ><UploadForms setState={buttonClick}  setUser={setThisUser} /></Route>
-            <Route path="/Admin/ContactMajlisAdmin" ><ContactMajlisAdmin setState={buttonClick}  setUser={setThisUser} /></Route>
-            <Route path="/Admin/EventCalendarAdmin" ><AdminEventCalendar setState={buttonClick}  setUser={setThisUser} /></Route>
+            <Route path="/Admin/Members" ><Members setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/AddMember" ><AddMember setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/Subscriptions" ><Subscription setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/EventGallery" ><EventGalleryAdmin setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/Loans" ><Loans setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/FamlilyWelfare" ><FamilyWelfare setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/UploadForms" ><UploadForms setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/ContactMajlisAdmin" ><ContactMajlisAdmin setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/EventCalendarAdmin" ><AdminEventCalendar setState={buttonClick} setUser={setThisUser} /></Route>
 
             <Redirect exact from="/User" to="/User/Home" />
             <Route path="/User/Home" ><UserHome setState={buttonClick} setLanButton={setButton} isLogged={isLoggedin} languageButton={true} language={language} setUser={setThisUser} /></Route>

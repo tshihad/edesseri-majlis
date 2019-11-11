@@ -56,6 +56,16 @@ font-weight: 500;`;
 export default function Downloads(props) {
   const [documents, setDocuments] = React.useState([{ updatedAt: "b" }])
   useEffect(() => {
+    axios.get('http://10.4.5.22:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+      repsonse => {
+        if (repsonse.status != 200) {
+          window.location = "/MemberLogin"
+        }
+      }
+    ).catch(error => {
+      alert(error)
+      window.location = "/MemberLogin"
+    })
     props.setLanButton(false)
     props.setUser("user")
     props.setState("Downloads")

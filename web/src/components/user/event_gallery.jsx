@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Gallery from '../sub_components/gallery'
 import {Redirect} from 'react-router-dom'
+import axios from 'axios'
 
 const EventGalleryCard = styled.div`
 margin: 5vh 10vw 0 10vw;
@@ -9,6 +10,16 @@ margin: 5vh 10vw 0 10vw;
 
 export default function EventGallery(props) {
   useEffect(() => {
+    axios.get('http://10.4.5.22:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+      repsonse => {
+        if (repsonse.status != 200) {
+          window.location = "/MemberLogin"
+        }
+      }
+    ).catch(error => {
+      alert(error)
+      window.location = "/MemberLogin"
+    })
     props.setLanButton(false)
     props.setUser("user")
     props.setState("EventGallery")

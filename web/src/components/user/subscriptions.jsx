@@ -50,6 +50,15 @@ export default function Subscription(props) {
   const [rows, setrows] = React.useState([Rows])
   const [columns, setcolumns] = React.useState(Columns)
   useEffect(() => {
+    axios.get('http://10.4.5.22:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+      repsonse => {
+        if (repsonse.status != 200) {
+          window.location = "/MemberLogin"
+        }
+      }
+    ).catch(error => {
+      alert("hjfgh"+error)
+    }, [])
     axios.get('http://10.4.5.22:8080/majlis/member/subscription',
       { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } })
       .then((response) => {
@@ -70,7 +79,7 @@ export default function Subscription(props) {
         setrows(years)
         setcolumns(subscriptions)
       }).catch((err) => {
-        alert(err)
+        console.log(err)
       })
   }, [])
   return (

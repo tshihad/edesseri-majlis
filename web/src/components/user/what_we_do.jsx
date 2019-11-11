@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import {Redirect} from 'react-router-dom'
+import axios from 'axios'
 
 const WhatWeDoDiv = styled.div`
 margin: 0vh 10vw;
@@ -82,6 +83,16 @@ const MajlisStandsForContents = {
 
 export default function WhatWeDo(props) {
   useEffect(() => {
+    axios.get('http://10.4.5.22:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+      repsonse => {
+        if (repsonse.status != 200) {
+          window.location = "/MemberLogin"
+        }
+      }
+    ).catch(error => {
+      alert(error)
+      window.location = "/MemberLogin"
+    })
     props.setLanButton(true)
     props.setUser("user")
     props.setState("WhatWeDo")
