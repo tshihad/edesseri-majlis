@@ -43,7 +43,7 @@ export default function JoinMajlis(props) {
           initialValues={{ email: '', phone: '', housename: '', lastname: '', place: '', country: '', content: '' }}
           onSubmit={(values, { setSubmitting }) => {
 
-            axios.post('http://10.4.5.22:8080/majlis/contact', {
+            axios.post('http://localhost:8080/majlis/contact', {
               email: values.email,
               phone: values.phone,
               fname: values.housename,

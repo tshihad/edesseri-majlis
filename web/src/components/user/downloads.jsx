@@ -56,20 +56,19 @@ font-weight: 500;`;
 export default function Downloads(props) {
   const [documents, setDocuments] = React.useState([{ updatedAt: "b" }])
   useEffect(() => {
-    axios.get('http://10.4.5.22:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+    axios.get('http://localhost:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
       repsonse => {
         if (repsonse.status != 200) {
           window.location = "/MemberLogin"
         }
       }
     ).catch(error => {
-      alert(error)
       window.location = "/MemberLogin"
     })
     props.setLanButton(false)
     props.setUser("user")
     props.setState("Downloads")
-    axios.get("http://10.4.5.22:8080/majlis/downloads",
+    axios.get("http://localhost:8080/majlis/downloads",
     { headers: { "Authorization":localStorage.getItem('EdasseryMajlisToken') } })
       .then(({ data }) => {
         data.result.map((element) => {
@@ -80,15 +79,12 @@ export default function Downloads(props) {
         alert(err))
   }, [props])
   return (
-    <div>
-    {props.isLogged === true ?
     <DownloadMainCard>
       {documents.length === 0 ? <NoDownloads>--No Downloadable Fies--</NoDownloads> :
         documents.map((document) => (
           <DownloadCard title={document.Title} description={document.Description} updatedAt={document.UpdatedAt} downloadLink={document.Location} />
         ))}
     </DownloadMainCard>
-    :<Redirect to='/MemberLogin'/>}</div>
   )
 }
 

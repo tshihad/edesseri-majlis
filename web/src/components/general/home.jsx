@@ -151,7 +151,7 @@ font-weight: 500;`;
 function CalenderEvents(props){
   const [events,setEvents] = React.useState([])
   useEffect(()=>{
-    axios.get("http://10.4.5.22:8080/majlis/upcoming-events")
+    axios.get("http://localhost:8080/majlis/upcoming-events")
       .then(({ data }) => {
         setEvents(data.result)
       }).catch((err) =>

@@ -21,7 +21,7 @@ export default function FamilyWelfare(props) {
         initialValues={{ member_id: '', welfare_date: '', title: '', description: '', amount: '', currency: '' }}
         onSubmit={(values, { setSubmitting }) => {
 
-          axios.post('http://10.4.5.22:8080/majlis/contact', {
+          axios.post('http://localhost:8080/majlis/contact', {
             member_id: values.member_id,
             welfare_date: values.welfare_date,
             title: values.title,

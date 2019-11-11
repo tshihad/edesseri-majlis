@@ -6,19 +6,15 @@ import axios from 'axios'
 function Profile(props) {
     // alert("LOADED");
     useEffect(() => {
-        // alert(localStorage.getItem('EdasseryMajlisToken'))
-        axios.get('http://10.4.5.22:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
-            repsonse => {
-                // alert(repsonse.status)
-                if (repsonse.status != 200) {
-                    props.history.push("/MemberLogin")
-                } else {
-                    // alert("success")
-                }
-            }
-        ).catch(error => {
-            alert(error)
-        })
+        axios.get('http://localhost:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+      repsonse => {
+        if (repsonse.status != 200) {
+          window.location = "/MemberLogin"
+        }
+      }
+    ).catch(error => {
+      window.location = "/MemberLogin"
+    })
         props.setLanButton(false)
         props.setUser("user")
         props.setState("Profile")

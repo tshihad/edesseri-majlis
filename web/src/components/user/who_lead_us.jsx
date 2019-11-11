@@ -11,14 +11,13 @@ padding-bottem: 200px;
 `;
 export default function WhoLeadUs(props) {
   useEffect(() => {
-    axios.get('http://10.4.5.22:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+    axios.get('http://localhost:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
       repsonse => {
-        if (repsonse.status === 200) {
+        if (repsonse.status != 200) {
           window.location = "/MemberLogin"
         }
       }
     ).catch(error => {
-      alert(error)
       window.location = "/MemberLogin"
     })
     props.setLanButton(false)
@@ -26,8 +25,6 @@ export default function WhoLeadUs(props) {
     props.setState("WhoLeadUs")
   }, [props])
   return (
-    <div>
-      {props.isLogged === true ?
     <WhoLeadUsDiv>
       <Grid container spacing={0} justify="center">
         <Grid item xs={4}></Grid>
@@ -100,7 +97,6 @@ export default function WhoLeadUs(props) {
         </Grid>
       </Grid>
     </WhoLeadUsDiv>
-     : <Redirect to='/MemberLogin' />}</div>
 
   )
 }

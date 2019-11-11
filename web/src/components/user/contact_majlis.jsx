@@ -20,18 +20,13 @@ font-family: 'Comfortaa', cursive;
 `;
 export default function Contactmajlis(props) {
   useEffect(() => {
-    axios.get('http://10.4.5.22:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+    axios.get('http://localhost:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
       repsonse => {
-        if (repsonse.status === 200) {
-          alert(Response)
-
+        if (repsonse.status != 200) {
           window.location = "/MemberLogin"
         }
-        alert(repsonse.status)
-
       }
     ).catch(error => {
-      alert(error)
       window.location = "/MemberLogin"
     })
     props.setLanButton(false)
@@ -44,7 +39,7 @@ export default function Contactmajlis(props) {
       <Formik
         initialValues={{ email: '', phone: '', firstname: '', lastname: '', place: '', country: '', content: '' }}
         onSubmit={(values, { setSubmitting }) => {
-          axios.post('http://10.4.5.22:8080/majlis/contact', {
+          axios.post('http://localhost:8080/majlis/contact', {
             email: values.email,
             phone: values.phone,
             fname: values.firstname,

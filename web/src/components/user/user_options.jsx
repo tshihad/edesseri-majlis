@@ -4,14 +4,16 @@ import Subscription from './subscriptions';
 import Loans from './loans';
 import FamilyWelfare from './family_welfare'
 import axios from 'axios';
+import { withRouter } from 'react-router-dom'
 const UserOptionCard = styled.div`
 margin: 0 10vw;
 `;
 export default function UserOptions(props) {
     useEffect(() => {
-        axios.get('http://10.4.5.22:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+        axios.get('http://localhost:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
             repsonse => {
                 if (repsonse.status != 200) {
+                    alert("useroptions")
                     window.location = "/MemberLogin"
                 }
             }
@@ -31,4 +33,5 @@ export default function UserOptions(props) {
 
     )
 }
+
 
