@@ -5,6 +5,7 @@ go 1.13
 require (
 	bitbucket.org/liamstask/goose v0.0.0-20150115234039-8488cc47d90c // indirect
 	github.com/DATA-DOG/go-sqlmock v1.3.3
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/go-chi/chi v4.0.2+incompatible
 	github.com/go-chi/cors v1.0.0
 	github.com/go-playground/locales v0.13.0 // indirect
