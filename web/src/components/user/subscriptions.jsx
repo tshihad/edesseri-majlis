@@ -1,18 +1,19 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components';
-import { Grid } from '@material-ui/core'
+import { Grid } from '@material-ui/core';
+import axios from 'axios'
 
 
 const SubscriptionCard = styled.div`
-margin: 5vh 10vw 0 10vw;
+margin-top: 5vh;
 `;
 const Headline = styled.h3`
 color:#1d4219;
-font-size: 3vh;
+font-size: 1.8em;
 font-family: 'Comfortaa', cursive;
 `;
 const Matrix = styled.div`
-padding: 3vw 5vw;
+padding: 2vh 5vw;
 color: #556b2f`;
 const Head = styled.div`
 border : solid 1px #556b2f;
@@ -33,26 +34,51 @@ color: #013801;
 padding: 1em;
 border : solid 1px #556b2f;`;
 
-const Rows = ["2019", "2018", "2017", "2016", "2015"]
+const Footer = styled.footer`
+padding: 2px;
+font-weight:600;
+float:right`;
+const Rows = ["-", "-"]
 
 const Columns = [
-  ["25", "25", "25", "25", "25", "25", "25", "25", "25", "25", "25", "25"],
-  ["25", "25", "25", "25", "25", "25", "25", "25", "25", "25", "25", "25"],
-  ["25", "25", "25", "25", "25", "25", "25", "25", "25", "25", "25", "25"],
-  ["25", "25", "25", "25", "25", "25", "25", "25", "25", "25", "25", "25"],
-  ["25", "25", "25", "-", "-", "-", "-", "-", "-", "-", "-", "-"]]
+  ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"],
+  ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"]]
 
 const MatrixHead = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 export default function Subscription(props) {
-  const [rows, setrows] = React.useState(Rows)
+  const [rows, setrows] = React.useState([Rows])
   const [columns, setcolumns] = React.useState(Columns)
+  useEffect(() => {
+    axios.get('http://10.4.5.22:8080/majlis/member/subscription',
+      { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } })
+      .then((response) => {
+        var years = []
+        var subscriptions = []
+        response.data.result.map((row) => {
+          years.push(row.Year)
+          var subscription = []
+          row.Rows.map((month) => {
+            if (month.Amount === "") {
+              subscription.push("-")
+            } else {
+              subscription.push(month.Amount)
+            }
+          })
+          subscriptions.push(subscription)
+        })
+        setrows(years)
+        setcolumns(subscriptions)
+      }).catch((err) => {
+        alert(err)
+      })
+  }, [])
   return (
     <SubscriptionCard>
       <Headline>Your Subscriptions</Headline>
       <Matrix>
         <Grid container spacing={0}>
-          <Grid item xs={2} style={{border : "solid 1px #556b2f"}}></Grid>
+          <Grid item xs={2} style={{ border: "solid 1px #556b2f" }}></Grid>
           <Grid container xs={10}>
             {MatrixHead.map((head) => (
               <Grid item xs={1}>
@@ -75,6 +101,7 @@ export default function Subscription(props) {
             </Grid>
           </Grid>
         ))}
+        <Footer>Amount In Dirhams*</Footer>
       </Matrix>
     </SubscriptionCard>
   )

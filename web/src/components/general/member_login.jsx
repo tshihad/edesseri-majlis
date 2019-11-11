@@ -82,8 +82,10 @@ function MemberLogin(props) {
     })
       .then((response) => {
         if (response.status === 200) {
+          alert(response.data.result)
           localStorage.setItem('EdasseryMajlisToken', response.data.result)
-          props.history.replace("/Admin");
+          props.setLoggedIn(true)
+          window.location = '/User/UserOptions/Subscriptions'
         } else {
           alert(response.data.message + " : " + response.data.message)
         }
@@ -93,6 +95,8 @@ function MemberLogin(props) {
 
   }
   useEffect(() => {
+    props.setLanButton(false)
+    props.setUser("general")
     props.setState("MemberLogin")
   }, [props])
   const classes = useStyles();

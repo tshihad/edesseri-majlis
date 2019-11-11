@@ -58,8 +58,28 @@ const HelpMembersContents = {
     "പ്രവാസത്തിൻ വഴിയിൽ ജീവൻ റരാല്ിഞ്ഞു രരാകുന്ന അുംരങ്ങളുറട മയ്യിത്ത് നാട്ടിറല്ത്തിക്ാൻ സഹായിക്ുക."
   ]
 }
+const MajlisStandsForContents = {
+  english: [
+    "Implement financial programs to help improve the living" +
+    " conditions of the poverty stricken Mahallu residents.",
+    "Extent the assistance to financially backward Mahallu" +
+    " residents living in poverty.",
+    "Provide necessary assistance to the Mahallu and the" +
+    " inhabitants of Mahallu to implement the religious and" +
+    " secular education system that will support the religious and" +
+    " cultural growth and development of the society."
+  ],
+  malayalam: [
+    "മഹല്ലുകൾ നമ്മുടെ ആശ്രയമാണ്.",
+    "ഒരു വിശ്വാസിയുടെ ജനനം മുതൽ ഖബ്ർ ജീവിതം വരെ നമ്മൾ മഹല്ലുമായി ബന്ധപ്പെട്ടിരിക്കുന്നു.",
+    "നമ്മുടെ മുൻഗാമികൾ പല വിധ വൈതരണികളും തരണം ചെയ്ത പരിപാലിച്ച് തലമുറകളായി നമ്മുടെ കൈകളിൽ ഭദ്രമായി ഏല്പിച്ചു തന്ന നമ്മുടെ മഹല്ല് സംവിധാനത്തേയും, പ്രസ്ഥാനങ്ങളേയും, വിശ്വാസാചാരാനുഷ്ടാനങ്ങളേയും സംരക്ഷിക്കേണ്ടത് നമ്മുടെ ഓരോരുത്തരുടേയും കർത്തവ്യമാണ്.",
+    "സർവോപരി നമ്മുടെ മഹല്ലിന്റെ അന്തസ്സ് ഉയർത്തിപ്പിടിക്കുവാൻ നമ്മൾ ഓരോരുത്തരും മുന്നോട്ട് വരേണ്ടതുണ്ട്."
+  ]
+}
+
 export default function WhatWeDo(props) {
   useEffect(() => {
+    props.setLanButton(true)
     props.setState("WhatWeDo")
   }, [props])
   return (
@@ -67,6 +87,7 @@ export default function WhatWeDo(props) {
       <WhatWeDoCard headline="Welfare Programs" contents={WelfareProgramsContents} language={props.language === "മലയാളം" ?"malayalam" :"english"} colorcode="1" />
       <WhatWeDoCard headline="Services To The Society" contents={ServiceSocietyContents} language={props.language === "മലയാളം" ?"malayalam" :"english"} colorcode="2" />
       <WhatWeDoCard headline="Help Own Members" contents={HelpMembersContents} language={props.language === "മലയാളം" ?"malayalam" :"english"} colorcode="1" />
+      <WhatWeDoCard headline="Majlis Stands For" contents={MajlisStandsForContents} language={props.language === "മലയാളം" ?"malayalam" :"english"} colorcode="2" />
     </WhatWeDoDiv>
   )
 }
@@ -86,9 +107,11 @@ vertical-align: top;
 const Headline = styled.h3`
 color:#1d4219;
 margin-top: 5%;
+font-size: 1.5em;
 font-family: 'Comfortaa', cursive;`;
 const Content = styled.div`
 width: 60%;
+font-size: 1.2em;
 padding-left: 5%;
 display:inline-block;
 `;

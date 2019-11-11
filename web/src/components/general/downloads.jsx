@@ -10,8 +10,8 @@ import {
   Button
 } from '@material-ui/core';
 import { green } from '@material-ui/core/colors';
-import pdfImage from '../images/pdf-icon.png'
-import styled from 'styled-components'
+import pdfImage from '../../images/icons/pdf-icon.png'
+import styled from 'styled-components';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -32,6 +32,9 @@ const useStyles = makeStyles(theme => ({
     width: 60,
     height: 60,
   },
+  link:{
+    textDecoration:"none"
+  }
 }));
 
 const theme = createMuiTheme({
@@ -43,23 +46,31 @@ const theme = createMuiTheme({
 const DownloadMainCard = styled.div`
 margin: 2% 10vw;
 `;
+
+const NoDownloads = styled.div`
+padding: 30vh 0;
+text-align: center;
+color:#304d00;
+font-weight: 500;`;
 export default function Downloads(props) {
-  const [documents, setDocuments] = React.useState([{updatedAt:"b"}])
+  const [documents, setDocuments] = React.useState([])
   useEffect(() => {
+    props.setLanButton(false)
     props.setState("Downloads")
     axios.get("http://10.4.5.22:8080/majlis/downloads")
-    .then(({data})=>{
-      data.result.map((element)=>{
-        element.UpdatedAt = element.UpdatedAt.slice(0,10)
+      .then(({ data }) => {
+        data.result.map((element) => {
+          element.UpdatedAt = element.UpdatedAt.slice(0, 10)
+        })
+        setDocuments(data.result)
       })
-      setDocuments(data.result)
-    })
   }, [props])
   return (
     <DownloadMainCard>
-      {documents.map((document)=>(
-        <DownloadCard title={document.Title} description={document.Description} updatedAt={document.UpdatedAt} downloadLink={document.Location} />
-      ))}
+      {documents.length === 0 ? <NoDownloads>--No Downloadable Fies--</NoDownloads> :
+        documents.map((document) => (
+          <DownloadCard title={document.Title} description={document.Description} updatedAt={document.UpdatedAt} downloadLink={document.Location} />
+        ))}
     </DownloadMainCard>
   )
 }
@@ -69,12 +80,12 @@ margin-bottom: 1.5%
 `;
 export function DownloadCard(props) {
   const classes = useStyles()
-  const handleButtonClick = () => {
-    alert("downloading.....")
+  const handleButtonClick = (downloadLink) => {
+    axios.get(downloadLink)
   }
   return (
     <Card>
-      <Paper style={{backgroundColor:"#f2f7f1e0"}}>
+      <Paper style={{ backgroundColor: "#f2f7f1e0" }}>
         <Grid container spacing={3} >
           <Grid item xs={1} alignItems="center" justify="center">
             <CardMedia
@@ -93,17 +104,20 @@ export function DownloadCard(props) {
                 </p>
                 <p>
                   {props.description}
-                  <div style={{ fontSize: ".7em", lineHeight: "2em",fontWeight:"600"}}>
-                  uploaded date: {props.updatedAt}
+                  <div style={{ fontSize: ".7em", lineHeight: "2em", fontWeight: "600" }}>
+                    uploaded date: {props.updatedAt}
                   </div>
                 </p>
-                    
+
               </Grid>
               <Grid item xs={1} >
                 <div style={{ marginTop: "35px" }}>
-                <Button variant="outlined" size="medium" onClick={handleButtonClick} color="primary" className={classes.margin}
-                 id="download" style={{ backgroundColor: "#556b2f", color: "white" }}>
-                  Download</Button>
+                  <a href={props.downloadLink}
+                    target="_blank" rel="noopener noreferrer" title="Get Document" className={classes.link}>
+                       <Button variant="outlined" size="medium" color="primary" className={classes.margin}
+                      id="download" style={{ backgroundColor: "#556b2f", color: "white" }}>
+                      Download</Button></a>
+
                 </div>
               </Grid>
             </Grid>

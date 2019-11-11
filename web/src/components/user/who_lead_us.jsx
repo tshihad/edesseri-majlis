@@ -2,7 +2,8 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { Grid } from '@material-ui/core'
 import { MemberCard } from '../sub_components/committe';
-import img from '../../images/member.jpg'
+import img from '../../images/member.jpg';
+import {Redirect} from 'react-router-dom'
 
 const WhoLeadUsDiv = styled.div`
 margin: 0vh 10vw;
@@ -10,10 +11,13 @@ padding-bottem: 200px;
 `;
 export default function WhoLeadUs(props) {
   useEffect(() => {
+    props.setLanButton(false)
     props.setUser("user")
     props.setState("WhoLeadUs")
   }, [props])
   return (
+    <div>
+      {props.isLogged === true ?
     <WhoLeadUsDiv>
       <Grid container spacing={0} justify="center">
         <Grid item xs={4}></Grid>
@@ -46,38 +50,39 @@ export default function WhoLeadUs(props) {
           </Grid>
         </Grid>
         <Grid container spacing={8} justify="center">
-          <Grid item xs={2.4}>
-            <Grid container spacing={0} justify="left">
+          <Grid item xs={3}>
+            <Grid container spacing={0} justify="center">
               <MemberCard position="Member" image={img} name="Shajahan Shamsudeen" date="01/01/2019" len="large"/>
             </Grid>
-          </Grid><Grid item xs={2.4}>
-            <Grid container spacing={0} justify="left">
+          </Grid><Grid item xs={3}>
+            <Grid container spacing={0} justify="center">
               <MemberCard position="Member" image={img} name="Abdul Kader P M" date="01/01/2019" />
             </Grid>
-          </Grid><Grid item xs={2.4}>
+          </Grid><Grid item xs={3}>
             <Grid container spacing={0} justify="center">
               <MemberCard position="Member" image={img} name="Mufeed" date="01/01/2019" />
             </Grid>
-          </Grid><Grid item xs={2.4}>
+          </Grid><Grid item xs={3}>
             <Grid container spacing={0} justify="center">
               <MemberCard position="Member" image={img} name="Rahmath Ali R A" date="01/01/2019" />
-            </Grid>
-          </Grid><Grid item xs={2.4}>
-            <Grid container spacing={0} justify="center">
-              <MemberCard position="Member" image={img} name="Sudheer P s" date="01/01/2019" />
             </Grid>
           </Grid>
         </Grid>
         <Grid container spacing={8} justify="center">
-          <Grid item xs={2.4}>
-            <Grid container spacing={0} justify="left">
+        <Grid item xs={3}>
+            <Grid container spacing={0} justify="center">
+              <MemberCard position="Member" image={img} name="Sudheer P s" date="01/01/2019" />
+            </Grid>
+          </Grid>
+          <Grid item xs={3}>
+            <Grid container spacing={0} justify="center">
               <MemberCard position="Member" image={img} name="Ameer" date="01/01/2019" />
             </Grid>
-          </Grid><Grid item xs={2.4}>
-            <Grid container spacing={0} justify="left">
+          </Grid><Grid item xs={3}>
+            <Grid container spacing={0} justify="center">
               <MemberCard position="Advicory" image={img} name="Shajeer P S" date="01/01/2019" />
             </Grid>
-          </Grid><Grid item xs={2.4}>
+          </Grid><Grid item xs={3}>
             <Grid container spacing={0} justify="center">
               <MemberCard position="Advicory" image={img} name="Noushad" date="01/01/2019" />
             </Grid>
@@ -85,5 +90,7 @@ export default function WhoLeadUs(props) {
         </Grid>
       </Grid>
     </WhoLeadUsDiv>
+     : <Redirect to='/MemberLogin' />}</div>
+
   )
 }

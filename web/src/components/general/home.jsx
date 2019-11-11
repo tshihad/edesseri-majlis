@@ -1,11 +1,13 @@
 import React,{useEffect} from 'react';
 import styled from 'styled-components';
-import Slider from './sub_components/image_slider';
+import Slider from '../sub_components/image_slider';
 import EventNoteIcon from '@material-ui/icons/EventNote';
-import visionBullet from '../images/vision.svg'
-import MissionBullet from '../images/mission.svg'
-import RiseOfMajlisBullet from '../images/riseofmajlis.svg'
-import MajlisPriorityBullet from '../images/majlispriority.svg'
+import visionBullet from '../../images/icons/vision.svg'
+import MissionBullet from '../../images/icons/mission.svg'
+import RiseOfMajlisBullet from '../../images/icons/riseofmajlis.svg'
+import MajlisPriorityBullet from '../../images/icons/majlispriority.svg'
+import axios from 'axios'
+import { Link } from 'react-router-dom';
 
  const RiseOfMajlisContents = {
    english:[
@@ -60,6 +62,7 @@ const MIsionContents = {
 }
 export default function Home(props){
   useEffect(()=>{
+  props.setLanButton(true)
   props.setState("Home")
   },[props])
 return(
@@ -103,7 +106,7 @@ text-align:center;
 `;
 const Headline = styled.h3`
 color:#1d4219;
-font-size: 3vh;
+font-size: 2em;
 font-family: 'Comfortaa', cursive;
 `;
 const Content = styled.p`
@@ -130,6 +133,7 @@ border-top: 1.5px #7ead2b solid;
 border-bottom: 1.5px #7ead2b solid;
 `;
 const Heading = styled.div`
+text-decoration: none;
 width: 100%;
 text-align: center;
 font-weight: bold;
@@ -138,35 +142,33 @@ padding: 2vw 2vw 1vh 2vw;
 background-color: #e5eee5;
 `;
 
-function CalenderEvents(){
-  const events = [
-    {
-      index:1,
-      date: "12-02-2019",
-      title:"majlis website launching",
-  },
-  {
-    index:2,
-    date: "14-02-2019",
-    title:"majlis ramsan celebration with the whole members",
-  },
-  {
-  index:3,
-  date: "16-02-2019",
-  title:"majlis website launching in dubai",
-  },]
-  
+const NoData = styled.div`
+padding: 5vh 0;
+text-align: center;
+color:#304d00;
+font-weight: 500;`;
+
+function CalenderEvents(props){
+  const [events,setEvents] = React.useState([])
+  useEffect(()=>{
+    axios.get("http://10.4.5.22:8080/majlis/upcoming-events")
+      .then(({ data }) => {
+        setEvents(data.result)
+      }).catch((err) =>
+        alert(err))
+  },[])
   return(
     <Paper>
-      <Heading>Upcoming Events</Heading>
-      <Events events={events}/>      
+      <Link to="/EventCalender" title="Complete Event List" style={{ textDecoration: "none",color:"#556b2f"}}><Heading >Upcoming Events</Heading></Link>
+      {events.length === 0 ? <NoData>--No Upcoming Events--</NoData> :
+      <Events events={events}/>}
     </Paper>
   )
 }
 
 const List = styled.div`
 display: block;
-padding:2vw 2vw;
+padding:2vw 5vw;
 `;
 
 const Event = styled.div`
@@ -191,17 +193,23 @@ display: inline-block;
 color: #556b2f;
 `;
 
-const Dot = styled.span`
-`;
+
 function Events(props){
+
+  const toStdDate = (date)=>{
+    var year = date.slice(0,4)
+    var month = date.slice(5,7)
+    var day = date.slice(8,10)
+    return day+"-"+month+"-"+year
+  }
   return(
     <List>
     {props.events.map(event => (
       <Event>
         <EventNoteIcon style={{fontSize:"6vh"}}/>
         <Item>
-          <Date>{event.date}</Date>
-          <div>{event.title.slice(0,50)}</div>
+          <Date>{toStdDate(event.EventDate)}</Date>
+          <div>{event.Title.slice(0,50)}</div>
           </Item>
       </Event>
     ))}
