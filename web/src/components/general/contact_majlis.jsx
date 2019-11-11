@@ -37,7 +37,7 @@ export default function Contactmajlis(props) {
         initialValues={{ email: '', phone: '', firstname: '', lastname: '', place: '', country: '', content: '' }}
         onSubmit={(values, { setSubmitting }) => {
 
-          axios.post('http://10.4.5.22:8080/majlis/contact', {
+          axios.post('http://localhost:8080/majlis/contact', {
             email: values.email,
             phone: values.phone,
             fname: values.firstname,

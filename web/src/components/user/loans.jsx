@@ -19,17 +19,25 @@ font-family: 'Comfortaa', cursive;
 `;
 export default function Loans(props) {
     useEffect(() => {
-        // props.setUser("user")
-    })
+        axios.get('http://localhost:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+            repsonse => {
+                if (repsonse.status != 200) {
+                    window.location = "/MemberLogin"
+                }
+            }
+        ).catch(error => {
+            window.location = "/MemberLogin"
+        })
+    }, [])
     return (
         <Loan>
             <Headline>Loan Application</Headline>
             <Formik
                 initialValues={{ request_amount: '', phone: '', installment: '', purpose: '', membership_id: '' }}
-              
+
                 onSubmit={(values, { setSubmitting }) => {
                     alert("hello")
-                    axios.post('http://10.4.5.22:8080/majlis/member/loan', {
+                    axios.post('http://localhost:8080/majlis/member/loan', {
                         request_amount: values.request_amount,
                         installment: values.installment,
                         purpose: values.purpose,

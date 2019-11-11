@@ -63,13 +63,20 @@ const MIsionContents = {
 }
 export default function Home(props){
   useEffect(()=>{
+    axios.get('http://localhost:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+      repsonse => {
+        if (repsonse.status != 200) {
+          window.location = "/MemberLogin"
+        }
+      }
+    ).catch(error => {
+      window.location = "/MemberLogin"
+    })
     props.setLanButton(true)
     props.setUser("user")
   props.setState("Home")
   },[props])
 return(
-  <div>
-        {props.isLogged === true ?
   <div>
     <Slider/>
     <div style={{padding:"0 0", display: "block"}}>
@@ -100,7 +107,6 @@ language= {props.language === "മലയാളം" ?"malayalam" :"english"} bull
 </MainCard>
   </div>
   </div>
-  :<Redirect to='/MemberLogin'/>}</div>
 )
 }
 
@@ -157,7 +163,7 @@ function CalenderEvents(){
   const [events,setEvents] = React.useState([])
   
   useEffect(()=>{
-    axios.get("http://10.4.5.22:8080/majlis/upcoming-events")
+    axios.get("http://localhost:8080/majlis/upcoming-events")
       .then(({ data }) => {
         setEvents(data.result)
       }).catch((err) =>
