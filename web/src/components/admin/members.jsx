@@ -1,14 +1,9 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import Table from '../sub_components/admin_table'
 
 const Members = styled.div`
-width: 100%;
-display: inline-block;
-`;
-
-const Heading = styled.h2`
-color:#088d35;
-padding-left: 2.5%;
+margin: 3vh 10vw 0 10vw;
 `;
 
 export default function MembersList(props) {
@@ -18,7 +13,7 @@ export default function MembersList(props) {
     })
     return (
         <Members>
-            <Heading>Members List</Heading>
+            <Table heading="Members"/>
         </Members>
     )
 }

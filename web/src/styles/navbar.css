@@ -22,6 +22,9 @@
   background-color: #e5eee5;
   border-top-left-radius: .3vw;
   border-top-right-radius: .3vw;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  margin:0;
 }
 .dropbtn:hover {
   background-color: #768b56;
@@ -58,5 +61,5 @@ a:hover .dropbtn{background-color: #768b56;color:white;}
 
 .dropdown:hover .dropdown-content {display: block;}
 
-.lastmenu:hover .navbar {background-color: #013801;}
+.lastmenu:hover .navbar {background-color: #6a7e4b;}
 
