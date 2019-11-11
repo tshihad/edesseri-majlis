@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import SearchField from './sub_components/search'
+import SearchField from '../sub_components/search'
 const Members = styled.div`
-width: 100%;
-display: inline-block;
-margin-top: 2%;
-`;
+margin:5vh 10vw 0 10vw`;
 
 const Heading = styled.h2`
 width:50%;
@@ -103,7 +100,7 @@ function Subscriber(props) {
         <Member>
             <SlNo>{props.slno} </SlNo>
             <Name>{props.name}</Name>
-            <Button style={{ backgroundColor: payStatus === "PAID" ? "#00752b" : "#830b02" }} onClick={toggleStatus}>{payStatus}</Button>
+            <Button style={{ backgroundColor: payStatus === "PAID" ? "#556b2f" : "#6b2f2f" }} onClick={toggleStatus}>{payStatus}</Button>
         </Member>
     )
 }
