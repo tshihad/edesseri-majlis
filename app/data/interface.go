@@ -13,11 +13,14 @@ type Repo interface {
 	EgallerRepo
 	ContactRepo
 	DownloadRepo
+	Cache
+	CalendarRepo
+	WelfareRepo
 }
 
 // MemberRepo for user repo
 type MemberRepo interface {
-	GetMember(models.Member) (models.Member, error)
+	GetMember(string) (models.Member, error)
 	CreateMember(models.Member) error
 	UpdateMember(string, models.Member) (models.Member, error)
 	DeleteMember(string) error
@@ -35,13 +38,14 @@ type EgallerRepo interface {
 // SubscriptionRepo wrapper subscriptions
 type SubscriptionRepo interface {
 	CreateSubscription(models.Subscription) (models.Subscription, error)
-	GetSubscription(memberID string) (models.Subscription, error)
-	DeleteSubscriton(id int) error
+	GetSubscription(memberID string) ([]models.Subscription, error)
+	DeleteSubscriton(id uint) error
 }
 
 // LoanRepo for loans
 type LoanRepo interface {
 	GetLoan(string) ([]models.Loan, error)
+	CreateLoan(models.Loan) error
 }
 
 // ContactRepo for contact informations
@@ -49,6 +53,26 @@ type ContactRepo interface {
 	CreateContact(models.Contact) error
 }
 
+// DownloadRepo for downloadn repo
 type DownloadRepo interface {
 	CreateDownload(models.Downloads) error
+	GetDownloads(bool) ([]models.Downloads, error)
+}
+
+// Cache wraps redis functions
+type Cache interface {
+	VerifyToken(string) (string, error)
+	CreateToken(string) (string, error)
+}
+
+// CalendarRepo event calendar
+type CalendarRepo interface {
+	GetCalendarEvents() ([]models.EventCalendar, error)
+	GetUpcomingEvents(int) ([]models.EventCalendar, error)
+}
+
+// WelfareRepo wraps welfare functions
+type WelfareRepo interface {
+	CreateWelfare(models.Welfare) error
+	GetWelfare(string) ([]models.Welfare, error)
 }

@@ -1,12 +1,17 @@
 {
     "db": {
         "name": "majlis",
-        "pass": "pass123",
+        "pass": "sjrty12m43",
         "host": "localhost",
         "user": "postgres"
     },
+    "redis":{
+        "host":"0.0.0.0",
+        "port":"6379"
+    },
     "app":{
         "host":"0.0.0.0",
-        "port":8080
+        "port":8080,
+        "static_host":"http://10.4.5.22/static"
     }
 }

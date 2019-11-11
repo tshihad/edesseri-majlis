@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/jinzhu/gorm"
+
 	"github.com/go-chi/chi"
 )
 
@@ -25,13 +27,30 @@ func (a *App) handlePostSubscription(w http.ResponseWriter, r *http.Request) {
 
 // TODO update with filtering
 func (a *App) handleGetSubscription(w http.ResponseWriter, r *http.Request) {
-	memberID := chi.URLParam(r, "member_id")
+	memberID := r.Context().Value("member_id").(string)
 	subs, err := a.GetSubscription(memberID)
-	if err != nil {
+	if err != nil && err != gorm.ErrRecordNotFound {
 		a.Fail(w, http.StatusInternalServerError, "Failed to find Subscription", err)
 		return
 	}
-	a.Success(w, http.StatusOK, subs)
+	var resp []models.SubsTableResponse
+	yearHistory := -1
+	i := -1
+	for _, s := range subs {
+		if s.SubYear != yearHistory {
+			t := models.SubsTableResponse{
+				Year: s.SubYear,
+			}
+			t.Rows[s.SubMonth].Amount = strconv.Itoa(s.SubAmount)
+			resp = append(resp, t)
+			i++
+			yearHistory = s.SubYear
+		} else {
+			resp[i].Rows[s.SubMonth].Amount = strconv.Itoa(s.SubAmount)
+		}
+
+	}
+	a.Success(w, http.StatusOK, resp)
 }
 
 func (a *App) handleDeleteSubscription(w http.ResponseWriter, r *http.Request) {
@@ -41,7 +60,7 @@ func (a *App) handleDeleteSubscription(w http.ResponseWriter, r *http.Request) {
 		a.Fail(w, http.StatusBadRequest, "Invalid request", err)
 		return
 	}
-	if err := a.DeleteSubscriton(id); err != nil {
+	if err := a.DeleteSubscriton(uint(id)); err != nil {
 		a.Fail(w, http.StatusInternalServerError, "Failed to delete subscription", err)
 		return
 	}

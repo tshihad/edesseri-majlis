@@ -7,6 +7,8 @@ import (
 	"os"
 	"sync"
 
+	"github.com/go-redis/redis/v7"
+
 	"github.com/spf13/viper"
 
 	"github.com/jinzhu/gorm"
@@ -19,13 +21,14 @@ func Execute() {
 	// logger will print into system output or console
 	logger := core.NewLogger(logrus.InfoLevel, os.Stdout)
 	db := mustPrepareDB(logger)
-	serveApp(db, logger)
+	r := mustPrepareRedis()
+	serveApp(db, logger, r)
 }
 
 // serveApp serves app in given host and port
-func serveApp(db *gorm.DB, logger logrus.FieldLogger) {
+func serveApp(db *gorm.DB, logger logrus.FieldLogger, r *redis.Ring) {
 	var wg sync.WaitGroup
-	app := api.NewApp(db, logger)
+	app := api.NewApp(db, logger, r)
 	wg.Add(1)
 	go func() {
 		err := http.ListenAndServe(viper.GetString("app.host")+":"+viper.GetString("app.port"), app.Router())

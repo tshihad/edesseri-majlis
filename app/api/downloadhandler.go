@@ -4,58 +4,56 @@ import (
 	"majlis/app/core"
 	"majlis/app/models"
 	"net/http"
+	"os"
+	"strconv"
+	"strings"
 )
 
-func (a *App) handleGetDownloads(w http.ResponseWriter, r *http.Request) {
-	d := []models.Downloads{
-		{
-			Title:       "Marriage certificate",
-			Description: "This is a test description which should desplay in form",
-			Location:    "http://localhost:8080/static/mg.pdf",
-		},
-		{
-			Title:       "Marriage certificate",
-			Description: "This is a test description which should desplay in form",
-			Location:    "http://localhost:8080/static/mg.pdf",
-		},
-		{
-			Title:       "Marriage certificate",
-			Description: "This is a test description which should desplay in form",
-			Location:    "http://localhost:8080/static/mg.pdf",
-		},
-		{
-			Title:       "Marriage certificate",
-			Description: "This is a test description which should desplay in form",
-			Location:    "http://localhost:8080/static/mg.pdf",
-		},
-		{
-			Title:       "Marriage certificate",
-			Description: "This is a test description which should desplay in form",
-			Location:    "http://localhost:8080/static/mg.pdf",
-		},
-		{
-			Title:       "Marriage certificate",
-			Description: "This is a test description which should desplay in form",
-			Location:    "http://localhost:8080/static/mg.pdf",
-		},
+func (a *App) handleGetPublicDownloads(w http.ResponseWriter, r *http.Request) {
+	d, err := a.GetDownloads(true)
+	if err != nil {
+		a.Fail(w, http.StatusInternalServerError, "Failed to get downloads", err)
+		return
 	}
 	a.Success(w, http.StatusOK, d)
 }
 
 func (a *App) handlePostDownload(w http.ResponseWriter, r *http.Request) {
-	location, err := uploadImage(r, core.DOWNLOAD_TAG, core.DOWNLOAD_LOCATION)
+
+	location, err := uploadFile(r, core.DOWNLOAD_TAG, core.PRIVATE_DOWNLOAD_LOCATION, core.ALLOW_DOWNLOAD_EXT)
 	if err != nil {
 		a.Fail(w, http.StatusBadRequest, "Failed to upload image", err)
 		return
 	}
+
+	isPublic := r.Form.Get("is_public")
+	p, err := strconv.ParseBool(isPublic)
+	if err != nil {
+		a.Fail(w, http.StatusBadRequest, "Failed to parse is_public", err)
+		return
+	}
+
 	d := models.Downloads{}
 	d.Title = r.Form.Get("title")
 	d.Description = r.Form.Get("description")
-	d.Location = location
+	d.IsPublic = p
+	d.Location = core.GetStaticHost() + location
+	if p {
+		s := strings.Split(location, "/")
+		newLocation := core.PUBLIC_DOWNLOAD_LOCATION + "/" + s[len(s)-1]
+		err := os.Rename(core.STATIC+location, core.STATIC+newLocation)
+		if err != nil {
+			a.Fail(w, http.StatusInternalServerError, "Failed to move file", err)
+			return
+		}
+		d.Location = core.GetStaticHost() + newLocation
+	}
+
 	err = a.CreateDownload(d)
 	if err != nil {
 		a.Fail(w, http.StatusInternalServerError, "Failed to create download entry in db", err)
 		return
 	}
+
 	a.Success(w, http.StatusCreated, d)
 }

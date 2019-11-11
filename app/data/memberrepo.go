@@ -11,14 +11,15 @@ import (
 )
 
 // GetMember get user from db
-func (r *RepoImp) GetMember(member models.Member) (models.Member, error) {
-	err := r.db.Where(member).First(&member).Error
+func (r *RepoImp) GetMember(memberID string) (models.Member, error) {
+	var member models.Member
+	err := r.db.Where(models.Member{MemberID: memberID}).First(&member).Error
 	return member, err
 }
 
 // CreateMember insert new member to db
 func (r *RepoImp) CreateMember(member models.Member) error {
-	err := r.db.Create(member).Error
+	err := r.db.Create(&member).Error
 	return err
 }
 
@@ -48,13 +49,13 @@ func (r *RepoImp) CreateNewMemberID() (string, error) {
 	var member models.Member
 	zeroArr := "0000"
 	err := r.db.Select("member_id").Last(&member).Error
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return memberID, err
+	}
 	memberID = member.MemberID
-	if err == gorm.ErrRecordNotFound || memberID == "" {
+	if memberID == "" {
 		newID = core.MEMBER_PREFIX + zeroArr[:len(zeroArr)-1] + "1"
 		return newID, nil
-	}
-	if err != nil {
-		return memberID, err
 	}
 	num, err := strconv.Atoi(memberID[3:])
 	if err != nil {
