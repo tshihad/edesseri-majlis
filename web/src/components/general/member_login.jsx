@@ -75,19 +75,19 @@ function MemberLogin(props) {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value)
   }
-  const handleSubmit = () => {
-    axios.post('http://10.4.5.22:8080/majlis/signin', {
+  const handleSubmit = e => {
+    e.preventDefault();
+    axios.post('http://localhost:8080/majlis/signin', {
       member_id: username,
       password: password
     })
       .then((response) => {
         if (response.status === 200) {
-          alert(response.data.result)
-          localStorage.setItem('EdasseryMajlisToken', response.data.result)
           props.setLoggedIn(true)
-          window.location = '/User/UserOptions/Subscriptions'
-        } else {
-          alert(response.data.message + " : " + response.data.message)
+        localStorage.setItem('EdasseryMajlisToken', response.data.result)
+          props.history.push('/User/UserOptions/Subscriptions')
+        }else{
+          alert("Invalid Credentials")
         }
       }).catch((err) => {
         alert(err)

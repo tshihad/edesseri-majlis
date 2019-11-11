@@ -56,7 +56,7 @@ export default function EventCalendar(props) {
     const classes = useStyles();
     return (
         <div>
-        {props.isLogged === true ?
+        {props.isLogged != true ?
         <div >
             <Grid container spacing={4}>
                 <Grid item xs={2}></Grid>
