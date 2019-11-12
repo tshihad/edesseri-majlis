@@ -8,8 +8,6 @@ import (
 	"github.com/go-chi/chi"
 )
 
-var memberPattern = "/{member_id:" + core.MEMBER_PREFIX + "[0-9]{4}}"
-
 // Router api routing. to create new api list url here
 func (a *App) Router() http.Handler {
 	r := chi.NewRouter()
@@ -31,20 +29,21 @@ func (a *App) Router() http.Handler {
 			r.Get("/subscription", a.handleGetSubscription)
 			r.Get("/family-welfare", a.handleGetWelfare)
 			r.Post("/loan", a.handlePostLoan)
+
+			r.Get("/downloads", a.handleGetPrivateDownloads)
 		})
-		r.With(validateAdmin(a.FieldLogger)).Route("/admin", func(r chi.Router) {
+		r.With(a.validateAdmin()).Route("/admin", func(r chi.Router) {
 			r.Route("/event-gallery", func(r chi.Router) {
 				r.Post("/", a.handlePostEGallery)
 				r.Delete("/{id}", a.handleDeleteEGallery)
 			})
 			r.Route("/subscription", func(r chi.Router) {
 				r.Post("/", a.handlePostSubscription)
-				r.Get("/member"+memberPattern, a.handleGetSubscription)
+				r.Get("/", a.handleGetSubscription)
 				r.Delete("/{id}", a.handleDeleteSubscription)
 			})
 
-			r.Get("/members", a.handleGetMembers)
-			r.Get("/members/limit={limit}&offset={offset}", a.handleGetMembers)
+			r.Get("/member", a.handleGetMembers)
 			r.Post("/member", a.handlePostMember)
 			r.Post("/member/image", a.handlePostProfileImage)
 
@@ -56,6 +55,7 @@ func (a *App) Router() http.Handler {
 
 		r.Get("/downloads", a.handleGetPublicDownloads)
 		r.Get("/auth", a.handleVerifyAuth)
+		r.Post("/signin/admin", a.handleAdminSignIn)
 	})
 	return r
 }

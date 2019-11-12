@@ -16,6 +16,7 @@ type Repo interface {
 	Cache
 	CalendarRepo
 	WelfareRepo
+	AdminRepo
 }
 
 // MemberRepo for user repo
@@ -25,7 +26,7 @@ type MemberRepo interface {
 	UpdateMember(string, models.Member) (models.Member, error)
 	DeleteMember(string) error
 	CreateNewMemberID() (string, error)
-	GetMembers(int, int) ([]models.Member, error)
+	GetMembers() ([]models.MemberShortResp, error)
 }
 
 // EgallerRepo for egallery functions
@@ -75,4 +76,9 @@ type CalendarRepo interface {
 type WelfareRepo interface {
 	CreateWelfare(models.Welfare) error
 	GetWelfare(string) ([]models.Welfare, error)
+}
+
+type AdminRepo interface {
+	VerifyAdmin(string) error
+	UpdateAdmin(models.Admin) (string, error)
 }

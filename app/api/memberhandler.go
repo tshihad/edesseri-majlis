@@ -87,14 +87,9 @@ func (a *App) handleDeleteMember(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *App) handleGetMembers(w http.ResponseWriter, r *http.Request) {
-	limit, offset, err := getParams(r)
+	members, err := a.GetMembers()
 	if err != nil {
-		a.Fail(w, http.StatusBadRequest, "Invalid limit/offset", err)
-		return
-	}
-	members, err := a.GetMembers(limit, offset)
-	if err != nil {
-		a.Fail(w, http.StatusBadRequest, "Failed to get members", err)
+		a.Fail(w, http.StatusInternalServerError, "Failed to get members", err)
 		return
 	}
 	a.Success(w, http.StatusOK, members)
@@ -102,13 +97,14 @@ func (a *App) handleGetMembers(w http.ResponseWriter, r *http.Request) {
 
 func (a *App) handleSignin(w http.ResponseWriter, r *http.Request) {
 	var signin models.MemberSignIn
+	resp := models.MemberSignInRes{}
 	if err := json.NewDecoder(r.Body).Decode(&signin); err != nil {
 		a.Fail(w, http.StatusBadRequest, "Failed to parse sign in form", err)
 		return
 	}
 	member, err := a.GetMember(signin.MemberID)
 	if err != nil || member.MemberID == "" || member.PasswordHash == "" {
-		a.Fail(w, http.StatusNotFound, "Failed to authenticate", err)
+		a.Fail(w, http.StatusUnauthorized, "Failed to authenticate", err)
 		return
 	}
 	m := md5.New()
@@ -122,5 +118,10 @@ func (a *App) handleSignin(w http.ResponseWriter, r *http.Request) {
 		a.Fail(w, http.StatusInternalServerError, "Failed to generate token", err)
 		return
 	}
-	a.Success(w, http.StatusOK, token)
+	resp.MemberID = member.MemberID
+	resp.ImageURL = member.ImageLocation
+	resp.Name = member.Name
+	resp.Token = token
+
+	a.Success(w, http.StatusOK, resp)
 }

@@ -62,3 +62,18 @@ type MemberSignIn struct {
 	MemberID string `json:"memeber_id"`
 	Password string `json:"password"`
 }
+
+type MemberSignInRes struct {
+	Name     string `json:"name"`
+	MemberID string `json:"member_id"`
+	ImageURL string `json:"image_url"`
+	Token    string `json:"token"`
+}
+
+type MemberShortResp struct {
+	MemberID      string
+	Name          string
+	PhNumber1     string `json:"ph_number_1"`
+	Email         string
+	ImageLocation string `json:"image_location"`
+}

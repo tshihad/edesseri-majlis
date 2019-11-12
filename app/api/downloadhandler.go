@@ -9,6 +9,15 @@ import (
 	"strings"
 )
 
+func (a *App) handleGetPrivateDownloads(w http.ResponseWriter, r *http.Request) {
+	d, err := a.GetDownloads(false)
+	if err != nil {
+		a.Fail(w, http.StatusInternalServerError, "Failed to get downloads", err)
+		return
+	}
+	a.Success(w, http.StatusOK, d)
+}
+
 func (a *App) handleGetPublicDownloads(w http.ResponseWriter, r *http.Request) {
 	d, err := a.GetDownloads(true)
 	if err != nil {
