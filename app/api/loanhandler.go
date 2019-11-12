@@ -22,11 +22,11 @@ func (a *App) handlePostLoan(w http.ResponseWriter, r *http.Request) {
 	memberID := r.Context().Value(core.MEMBERID_TAG).(string)
 	var loan models.Loan
 	if err := json.NewDecoder(r.Body).Decode(&loan); err != nil {
-		a.Fail(w, http.StatusBadRequest, "Failed to parse request", err)
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to parse request", err)
 		return
 	}
 	if memberID == loan.GuarenterMemberID {
-		a.Fail(w, http.StatusBadRequest, "Guarenteer memberID cannot be same as user member id", errors.New("MemeberID conflict"))
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Guarenteer memberID cannot be same as user member id", errors.New("MemeberID conflict"))
 		return
 	}
 	loan.MemberID = memberID

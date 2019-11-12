@@ -9,7 +9,7 @@ func (a *App) handleVerifyAuth(w http.ResponseWriter, r *http.Request) {
 	m, err := a.VerifyToken(token)
 	if err != nil || m == "" {
 		a.Error("Fail to verify auth")
-		w.WriteHeader(http.StatusUnauthorized)
+		w.WriteHeader(http.StatusNonAuthoritativeInfo)
 		return
 	}
 	a.Success(w, http.StatusOK, m)

@@ -2,7 +2,10 @@ package api
 
 import (
 	"context"
+	"majlis/app/core"
 	"net/http"
+
+	"github.com/go-chi/chi"
 
 	"github.com/go-chi/cors"
 
@@ -20,10 +23,10 @@ func (a *App) validateUser() func(http.Handler) http.Handler {
 			}
 			memberID, err := a.VerifyToken(token)
 			if err != nil {
-				w.WriteHeader(http.StatusUnauthorized)
+				w.WriteHeader(http.StatusNonAuthoritativeInfo)
 				return
 			}
-			ctx := context.WithValue(r.Context(), "member_id", memberID)
+			ctx := context.WithValue(r.Context(), core.MEMBERID_TAG, memberID)
 			next.ServeHTTP(w, r.WithContext(ctx))
 		}
 		return http.HandlerFunc(fn)
@@ -41,7 +44,7 @@ func (a *App) validateAdmin() func(http.Handler) http.Handler {
 			}
 			err := a.VerifyAdmin(token)
 			if err != nil {
-				a.Fail(w, http.StatusUnauthorized, "Failed to authenticate admin", err)
+				a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to authenticate admin", err)
 				return
 			}
 			next.ServeHTTP(w, r)
@@ -77,4 +80,15 @@ func getCors() func(http.Handler) http.Handler {
 		MaxAge:           300, // Maximum value not ignored by any of major browsers
 	})
 	return cors.Handler
+}
+
+func (a *App) setMemeberID() func(http.Handler) http.Handler {
+	return func(next http.Handler) http.Handler {
+		fn := func(w http.ResponseWriter, r *http.Request) {
+			memberID := chi.URLParam(r, core.MEMBERID_TAG)
+			ctx := context.WithValue(r.Context(), core.MEMBERID_TAG, memberID)
+			next.ServeHTTP(w, r.WithContext(ctx))
+		}
+		return http.HandlerFunc(fn)
+	}
 }

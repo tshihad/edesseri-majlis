@@ -42,10 +42,12 @@ func (a *App) Router() http.Handler {
 				r.Get("/", a.handleGetSubscription)
 				r.Delete("/{id}", a.handleDeleteSubscription)
 			})
-
-			r.Get("/member", a.handleGetMembers)
-			r.Post("/member", a.handlePostMember)
-			r.Post("/member/image", a.handlePostProfileImage)
+			r.Route("/member", func(r chi.Router) {
+				r.Get("/", a.handleGetMembers)
+				r.With(a.setMemeberID()).Get("/{member_id}", a.handleGetMember)
+				r.Post("/", a.handlePostMember)
+				r.Post("/image", a.handlePostProfileImage)
+			})
 
 			r.Post("/downloads", a.handlePostDownload)
 		})
