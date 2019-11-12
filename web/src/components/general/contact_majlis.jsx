@@ -35,7 +35,7 @@ export default function Contactmajlis(props) {
   }
   const phoneRegExp = /^\+?[0-9]{10,14}$/;
 
-
+var FormReset
   return (
     <Contact>
       <Headline>Contact Majlis</Headline>

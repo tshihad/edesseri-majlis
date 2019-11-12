@@ -10,6 +10,8 @@ import '../../styles/contact.css';
 import { API_BASE_URL } from '../constants';
 import Loading from '../sub_components/loading'
 
+var FormReset
+
 const Contact = styled.div`
 margin: 5vh 10vw 0 10vw;`;
 const Headline = styled.h1`
