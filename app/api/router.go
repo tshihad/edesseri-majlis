@@ -31,8 +31,10 @@ func (a *App) Router() http.Handler {
 			r.Get("/subscription", a.handleGetSubscription)
 			r.Get("/family-welfare", a.handleGetWelfare)
 			r.Post("/loan", a.handlePostLoan)
+
+			r.Get("/downloads", a.handleGetPrivateDownloads)
 		})
-		r.With(validateAdmin(a.FieldLogger)).Route("/admin", func(r chi.Router) {
+		r.With(a.validateAdmin()).Route("/admin", func(r chi.Router) {
 			r.Route("/event-gallery", func(r chi.Router) {
 				r.Post("/", a.handlePostEGallery)
 				r.Delete("/{id}", a.handleDeleteEGallery)
@@ -56,6 +58,7 @@ func (a *App) Router() http.Handler {
 
 		r.Get("/downloads", a.handleGetPublicDownloads)
 		r.Get("/auth", a.handleVerifyAuth)
+		r.Post("/signin/admin", a.handleAdminSignIn)
 	})
 	return r
 }

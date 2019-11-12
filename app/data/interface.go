@@ -16,6 +16,7 @@ type Repo interface {
 	Cache
 	CalendarRepo
 	WelfareRepo
+	AdminRepo
 }
 
 // MemberRepo for user repo
@@ -75,4 +76,9 @@ type CalendarRepo interface {
 type WelfareRepo interface {
 	CreateWelfare(models.Welfare) error
 	GetWelfare(string) ([]models.Welfare, error)
+}
+
+type AdminRepo interface {
+	VerifyAdmin(string) error
+	UpdateAdmin(models.Admin) error
 }
