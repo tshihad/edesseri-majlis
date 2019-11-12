@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components';
 import { Grid } from '@material-ui/core';
-import axios from 'axios'
+import axios from 'axios';
+import { API_BASE_URL } from '../constants';
+import Loading from '../sub_components/loading'
+
+
 
 
 const SubscriptionCard = styled.div`
@@ -49,17 +53,23 @@ const MatrixHead = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep
 export default function Subscription(props) {
   const [rows, setrows] = React.useState([Rows])
   const [columns, setcolumns] = React.useState(Columns)
+  const [canLoad, setLoading] = React.useState(false)
   useEffect(() => {
-    axios.get('http://localhost:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
-      repsonse => {
-        if (repsonse.status != 200) {
-          window.location = "/MemberLogin"
+    if (localStorage.getItem('VerifiedUser')) {
+      setLoading(true)
+    } else {
+      axios.get(API_BASE_URL + '/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+        repsonse => {
+          if (repsonse.status != 200) {
+            window.location = "/MemberLogin"
+          }
         }
-      }
-    ).catch(error => {
-      window.location = "/MemberLogin"
-    })
-    axios.get('http://localhost:8080/majlis/member/subscription',
+      ).catch(error => {
+        window.location = "/MemberLogin"
+        alert("Authentication Failed")
+      })
+    }
+    axios.get(API_BASE_URL + '/majlis/member/subscription',
       { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } })
       .then((response) => {
         var years = []
@@ -83,35 +93,39 @@ export default function Subscription(props) {
       })
   }, [])
   return (
-    <SubscriptionCard>
-      <Headline>Your Subscriptions</Headline>
-      <Matrix>
-        <Grid container spacing={0}>
-          <Grid item xs={2} style={{ border: "solid 1px #556b2f" }}></Grid>
-          <Grid container xs={10}>
-            {MatrixHead.map((head) => (
-              <Grid item xs={1}>
-                <Head >{head}</Head>
+    <div>
+      {canLoad === true ?
+        <SubscriptionCard>
+          <Headline>Your Subscriptions</Headline>
+          <Matrix>
+            <Grid container spacing={0}>
+              <Grid item xs={2} style={{ border: "solid 1px #556b2f" }}></Grid>
+              <Grid container xs={10}>
+                {MatrixHead.map((head) => (
+                  <Grid item xs={1}>
+                    <Head >{head}</Head>
+                  </Grid>
+                ))}
+              </Grid>
+            </Grid>
+            {rows.map((row, i) => (
+              <Grid container spacing={0} key={i}>
+                <Grid item xs={2}>
+                  <Row>{row}</Row>
+                </Grid>
+                <Grid container xs={10}>
+                  {columns[i].map((column, j) => (
+                    <Grid xs={1} key={j}>
+                      <Column>{column}</Column>
+                    </Grid>
+                  ))}
+                </Grid>
               </Grid>
             ))}
-          </Grid>
-        </Grid>
-        {rows.map((row, i) => (
-          <Grid container spacing={0} key={i}>
-            <Grid item xs={2}>
-              <Row>{row}</Row>
-            </Grid>
-            <Grid container xs={10}>
-              {columns[i].map((column, j) => (
-                <Grid xs={1} key={j}>
-                  <Column>{column}</Column>
-                </Grid>
-              ))}
-            </Grid>
-          </Grid>
-        ))}
-        <Footer>Amount In Dirhams*</Footer>
-      </Matrix>
-    </SubscriptionCard>
+            <Footer>Amount In Dirhams*</Footer>
+          </Matrix>
+        </SubscriptionCard>
+        : <Loading />}
+    </div>
   )
 }

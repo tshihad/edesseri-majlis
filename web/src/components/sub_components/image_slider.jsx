@@ -3,12 +3,11 @@ import Carousel from 'nuka-carousel';
 import styled from 'styled-components';
 import ArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import ArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import bc from '../../images/background.jpg'
-import img1 from '../../images/img1.jpg'
-import img2 from '../../images/img2.jpg'
-import img3 from '../../images/img3.jpg'
-import img4 from '../../images/img4.JPG'
-import img5 from '../../images/img5.jpg'
+import img1 from '../../images/slider/slider1.jpg'
+import img2 from '../../images/slider/slider2.jpg'
+import img3 from '../../images/slider/slider3.jpg'
+import img4 from '../../images/slider/slider4.jpg'
+import img5 from '../../images/slider/slider5.jpg'
 
 // green color for arrow
 // color: #033d19;
@@ -43,12 +42,11 @@ export default function Slider() {
       )}
       
     >
-      <img src={bc} alt="img1" />
-      <img src={img1} alt="img2" />
-      <img src={img2} alt="img3" />
-      <img src={img3} alt="img4" />
-      <img src={img4} alt="img5" />
-      <img src={img5} alt="img6" />
+      <img src={img1} alt="img1" />
+      <img src={img2} alt="img2" />
+      <img src={img3} alt="img3" />
+      <img src={img4} alt="img4" />
+      <img src={img5} alt="img5" />
     </Carousel>
   )
 }

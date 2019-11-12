@@ -4,9 +4,12 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
 import axios from 'axios';
-import PhoneInput from '../sub_components/phone_number_input';
+// import PhoneInput from '../sub_components/phone_number_input';
 import { Grid } from '@material-ui/core';
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/dist/style.css'
 import '../../styles/contact.css';
+import {API_BASE_URL} from '../constants'
 
 
 
@@ -27,17 +30,25 @@ export default function Contactmajlis(props) {
     props.setState("ContactMajlis")
   })
   const [phone, setState] = React.useState()
-    const handleOnChange = (value) => {
-        setState(value)
-    }
+  const handleOnChange = (value) => {
+    setState(value)
+  }
+  const phoneRegExp = /^\+?[0-9]{10,13}$/;
+
+
   return (
     <Contact>
       <Headline>Contact Majlis</Headline>
       <Formik
         initialValues={{ email: '', phone: '', firstname: '', lastname: '', place: '', country: '', content: '' }}
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={(values, { setSubmitting, setErrors }) => {
+          if (!values.phone.match(phoneRegExp)) {
+            setErrors({ phone: 'Invalid Phone ' });
+            setSubmitting(false);
+            return;
+          }
 
-          axios.post('http://localhost:8080/majlis/contact', {
+          axios.post(API_BASE_URL+'/majlis/contact', {
             email: values.email,
             phone: values.phone,
             fname: values.firstname,
@@ -47,7 +58,8 @@ export default function Contactmajlis(props) {
             content: values.content
           })
             .then((response) => {
-              alert(response.statusText);
+              alert("Information Recorded Successfully");
+              
             })
             .catch(function (error) {
               alert(error);
@@ -55,6 +67,7 @@ export default function Contactmajlis(props) {
           setSubmitting(false);
 
         }}
+
         validationSchema={Yup.object().shape({
           email: Yup.string()
             .email()
@@ -68,7 +81,8 @@ export default function Contactmajlis(props) {
           country: Yup.string()
             .required('Required'),
           content: Yup.string()
-            .required('Required')
+            .required('Required'),
+          phone: Yup.string().required('Required'),
         })}
       >
         {props => {
@@ -163,12 +177,35 @@ export default function Contactmajlis(props) {
                   <Grid container spacing={0}>
                     <Grid item xs={4}>
                       <label htmlFor="phone">
-                        Phone
-                      </label>
+                        Phone Number
+                        </label>
                     </Grid>
                     <Grid item xs={8}>
-                      <PhoneInput id="phone" value={values.lastname}
-                        />
+                      <input
+                        id="phone"
+                        name="phone"
+                        placeholder="Enter your Phone Number"
+                        type="text"
+                        value={values.phone}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        className={
+                          errors.phone && touched.phone ? 'inputs text-input error' : 'inputs text-input'
+                        }
+                      />
+                      {/* <PhoneInput defaultCountry={'in'} id="phone" value={values.phone} onChange={handleOnChange}
+                        disableAreaCodes
+                        inputExtraProps={{
+                          name: 'phone',
+                          id: 'phone',
+                          required: true,
+                        }}
+                        inputStyle={{ backgroundColor: "#eefaece0", minWidth: "300px", fontSize: "16px" }}
+                        buttonStyle={{ width: "40px", backgroundColor: "#7bb419" }}
+                      /> */}
+                      {errors.phone && touched.phone ? (
+                        <div className="input-feedback">{errors.phone}</div>)
+                        : <div className="input-feedback">&nbsp;</div>}
                     </Grid>
                   </Grid>
                 </Grid>

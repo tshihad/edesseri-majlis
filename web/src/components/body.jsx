@@ -34,7 +34,10 @@ import EventCalendar from './sub_components/event_calendar';
 import LogoutIcon from '@material-ui/icons/Person';
 import axios from 'axios';
 import '../styles/navbar.css';
-import '../styles/header.css'
+import '../styles/header.css';
+import '../styles/logout.css';
+import { API_BASE_URL } from './constants'
+
 
 const Head = styled.div`
 width: 100%;
@@ -83,13 +86,12 @@ margin-right:2%;
 const Logout = styled.button`
 border: 0;
 outline: 0;
-width: 3.5vw;
-height: 3.5vw;
 background-color: #6a7e4b;
 color: white;
 float: right;
-margin-top: 1vh;
-border-radius: 1.75vw;
+margin-top: .5em;
+border-radius: .5em;
+display: inline-block;
 &:hover{
   background-color: #556b2f;
 }
@@ -97,6 +99,7 @@ border-radius: 1.75vw;
 const Span = styled.span`
 font-size: 2vw;
 `;
+
 export default function Header() {
   const [isButtonActive, setActive] = React.useState("Home")
   const [language, setLanguage] = React.useState("മലയാളം")
@@ -126,7 +129,7 @@ export default function Header() {
     setLanguage(language === "മലയാളം" ? "English" : "മലയാളം")
   }
   useEffect(() => {
-    axios.get('http://localhost:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+    axios.get(API_BASE_URL + '/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
       repsonse => {
         if (repsonse.status === 200) {
           setLogIn(true)
@@ -143,7 +146,9 @@ export default function Header() {
               <img src={logo} alt="logo" style={{ width: "3.5vw", height: "3.5vw", display: "inline-block" }} />
               <div style={{ margin: "1.5vw 0 0 .8vw", color: "#556b2f", display: "inline-block", fontFamily: "Aroma", fontSize: "1.4vw" }}><Span>E</Span>DASSERY <Span>M</Span>AJLIS <Span>G</Span>ROUP</div>
             </div>
-            {isLoggedin && <Logout title="Logout" onClick={handleLogout}><LogoutIcon style={{ fontSize: "3em" }} /></Logout>}
+            {isLoggedin === true && <Logout title="Logout" onClick={handleLogout}><LogoutIcon style={{ fontSize: "3em" }} /></Logout>}
+            {/* {isLoggedin === false &&  <LogoutButton/>} */}
+
             {isLanguageOption && <Language title="Change Language" style={{ display: "inline-block", fontSize: language === "English" ? "1.1vw" : "1.5vw" }} onClick={changeLanguage}>{language}</Language>}
           </Heading>
 
@@ -425,3 +430,14 @@ export default function Header() {
 }
 
 
+function LogoutButton() {
+  return (
+    <div class="logout">
+      <Logout title="Logout" className="logoutbtn" ><LogoutIcon style={{ fontSize: "3em" }} /></Logout>
+      <div class="logout-content">
+        <a >Hi {localStorage.getItem('Username')}</a>
+        <a >Logout</a>
+      </div>
+    </div>
+  )
+}

@@ -27,7 +27,7 @@ export default function ImageGallery(props) {
         setViewerIsOpen(false);
     };
     useEffect(() => {
-        axios.get("http://localhost:8080/majlis/event-gallery/" + props.category)
+        axios.get("http://10.4.5.22:8080/majlis/event-gallery/" + props.category)
             .then(({ data }) => {
                 var picrures = []
                 data.result.map((image) => {
@@ -37,7 +37,7 @@ export default function ImageGallery(props) {
             }).catch((err) => {
                 alert(err)
             })
-    }, [])
+    }, [props])
     return (
         <div >
             <Head>{props.head}</Head>
