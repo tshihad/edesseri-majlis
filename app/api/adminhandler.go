@@ -11,7 +11,7 @@ import (
 func (a *App) handleAdminSignIn(w http.ResponseWriter, r *http.Request) {
 	var adminReq models.AdminRequest
 	if err := json.NewDecoder(r.Body).Decode(&adminReq); err != nil {
-		a.Fail(w, http.StatusBadRequest, "Failed to parse request", err)
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to parse request", err)
 		return
 	}
 
@@ -24,7 +24,7 @@ func (a *App) handleAdminSignIn(w http.ResponseWriter, r *http.Request) {
 	}
 	token, err := a.UpdateAdmin(admin)
 	if err != nil {
-		a.Fail(w, http.StatusUnauthorized, "Failed to update admin", err)
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to update admin", err)
 		return
 	}
 	a.Success(w, http.StatusOK, token)
