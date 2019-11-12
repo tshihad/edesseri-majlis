@@ -35,9 +35,9 @@ func (r *RepoImp) DeleteMember(memberID string) error {
 }
 
 // GetMembers returns members in given range( according to memberid)
-func (r *RepoImp) GetMembers(limit, offset int) ([]models.Member, error) {
-	var members []models.Member
-	err := r.db.Limit(limit).Offset(offset).Find(&members).Error
+func (r *RepoImp) GetMembers() ([]models.MemberShortResp, error) {
+	var members []models.MemberShortResp
+	err := r.db.Model(models.Member{}).Select("member_id,name,ph_number_1,email,image_location").Order("member_id").Scan(&members).Error
 	return members, err
 }
 

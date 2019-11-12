@@ -30,10 +30,20 @@ func (a *App) validateUser() func(http.Handler) http.Handler {
 	}
 }
 
-func validateAdmin(logger logrus.FieldLogger) func(http.Handler) http.Handler {
+func (a *App) validateAdmin() func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		fn := func(w http.ResponseWriter, r *http.Request) {
-			// validate user
+			token := r.Header.Get("Authorization")
+			if token == "" {
+				w.WriteHeader(http.StatusForbidden)
+				a.Error("Autherization header not set")
+				return
+			}
+			err := a.VerifyAdmin(token)
+			if err != nil {
+				a.Fail(w, http.StatusUnauthorized, "Failed to authenticate admin", err)
+				return
+			}
 			next.ServeHTTP(w, r)
 		}
 		return http.HandlerFunc(fn)

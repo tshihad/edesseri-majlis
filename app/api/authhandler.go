@@ -12,5 +12,5 @@ func (a *App) handleVerifyAuth(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnauthorized)
 		return
 	}
-	w.WriteHeader(http.StatusOK)
+	a.Success(w, http.StatusOK, m)
 }
