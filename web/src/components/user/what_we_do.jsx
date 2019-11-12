@@ -83,14 +83,13 @@ const MajlisStandsForContents = {
 
 export default function WhatWeDo(props) {
   useEffect(() => {
-    axios.get('http://10.4.5.22:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+    axios.get('http://localhost:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
       repsonse => {
         if (repsonse.status != 200) {
           window.location = "/MemberLogin"
         }
       }
     ).catch(error => {
-      alert(error)
       window.location = "/MemberLogin"
     })
     props.setLanButton(true)
@@ -132,8 +131,6 @@ display:inline-block;
 `;
 export function WhatWeDoCard(props) {
   return (
-    <div>
-    {props.isLogged === true ?
     <Card style={{ backgroundColor: props.colorcode === "1" ? "#e9e9dfbe" : "#e5eee5", borderBottom: props.colorcode === "1" ? "1.5px #c7ab21 solid" : "1.5px #7ead2b solid" }}>
       <Div><Headline>{props.headline}</Headline></Div>
       <Content>
@@ -147,6 +144,5 @@ export function WhatWeDoCard(props) {
 
       </Content>
     </Card>
-    :<Redirect to='/MemberLogin'/>}</div>
   )
 }

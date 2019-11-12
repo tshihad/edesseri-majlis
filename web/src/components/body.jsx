@@ -106,6 +106,7 @@ export default function Header() {
   const handleLogout = () => {
     localStorage.clear()
     setIsLoggedin(false)
+    window.location = "/Home"
   }
   const setLogIn = (value) => {
     setIsLoggedin(value)
@@ -125,12 +126,13 @@ export default function Header() {
     setLanguage(language === "മലയാളം" ? "English" : "മലയാളം")
   }
   useEffect(() => {
-    axios.get('http://10.4.5.22:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+    axios.get('http://localhost:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
       repsonse => {
         if (repsonse.status === 200) {
-          setIsLoggedin(true)
+          setLogIn(true)
         }
-      })
+      }
+    )
   })
   return (
     <div class="mainhead">
@@ -412,6 +414,7 @@ export default function Header() {
             <Route path="/User/UserOptions/FamilyWelfare" ><UserOptions component="familywelfare" setState={buttonClick} isLogged={isLoggedin} setLanButton={setButton} setUser={setThisUser} /></Route>
             <Route path="/User/Profile" ><Profile setState={buttonClick} setLanButton={setButton} isLogged={isLoggedin} setUser={setThisUser} /></Route>
             <Router path="/User/EventCalender"><EventCalendar setState={buttonClick} setLanButton={setButton} isLogged={isLoggedin} setUser={setThisUser} /></Router>
+            <Redirect from="/" to="/Home" />
           </Switch>
         </Body>
         <Footer />

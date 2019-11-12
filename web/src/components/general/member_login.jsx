@@ -77,7 +77,7 @@ function MemberLogin(props) {
   }
   const handleSubmit = e => {
     e.preventDefault();
-    axios.post('http://10.4.5.22:8080/majlis/signin', {
+    axios.post('http://localhost:8080/majlis/signin', {
       member_id: username,
       password: password
     })
@@ -86,6 +86,8 @@ function MemberLogin(props) {
           props.setLoggedIn(true)
         localStorage.setItem('EdasseryMajlisToken', response.data.result)
           props.history.push('/User/UserOptions/Subscriptions')
+        }else{
+          alert("Invalid Credentials")
         }
       }).catch((err) => {
         alert(err)
