@@ -57,7 +57,7 @@ export default function Downloads(props) {
   useEffect(() => {
     props.setLanButton(false)
     props.setState("Downloads")
-    axios.get("http://localhost:8080/majlis/downloads")
+    axios.get("http://10.4.5.22:8080/majlis/downloads")
       .then(({ data }) => {
         data.result.map((element) => {
           element.UpdatedAt = element.UpdatedAt.slice(0, 10)

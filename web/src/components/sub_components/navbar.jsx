@@ -39,7 +39,6 @@ export default function NavBar(props) {
           <Link to="#">Term-1</Link>
           <Link to="#">Term-2</Link>
           <Link to="#">Term-3</Link>
-
         </div>
       </Link>
       <Link to="/EventGallery" class="dropdown">

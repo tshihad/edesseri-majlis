@@ -8,7 +8,11 @@ import RiseOfMajlisBullet from '../../images/icons/riseofmajlis.svg'
 import MajlisPriorityBullet from '../../images/icons/majlispriority.svg'
 import axios from 'axios'
 import { Link } from 'react-router-dom';
-import {Redirect} from 'react-router-dom'
+import {Redirect} from 'react-router-dom';
+import {API_BASE_URL} from '../constants';
+import Loading from '../sub_components/loading'
+
+
 
  const RiseOfMajlisContents = {
    english:[
@@ -62,21 +66,29 @@ const MIsionContents = {
 ]
 }
 export default function Home(props){
-  useEffect(()=>{
-    axios.get('http://localhost:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
-      repsonse => {
-        if (repsonse.status != 200) {
-          window.location = "/MemberLogin"
+  const [canLoad, setLoading] = React.useState(false)
+  useEffect(() => {
+    if (localStorage.getItem('VerifiedUser')) {
+      setLoading(true)
+    } else {
+      axios.get(API_BASE_URL + '/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+        repsonse => {
+          if (repsonse.status != 200) {
+            window.location = "/MemberLogin"
+          }
         }
-      }
-    ).catch(error => {
-      window.location = "/MemberLogin"
-    })
+      ).catch(error => {
+        window.location = "/MemberLogin"
+        alert("Authentication Failed")
+      })
+    }
     props.setLanButton(true)
     props.setUser("user")
   props.setState("Home")
   },[props])
 return(
+  <div>
+      {canLoad === true ?
   <div>
     <Slider/>
     <div style={{padding:"0 0", display: "block"}}>
@@ -106,6 +118,8 @@ language= {props.language === "മലയാളം" ?"malayalam" :"english"} bull
 language= {props.language === "മലയാളം" ?"malayalam" :"english"} bullet={MajlisPriorityBullet}/> 
 </MainCard>
   </div>
+  </div>
+  : <Loading />}
   </div>
 )
 }
@@ -163,7 +177,7 @@ function CalenderEvents(){
   const [events,setEvents] = React.useState([])
   
   useEffect(()=>{
-    axios.get("http://localhost:8080/majlis/upcoming-events")
+    axios.get("http://10.4.5.22:8080/majlis/upcoming-events")
       .then(({ data }) => {
         setEvents(data.result)
       }).catch((err) =>

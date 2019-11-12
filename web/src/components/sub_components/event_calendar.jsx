@@ -36,7 +36,7 @@ export default function EventCalendar(props) {
       }
     useEffect(() => {
         props.setState("Home")
-        axios.get("http://localhost:8080/majlis/event-calendar")
+        axios.get("http://10.4.5.22:8080/majlis/event-calendar")
             .then(({ data }) => {
                 data.result.map((row)=>{
                     row.EventDate = toStdDate(row.EventDate)
