@@ -66,6 +66,7 @@ export default function Contactmajlis(props) {
                 .then((response) => {
                   
                   alert("Information Recorded Succesfully");
+                  FormReset()
                 })
                 .catch(function (error) {
                   alert(error);
@@ -103,6 +104,7 @@ export default function Contactmajlis(props) {
                 handleSubmit,
                 handleReset,
               } = props;
+              FormReset = handleReset
               return (
                 <form onSubmit={handleSubmit} className="form" id="contactForm">
                   <Grid container spacing={0}>

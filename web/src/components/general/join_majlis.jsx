@@ -17,7 +17,7 @@ import {
   ThemeProvider,
   createMuiTheme
 } from '@material-ui/core';
-import {API_BASE_URL} from '../constants'
+import { API_BASE_URL } from '../constants'
 
 
 const JoinMajlisCard = styled.div`
@@ -88,6 +88,9 @@ export default function JoinMajlis(props) {
     props.setLanButton(false)
     props.setState("JoinMajlis")
   }, [props])
+
+  var FormReset
+
   return (
     <JoinMajlisCard>
       <Heading>Join Majlis</Heading>
@@ -134,8 +137,9 @@ export default function JoinMajlis(props) {
             mahal_phone: props.mahal_phone || '',
             file: props.file || ''
           }}
+
           onSubmit={(values, { setSubmitting }) => {
-            axios.post(API_BASE_URL+'/majlis/add/member', {
+            axios.post(API_BASE_URL + '/majlis/add/member', {
               email: values.email,
               name: values.name,
               housename: values.housename,
@@ -178,6 +182,8 @@ export default function JoinMajlis(props) {
             })
               .then((response) => {
                 alert("Information Recorderd for Admin Verification");
+                FormReset()
+
               })
               .catch(function (error) {
                 alert(error);
@@ -188,95 +194,95 @@ export default function JoinMajlis(props) {
           validationSchema={Yup.object().shape({
             email: Yup.string()
               .email()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             name: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             housename: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             fathername: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             lastname: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             place: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             country: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             content: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             phone_number_1: Yup.number()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             phone_number_2: Yup.number(),
             office_phone_number: Yup.number(),
             home_phone_number: Yup.number(),
             bloodgroup: Yup.object(),
             passport: Yup.number()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             dob: Yup.date()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             job: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             company_name: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             postcode: Yup.number(),
             area: Yup.string(),
             emirates: Yup.string(),
             education: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             jobqualification: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             residential: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             area: Yup.string(),
             building: Yup.string(),
             flat: Yup.string(),
             emirates_residential: Yup.string(),
             marriage_status: Yup.object()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             family_status: Yup.object()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             no_of_boys: Yup.number(),
             no_of_girls: Yup.number(),
             closest_relative: Yup.string(),
             relative_phone: Yup.number(),
             address: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             place_home: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             person_to_contact: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             person_to_contact_relation: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             phone_home: Yup.number()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             mahal_phone: Yup.number()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             file: Yup.mixed()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
           })}
         >
           {props => {
@@ -292,6 +298,7 @@ export default function JoinMajlis(props) {
               handleReset,
               setFieldValue
             } = props;
+            FormReset = handleReset
 
             const onChange = value => {
               console.log(values);
