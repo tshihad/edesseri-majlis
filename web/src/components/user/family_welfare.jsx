@@ -2,7 +2,11 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Table from '../sub_components/simple_table';
 import axios from 'axios'
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
+import { API_BASE_URL } from '../constants';
+import Loading from '../sub_components/loading'
+
+
 
 const FamilyWelfareCard = styled.div`
 margin-top: 2vh`;
@@ -46,17 +50,23 @@ export default function EventCalendar(props) {
         var day = date.slice(8, 10)
         return day + "-" + month + "-" + year
     }
+    const [canLoad, setLoading] = React.useState(false)
     useEffect(() => {
-        axios.get('http://localhost:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
-            repsonse => {
-                if (repsonse.status != 200) {
-                    window.location = "/MemberLogin"
+        if (localStorage.getItem('VerifiedUser')) {
+            setLoading(true)
+        } else {
+            axios.get(API_BASE_URL + '/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+                repsonse => {
+                    if (repsonse.status != 200) {
+                        window.location = "/MemberLogin"
+                    }
                 }
-            }
-        ).catch(error => {
-            window.location = "/MemberLogin"
-        })
-        axios.get("http://localhost:8080/majlis/member/family-welfare",
+            ).catch(error => {
+                window.location = "/MemberLogin"
+                alert("Authentication Failed")
+            })
+        }
+        axios.get("http://10.4.5.22:8080/majlis/member/family-welfare",
             { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } })
             .then(({ data }) => {
                 data.result.map((row) => {
@@ -69,8 +79,12 @@ export default function EventCalendar(props) {
     }, [])
 
     return (
-        <FamilyWelfareCard>
-            <Table tablename='Family Welfare' columns={EventColumns} rows={rows} />
-        </FamilyWelfareCard>
+        <div>
+            {canLoad === true ?
+                <FamilyWelfareCard>
+                    <Table tablename='Family Welfare' columns={EventColumns} rows={rows} />
+                </FamilyWelfareCard>
+                : <Loading />}
+        </div>
     )
 }

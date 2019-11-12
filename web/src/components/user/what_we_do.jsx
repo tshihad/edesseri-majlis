@@ -1,7 +1,12 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import {Redirect} from 'react-router-dom'
-import axios from 'axios'
+import { Redirect } from 'react-router-dom'
+import axios from 'axios';
+import { API_BASE_URL } from '../constants';
+import Loading from '../sub_components/loading'
+
+
+
 
 const WhatWeDoDiv = styled.div`
 margin: 0vh 10vw;
@@ -28,17 +33,17 @@ const WelfareProgramsContents = {
 
 const ServiceSocietyContents = {
   english: [
-    "Provide business advisory advice to expatriate Mahallu"+
+    "Provide business advisory advice to expatriate Mahallu" +
     " residents who wish to have their own business ventures.",
-    "Help the Mahalluresidents to find employment who are"+
-    " newcomers to the expat and are looking for a job those who"+
+    "Help the Mahalluresidents to find employment who are" +
+    " newcomers to the expat and are looking for a job those who" +
     " lost.",
-    "Help resolve problems in the workplaces and families of the"+
+    "Help resolve problems in the workplaces and families of the" +
     " residents of Mahallu.",
-    "Collaborate with other organizations, arts and sports clubs in"+
+    "Collaborate with other organizations, arts and sports clubs in" +
     " Mahalluin a positive and creative manner."
   ],
-  malayalam:[
+  malayalam: [
     "സ്വന്തമായി ബിസിനസ്‌ സംരംഭങ്ങൾ ആഗ്രഹിക്കുന്ന പ്രവാസികളായ മഹല്ല് നിവാസികൾക്ക് ബിസിനസ്സ് സംബന്ധമായ ഉപദേശ നിർദ്ദേശങ്ങൾ നൽകുക.",
     "പ്രവാസ ലോകത്തേക്ക് കടന്നു വരുന്ന നവാഗതരെയും തൊഴിൽ നഷ്ടപ്പെട്ട് തൊഴിൽ അന്വേഷിക്കുന്നവരുമായ മഹല്ല് നിവാസികളെ തൊഴിൽ കണ്ടെത്താൻ സഹായിക്കുക.",
     "മഹല്ല് നിവാസികളായ പ്രവാസികളുടെ തൊഴിൽ സ്ഥലങ്ങളിലും, കുടുംബങ്ങളിലും ഉണ്ടാകുന്ന പ്രശ്നങ്ങൾ പരിഹരിക്കാൻ സഹായിക്കുക.",
@@ -48,14 +53,14 @@ const ServiceSocietyContents = {
 
 const HelpMembersContents = {
   english: [
-    "Provide financial assistance [loan] to members who are"+
+    "Provide financial assistance [loan] to members who are" +
     " struggling financially.",
-    "Implement financial programs to guide the expatriate"+
+    "Implement financial programs to guide the expatriate" +
     " members improve their lives upon retirement.",
-    "Help repatriate the bodies of members whose lives are on"+
+    "Help repatriate the bodies of members whose lives are on" +
     " the path to expatriate."
   ],
-  malayalam:[
+  malayalam: [
     "സാമ്പത്തികമായി പ്രതിസന്ധി നേരിടുന്ന അംഗങ്ങൾക്ക് സാമ്പത്തിക സഹായം (വായ്പ) നല്കുക.",
     "അംഗങ്ങളുടെ പ്രവാസാനന്തര ജീവിതം ഭാസുരമാക്കുന്ന സാമ്പത്തിക പദ്ധതികൾ നടപ്പിലാക്കുക.",
     "പ്രവാസത്തിൻ വഴിയിൽ ജീവൻ പൊലിഞ്ഞു പോകുന്ന അംഗങ്ങളുടെ മയ്യിത്ത് നാട്ടിലെത്തിക്കാൻ സഹായിക്കുക."
@@ -82,27 +87,37 @@ const MajlisStandsForContents = {
 }
 
 export default function WhatWeDo(props) {
+  const [canLoad, setLoading] = React.useState(false)
   useEffect(() => {
-    axios.get('http://localhost:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
-      repsonse => {
-        if (repsonse.status != 200) {
-          window.location = "/MemberLogin"
+    if (localStorage.getItem('VerifiedUser')) {
+      setLoading(true)
+    } else {
+      axios.get(API_BASE_URL + '/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+        repsonse => {
+          if (repsonse.status != 200) {
+            window.location = "/MemberLogin"
+          }
         }
-      }
-    ).catch(error => {
-      window.location = "/MemberLogin"
-    })
+      ).catch(error => {
+        window.location = "/MemberLogin"
+        alert("Authentication Failed")
+      })
+    }
     props.setLanButton(true)
     props.setUser("user")
     props.setState("WhatWeDo")
   }, [props])
   return (
-    <WhatWeDoDiv>
-      <WhatWeDoCard headline="Welfare Programs" contents={WelfareProgramsContents} language={props.language === "മലയാളം" ?"malayalam" :"english"} colorcode="1" />
-      <WhatWeDoCard headline="Services To The Society" contents={ServiceSocietyContents} language={props.language === "മലയാളം" ?"malayalam" :"english"} colorcode="2" />
-      <WhatWeDoCard headline="Help Own Members" contents={HelpMembersContents} language={props.language === "മലയാളം" ?"malayalam" :"english"} colorcode="1" />
-      <WhatWeDoCard headline="Majlis Stands For" contents={MajlisStandsForContents} language={props.language === "മലയാളം" ?"malayalam" :"english"} colorcode="2" />
-    </WhatWeDoDiv>
+    <div>
+      {canLoad === true ?
+        <WhatWeDoDiv>
+          <WhatWeDoCard headline="Welfare Programs" contents={WelfareProgramsContents} language={props.language === "മലയാളം" ? "malayalam" : "english"} colorcode="1" />
+          <WhatWeDoCard headline="Services To The Society" contents={ServiceSocietyContents} language={props.language === "മലയാളം" ? "malayalam" : "english"} colorcode="2" />
+          <WhatWeDoCard headline="Help Own Members" contents={HelpMembersContents} language={props.language === "മലയാളം" ? "malayalam" : "english"} colorcode="1" />
+          <WhatWeDoCard headline="Majlis Stands For" contents={MajlisStandsForContents} language={props.language === "മലയാളം" ? "malayalam" : "english"} colorcode="2" />
+        </WhatWeDoDiv>
+        : <Loading />}
+    </div>
   )
 }
 

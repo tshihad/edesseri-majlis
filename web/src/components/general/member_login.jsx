@@ -18,7 +18,7 @@ import {
   ThemeProvider,
   createMuiTheme
 } from '@material-ui/core';
-
+import { API_BASE_URL } from '../constants'
 function Copyright() {
 
   return (
@@ -77,17 +77,21 @@ function MemberLogin(props) {
   }
   const handleSubmit = e => {
     e.preventDefault();
-    axios.post('http://localhost:8080/majlis/signin', {
+    axios.post(API_BASE_URL + '/majlis/signin', {
       member_id: username,
       password: password
     })
       .then((response) => {
         if (response.status === 200) {
           props.setLoggedIn(true)
-        localStorage.setItem('EdasseryMajlisToken', response.data.result)
+          localStorage.setItem('EdasseryMajlisToken', response.data.result.token)
+          localStorage.setItem('VerifiedUser', true)
+          localStorage.setItem('Username', response.data.result.name)
+          localStorage.setItem('MemberId', response.data.result.member_id)
+          localStorage.setItem('UserImageURL', response.data.result.image_url)
           props.history.push('/User/UserOptions/Subscriptions')
-        }else{
-          alert("Invalid Credentials")
+        } else {
+          alert("Incorrect Username or Password")
         }
       }).catch((err) => {
         alert(err)

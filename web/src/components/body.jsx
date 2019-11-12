@@ -32,9 +32,14 @@ import UserDownloads from './user/downloads';
 import UserContactMajlis from './user/contact_majlis';
 import EventCalendar from './sub_components/event_calendar';
 import LogoutIcon from '@material-ui/icons/Person';
+import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import '../styles/navbar.css';
-import '../styles/header.css'
+import '../styles/header.css';
+import '../styles/logout.css';
+import { API_BASE_URL } from './constants'
+
+
 
 const Head = styled.div`
 width: 100%;
@@ -83,13 +88,12 @@ margin-right:2%;
 const Logout = styled.button`
 border: 0;
 outline: 0;
-width: 3.5vw;
-height: 3.5vw;
 background-color: #6a7e4b;
 color: white;
 float: right;
-margin-top: 1vh;
-border-radius: 1.75vw;
+margin-top: .5em;
+border-radius: .5em;
+display: inline-block;
 &:hover{
   background-color: #556b2f;
 }
@@ -97,11 +101,13 @@ border-radius: 1.75vw;
 const Span = styled.span`
 font-size: 2vw;
 `;
+
 export default function Header() {
   const [isButtonActive, setActive] = React.useState("Home")
   const [language, setLanguage] = React.useState("മലയാളം")
   const [isLanguageOption, setLanguageButton] = React.useState(false)
   const [isLoggedin, setIsLoggedin] = React.useState(false)
+  const [logout, toggleLogout] = React.useState(false)
   const [user, setUser] = React.useState("general")
   const handleLogout = () => {
     localStorage.clear()
@@ -121,12 +127,17 @@ export default function Header() {
   const setThisUser = (user) => {
     setUser(user)
   }
-
+  const openLogout = () =>{
+    toggleLogout(true);
+  }
+  const closeLogout = () =>{
+    toggleLogout(false);
+  }
   const changeLanguage = () => {
     setLanguage(language === "മലയാളം" ? "English" : "മലയാളം")
   }
   useEffect(() => {
-    axios.get('http://localhost:8080/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+    axios.get(API_BASE_URL + '/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
       repsonse => {
         if (repsonse.status === 200) {
           setLogIn(true)
@@ -136,6 +147,23 @@ export default function Header() {
   })
   return (
     <div class="mainhead">
+      {/* Logoutmenu  */}
+        {logout&&
+          <div className="modal-overlay" onClick={closeLogout}
+          style={{ background:'rgba(229, 255, 229,0)',position:'fixed',width:'100%',height:'100%',zIndex:3}}>
+            <div className="profile-details navbar" 
+              style={{ textAlign:'center',background:'rgba(,,,1)',width:'12%',height:'23%',marginLeft:'84%',marginTop:'6%'
+              ,borderRadius:'7px',padding:'0%',border:'solid 1px' }}>
+                <br /><b>NAME</b><br /><br />
+                <a className="logout-item" style={{display:'block',padding:'5% 5%',color: '#556b2f'}}>
+                  View Profile
+                </a>
+                <br />
+                <a className="logout-item" onClick={handleLogout} style={{display:'block',padding:'5% 5%',color: '#556b2f'}}>
+                  Log Out
+                </a>
+            </div>
+          </div>}
       <Router>
         <Head>
           <Heading style={{ maxHeight: "100%", overflowX: "hidden" }}>
@@ -143,11 +171,9 @@ export default function Header() {
               <img src={logo} alt="logo" style={{ width: "3.5vw", height: "3.5vw", display: "inline-block" }} />
               <div style={{ margin: "1.5vw 0 0 .8vw", color: "#556b2f", display: "inline-block", fontFamily: "Aroma", fontSize: "1.4vw" }}><Span>E</Span>DASSERY <Span>M</Span>AJLIS <Span>G</Span>ROUP</div>
             </div>
-            {isLoggedin && <Logout title="Logout" onClick={handleLogout}><LogoutIcon style={{ fontSize: "3em" }} /></Logout>}
+            {isLoggedin && <Logout title="Logout" onClick={openLogout}><LogoutIcon style={{ fontSize: "3em" }} /></Logout>}
             {isLanguageOption && <Language title="Change Language" style={{ display: "inline-block", fontSize: language === "English" ? "1.1vw" : "1.5vw" }} onClick={changeLanguage}>{language}</Language>}
           </Heading>
-
-          {/* NAVBAR for general user */}
           <div class="navbar" style={{ display: user === "general" ? "block" : "none" }}>
             <Link to="/Home" class="dropdown">
               <button class="dropbtn"
@@ -174,9 +200,7 @@ export default function Header() {
                 }}>Who Lead Us</button>
               <div class="dropdown-content" onClick={() => buttonClick("WhoLeadUs")}>
                 <Link to="/WhoLeadUs/Current">Current</Link>
-                <Link to="/WhoLeadUs/Term1">Term-1</Link>
-                <Link to="/WhoLeadUs/Term2">Term-2</Link>
-                <Link to="/WhoLeadUs/Term3">Term-3</Link>
+                <Link to="/WhoLeadUs/OurHeros">Our Heros</Link>
 
               </div>
             </Link>
@@ -299,7 +323,7 @@ export default function Header() {
                   color: isButtonActive === "WhatWeDo" && "white"
                 }}>What We Do</button>
               <div class="dropdown-content" onClick={() => buttonClick("WhatWeDo")}>
-                <Link to="/WhatWeDo/Projects">Projects</Link>
+                {/* <Link to="/WhatWeDo/Projects">Projects</Link> */}
               </div>
             </Link>
             <Link to="/User/WhoLeadUs" class="dropdown">
@@ -310,10 +334,10 @@ export default function Header() {
                 }}>Who Lead Us</button>
               <div class="dropdown-content" onClick={() => buttonClick("WhoLeadUs")}>
                 <Link to="/WhoLeadUs/Current">Current</Link>
-                <Link to="/WhoLeadUs/Term1">Term-1</Link>
+                <Link to="/WhoLeadUs/OurHeros">Our Heros</Link>
+                {/* <Link to="/WhoLeadUs/Term1">Term-1</Link>
                 <Link to="/WhoLeadUs/Term2">Term-2</Link>
-                <Link to="/WhoLeadUs/Term3">Term-3</Link>
-
+                <Link to="/WhoLeadUs/Term3">Term-3</Link> */}
               </div>
             </Link>
             <Link to="/User/EventGallery" class="dropdown">
@@ -425,3 +449,14 @@ export default function Header() {
 }
 
 
+function LogoutButton() {
+  return (
+    <div class="logout">
+      <Logout title="Logout" className="logoutbtn" ><LogoutIcon style={{ fontSize: "3em" }} /></Logout>
+      <div class="logout-content">
+        <a >Hi {localStorage.getItem('Username')}</a>
+        <a >Logout</a>
+      </div>
+    </div>
+  )
+}
