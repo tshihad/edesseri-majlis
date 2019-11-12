@@ -18,7 +18,7 @@ export default function Subscriptions(props) {
         props.setState("Subscriptions")
     })
     const YearRegExp = /^[1-9]{4}$/;
-
+    var FormReset
     return (
         <SubscriptionCard>
             <Headline>Add Subscription</Headline>
@@ -41,7 +41,8 @@ export default function Subscriptions(props) {
                         created_by: values.created_by
                     })
                         .then((response) => {
-                            alert(response.statusText);
+                            alert("Subscription Added");
+                            FormReset()
                         })
                         .catch(function (error) {
                             alert(error);
@@ -80,6 +81,7 @@ export default function Subscriptions(props) {
                         handleSubmit,
                         handleReset,
                     } = props;
+                    FormReset = handleReset
                     return (
                         <form onSubmit={handleSubmit} className="form">
                             <Grid container spacing={0}>
