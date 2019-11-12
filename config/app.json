@@ -1,17 +1,17 @@
 {
     "db": {
         "name": "majlis",
-        "pass": "mypass",
-        "host": "localhost",
+        "pass": "sjrty12m43",
+        "host": "db",
         "user": "postgres"
     },
     "redis":{
-        "host":"0.0.0.0",
+        "host":"redis",
         "port":"6379"
     },
     "app":{
         "host":"0.0.0.0",
         "port":8080,
-        "static_host":"http://10.4.5.22/static"
+        "static_host":"http://www.edasserymajlis.com/static"
     }
 }

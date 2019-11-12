@@ -12,17 +12,30 @@ services:
     container_name: majlis-db-cont
     networks:
       - v1
+    restart: always
+
   app:
     build:
-      dockerfile: App.Dockerfile
+      dockerfile: Dockerfile
       context: .
     ports:
       - 8080:8080
     depends_on:
       - db
+      - redis
     restart: on-failure:10
+    volumes:
+      - /home/tshihad9/app/edesseri-majlis/static/:/app/static
     networks:
       - v1
 
+  redis:
+    image: redis:5.0.6-alpine
+    ports:
+      - 6379:6379
+    container_name: majlis-kvs-cont
+    networks:
+      - v1
+    restart: always
 networks:
   v1:
