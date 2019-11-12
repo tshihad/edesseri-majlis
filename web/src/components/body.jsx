@@ -32,11 +32,13 @@ import UserDownloads from './user/downloads';
 import UserContactMajlis from './user/contact_majlis';
 import EventCalendar from './sub_components/event_calendar';
 import LogoutIcon from '@material-ui/icons/Person';
+import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import '../styles/navbar.css';
 import '../styles/header.css';
 import '../styles/logout.css';
 import { API_BASE_URL } from './constants'
+
 
 
 const Head = styled.div`
@@ -105,6 +107,7 @@ export default function Header() {
   const [language, setLanguage] = React.useState("മലയാളം")
   const [isLanguageOption, setLanguageButton] = React.useState(false)
   const [isLoggedin, setIsLoggedin] = React.useState(false)
+  const [logout, toggleLogout] = React.useState(false)
   const [user, setUser] = React.useState("general")
   const handleLogout = () => {
     localStorage.clear()
@@ -124,7 +127,12 @@ export default function Header() {
   const setThisUser = (user) => {
     setUser(user)
   }
-
+  const openLogout = () =>{
+    toggleLogout(true);
+  }
+  const closeLogout = () =>{
+    toggleLogout(false);
+  }
   const changeLanguage = () => {
     setLanguage(language === "മലയാളം" ? "English" : "മലയാളം")
   }
@@ -139,6 +147,23 @@ export default function Header() {
   })
   return (
     <div class="mainhead">
+      {/* Logoutmenu  */}
+        {logout&&
+          <div className="modal-overlay" onClick={closeLogout}
+          style={{ background:'rgba(229, 255, 229,0)',position:'fixed',width:'100%',height:'100%',zIndex:3}}>
+            <div className="profile-details navbar" 
+              style={{ textAlign:'center',background:'rgba(,,,1)',width:'12%',height:'23%',marginLeft:'84%',marginTop:'6%'
+              ,borderRadius:'7px',padding:'0%',border:'solid 1px' }}>
+                <br /><b>NAME</b><br /><br />
+                <a className="logout-item" style={{display:'block',padding:'5% 5%',color: '#556b2f'}}>
+                  View Profile
+                </a>
+                <br />
+                <a className="logout-item" onClick={handleLogout} style={{display:'block',padding:'5% 5%',color: '#556b2f'}}>
+                  Log Out
+                </a>
+            </div>
+          </div>}
       <Router>
         <Head>
           <Heading style={{ maxHeight: "100%", overflowX: "hidden" }}>
@@ -146,13 +171,9 @@ export default function Header() {
               <img src={logo} alt="logo" style={{ width: "3.5vw", height: "3.5vw", display: "inline-block" }} />
               <div style={{ margin: "1.5vw 0 0 .8vw", color: "#556b2f", display: "inline-block", fontFamily: "Aroma", fontSize: "1.4vw" }}><Span>E</Span>DASSERY <Span>M</Span>AJLIS <Span>G</Span>ROUP</div>
             </div>
-            {isLoggedin === true && <Logout title="Logout" onClick={handleLogout}><LogoutIcon style={{ fontSize: "3em" }} /></Logout>}
-            {/* {isLoggedin === false &&  <LogoutButton/>} */}
-
+            {isLoggedin && <Logout title="Logout" onClick={openLogout}><LogoutIcon style={{ fontSize: "3em" }} /></Logout>}
             {isLanguageOption && <Language title="Change Language" style={{ display: "inline-block", fontSize: language === "English" ? "1.1vw" : "1.5vw" }} onClick={changeLanguage}>{language}</Language>}
           </Heading>
-
-          {/* NAVBAR for general user */}
           <div class="navbar" style={{ display: user === "general" ? "block" : "none" }}>
             <Link to="/Home" class="dropdown">
               <button class="dropbtn"
