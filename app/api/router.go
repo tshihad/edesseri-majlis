@@ -8,8 +8,6 @@ import (
 	"github.com/go-chi/chi"
 )
 
-var memberPattern = "/{member_id:" + core.MEMBER_PREFIX + "[0-9]{4}}"
-
 // Router api routing. to create new api list url here
 func (a *App) Router() http.Handler {
 	r := chi.NewRouter()
@@ -41,12 +39,11 @@ func (a *App) Router() http.Handler {
 			})
 			r.Route("/subscription", func(r chi.Router) {
 				r.Post("/", a.handlePostSubscription)
-				r.Get("/member"+memberPattern, a.handleGetSubscription)
+				r.Get("/", a.handleGetSubscription)
 				r.Delete("/{id}", a.handleDeleteSubscription)
 			})
 
-			r.Get("/members", a.handleGetMembers)
-			r.Get("/members/limit={limit}&offset={offset}", a.handleGetMembers)
+			r.Get("/member", a.handleGetMembers)
 			r.Post("/member", a.handlePostMember)
 			r.Post("/member/image", a.handlePostProfileImage)
 

@@ -2,6 +2,7 @@ package data
 
 import (
 	"errors"
+	"fmt"
 	"majlis/app/models"
 )
 
@@ -17,8 +18,12 @@ func (r *RepoImp) VerifyAdmin(token string) error {
 	return err
 }
 
-func (r *RepoImp) UpdateAdmin(a models.Admin) error {
+func (r *RepoImp) UpdateAdmin(a models.Admin) (string, error) {
 	token := generateToken(a.Name)
-	err := r.db.Model(a).Update("token", token).Error
-	return err
+	err := r.db.Where(a).Find(&a).Error
+	if err != nil {
+		return "", err
+	}
+	err = r.db.Model(&a).Where(fmt.Sprintf("name='%s' AND password_hash='%s'", a.Name, a.PasswordHash)).Update("token", token).Error
+	return token, err
 }

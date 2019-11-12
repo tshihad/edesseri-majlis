@@ -26,7 +26,7 @@ type MemberRepo interface {
 	UpdateMember(string, models.Member) (models.Member, error)
 	DeleteMember(string) error
 	CreateNewMemberID() (string, error)
-	GetMembers(int, int) ([]models.Member, error)
+	GetMembers() ([]models.MemberShortResp, error)
 }
 
 // EgallerRepo for egallery functions
@@ -80,5 +80,5 @@ type WelfareRepo interface {
 
 type AdminRepo interface {
 	VerifyAdmin(string) error
-	UpdateAdmin(models.Admin) error
+	UpdateAdmin(models.Admin) (string, error)
 }
