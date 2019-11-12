@@ -25,7 +25,7 @@ func (a *App) handleGetMember(w http.ResponseWriter, r *http.Request) {
 func (a *App) handlePostProfileImage(w http.ResponseWriter, r *http.Request) {
 	location, err := uploadFile(r, "profileImage", core.PROFILE_LOCATION, core.ALLOW_GALLERY_EXT)
 	if err != nil {
-		a.Fail(w, http.StatusBadRequest, "Failed to upload image", err)
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to upload image", err)
 		return
 	}
 	imLocation := models.Profile{
@@ -38,7 +38,7 @@ func (a *App) handlePostProfileImage(w http.ResponseWriter, r *http.Request) {
 func (a *App) handlePostMember(w http.ResponseWriter, r *http.Request) {
 	var member models.Member
 	if err := json.NewDecoder(r.Body).Decode(&member); err != nil {
-		a.Fail(w, http.StatusBadRequest, "Invalid request", err)
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Invalid request", err)
 		return
 	}
 	memberID, err := a.CreateNewMemberID()
@@ -63,7 +63,7 @@ func (a *App) handlePutMember(w http.ResponseWriter, r *http.Request) {
 	memberID := chi.URLParam(r, core.MEMBERID_TAG)
 	var member models.Member
 	if err := json.NewDecoder(r.Body).Decode(&member); err != nil {
-		a.Fail(w, http.StatusBadRequest, "Invalid request", err)
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Invalid request", err)
 		return
 	}
 	member.MemberID = memberID
@@ -99,18 +99,18 @@ func (a *App) handleSignin(w http.ResponseWriter, r *http.Request) {
 	var signin models.MemberSignIn
 	resp := models.MemberSignInRes{}
 	if err := json.NewDecoder(r.Body).Decode(&signin); err != nil {
-		a.Fail(w, http.StatusBadRequest, "Failed to parse sign in form", err)
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to parse sign in form", err)
 		return
 	}
 	member, err := a.GetMember(signin.MemberID)
 	if err != nil || member.MemberID == "" || member.PasswordHash == "" {
-		a.Fail(w, http.StatusUnauthorized, "Failed to authenticate", err)
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to authenticate", err)
 		return
 	}
 	m := md5.New()
 	m.Write([]byte(signin.Password))
 	if hex.EncodeToString(m.Sum(nil)) != member.PasswordHash {
-		a.Fail(w, http.StatusUnauthorized, "Failed to authenticate", err)
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to authenticate", err)
 		return
 	}
 	token, err := a.CreateToken(member.MemberID)

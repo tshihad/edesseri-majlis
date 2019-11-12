@@ -14,12 +14,12 @@ import (
 func (a *App) handlePostSubscription(w http.ResponseWriter, r *http.Request) {
 	var subs models.Subscription
 	if err := json.NewDecoder(r.Body).Decode(&subs); err != nil {
-		a.Fail(w, http.StatusBadRequest, "Invalid request", err)
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Invalid request", err)
 		return
 	}
 	subs, err := a.CreateSubscription(subs)
 	if err != nil {
-		a.Fail(w, http.StatusInternalServerError, "Failed to create subscription", err)
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to create subscription", err)
 		return
 	}
 	a.Success(w, http.StatusCreated, subs)
@@ -30,7 +30,7 @@ func (a *App) handleGetSubscription(w http.ResponseWriter, r *http.Request) {
 	memberID := r.Context().Value("member_id").(string)
 	subs, err := a.GetSubscription(memberID)
 	if err != nil && err != gorm.ErrRecordNotFound {
-		a.Fail(w, http.StatusInternalServerError, "Failed to find Subscription", err)
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to find Subscription", err)
 		return
 	}
 	var resp []models.SubsTableResponse
@@ -57,11 +57,11 @@ func (a *App) handleDeleteSubscription(w http.ResponseWriter, r *http.Request) {
 	idParam := chi.URLParam(r, "id")
 	id, err := strconv.Atoi(idParam)
 	if err != nil {
-		a.Fail(w, http.StatusBadRequest, "Invalid request", err)
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Invalid request", err)
 		return
 	}
 	if err := a.DeleteSubscriton(uint(id)); err != nil {
-		a.Fail(w, http.StatusInternalServerError, "Failed to delete subscription", err)
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to delete subscription", err)
 		return
 	}
 	w.WriteHeader(http.StatusOK)
