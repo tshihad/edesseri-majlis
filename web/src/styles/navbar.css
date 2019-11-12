@@ -56,7 +56,7 @@
 }
 
 .dropdown-content a:hover {background-color: #768b56; color:white;}
-
+.logout-item:hover {background-color: #768b56; color:white;}
 a:hover .dropbtn{background-color: #768b56;color:white;}
 
 .dropdown:hover .dropdown-content {display: block;}
