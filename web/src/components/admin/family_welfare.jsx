@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import styled from 'styled-components';
 import axios from 'axios';
 import '../../styles/contact.css';
-
+import { API_BASE_URL } from '../constants'
 
 
 const Welfare = styled.div`
@@ -12,16 +12,17 @@ const Welfare = styled.div`
 `;
 
 export default function FamilyWelfare(props) {
-  useEffect(()=>{
+  useEffect(() => {
     props.setUser("admin")
-    props.setState("FamilyWelfare")  })
+    props.setState("FamilyWelfare")
+  })
   return (
     <Welfare>
       <Formik
         initialValues={{ member_id: '', welfare_date: '', title: '', description: '', amount: '', currency: '' }}
         onSubmit={(values, { setSubmitting }) => {
 
-          axios.post('http://localhost:8080/majlis/contact', {
+          axios.post(API_BASE_URL + '/majlis/familywelfare', {
             member_id: values.member_id,
             welfare_date: values.welfare_date,
             title: values.title,
@@ -29,7 +30,7 @@ export default function FamilyWelfare(props) {
             amount: values.amount
           })
             .then((response) => {
-              alert(response.statusText);
+              alert("Information Recorded Successfully");
             })
             .catch(function (error) {
               alert(error);
@@ -82,14 +83,14 @@ export default function FamilyWelfare(props) {
                     }
                   />
                   {errors.member_id && touched.member_id ? (
-                    <div className="input-feedback" style={{marginLeft: "200px"}}>{errors.member_id}</div>)
+                    <div className="input-feedback" style={{ marginLeft: "200px" }}>{errors.member_id}</div>)
                     : <div className="input-feedback">&nbsp;</div>}
                 </div>
               </div>
               <div>
-              <div className="field" style={{ display: "inline-block" }}>
+                <div className="field" style={{ display: "inline-block" }}>
                   <label htmlFor="title" style={{ display: "inline-block", width: "200px", paddingRight: "2em" }}>
-                  Title                </label>
+                    Title                </label>
                   <input
                     id="title"
                     placeholder="Enter your Title"
@@ -101,33 +102,33 @@ export default function FamilyWelfare(props) {
                       errors.title && touched.title ? 'inputs text-input error' : 'inputs text-input'}
                   />
                   {errors.title && touched.title ? (
-                    <div className="input-feedback" style={{marginLeft: "200px"}}>{errors.title}</div>
+                    <div className="input-feedback" style={{ marginLeft: "200px" }}>{errors.title}</div>
                   ) : <div className="input-feedback">&nbsp;</div>}
                 </div>
               </div>
-              
+
               <div>
-              <div className="field" style={{ display: "inline-block" }}>
-                <label htmlFor="description" style={{ verticalAlign: "top", width: "200px", paddingRight: "2em" }}>
-                Description
+                <div className="field" style={{ display: "inline-block" }}>
+                  <label htmlFor="description" style={{ verticalAlign: "top", width: "200px", paddingRight: "2em" }}>
+                    Description
                 </label>
-                <textarea style={{ width: "50%"}}
-                  id="description"
-                  type="textArea"
-                  rows="8"  
-                  cols="83"
-                  placeholder="Type description here"
-                  value={values.description}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  className={
-                    errors.description && touched.description ? 'text-input error' : 'text-input'
-                  }
-                />
-                {errors.description && touched.description ? (
-                  <div className="input-feedback" style={{marginLeft: "200px"}}>{errors.description}</div>)
-                  : <div className="input-feedback">&nbsp;</div>}
-              </div>
+                  <textarea style={{ width: "50%" }}
+                    id="description"
+                    type="textArea"
+                    rows="8"
+                    cols="83"
+                    placeholder="Type description here"
+                    value={values.description}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    className={
+                      errors.description && touched.description ? 'text-input error' : 'text-input'
+                    }
+                  />
+                  {errors.description && touched.description ? (
+                    <div className="input-feedback" style={{ marginLeft: "200px" }}>{errors.description}</div>)
+                    : <div className="input-feedback">&nbsp;</div>}
+                </div>
               </div>
 
               <div>
@@ -138,14 +139,14 @@ export default function FamilyWelfare(props) {
                     id="amount"
                     placeholder="Enter Amount here"
                     type="number"
-                    value={values.amount} 
+                    value={values.amount}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     className={
                       errors.amount && touched.amount ? 'inputs text-input error' : 'inputs text-input'}
                   />
                   {errors.amount && touched.amount ? (
-                    <div className="input-feedback" style={{marginLeft: "200px"}}>{errors.amount}</div>
+                    <div className="input-feedback" style={{ marginLeft: "200px" }}>{errors.amount}</div>
                   ) : <div className="input-feedback">&nbsp;</div>}
                 </div>
               </div>
@@ -154,19 +155,19 @@ export default function FamilyWelfare(props) {
                 <div className="field" style={{ display: "inline-block" }}>
                   <label htmlFor="currency" style={{ display: "inline-block", width: "200px", paddingRight: "2em" }}>
                     Currency  </label>
-                  <select  id="currency"
+                  <select id="currency"
                     placeholder="Enter Amount here"
                     type="text"
-                    value={values.currency} 
+                    value={values.currency}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     className={
-                    errors.currency && touched.currency ? 'inputs text-input error' : 'inputs text-input'}>
-                      <option value="Rupees">Rupees</option>
-                      <option value="Dirham">Dirham</option>
+                      errors.currency && touched.currency ? 'inputs text-input error' : 'inputs text-input'}>
+                    <option value="Rupees">Rupees</option>
+                    <option value="Dirham">Dirham</option>
                   </select>
                   {errors.currency && touched.currency ? (
-                    <div className="input-feedback" style={{marginLeft: "200px"}}>{errors.currency}</div>
+                    <div className="input-feedback" style={{ marginLeft: "200px" }}>{errors.currency}</div>
                   ) : <div className="input-feedback">&nbsp;</div>}
                 </div>
               </div>
@@ -174,19 +175,19 @@ export default function FamilyWelfare(props) {
               <div>
                 <div className="field" style={{ display: "inline-block" }}>
                   <label htmlFor="welfare_date" style={{ display: "inline-block", width: "200px", paddingRight: "2em" }}>
-                  Welfare Date  </label>
+                    Welfare Date  </label>
                   <input
                     id="welfare_date"
                     placeholder="Enter welfare_date here"
                     type="date"
-                    value={values.welfare_date} 
+                    value={values.welfare_date}
                     onChange={handleChange}
                     onBlur={handleBlur}
                     className={
                       errors.welfare_date && touched.welfare_date ? 'inputs text-input error' : 'inputs text-input'}
                   />
                   {errors.welfare_date && touched.welfare_date ? (
-                    <div className="input-feedback" style={{marginLeft: "200px"}}>{errors.welfare_date}</div>
+                    <div className="input-feedback" style={{ marginLeft: "200px" }}>{errors.welfare_date}</div>
                   ) : <div className="input-feedback">&nbsp;</div>}
                 </div>
               </div>

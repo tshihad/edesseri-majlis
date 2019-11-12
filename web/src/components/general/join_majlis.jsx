@@ -17,6 +17,8 @@ import {
   ThemeProvider,
   createMuiTheme
 } from '@material-ui/core';
+import {API_BASE_URL} from '../constants'
+
 
 const JoinMajlisCard = styled.div`
 margin: 5vh 10vw 0 10vw;
@@ -84,7 +86,7 @@ export default function JoinMajlis(props) {
           initialValues={{ email: '', phone: '', housename: '', lastname: '', place: '', country: '', content: '' }}
           onSubmit={(values, { setSubmitting }) => {
 
-            axios.post('http://localhost:8080/majlis/contact', {
+            axios.post(API_BASE_URL+'/majlis/contact', {
               email: values.email,
               phone: values.phone,
               fname: values.housename,
@@ -94,7 +96,7 @@ export default function JoinMajlis(props) {
               content: values.content
             })
               .then((response) => {
-                alert(response.statusText);
+                alert("Information Recorderd for Admin Verification");
               })
               .catch(function (error) {
                 alert(error);
