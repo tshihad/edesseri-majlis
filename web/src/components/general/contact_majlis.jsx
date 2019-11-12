@@ -33,7 +33,7 @@ export default function Contactmajlis(props) {
   const handleOnChange = (value) => {
     setState(value)
   }
-  const phoneRegExp = /^\+?[0-9]{10,13}$/;
+  const phoneRegExp = /^\+?[0-9]{10,14}$/;
 
 
   return (
@@ -59,7 +59,7 @@ export default function Contactmajlis(props) {
           })
             .then((response) => {
               alert("Information Recorded Successfully");
-              
+
             })
             .catch(function (error) {
               alert(error);

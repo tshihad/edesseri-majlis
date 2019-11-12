@@ -38,7 +38,7 @@ export default function Contactmajlis(props) {
     props.setUser("user")
     props.setState("ContactMajlis")
   }, [props])
-  const phoneRegExp = /^\+?[0-9]{10,13}$/;
+  const phoneRegExp = /^\+?[0-9]{10,14}$/;
 
   return (
     <div>
@@ -48,7 +48,7 @@ export default function Contactmajlis(props) {
           <Formik
             initialValues={{ email: '', phone: '', firstname: '', lastname: '', place: '', country: '', content: '' }}
 
-            onSubmit={(values, { setSubmitting, setErrors }) => {
+            onSubmit={(values, { setSubmitting, setErrors, handleReset }) => {
               if (!values.phone.match(phoneRegExp)) {
                 setErrors({ phone: 'Invalid Phone ' });
                 setSubmitting(false);
@@ -64,9 +64,8 @@ export default function Contactmajlis(props) {
                 content: values.content
               })
                 .then((response) => {
+                  
                   alert("Information Recorded Succesfully");
-                  values.email = ''
-                  values.phone = ''
                 })
                 .catch(function (error) {
                   alert(error);
