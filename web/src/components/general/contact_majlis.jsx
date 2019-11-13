@@ -62,7 +62,7 @@ var FormReset
               FormReset()
             })
             .catch(function (error) {
-              alert(error);
+              console.log(error);;
             });
           setSubmitting(false);
 

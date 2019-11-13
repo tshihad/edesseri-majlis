@@ -71,7 +71,7 @@ export default function Contactmajlis(props) {
                   FormReset()
                 })
                 .catch(function (error) {
-                  alert(error);
+                  console.log(error);;
                 });
               setSubmitting(false);
 

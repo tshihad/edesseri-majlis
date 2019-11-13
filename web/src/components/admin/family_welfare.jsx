@@ -33,7 +33,7 @@ export default function FamilyWelfare(props) {
               alert("Information Recorded Successfully");
             })
             .catch(function (error) {
-              alert(error);
+              console.log(error);
             });
           setSubmitting(false);
 

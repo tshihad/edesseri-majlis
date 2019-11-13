@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import Gallery from "react-photo-gallery";
+import {API_BASE_URL} from '../constants'
 import Carousel, { Modal, ModalGateway } from "react-images";
 import axios from 'axios';
 import styled from 'styled-components';
@@ -27,7 +28,7 @@ export default function ImageGallery(props) {
         setViewerIsOpen(false);
     };
     useEffect(() => {
-        axios.get("http://10.4.5.22:8080/majlis/event-gallery/" + props.category)
+        axios.get(API_BASE_URL+"/majlis/event-gallery/" + props.category)
             .then(({ data }) => {
                 var picrures = []
                 data.result.map((image) => {
@@ -35,7 +36,7 @@ export default function ImageGallery(props) {
                 })
                     setPhotos(picrures)
             }).catch((err) => {
-                alert(err)
+                console.log(err)
             })
     }, [props])
     return (
