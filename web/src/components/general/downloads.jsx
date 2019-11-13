@@ -1,3 +1,4 @@
+import {API_BASE_URL} from '../constants'
 import React, { useEffect } from 'react';
 import axios from 'axios';
 import {
@@ -57,7 +58,7 @@ export default function Downloads(props) {
   useEffect(() => {
     props.setLanButton(false)
     props.setState("Downloads")
-    axios.get("http://10.4.5.22:8080/majlis/downloads")
+    axios.get(API_BASE_URL+"/majlis/downloads")
       .then(({ data }) => {
         data.result.map((element) => {
           element.UpdatedAt = element.UpdatedAt.slice(0, 10)

@@ -99,10 +99,10 @@ The Majlis is a group of expatriate friends who have come
 together to perform selfless community service for the
 expatriates and the inhabitants of the Edassery Mahallu on
 the ideals of Islam, with the Edasseri Mahallu as the boundary
-of activities."/> : <Topic headline="About Majlis" content ="അള്ളാഹു അവന്റെ ഓരോ സൃഷ്ടികൾക്കും പ്രത്യേകം പ്രത്യേകം അനുഗ്രഹങ്ങൾ നൽകിയിരിക്കുന്നു.
-നമുക്ക് നൽകിയിരിക്കുന്ന ഈ അനുഗ്രഹങ്ങൾ ഓരോന്നും അള്ളാഹു ഇച്ഛിക്കുന്ന വിധം ഫലപ്രദമായി ഉപയോഗപ്പെടുത്തുവാൻ നാം ഓരോരുത്തരും സർവാത്മനാ പരിശ്രമിക്കേണ്ടതും ശ്രദ്ധിക്കേണ്ടതുമാണ്.
- ഇടശ്ശേരി മഹല്ലിനെ പ്രവർത്തി പരിധിയായി നിശ്ചയിച് കൊണ്ട് ഇസ്ലാമികാശങ്ങളിലധിഷ്‌ഠിതമായി പ്രവാസികക്കിടയിലും,
- നാട്ടിലുള്ള മഹല്ല് നിവാസികൾക്കും വേണ്ടി നിസ്വാർത്ഥമായ സമുദായ സേവനം നടത്തുന്നതിനായി ഒത്തുചേർന്ന പ്രവാസി കൂട്ടുകാരുടെ ഒരു കൂട്ടായ്മയാണ് മജ്ലിസ്."/>}
+of activities."/> : <Topic headline="About Majlis" content ="അല്ലാഹു അവന്റെ ഓരോ സൃഷ്ടികൾക്കും പ്രത്യേകം പ്രത്യേകം അനുഗ്രഹങ്ങൾ നൽകിയിരിക്കുന്നു.
+ നമുക്ക് നൽകിയിരിക്കുന്ന ഈ അനുഗ്രഹങ്ങൾ ഓരോന്നും അല്ലാഹു ഇച്ഛിക്കുന്ന വിധം ഫലപ്രദമായി ഉപയോഗപ്പെടുത്തുവാൻ നാം ഓരോരുത്തരും സർവാത്മനാ പരിശ്രമിക്കേണ്ടതും ശ്രദ്ധിക്കേണ്ടതുമാണ്.
+  ഇടശ്ശേരി മഹല്ലിനെ പ്രവർത്തി പരിധിയായി നിശ്ചയിച് കൊണ്ട് ഇസ്ലാമികാശയാദർശങ്ങളിലധിഷ്‌ഠിതമായി പ്രവാസികൾക്കിടയിലും, നാട്ടിലുള്ള മഹല്ല് നിവാസികൾക്കും വേണ്ടി നിസ്വാർത്ഥമായ സമുദായ സേവനം
+   നടത്തുന്നതിനായി ഒത്തുചേർന്ന പ്രവാസി കൂട്ടുകാരുടെ ഒരു കൂട്ടായ്മയാണ് മജ്‌ലിസ്."/>}
 <CalenderEvents/>
 <MainCard>
 <SubCard headline="Vision" contents={VisionContents} 
@@ -177,11 +177,11 @@ function CalenderEvents(){
   const [events,setEvents] = React.useState([])
   
   useEffect(()=>{
-    axios.get("http://10.4.5.22:8080/majlis/upcoming-events")
+    axios.get(API_BASE_URL+"/majlis/upcoming-events")
       .then(({ data }) => {
         setEvents(data.result)
       }).catch((err) =>
-        alert(err))
+        console.log(err))
   },[])
   return(
     <Paper>

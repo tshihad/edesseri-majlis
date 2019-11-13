@@ -56,7 +56,7 @@ export default function Loans(props) {
                                     alert("Information Recorderd for Admin Verification");
                                 })
                                 .catch(function (error) {
-                                    alert(error);
+                                    console.log(error);;
                                 });
                             setSubmitting(false);
                         }}

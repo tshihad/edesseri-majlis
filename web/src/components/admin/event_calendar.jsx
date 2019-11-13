@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import Table from './simple_table';
-import axios from 'axios'
+import Table from '../sub_components/simple_table';
+import axios from 'axios';
+import {API_BASE_URL} from '../constants'
 
 const EventCalendarCard = styled.div`
 margin: 2vh 10vw 0 10vw;
@@ -36,14 +37,14 @@ export default function EventCalendar(props) {
       }
     useEffect(() => {
         props.setState("Home")
-        axios.get("http://10.4.5.22:8080/majlis/event-calendar")
+        axios.get(API_BASE_URL+"/majlis/event-calendar")
             .then(({ data }) => {
                 data.result.map((row)=>{
                     row.EventDate = toStdDate(row.EventDate)
                 })
                 setrows(data.result)
             }).catch((err)=>{
-                alert(err)
+                console.log(err)
             })
     }, []);
 

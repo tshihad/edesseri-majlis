@@ -45,7 +45,7 @@ export default function Subscriptions(props) {
                             FormReset()
                         })
                         .catch(function (error) {
-                            alert(error);
+                            console.log(error);;
                         });
                     setSubmitting(false);
 

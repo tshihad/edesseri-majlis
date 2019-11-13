@@ -181,7 +181,7 @@ export default function JoinMajlis(props) {
                                 FormReset()
                             })
                             .catch(function (error) {
-                                alert(error);
+                                console.log(error);
                             });
                         setSubmitting(false);
 
