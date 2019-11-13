@@ -19,11 +19,11 @@ type Member struct {
 	PassportNumber              string    `json:"passport_number" gorm:"column:passport_number"`
 	Dob                         string    `json:"dob" gorm:"column:dob"`
 	Job                         string    `json:"job" gorm:"column:job"`
-	ComapnyName                 string    `json:"comapny_name" gorm:"column:comapny_name"`
-	CompanyPostCode             int       `json:"company_post_code" gorm:"column:company_post_code"`
-	ComapnyArea                 string    `json:"comapny_area" gorm:"column:comapny_area"`
-	ComapnyEmirates             string    `json:"comapny_emirates" gorm:"column:comapny_emirates"`
-	ComapnyInstitution          string    `json:"comapny_institution" gorm:"column:comapny_institution"`
+	ComapnyName                 string    `json:"company_name" gorm:"column:comapny_name"`
+	CompanyPostCode             int       `json:"comaany_post_code" gorm:"column:company_post_code"`
+	ComapnyArea                 string    `json:"company_area" gorm:"column:comapny_area"`
+	ComapnyEmirates             string    `json:"company_emirates" gorm:"column:comapny_emirates"`
+	ComapnyInstitution          string    `json:"company_institution" gorm:"column:comapny_institution"`
 	Qualification               string    `json:"qualification" gorm:"column:qualification"`
 	JobQualification            string    `json:"job_qualification" gorm:"column:job_qualification"`
 	UaeLicenceType              string    `json:"uae_licence_type" gorm:"column:uae_licence_type"`
