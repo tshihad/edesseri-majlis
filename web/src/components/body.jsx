@@ -31,6 +31,7 @@ import Profile from './user/profile';
 import UserProfile from './admin/profile';
 import UserDownloads from './user/downloads';
 import UserContactMajlis from './user/contact_majlis';
+import AdminEventGallery from './admin/admin_event_gallery';
 import EventCalendar from './sub_components/event_calendar';
 import LogoutIcon from '@material-ui/icons/Person';
 import axios from 'axios';
@@ -257,6 +258,14 @@ export default function Header() {
                   backgroundColor: isButtonActive === "EventGalleryAdmin" && " #556b2f",
                   color: isButtonActive === "EventGalleryAdmin" && "white"
                 }}>Event Gallery</button>
+                              <div class="dropdown-content" onClick={() => buttonClick("EventGallery")}>
+                <Link to="/Admin/EventGallery/Milad">Milad</Link>
+                <Link to="/Admin/EventGallery/Eid">Eid</Link>
+                <Link to="/Admin/EventGallery/Iftar">Iftar</Link>
+                <Link to="/Admin/EventGallery/Sports">Sports</Link>
+                <Link to="/Admin/EventGallery/MeetandGreet">Meet and Greet</Link>
+                <Link to="/Admin/EventGallery/Other">Other</Link>
+              </div>
             </Link>
             <Link to="/Admin/Loans" class="dropdown">
               <button class="dropbtn"
@@ -393,7 +402,13 @@ export default function Header() {
             <Route path="/Admin/Members" ><Members setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/AddMember" ><AddMember setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/Subscriptions" ><Subscription setState={buttonClick} setUser={setThisUser} /></Route>
-            <Route path="/Admin/EventGallery" ><EventGalleryAdmin setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route exact path="/Admin/EventGallery" ><EventGalleryAdmin setUser={setThisUser} setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/EventGallery/Milad" ><AdminEventGallery setUser={setThisUser} category="milad" setState={buttonClick} setLanButton={setButton} /></Route>
+            <Route path="/Admin/EventGallery/Eid" ><AdminEventGallery category="eid" setUser={setThisUser} setState={buttonClick} setLanButton={setButton} /></Route>
+            <Route path="/Admin/EventGallery/Iftar" ><AdminEventGallery setUser={setThisUser} category="Iftar" setState={buttonClick} setLanButton={setButton} /></Route>
+            <Route path="/Admin/EventGallery/Sports" ><AdminEventGallery setUser={setThisUser} category="Sports" setState={buttonClick} setLanButton={setButton} /></Route>
+            <Route path="/Admin/EventGallery/MeetandGreet" ><AdminEventGallery setUser={setThisUser} category="MeetandGreet" setState={buttonClick} setLanButton={setButton} /></Route>
+            <Route path="/Admin/EventGallery/Other" ><AdminEventGallery category="Other" setState={buttonClick} setLanButton={setButton} /></Route>
             <Route path="/Admin/Loans" ><Loans setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/FamlilyWelfare" ><FamilyWelfare setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/UploadForms" ><UploadForms setState={buttonClick} setUser={setThisUser} /></Route>
