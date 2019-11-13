@@ -59,7 +59,7 @@ type Profile struct {
 
 // MemberSignIn for signin member
 type MemberSignIn struct {
-	MemberID string `json:"memeber_id"`
+	MemberID string `json:"member_id"`
 	Password string `json:"password"`
 }
 
