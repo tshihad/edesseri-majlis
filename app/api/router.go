@@ -38,7 +38,7 @@ func (a *App) Router() http.Handler {
 			r.Route("/event-gallery/"+categoryRegex, func(r chi.Router) {
 				r.Get("/", a.handleGetEGallerys)
 				r.Post("/", a.handlePostEGallery)
-				r.Delete("/{id}", a.handleDeleteEGallery)
+				r.Delete("/{id:^[0-9]+$}", a.handleDeleteEGallery)
 			})
 			r.Route("/subscription", func(r chi.Router) {
 				r.Post("/", a.handlePostSubscription)

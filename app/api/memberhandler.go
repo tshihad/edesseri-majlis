@@ -122,6 +122,8 @@ func (a *App) handleSignin(w http.ResponseWriter, r *http.Request) {
 	resp.ImageURL = member.ImageLocation
 	resp.Name = member.Name
 	resp.Token = token
+	resp.Email = member.Email
+	resp.PhoneNumber = member.PhNumber1
 
 	a.Success(w, http.StatusOK, resp)
 }

@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"majlis/app/core"
 	"majlis/app/models"
 	"net/http"
@@ -49,11 +50,16 @@ func (a *App) handleGetEGallerys(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *App) handleDeleteEGallery(w http.ResponseWriter, r *http.Request) {
-	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
-	err := a.DeleteEGallery(id)
+	id, err := strconv.Atoi(chi.URLParam(r, "id"))
 	if err != nil {
-		a.Fail(w, http.StatusNonAuthoritativeInfo, "failed to delete gallery", err)
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Invalid id", err)
 		return
 	}
+	err = a.DeleteEGallery(id)
+	if err != nil {
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to delete gallery", err)
+		return
+	}
+	fmt.Println("this ")
 	w.WriteHeader(http.StatusOK)
 }

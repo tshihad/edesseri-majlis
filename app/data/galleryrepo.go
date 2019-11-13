@@ -17,5 +17,5 @@ func (r *RepoImp) GetEGallerys(category string) ([]models.EventGallery, error) {
 
 // DeleteEGallery delete specific entry from gallery table
 func (r *RepoImp) DeleteEGallery(id int) error {
-	return nil
+	return r.db.Delete(models.EventGallery{ID: id}).Error
 }
