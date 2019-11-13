@@ -13,7 +13,7 @@ import (
 
 // retrieve member handler
 func (a *App) handleGetMember(w http.ResponseWriter, r *http.Request) {
-	memberID := chi.URLParam(r, core.MEMBERID_TAG)
+	memberID := r.Context().Value(core.MEMBERID_TAG).(string)
 	member, err := a.GetMember(memberID)
 	if err != nil {
 		a.Fail(w, http.StatusInternalServerError, "Failed to fetch user", err)
