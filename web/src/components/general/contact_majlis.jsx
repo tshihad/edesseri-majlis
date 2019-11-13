@@ -9,7 +9,7 @@ import { Grid } from '@material-ui/core';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/dist/style.css'
 import '../../styles/contact.css';
-import {API_BASE_URL} from '../constants'
+import { API_BASE_URL } from '../constants'
 
 
 
@@ -33,9 +33,9 @@ export default function Contactmajlis(props) {
   const handleOnChange = (value) => {
     setState(value)
   }
-  const phoneRegExp = /^\+?[0-9]{10,13}$/;
+  const phoneRegExp = /^\+?[0-9]{10,14}$/;
 
-
+var FormReset
   return (
     <Contact>
       <Headline>Contact Majlis</Headline>
@@ -48,7 +48,7 @@ export default function Contactmajlis(props) {
             return;
           }
 
-          axios.post(API_BASE_URL+'/majlis/contact', {
+          axios.post(API_BASE_URL + '/majlis/contact', {
             email: values.email,
             phone: values.phone,
             fname: values.firstname,
@@ -59,7 +59,7 @@ export default function Contactmajlis(props) {
           })
             .then((response) => {
               alert("Information Recorded Successfully");
-              
+              FormReset()
             })
             .catch(function (error) {
               alert(error);
@@ -97,6 +97,7 @@ export default function Contactmajlis(props) {
             handleSubmit,
             handleReset,
           } = props;
+          FormReset = handleReset;
           return (
             <form onSubmit={handleSubmit} className="form">
               <Grid container spacing={0}>

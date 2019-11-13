@@ -17,7 +17,7 @@ import {
   ThemeProvider,
   createMuiTheme
 } from '@material-ui/core';
-import {API_BASE_URL} from '../constants'
+import { API_BASE_URL } from '../constants'
 
 
 const JoinMajlisCard = styled.div`
@@ -88,6 +88,9 @@ export default function JoinMajlis(props) {
     props.setLanButton(false)
     props.setState("JoinMajlis")
   }, [props])
+
+  var FormReset
+
   return (
     <JoinMajlisCard>
       <Heading>Join Majlis</Heading>
@@ -134,8 +137,9 @@ export default function JoinMajlis(props) {
             mahal_phone: props.mahal_phone || '',
             file: props.file || ''
           }}
+
           onSubmit={(values, { setSubmitting }) => {
-            axios.post(API_BASE_URL+'/majlis/add/member', {
+            axios.post(API_BASE_URL + '/majlis/add/member', {
               email: values.email,
               name: values.name,
               housename: values.housename,
@@ -178,6 +182,8 @@ export default function JoinMajlis(props) {
             })
               .then((response) => {
                 alert("Information Recorderd for Admin Verification");
+                FormReset()
+
               })
               .catch(function (error) {
                 alert(error);
@@ -188,95 +194,95 @@ export default function JoinMajlis(props) {
           validationSchema={Yup.object().shape({
             email: Yup.string()
               .email()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             name: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             housename: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             fathername: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             lastname: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             place: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             country: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             content: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             phone_number_1: Yup.number()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             phone_number_2: Yup.number(),
             office_phone_number: Yup.number(),
             home_phone_number: Yup.number(),
             bloodgroup: Yup.object(),
             passport: Yup.number()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             dob: Yup.date()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             job: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             company_name: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             postcode: Yup.number(),
             area: Yup.string(),
             emirates: Yup.string(),
             education: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             jobqualification: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             residential: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             area: Yup.string(),
             building: Yup.string(),
             flat: Yup.string(),
             emirates_residential: Yup.string(),
             marriage_status: Yup.object()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             family_status: Yup.object()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             no_of_boys: Yup.number(),
             no_of_girls: Yup.number(),
             closest_relative: Yup.string(),
             relative_phone: Yup.number(),
             address: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             place_home: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             person_to_contact: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             person_to_contact_relation: Yup.string()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             phone_home: Yup.number()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             mahal_phone: Yup.number()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
             file: Yup.mixed()
-              // .required('Required'),
-              ,
+            // .required('Required'),
+            ,
           })}
         >
           {props => {
@@ -292,6 +298,7 @@ export default function JoinMajlis(props) {
               handleReset,
               setFieldValue
             } = props;
+            FormReset = handleReset
 
             const onChange = value => {
               console.log(values);
@@ -364,12 +371,30 @@ export default function JoinMajlis(props) {
                   <Grid item xs={6}>
                     <Grid container spacing={0} className="field">
                       <Grid item xs={4}>
+<<<<<<< HEAD
+                        <label htmlFor="housename">
+                          House Name
+=======
                         <label htmlFor="fathername">
                           Father's Name
+>>>>>>> 7915bfd2b8102a472d955786556309e1a649ad1c
                         </label>
                       </Grid>
                       <Grid item xs={8}>
                         <input
+<<<<<<< HEAD
+                          id="housename"
+                          placeholder="Enter your House Name"
+                          type="text"
+                          value={values.housename}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          className={
+                            errors.housename && touched.housename ? 'inputs text-input error' : 'inputs text-input'}
+                        />
+                        {errors.housename && touched.housename ? (
+                          <div className="input-feedback">{errors.housename}</div>
+=======
                           id="fathername"
                           placeholder="Enter your fathers Name"
                           type="text"
@@ -381,10 +406,59 @@ export default function JoinMajlis(props) {
                         />
                         {errors.fathername && touched.fathername ? (
                           <div className="input-feedback">{errors.fathername}</div>
+>>>>>>> 7915bfd2b8102a472d955786556309e1a649ad1c
                         ) : <div className="input-feedback">&nbsp;</div>}
                       </Grid>
                     </Grid>
                   </Grid>
+<<<<<<< HEAD
+                  <Grid item xs={6}>
+                    <Grid container spacing={0} className="field">
+                      <Grid item xs={4}>
+                        <label htmlFor="fathername">
+                          Father's Name
+=======
+
+                  <Grid item xs={6}>
+                    <Grid container spacing={0} className="field">
+                      <Grid item xs={4}>
+                        <label htmlFor="name">
+                          Phone Number 1
+>>>>>>> 7915bfd2b8102a472d955786556309e1a649ad1c
+                        </label>
+                      </Grid>
+                      <Grid item xs={8}>
+                        <input
+<<<<<<< HEAD
+                          id="fathername"
+                          placeholder="Enter your fathers Name"
+                          type="text"
+                          value={values.fathername}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          className={
+                            errors.fathername && touched.fathername ? 'inputs text-input error' : 'inputs text-input'}
+                        />
+                        {errors.fathername && touched.fathername ? (
+                          <div className="input-feedback">{errors.fathername}</div>
+=======
+                          id="phone_number_1"
+                          placeholder="Enter Your Name"
+                          type="number"
+                          value={values.phone_number_1}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          className={
+                            errors.phone_number_1 && touched.phone_number_1 ? 'inputs text-input error' : 'inputs text-input'}
+                        />
+                        {errors.phone_number_1 && touched.phone_number_1 ? (
+                          <div className="input-feedback">{errors.name}</div>
+>>>>>>> 7915bfd2b8102a472d955786556309e1a649ad1c
+                        ) : <div className="input-feedback">&nbsp;</div>}
+                      </Grid>
+                    </Grid>
+                  </Grid>
+<<<<<<< HEAD
 
                   <Grid item xs={6}>
                     <Grid container spacing={0} className="field">
@@ -410,6 +484,8 @@ export default function JoinMajlis(props) {
                       </Grid>
                     </Grid>
                   </Grid>
+=======
+>>>>>>> 7915bfd2b8102a472d955786556309e1a649ad1c
                   <Grid item xs={6}>
                     <Grid container spacing={0} className="field">
                       <Grid item xs={4}>
@@ -459,6 +535,8 @@ export default function JoinMajlis(props) {
                       </Grid>
                     </Grid>
                   </Grid>
+<<<<<<< HEAD
+=======
 
                   <Grid item xs={6}>
                     <Grid container spacing={0} className="field">
@@ -509,10 +587,30 @@ export default function JoinMajlis(props) {
                       </Grid>
                     </Grid>
                   </Grid>
+>>>>>>> 7915bfd2b8102a472d955786556309e1a649ad1c
 
                   <Grid item xs={6}>
                     <Grid container spacing={0} className="field">
                       <Grid item xs={4}>
+<<<<<<< HEAD
+                        <label htmlFor="housename">
+                          Home Phone Number
+                        </label>
+                      </Grid>
+                      <Grid item xs={8}>
+                        <input
+                          id="home_phone_number"
+                          placeholder="Home Phone number"
+                          type="number"
+                          value={values.home_phone_number}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          className={
+                            errors.home_phone_number && touched.home_phone_number ? 'inputs text-input error' : 'inputs text-input'}
+                        />
+                        {errors.home_phone_number && touched.home_phone_number ? (
+                          <div className="input-feedback">{errors.home_phone_number}</div>
+=======
                         <label htmlFor="bloodgroup" style={{ color: 'black', fontSize: '16px' }}>
                           Blood Group
                         </label>
@@ -530,11 +628,328 @@ export default function JoinMajlis(props) {
                         />
                         {errors.bloodgroup && touched.bloodgroup ? (
                           <div className="input-feedback">{errors.bloodgroup}</div>
+>>>>>>> 7915bfd2b8102a472d955786556309e1a649ad1c
                         ) : <div className="input-feedback">&nbsp;</div>}
                       </Grid>
                     </Grid>
                   </Grid>
 
+<<<<<<< HEAD
+                  <Grid item xs={6}>
+                    <Grid container spacing={0} className="field">
+                      <Grid item xs={4}>
+                        <label htmlFor="housename">
+                          E-mail
+=======
+                  <Grid item xs={12}><Headline>Personal Identification</Headline></Grid>
+                  <Grid item xs={6}>
+                    <Grid container spacing={0} className="field">
+                      <Grid item xs={4}>
+                        <label htmlFor="passport">
+                          Passport
+>>>>>>> 7915bfd2b8102a472d955786556309e1a649ad1c
+                        </label>
+                      </Grid>
+                      <Grid item xs={8}>
+                        <input
+<<<<<<< HEAD
+                          id="email"
+                          placeholder="E-mail"
+                          type="string"
+                          value={values.email}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          className={
+                            errors.email && touched.email ? 'inputs text-input error' : 'inputs text-input'}
+                        />
+                        {errors.email && touched.email ? (
+                          <div className="input-feedback">{errors.email}</div>
+=======
+                          id="passport"
+                          placeholder="Passport"
+                          type="number"
+                          value={values.passport}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          className={
+                            errors.passport && touched.passport ? 'inputs text-input error' : 'inputs text-input'}
+                        />
+                        {errors.passport && touched.passport ? (
+                          <div className="input-feedback">{errors.passport}</div>
+>>>>>>> 7915bfd2b8102a472d955786556309e1a649ad1c
+                        ) : <div className="input-feedback">&nbsp;</div>}
+                      </Grid>
+                    </Grid>
+                  </Grid>
+
+                  <Grid item xs={6}>
+                    <Grid container spacing={0} className="field">
+                      <Grid item xs={4}>
+<<<<<<< HEAD
+                        <label htmlFor="bloodgroup" style={{ color: 'black', fontSize: '16px' }}>
+                          Blood Group
+=======
+                        <label htmlFor="dob">
+                          Date of Birth
+                        </label>
+                      </Grid>
+                      <Grid item xs={8}>
+                        <input
+                          id="dob"
+                          placeholder="dob"
+                          type="date"
+                          value={values.dob}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          className={
+                            errors.dob && touched.dob ? 'inputs text-input error' : 'inputs text-input'}
+                        />
+                        {errors.dob && touched.dob ? (
+                          <div className="input-feedback">{errors.dob}</div>
+                        ) : <div className="input-feedback">&nbsp;</div>}
+                      </Grid>
+                    </Grid>
+                  </Grid>
+
+                  <Grid item xs={12}><Headline>Company Information</Headline></Grid>
+                  <Grid item xs={6}>
+                    <Grid container spacing={0} className="field">
+                      <Grid item xs={4}>
+                        <label htmlFor="job">
+                          Job
+                        </label>
+                      </Grid>
+                      <Grid item xs={8}>
+                        <input
+                          id="job"
+                          placeholder="Job"
+                          type="text"
+                          value={values.job}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          className={
+                            errors.job && touched.job ? 'inputs text-input error' : 'inputs text-input'}
+                        />
+                        {errors.job && touched.job ? (
+                          <div className="input-feedback">{errors.job}</div>
+                        ) : <div className="input-feedback">&nbsp;</div>}
+                      </Grid>
+                    </Grid>
+                  </Grid>
+
+                  <Grid item xs={6}>
+                    <Grid container spacing={0} className="field">
+                      <Grid item xs={4}>
+                        <label htmlFor="company_name">
+                          Company Name
+                        </label>
+                      </Grid>
+                      <Grid item xs={8}>
+                        <input
+                          id="company_name"
+                          placeholder="Company Name"
+                          type="text"
+                          value={values.company_name}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          className={
+                            errors.company_name && touched.company_name ? 'inputs text-input error' : 'inputs text-input'}
+                        />
+                        {errors.company_name && touched.company_name ? (
+                          <div className="input-feedback">{errors.company_name}</div>
+                        ) : <div className="input-feedback">&nbsp;</div>}
+                      </Grid>
+                    </Grid>
+                  </Grid>
+
+                  <Grid item xs={6}>
+                    <Grid container spacing={0} className="field">
+                      <Grid item xs={4}>
+                        <label htmlFor="postcode">
+                          Postcode
+                        </label>
+                      </Grid>
+                      <Grid item xs={8}>
+                        <input
+                          id="postcode"
+                          placeholder="Postcode"
+                          type="number"
+                          value={values.postcode}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          className={
+                            errors.postcode && touched.postcode ? 'inputs text-input error' : 'inputs text-input'}
+                        />
+                        {errors.postcode && touched.postcode ? (
+                          <div className="input-feedback">{errors.postcode}</div>
+                        ) : <div className="input-feedback">&nbsp;</div>}
+                      </Grid>
+                    </Grid>
+                  </Grid>
+
+                  <Grid item xs={6}>
+                    <Grid container spacing={0} className="field">
+                      <Grid item xs={4}>
+                        <label htmlFor="area">
+                          Area
+                        </label>
+                      </Grid>
+                      <Grid item xs={8}>
+                        <input
+                          id="area"
+                          placeholder="Area"
+                          type="text"
+                          value={values.area}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          className={
+                            errors.area && touched.area ? 'inputs text-input error' : 'inputs text-input'}
+                        />
+                        {errors.area && touched.area ? (
+                          <div className="input-feedback">{errors.area}</div>
+                        ) : <div className="input-feedback">&nbsp;</div>}
+                      </Grid>
+                    </Grid>
+                  </Grid>
+
+                  <Grid item xs={6}>
+                    <Grid container spacing={0} className="field">
+                      <Grid item xs={4}>
+                        <label htmlFor="emirates">
+                          Emirates
+                        </label>
+                      </Grid>
+                      <Grid item xs={8}>
+                        <input
+                          id="emirates"
+                          placeholder="Emirates"
+                          type="text"
+                          value={values.emirates}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          className={
+                            errors.emirates && touched.emirates ? 'inputs text-input error' : 'inputs text-input'}
+                        />
+                        {errors.emirates && touched.emirates ? (
+                          <div className="input-feedback">{errors.emirates}</div>
+                        ) : <div className="input-feedback">&nbsp;</div>}
+                      </Grid>
+                    </Grid>
+                  </Grid>
+
+                  <Grid item xs={6}>
+                    <Grid container spacing={0} className="field">
+                      <Grid item xs={4}>
+                        <label htmlFor="institution">
+                          Institution
+>>>>>>> 7915bfd2b8102a472d955786556309e1a649ad1c
+                        </label>
+                      </Grid>
+                      <Grid item xs={8}>
+                        <Select
+<<<<<<< HEAD
+                          id="bloodgroup"
+                          placeholder="Blood Group"
+                          options={bloodgroupOptions}
+                          value={values.bloodgroup}
+                          onChange={onChange}
+                          onBlur={handleBlur}
+                          className={
+                            errors.bloodgroup && touched.bloodgroup ? 'inputs text-input error' : 'inputs text-input'}
+                        />
+                        {errors.bloodgroup && touched.bloodgroup ? (
+                          <div className="input-feedback">{errors.bloodgroup}</div>
+=======
+                          id="institution"
+                          placeholder="Institution"
+                          value={values.institution}
+                          onChange={onInstitutionChange}
+                          onBlur={handleBlur}
+                          className={
+                            errors.institution && touched.institution ? 'inputs text-input error' : 'inputs text-input'}
+                        />
+                        {errors.institution && touched.institution ? (
+                          <div className="input-feedback">{errors.institution}</div>
+                        ) : <div className="input-feedback">&nbsp;</div>}
+                      </Grid>
+                    </Grid>
+                  </Grid>
+
+                  <Grid item xs={12}><Headline>Educational Details</Headline></Grid>
+                  <Grid item xs={6}>
+                    <Grid container spacing={0} className="field">
+                      <Grid item xs={4}>
+                        <label htmlFor="education">
+                          Educational Qualification
+                        </label>
+                      </Grid>
+                      <Grid item xs={8}>
+                        <input
+                          id="education"
+                          placeholder="Education"
+                          value={values.education}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          className={
+                            errors.education && touched.education ? 'inputs text-input error' : 'inputs text-input'}
+                        />
+                        {errors.education && touched.education ? (
+                          <div className="input-feedback">{errors.education}</div>
+                        ) : <div className="input-feedback">&nbsp;</div>}
+                      </Grid>
+                    </Grid>
+                  </Grid>
+
+                  <Grid item xs={6}>
+                    <Grid container spacing={0} className="field">
+                      <Grid item xs={4}>
+                        <label htmlFor="jobqualification">
+                          Job Qualification
+                        </label>
+                      </Grid>
+                      <Grid item xs={8}>
+                        <input
+                          id="jobqualification"
+                          placeholder="Job Qualification"
+                          value={values.jobqualification}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          className={
+                            errors.jobqualification && touched.jobqualification ? 'inputs text-input error' : 'inputs text-input'}
+                        />
+                        {errors.jobqualification && touched.jobqualification ? (
+                          <div className="input-feedback">{errors.jobqualification}</div>
+                        ) : <div className="input-feedback">&nbsp;</div>}
+                      </Grid>
+                    </Grid>
+                  </Grid>
+
+                  <Grid item xs={6}>
+                    <Grid container spacing={0} className="field">
+                      <Grid item xs={4}>
+                        <label htmlFor="licence">
+                          Licence
+                        </label>
+                      </Grid>
+                      <Grid item xs={8}>
+                        <input
+                          id="licence"
+                          placeholder="Licence"
+                          value={values.licence}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          className={
+                            errors.licence && touched.licence ? 'inputs text-input error' : 'inputs text-input'}
+                        />
+                        {errors.licence && touched.licence ? (
+                          <div className="input-feedback">{errors.licence}</div>
+>>>>>>> 7915bfd2b8102a472d955786556309e1a649ad1c
+                        ) : <div className="input-feedback">&nbsp;</div>}
+                      </Grid>
+                    </Grid>
+                  </Grid>
+
+<<<<<<< HEAD
                   <Grid item xs={12}><Headline>Personal Identification</Headline></Grid>
                   <Grid item xs={6}>
                     <Grid container spacing={0} className="field">
@@ -809,6 +1224,8 @@ export default function JoinMajlis(props) {
                     </Grid>
                   </Grid>
 
+=======
+>>>>>>> 7915bfd2b8102a472d955786556309e1a649ad1c
                   <Grid item xs={12}><Headline>Residential Details</Headline></Grid>
                   <Grid item xs={6}>
                     <Grid container spacing={0} className="field">

@@ -180,9 +180,7 @@ export default function Header() {
                 }}>Who Lead Us</button>
               <div class="dropdown-content" onClick={() => buttonClick("WhoLeadUs")}>
                 <Link to="/WhoLeadUs/Current">Current</Link>
-                <Link to="/WhoLeadUs/Term1">Term-1</Link>
-                <Link to="/WhoLeadUs/Term2">Term-2</Link>
-                <Link to="/WhoLeadUs/Term3">Term-3</Link>
+                <Link to="/WhoLeadUs/OurHeros">Our Heros</Link>
 
               </div>
             </Link>
@@ -305,7 +303,7 @@ export default function Header() {
                   color: isButtonActive === "WhatWeDo" && "white"
                 }}>What We Do</button>
               <div class="dropdown-content" onClick={() => buttonClick("WhatWeDo")}>
-                <Link to="/WhatWeDo/Projects">Projects</Link>
+                {/* <Link to="/WhatWeDo/Projects">Projects</Link> */}
               </div>
             </Link>
             <Link to="/User/WhoLeadUs" class="dropdown">
@@ -316,10 +314,10 @@ export default function Header() {
                 }}>Who Lead Us</button>
               <div class="dropdown-content" onClick={() => buttonClick("WhoLeadUs")}>
                 <Link to="/WhoLeadUs/Current">Current</Link>
-                <Link to="/WhoLeadUs/Term1">Term-1</Link>
+                <Link to="/WhoLeadUs/OurHeros">Our Heros</Link>
+                {/* <Link to="/WhoLeadUs/Term1">Term-1</Link>
                 <Link to="/WhoLeadUs/Term2">Term-2</Link>
-                <Link to="/WhoLeadUs/Term3">Term-3</Link>
-
+                <Link to="/WhoLeadUs/Term3">Term-3</Link> */}
               </div>
             </Link>
             <Link to="/User/EventGallery" class="dropdown">
