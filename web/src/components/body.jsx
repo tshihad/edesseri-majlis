@@ -30,7 +30,7 @@ import UserOptions from './user/user_options';
 import Profile from './user/profile';
 import UserDownloads from './user/downloads';
 import UserContactMajlis from './user/contact_majlis';
-import EventCalendar from './sub_components/event_calendar';
+import EventCalendar from './admin/event_calendar';
 import LogoutIcon from '@material-ui/icons/Person';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
@@ -92,7 +92,7 @@ background-color: #6a7e4b;
 color: white;
 float: right;
 margin-top: .5em;
-border-radius: .5em;
+border-radius: 3em;
 display: inline-block;
 &:hover{
   background-color: #556b2f;
@@ -127,10 +127,10 @@ export default function Header() {
   const setThisUser = (user) => {
     setUser(user)
   }
-  const openLogout = () =>{
+  const openLogout = () => {
     toggleLogout(true);
   }
-  const closeLogout = () =>{
+  const closeLogout = () => {
     toggleLogout(false);
   }
   const changeLanguage = () => {
@@ -148,22 +148,25 @@ export default function Header() {
   return (
     <div class="mainhead">
       {/* Logoutmenu  */}
-        {logout&&
-          <div className="modal-overlay" onClick={closeLogout}
-          style={{ background:'rgba(229, 255, 229,0)',position:'fixed',width:'100%',height:'100%',zIndex:3}}>
-            <div className="profile-details navbar" 
-              style={{ textAlign:'center',background:'rgba(,,,1)',width:'12%',height:'23%',marginLeft:'84%',marginTop:'6%'
-              ,borderRadius:'7px',padding:'0%',border:'solid 1px' }}>
-                <br /><b>NAME</b><br /><br />
-                <a className="logout-item" style={{display:'block',padding:'5% 5%',color: '#556b2f'}}>
-                  View Profile
-                </a>
-                <br />
-                <a className="logout-item" onClick={handleLogout} style={{display:'block',padding:'5% 5%',color: '#556b2f'}}>
-                  Log Out
-                </a>
+      {logout &&
+        <div className="modal-overlay" onClick={closeLogout}
+          style={{ background: 'rgba(229, 255, 229,0)', position: 'fixed', width: '100%', height: "auto", zIndex: 3 }}>
+          <div className="profile-details navbar" onMouseLeave={closeLogout}
+            style={{
+              textAlign: 'center', background: 'rgba(,,,1)', width: '12%', height: '23%', marginLeft: '84%', marginTop: '6%'
+              , borderRadius: '2px', padding: '0%', border: 'solid 1px #556b2f', paddingBottom: "1em"
+            }}>
+            <div style={{ padding: "1em 0", color: "#1d4219" }}>
+              <b>NAME</b>
             </div>
-          </div>}
+            <a className="logout-item" style={{ display: 'block', padding: '5% 5%' }}>
+              View Profile
+                </a>
+            <a className="logout-item" onClick={handleLogout} style={{ display: 'block', padding: '5% 5%' }}>
+              Log Out
+                </a>
+          </div>
+        </div>}
       <Router>
         <Head>
           <Heading style={{ maxHeight: "100%", overflowX: "hidden" }}>
@@ -171,7 +174,7 @@ export default function Header() {
               <img src={logo} alt="logo" style={{ width: "3.5vw", height: "3.5vw", display: "inline-block" }} />
               <div style={{ margin: "1.5vw 0 0 .8vw", color: "#556b2f", display: "inline-block", fontFamily: "Aroma", fontSize: "1.4vw" }}><Span>E</Span>DASSERY <Span>M</Span>AJLIS <Span>G</Span>ROUP</div>
             </div>
-            {isLoggedin && <Logout title="Logout" onClick={openLogout}><LogoutIcon style={{ fontSize: "3em" }} /></Logout>}
+            {isLoggedin === true && user != "general" && <Logout title="Logout" onMouseOver={openLogout} ><LogoutIcon style={{ fontSize: "3em" }} /></Logout>}
             {isLanguageOption && <Language title="Change Language" style={{ display: "inline-block", fontSize: language === "English" ? "1.1vw" : "1.5vw" }} onClick={changeLanguage}>{language}</Language>}
           </Heading>
           <div class="navbar" style={{ display: user === "general" ? "block" : "none" }}>
@@ -189,7 +192,7 @@ export default function Header() {
                   color: isButtonActive === "WhatWeDo" && "white"
                 }}>What We Do</button>
               <div class="dropdown-content" onClick={() => buttonClick("WhatWeDo")}>
-                <Link to="/WhatWeDo/Projects">Projects</Link>
+                {/* <Link to="/WhatWeDo/Projects">Projects</Link> */}
               </div>
             </Link>
             <Link to="/WhoLeadUs" class="dropdown">
@@ -292,19 +295,23 @@ export default function Header() {
                   color: isButtonActive === "FamilyWelfare" && "white"
                 }}>Family Welfare</button>
             </Link>
-            <Link to="/Admin/UploadForms" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("UploadForms")} style={{
-                  backgroundColor: isButtonActive === "UploadForms" && " #556b2f",
-                  color: isButtonActive === "UploadForms" && "white"
-                }}>Upload Forms</button>
-            </Link>
             <Link to="/Admin/EventCalendar" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("EventCalendar")} style={{
                   backgroundColor: isButtonActive === "EventCalendar" && " #556b2f",
                   color: isButtonActive === "EventCalendar" && "white"
                 }}>Event Calendar</button>
+            </Link>
+            <Link to="/Admin/UploadForms" class="dropdown">
+              <button class="dropbtn"
+                onClick={() => buttonClick("UploadForms")} style={{
+                  backgroundColor: isButtonActive === "UploadForms" && " #556b2f",
+                  color: isButtonActive === "UploadForms" && "white"
+                }}>More</button>
+              <div class="dropdown-content" onClick={() => buttonClick("EventGallery")}>
+                <Link to="/Admin/UploadForms">Upload Forms</Link>
+                <Link to="/Admin/ContactMajlis">Contact Majlis</Link>
+              </div>
             </Link>
           </div>
           {/* NAVBAR FOR USER */}
@@ -393,21 +400,21 @@ export default function Header() {
         <Body>
           <Switch>
             <Redirect exact from="/" to="/Home" />
-            <Route path="/Home" ><Home setState={buttonClick} setLanButton={setButton} language={language} /></Route>
-            <Route path="/WhatweDo" ><WhatweDo setState={buttonClick} setLanButton={setButton} language={language} /></Route>
-            <Route path="/WhoLeadUs"><WhoLeadUs setState={buttonClick} setLanButton={setButton} /></Route>
+            <Route path="/Home" ><Home setState={buttonClick} setLanButton={setButton} language={language} setUser={setThisUser} /></Route>
+            <Route path="/WhatweDo" ><WhatweDo setState={buttonClick} setLanButton={setButton} setuser={setThisUser} language={language} /></Route>
+            <Route path="/WhoLeadUs"><WhoLeadUs setState={buttonClick} setLanButton={setButton} setuser={setThisUser} /></Route>
             <Redirect exact path="/EventGallery" to="/EventGallery/Milad" />
-            <Route path="/EventGallery/Milad" ><EventGallery category="milad" setState={buttonClick} setLanButton={setButton} /></Route>
-            <Route path="/EventGallery/Eid" ><EventGallery category="eid" setState={buttonClick} setLanButton={setButton} /></Route>
-            <Route path="/EventGallery/Iftar" ><EventGallery category="iftar" setState={buttonClick} setLanButton={setButton} /></Route>
-            <Route path="/EventGallery/Sports" ><EventGallery category="sports" setState={buttonClick} setLanButton={setButton} /></Route>
-            <Route path="/EventGallery/MeetandGreet" ><EventGallery category="meetandgreet" setState={buttonClick} setLanButton={setButton} /></Route>
-            <Route path="/EventGallery/Other" ><EventGallery category="other" setState={buttonClick} setLanButton={setButton} /></Route>
-            <Route path="/JoinMajlis" ><JoinMajlis setState={buttonClick} setLanButton={setButton} /></Route>
+            <Route path="/EventGallery/Milad" ><EventGallery category="milad" setState={buttonClick} setLanButton={setButton} setuser={setThisUser} /></Route>
+            <Route path="/EventGallery/Eid" ><EventGallery category="eid" setState={buttonClick} setLanButton={setButton} setuser={setThisUser} /></Route>
+            <Route path="/EventGallery/Iftar" ><EventGallery category="iftar" setState={buttonClick} setLanButton={setButton} setuser={setThisUser} /></Route>
+            <Route path="/EventGallery/Sports" ><EventGallery category="sports" setState={buttonClick} setLanButton={setButton} setuser={setThisUser} /></Route>
+            <Route path="/EventGallery/MeetandGreet" ><EventGallery category="meetandgreet" setState={buttonClick} setLanButton={setButton} setuser={setThisUser} /></Route>
+            <Route path="/EventGallery/Other" ><EventGallery category="other" setState={buttonClick} setLanButton={setButton} setuser={setThisUser} /></Route>
+            <Route path="/JoinMajlis" ><JoinMajlis setState={buttonClick} setLanButton={setButton} setuser={setThisUser} /></Route>
             <Route path="/MemberLogin" ><MemberLogin setState={buttonClick} log={isLoggedin} setLoggedIn={setLogIn} setLanButton={setButton} setUser={setThisUser} /></Route>
-            <Route path="/Downloads" ><Downloads setState={buttonClick} setLanButton={setButton} /></Route>
-            <Route path="/ContactMajlis" ><ContactMajlis setState={buttonClick} setLanButton={setButton} /></Route>
-            <Router path="/EventCalender"><EventCalendar setState={buttonClick} setLanButton={setButton} /></Router>
+            <Route path="/Downloads" ><Downloads setState={buttonClick} setLanButton={setButton} setuser={setThisUser} /></Route>
+            <Route path="/ContactMajlis" ><ContactMajlis setState={buttonClick} setLanButton={setButton} setuser={setThisUser} /></Route>
+            <Router path="/EventCalender"><EventCalendar setState={buttonClick} setLanButton={setButton} setuser={setThisUser} /></Router>
 
             <Redirect exact from="/Admin" to="/Admin/Members" />
             <Route path="/Admin/Members" ><Members setState={buttonClick} setUser={setThisUser} /></Route>
