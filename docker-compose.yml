@@ -14,7 +14,7 @@ services:
       - v1
     restart: always
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - /data/psql:/var/lib/postgresql/data
 
   app:
     build:
@@ -41,6 +41,3 @@ services:
     restart: always
 networks:
   v1:
-
-volumes:
-  db-data:
