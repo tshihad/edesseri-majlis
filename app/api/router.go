@@ -8,6 +8,8 @@ import (
 	"github.com/go-chi/chi"
 )
 
+var categoryRegex = "{" + core.CATEGORY_TAG + ":(all|" + strings.Join(core.CATEGORIES, "|") + ")}"
+
 // Router api routing. to create new api list url here
 func (a *App) Router() http.Handler {
 	r := chi.NewRouter()
@@ -33,7 +35,8 @@ func (a *App) Router() http.Handler {
 			r.Get("/downloads", a.handleGetPrivateDownloads)
 		})
 		r.With(a.validateAdmin()).Route("/admin", func(r chi.Router) {
-			r.Route("/event-gallery", func(r chi.Router) {
+			r.Route("/event-gallery/"+categoryRegex, func(r chi.Router) {
+				r.Get("/", a.handleGetEGallerys)
 				r.Post("/", a.handlePostEGallery)
 				r.Delete("/{id}", a.handleDeleteEGallery)
 			})
@@ -52,7 +55,7 @@ func (a *App) Router() http.Handler {
 			r.Post("/downloads", a.handlePostDownload)
 		})
 
-		r.Get("/event-gallery/{category:(all|"+strings.Join(core.CATEGORIES, "|")+")}", a.handleGetEGallerys)
+		r.Get("/event-gallery/"+categoryRegex, a.handleGetEGallerys)
 		r.Post("/contact", a.handlePostcontact)
 
 		r.Get("/downloads", a.handleGetPublicDownloads)

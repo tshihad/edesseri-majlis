@@ -11,12 +11,6 @@ import (
 
 func (a *App) handlePostEGallery(w http.ResponseWriter, r *http.Request) {
 	eGallery := models.EventGallery{}
-	err := r.ParseForm()
-	if err != nil {
-		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to parse form", err)
-		return
-	}
-
 	location, err := uploadFile(r, core.DOWNLOAD_TAG, core.GALLERY_LOCATION, core.ALLOW_GALLERY_EXT)
 	if err != nil {
 		a.Fail(w, http.StatusNonAuthoritativeInfo, "failed to upload photo", err)
@@ -30,13 +24,7 @@ func (a *App) handlePostEGallery(w http.ResponseWriter, r *http.Request) {
 	}
 	eGallery.Height = d.Height
 	eGallery.Width = d.Width
-	category := r.FormValue(core.CATEGORY_TAG)
-	if !contains(category, core.CATEGORIES) {
-		a.Fail(w, http.StatusNonAuthoritativeInfo, "invalid category", nil)
-		return
-	}
-
-	eGallery.Category = category
+	eGallery.Category = chi.URLParam(r, core.CATEGORY_TAG)
 	_, err = a.CreateEGallery(eGallery)
 	if err != nil {
 		a.Fail(w, http.StatusNonAuthoritativeInfo, "failed to create e gallery", err)
