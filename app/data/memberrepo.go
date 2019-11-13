@@ -13,6 +13,9 @@ import (
 // GetMember get user from db
 func (r *RepoImp) GetMember(memberID string) (models.Member, error) {
 	var member models.Member
+	if memberID == "" {
+		return member, errors.New("Empty member_id")
+	}
 	err := r.db.Where(models.Member{MemberID: memberID}).First(&member).Error
 	return member, err
 }
