@@ -3,3 +3,4 @@ vendor
 test
 /static/
 debug*
+npm-debug.log
