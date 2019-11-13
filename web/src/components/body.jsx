@@ -28,6 +28,7 @@ import UserWhoLeadUs from './user/who_lead_us';
 import UserEventGallery from './user/event_gallery';
 import UserOptions from './user/user_options';
 import Profile from './user/profile';
+import UserProfile from './admin/profile';
 import UserDownloads from './user/downloads';
 import UserContactMajlis from './user/contact_majlis';
 import EventCalendar from './sub_components/event_calendar';
@@ -400,6 +401,7 @@ export default function Header() {
             <Route path="/Admin/UploadForms" ><UploadForms setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/ContactMajlisAdmin" ><ContactMajlisAdmin setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/EventCalendarAdmin" ><AdminEventCalendar setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/user/profile"><UserProfile setUser={setThisUser} /></Route>
 
             <Redirect exact from="/User" to="/User/Home" />
             <Route path="/User/Home" ><UserHome setState={buttonClick} setLanButton={setButton} isLogged={isLoggedin} languageButton={true} language={language} setUser={setThisUser} /></Route>
