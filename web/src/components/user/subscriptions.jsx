@@ -10,6 +10,7 @@ import Loading from '../sub_components/loading'
 
 const SubscriptionCard = styled.div`
 margin-top: 5vh;
+padding-bottom:5vh;
 `;
 const Headline = styled.h3`
 color:#1d4219;

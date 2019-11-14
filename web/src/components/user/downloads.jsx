@@ -81,7 +81,7 @@ export default function Downloads(props) {
     props.setLanButton(false)
     props.setUser("user")
     props.setState("Downloads")
-    axios.get(API_BASE_URL+"/majlis/downloads",
+    axios.get(API_BASE_URL+"/majlis/member/downloads",
       { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } })
       .then(({ data }) => {
         data.result.map((element) => {
