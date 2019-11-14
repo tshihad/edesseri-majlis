@@ -50,7 +50,7 @@ margin: 3vh 10vw 0 10vw `;
 function Profile(props) {
     const classes = useStyles()
     const [canLoad, setLoading] = React.useState(false)
-    const [userFields,setUserField] = React.useState()
+    const [userFields,setUserField] = React.useState({})
     useEffect(() => {
     window.scrollTo(0, 0)
     if (localStorage.getItem('VerifiedUser')) {
