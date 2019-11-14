@@ -41,6 +41,7 @@ type SubscriptionRepo interface {
 	CreateSubscription(models.Subscription) (models.Subscription, error)
 	GetSubscription(memberID string) ([]models.Subscription, error)
 	DeleteSubscriton(id uint) error
+	GetSubscriptions(models.SubsAdminTableReq) ([]models.Subscription, error)
 }
 
 // LoanRepo for loans
