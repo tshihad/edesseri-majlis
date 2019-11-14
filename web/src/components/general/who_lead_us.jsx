@@ -33,7 +33,7 @@ export default function WhoLeadUs(props) {
         <MemberCard position="President" image={president} name="Mothishah V.C" date="01/01/2019" />
       </Grid>
       <Grid item xs={3}>
-        <MemberCard position="Secretary" image={secretary} name="Raheed Usman P" date="01/01/2019" />
+        <MemberCard position="Secretary" image={secretary} name="Firos Mohammed" date="01/01/2019" />
       </Grid>
       <Grid item xs={3}>
         <MemberCard position="Treasurer" image={treasurer} name="Mohammed Musthafa" date="01/01/2019" len="large" />
@@ -43,7 +43,7 @@ export default function WhoLeadUs(props) {
     <Grid container spacing={0}>
       <Grid item xs={2}></Grid>
       <Grid item xs={4}>
-        <MemberCard position="Vice President" image={vicepresident} name="Firos Mohammed" date="01/01/2019" />
+        <MemberCard position="Vice President" image={vicepresident} name="Raheed Usman P" date="01/01/2019" />
       </Grid>
       <Grid item xs={4}>
         <MemberCard position="Joint Secretary" image={jointsecretary} name="Nishal P.M" date="01/01/2019" />
