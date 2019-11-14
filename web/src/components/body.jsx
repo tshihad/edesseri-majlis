@@ -45,7 +45,7 @@ import { API_BASE_URL } from './constants'
 
 const Head = styled.div`
 width: 100%;
-z-index:2;
+// z-index:2;
 background-color: #e5eee5;
 color: #bab86c;
 padding: 1.5vh 10vw 0 10vw;
