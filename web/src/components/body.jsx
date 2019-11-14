@@ -159,11 +159,8 @@ export default function Header() {
               , borderRadius: '2px', padding: '0%', border: 'solid 1px #556b2f', paddingBottom: "1em"
             }}>
             <div style={{ padding: "1em 0", color: "#1d4219" }}>
-              <b>NAME</b>
+              <b>{localStorage.getItem('Username')}</b>
             </div>
-            <button className="logout-item" style={{ display: 'block', padding: '5% 5%' }}>
-              View Profile
-                </button>
             <button className="logout-item" onClick={handleLogout} style={{ display: 'block', padding: '5% 5%' }}>
               Log Out
                 </button>

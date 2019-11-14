@@ -93,7 +93,7 @@ function Profile(props) {
                         </Grid>
                         <Grid container spacing={0}>
                             <Grid item xs={3}>
-                                    <img className={classes.image} src={member}></img>
+                                    <img className={classes.image} src={localStorage.getItem('UserImageURL')}></img>
                             </Grid>
                             <Grid item xs={9}>
                                 <Paper style={{ marginTop: "1em", padding: ".5em 2em" }}>

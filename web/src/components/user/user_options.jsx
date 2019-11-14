@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Subscription from './subscriptions';
 import Loans from './loans';
-import FamilyWelfare from './family_welfare'
+import FamilyWelfare from './family_welfare';
+import {Link} from 'react-router-dom'
 import axios from 'axios';
 import { API_BASE_URL } from '../constants';
 import Loading from '../sub_components/loading';
@@ -111,9 +112,9 @@ function MemberHome() {
                     <Grid item xs={2}></Grid>
                     <Grid item xs={7}>
                         <Grid container spacing={0}>
-                            <Grid item xs={4}><Button>Subscriptions</Button></Grid>
-                            <Grid item xs={4}><Button>Loans</Button></Grid>
-                            <Grid item xs={4}><Button>Family Welfare</Button></Grid>
+                            <Grid item xs={4}><Link to="/User/UserOptions/Subscriptions" ><Button>Subscriptions</Button></Link></Grid>
+                            <Grid item xs={4}><Link to="/User/UserOptions/Loans"><Button>Loans</Button></Link></Grid>
+                            <Grid item xs={4}><Link to="/User/UserOptions/FamilyWelfare"><Button>Family Welfare</Button></Link></Grid>
                         </Grid>
                     </Grid>
                     <Grid item xs={3}></Grid>
