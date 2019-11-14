@@ -18,6 +18,7 @@ import {
     createMuiTheme
 } from '@material-ui/core';
 import { API_BASE_URL } from '../constants'
+import Loading from '../sub_components/loading'
 
 
 const JoinMajlisCard = styled.div`
@@ -84,11 +85,27 @@ const yesnoOptions = [
     }
 ];
 export default function JoinMajlis(props) {
+    const [canLoad, setLoading] = React.useState(false)
     useEffect(() => {
-        props.setState("JoinMajlis")
+
+            axios.get(API_BASE_URL + '/majlis/auth/admin', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+                repsonse => {
+                    if (repsonse.status != 200) {
+                        window.location = "/Admin/Login"
+                    }
+                }
+            ).catch(error => {
+                window.location = "/Admin/Login"
+                alert("Authentication Failed")
+            })
+        
+        props.setUser("admin")
+        props.setState("AddMember")
     }, [props])
     var FormReset
     return (
+        <div>
+      {canLoad === true ?
         <JoinMajlisCard>
             <Heading>Join Majlis</Heading>
             <Paper>
@@ -219,7 +236,7 @@ export default function JoinMajlis(props) {
                         office_phone_number: Yup.number(),
                         home_phone_number: Yup.number(),
                         bloodgroup: Yup.object(),
-                        passport: Yup.number()
+                        passport: Yup.string()
                         // .required('Required'),
                         ,
                         dob: Yup.date()
@@ -548,7 +565,7 @@ export default function JoinMajlis(props) {
                                                 <input
                                                     id="passport"
                                                     placeholder="Passport"
-                                                    type="number"
+                                                    type="text"
                                                     value={values.passport}
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
@@ -692,13 +709,13 @@ export default function JoinMajlis(props) {
                                         <Grid container spacing={0} className="field">
                                             <Grid item xs={4}>
                                                 <label htmlFor="emirates">
-                                                    Emirates
+                                                    State
                         </label>
                                             </Grid>
                                             <Grid item xs={8}>
                                                 <input
                                                     id="emirates"
-                                                    placeholder="Emirates"
+                                                    placeholder="State"
                                                     type="text"
                                                     value={values.emirates}
                                                     onChange={handleChange}
@@ -911,13 +928,13 @@ export default function JoinMajlis(props) {
                                         <Grid container spacing={0} className="field">
                                             <Grid item xs={4}>
                                                 <label htmlFor="emirates_residential">
-                                                    Emirates
+                                                    State
                         </label>
                                             </Grid>
                                             <Grid item xs={8}>
                                                 <input
                                                     id="emirates_residential"
-                                                    placeholder="Emirates"
+                                                    placeholder="State"
                                                     value={values.emirates_residential}
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
@@ -1230,13 +1247,13 @@ export default function JoinMajlis(props) {
                                         <Grid container spacing={0} className="field">
                                             <Grid item xs={4}>
                                                 <label htmlFor="mahal_phone">
-                                                    Mahal Number(Home)
+                                                    Mahal Number
                         </label>
                                             </Grid>
                                             <Grid item xs={8}>
                                                 <input
                                                     id="mahal_phone"
-                                                    placeholder="Phone Number"
+                                                    placeholder="Mahal Number"
                                                     value={values.mahal_phone}
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
@@ -1254,7 +1271,7 @@ export default function JoinMajlis(props) {
                                         <Grid container spacing={0} className="field">
                                             <Grid item xs={4}>
                                                 <label htmlFor="mahal_phone">
-                                                    Mahal Number(Home)
+                                                    Profile Image
                         </label>
                                             </Grid>
                                             <Grid item xs={8}>
@@ -1295,5 +1312,7 @@ export default function JoinMajlis(props) {
                 </Formik>
             </Paper>
         </JoinMajlisCard>
+        : <Loading />}</div>
+
     )
 }

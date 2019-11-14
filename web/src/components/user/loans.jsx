@@ -35,6 +35,8 @@ export default function Loans(props) {
                 alert("Authentication Failed")
             })
         }
+        setLoading(true)
+
     }, [])
     return (
         <div>

@@ -29,6 +29,7 @@ export default function EventGallery(props) {
         alert("Authentication Failed")
       })
     }
+    setLoading(true)
     props.setLanButton(false)
     props.setUser("user")
     props.setState("EventGallery")

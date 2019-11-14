@@ -66,6 +66,7 @@ export default function EventCalendar(props) {
                 alert("Authentication Failed")
             })
         }
+        setLoading(true)
         axios.get(API_BASE_URL+"/majlis/member/family-welfare",
             { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } })
             .then(({ data }) => {

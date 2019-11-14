@@ -10,55 +10,57 @@ import axios from 'axios'
 import { Link } from 'react-router-dom';
 import {API_BASE_URL} from '../constants'
 
- const RiseOfMajlisContents = {
-   english:[
-    "The full of goodness tree, which our ancestors planted in the early 70s, sprouted and blossomed once again in the land of Dubai the dream land of expats on August 3, 2012 (1433 Ramadan 15). Yes, that's, that's Majlis",
-   ],
-   malayalam:[
-    "70 കളിൽ നമ്മുടെ പൂർവികർ നട്ടുവളർത്തിയ നന്മമരം, കൊല്ലവർഷം 2012 ആഗസ്ത് 3-ന്  (1433 റമളാൻ 15)-ന് പ്രവാസികളുടെ സ്വപ്നഭൂമിയായ ദുബായിൽ ഒരിക്കൽ കൂടി തളിർക്കുകയുണ്ടായി.... അതെ, അതാണ് മജ്ലിസ്."
-  ]
- }
-
- const MajlisPriorityContents = {
+const RiseOfMajlisContents = {
   english:[
-      "The slogan that the Majlis upholds is the self-reliance of all "+
-      " members of the Majlis and the self-reliance of the Edasseri"+
-      " Mahallu which the Majlis represents."+
-      " The Majlis firmly believe that we can build a better life only"+
-      " by being self-reliant."+
-      " The long-term objective of Majlis is to initiate and carry out"+
-      " financial and / or non-financial projects to achieve the said"+
-      " self-reliant society."+
-      " Above all, Implementation of plans for successful"+
-      " rehabilitation of expat members."
+   "The tree of goodness, which our ancestors planted in the early 70s, sprouted and blossomed once again in the land of Dubai the dream land of expats on August 3, 2012 (1433 Ramadan 15).  That is Edassery Majlis.",
   ],
   malayalam:[
-  "മജ്‌ലിസിന്റെ എല്ലാ അംഗങ്ങളുടെയും സ്വാശ്രയത്വവും, മജ്‌ലിസ് പ്രതിനിധാനം ചെയ്യുന്ന ഇടശ്ശേരി മഹല്ലിന്റെ സ്വാശ്രയത്വവും ആണ് മജ്‌ലിസ്"+
-  " ഉയർത്തിപ്പിടിക്കുന്ന മുദ്രാവാക്യം. സ്വാശ്രയത്വം കൈവരിക്കുന്നതിലൂടെ മാത്രമേ ഒരു ക്ഷേമ ജീവിതം നമുക്ക് വാർത്തെടുക്കാനാകൂ എന്ന് മജ്‌ലിസ് "+
-  "ഉറച്ചു വിശ്വസിക്കുന്നു. ഈ സ്വാശ്രയ സമൂഹത്തെ വളർത്തിയെടുക്കുന്നതിനായി സാമ്പത്തിക അല്ലെങ്കിൽ സാമ്പത്തികേതര പദ്ധതികൾ ആരംഭിക്കുകയും"+
-  " നടപ്പിലാക്കുകയും ചെയ്യുക എന്നതാണ് മജ്‌ലിസിന്റെ ദീർഘകാല ലക്ഷ്യം. എല്ലാറ്റിനുമുപരിയായി, പ്രവാസി അംഗങ്ങളുടെ വിജയകരമായി പുനരധിവാസത്തിനുള്ള പദ്ധതികൾ നടപ്പിലാക്കുക." 
+   "70 കളിൽ നമ്മുടെ പൂർവ്വികർ നട്ടുവളർത്തിയ നന്മമരം, കൊല്ലവർഷം 2012 ആഗസ്ത് 3-ന് (1433 റമളാൻ 15)-ന്"+
+   "പ്രവാസികളുടെ സ്വപ്ന ഭൂമിയായ ദുബായിൽ ഒരിക്കൽ കൂടി  തളിർക്കുകയുണ്ടായി….  അതാണ് ഇടശ്ശേരി മജ്‌ലിസ്."
+ ]
+}
+
+const MajlisPriorityContents = {
+  english:[
+      "The slogan that the Majlis upholds is the self-reliance of all members of the Majlis and the self-reliance of the Edassery Mahallu that the Majlis represents."+
+
+      "The Majlis firmly believe that we can build a better life only by being self-reliant."+
+      
+      "The long-term objective of Majlis is to initiate and carry out financial and / or non-financial projects to achieve the said self-reliant society."+
+      
+      "Above all, Implementation of plans for successful rehabilitation of expat members."
+
+  ],
+  malayalam:[
+  "മജ്‌ലിസിന്‍റെ എല്ലാ അംഗങ്ങളുടെയും സ്വാശ്രയത്വവും, മജ്‌ലിസ് പ്രതിനിധാനം ചെയ്യുന്ന ഇടശ്ശേരി മഹല്ലിന്‍റെ സ്വാശ്രയത്വവും ആണ് മജ്‌ലിസ് ഉയർത്തിപ്പിടിക്കുന്ന മുദ്രാവാക്യം."+
+
+  "സ്വാശ്രയത്വം കൈവരിക്കുന്നതിലൂടെ മാത്രമേ ഒരു ക്ഷേമ ജീവിതം നമുക്ക് വാർത്തെടുക്കാനാകൂ എന്ന് മജ്‌ലിസ് ഉറച്ച് വിശ്വസിക്കുന്നു."+
+  
+  "ഈ സ്വാശ്രയ സമൂഹത്തെ വളർത്തിയെടുക്കുന്നതിനായി സാമ്പത്തിക അല്ലെങ്കിൽ സാമ്പത്തികേതര പദ്ധതികൾ ആരംഭിക്കുകയും നടപ്പിലാക്കുകയും ചെയ്യുക എന്നതാണ് മജ്‌ലിസിന്‍റെ ദീർഘകാല ലക്ഷ്യം."+
+  
+  "എല്ലാറ്റിനുമുപരിയായി, പ്രവാസി അംഗങ്ങളുടെ വിജയകരമായ പുനരധിവാസത്തിനുള്ള പദ്ധതികൾ നടപ്പിലാക്കുക." 
   ]
 }
 
 const VisionContents = {
   english:[
-"The Home Of Edassery Expats...",
-"Edasseri Majlis is a space where friends and family of the expats of Edasseri Mahallu come under one umbrella."
+"A place for Edassery expats to congregate.",
+"Edassery Majlis is a space where friends and family of the expats of Edassery Mahallu come under one umbrella."
  ],
   malayalam:[
-"ഇടശ്ശേരി പ്രവാസികൾക്ക് ഒത്തുചേരാൻ ഒരിടം..",
-"ഇടശ്ശേരി മഹല്ലിലെ പ്രവാസികളായ കൂട്ടുകാരേയും കുടുംബങ്ങളെയും ഒരു കുടക്കീഴിൽ നിർത്തുന്നതിനുള്ള ഒരിടമാണ് ഇടശ്ശേരി മജ്‌ലിസ്."
+"ഇടശ്ശേരി പ്രവാസികൾക്ക് ഒത്തുചേരാനൊരിടം ..",
+"ഇടശ്ശേരി മഹല്ലിലെ പ്രവാസികളായ കൂട്ടുകാരേയും കുടുംബങ്ങളേയും ഒരു കുടക്കീഴിൽ നിർത്തുന്നതിനുള്ള ഒരിടമാണ് ഇടശ്ശേരി മജ്‌ലിസ് –"
  ]
 }
 
 const MIsionContents = {
   english:[
-"The Hope Of Edassery Expats...",
-"The Edasseri Majlis is an endeavor to Ensuring self-reliance by keeping the member's dream and hopes alive and make the return of the members in peace and comfort" 
+"The Hope Of Edassery Expats.",
+"The Edassery Majlis is an endeavor to Ensuring self-reliance by keeping the members' dreams and hopes alive and make the return of the members in peace and comfort." 
 ],
   malayalam:[
-"ഇടശ്ശേരി മജ്‌ലിസ് പ്രവാസികളുടെ പ്രതീക്ഷ...",
-"ഇടശ്ശേരി മജ്‌ലിസ് അംഗങ്ങളുടെ സ്വപ്നങ്ങളെയും പ്രതീക്ഷകളെയും ജീവനുറ്റതാക്കി സ്വാശ്രയത്വം ഉറപ്പ് വരുത്തുകയും അംഗങ്ങളുടെ തിരിച്ചു പോക്ക് ആശ്വാസത്തിലും സമാധാനത്തിലും ആക്കുന്നതിനുള്ള പരിശ്രമമാണ് ഇടശ്ശേരി മജ്‌ലിസ്."
+"ഇടശ്ശേരി പ്രവാസികളുടെ പ്രതീക്ഷ…",
+"ഇടശ്ശേരി മജ്‌ലിസ് അംഗങ്ങളുടെ സ്വപ്നങ്ങളേയും  പ്രതീക്ഷകളേയും ജീവസ്സുറ്റതാക്കി സ്വാശ്രയത്വം ഉറപ്പ് വരുത്തുകയും അംഗങ്ങളുടെ  തിരിച്ചു പോക്ക് ആശ്വാസത്തിലും സമാധാനത്തിലും ആക്കുന്നതിനുള്ള പരിശ്രമമാണ് ഇടശ്ശേരി മജ്‌ലിസ്."
 ]
 }
 export default function Home(props){
@@ -71,17 +73,13 @@ return(
   <div>
     <Slider/>
     <div style={{padding:"0 0", display: "block"}}>
-    {props.language === "മലയാളം" ? <Topic headline="About Majlis" content ="Allah has bestowed special blessings on each of His creatures.
-Each of us should strive to do our best to use all these
-blessings given to us in the way Allah wants.
-The Majlis is a group of expatriate friends who have come
-together to perform selfless community service for the
-expatriates and the inhabitants of the Edassery Mahallu on
-the ideals of Islam, with the Edasseri Mahallu as the boundary
-of activities."/> : <Topic headline="About Majlis" content ="അല്ലാഹു അവന്റെ ഓരോ സൃഷ്ടികൾക്കും പ്രത്യേകം പ്രത്യേകം അനുഗ്രഹങ്ങൾ നൽകിയിരിക്കുന്നു.
-നമുക്ക് നൽകിയിരിക്കുന്ന ഈ അനുഗ്രഹങ്ങൾ ഓരോന്നും അല്ലാഹു ഇച്ഛിക്കുന്ന വിധം ഫലപ്രദമായി ഉപയോഗപ്പെടുത്തുവാൻ നാം ഓരോരുത്തരും സർവാത്മനാ പരിശ്രമിക്കേണ്ടതും ശ്രദ്ധിക്കേണ്ടതുമാണ്.
- ഇടശ്ശേരി മഹല്ലിനെ പ്രവർത്തി പരിധിയായി നിശ്ചയിച് കൊണ്ട് ഇസ്ലാമികാശയാദർശങ്ങളിലധിഷ്‌ഠിതമായി പ്രവാസികൾക്കിടയിലും, നാട്ടിലുള്ള മഹല്ല് നിവാസികൾക്കും വേണ്ടി നിസ്വാർത്ഥമായ സമുദായ സേവനം
-  നടത്തുന്നതിനായി ഒത്തുചേർന്ന പ്രവാസി കൂട്ടുകാരുടെ ഒരു കൂട്ടായ്മയാണ് മജ്‌ലിസ്."/>}
+    {props.language === "മലയാളം" ? <Topic headline="About Majlis" content ="Allah has bestowed special blessings on each of His creatures.  Each of us should strive to do our best to use all these blessings given to us in the way Allah wants. 
+
+The Majlis is a group of expatriate friends who have come together to perform selfless community service for the expatriates and the inhabitants of the Edassery Mahallu based on the ideals of Islam, with the Edassery Mahallu as the boundary of activities.
+"/> : <Topic headline="About Majlis" content ="അള്ളാഹു അവന്‍റെ ഓരോ  സൃഷ്ടികൾക്കും  പ്രത്യേകം പ്രത്യേകം അനുഗ്രഹങ്ങൾ നൽകിയിരിക്കുന്നു.
+നമുക്ക് നൽകിയിരിക്കുന്ന ഈ അനുഗ്രങ്ങൾ ഓരോന്നും, അള്ളാഹു ഇഛിക്കുന്ന വിധം ഫലപ്രദമായി ഉപയോഗപ്പെടുത്തുവാൻ നാം ഓരോരുത്തരും സർവാത്മനാ പരിശ്രമിക്കേണ്ടതും ശ്രദ്ധിക്കേണ്ടതുമാണ്.
+
+ഇടശ്ശേരി മഹല്ലിനെ പ്രവൃത്തി പരിധിയായി നിശ്ചയിച്ച് കൊണ്ട് ഇസ്‌ലാമിക ആശയാദർശങ്ങളിൽ അധിഷ്ഠിതമായി പ്രവാസികൾക്കിടയിലും, നാട്ടിലുള്ള മഹല്ല് നിവാസികൾക്കും വേണ്ടി  നിസ്വാർത്ഥമായ സമുദായ സേവനം നടത്തുന്നതിനായി ഒത്തുചേർന്ന പ്രവാസി കൂട്ടുകാരുടെ ഒരു കൂട്ടായ്മയാണ് മജ്‌ലിസ്."/>}
 <CalenderEvents/>
 <MainCard>
 <SubCard headline="Vision" contents={VisionContents} 
@@ -113,7 +111,7 @@ font-family: 'Comfortaa', cursive;
 `;
 const Content = styled.p`
 line-height: 1.4em;
-font-size: 1.1vw;
+font-size: 1.3em;
 font-family: 'Comfortaa', cursive;
 color: #000f05;
 `;
@@ -254,8 +252,8 @@ color: #495f24;
 `;
 
 const P = styled.p`
-font-size: 1vw;
-line-height: 1.2em;
+font-size: 1.25em;
+line-height: 1.3em;
 font-family: 'Roboto', sans-serif;
 font-color: #02802c;
 font-weight: 400;

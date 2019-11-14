@@ -55,7 +55,12 @@
   display: block;
 }
 .logout-item{
-  color: #556b2f
+  color: #556b2f;
+  border:0;
+  outline:0;
+  background-color: transparent;
+  width: 100%;
+  font-weight: 600;
 }
 .dropdown-content a:hover {background-color: #768b56; color:white;}
 

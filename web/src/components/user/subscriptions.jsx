@@ -69,6 +69,7 @@ export default function Subscription(props) {
         alert("Authentication Failed")
       })
     }
+    setLoading(true)
     axios.get(API_BASE_URL + '/majlis/member/subscription',
       { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } })
       .then((response) => {

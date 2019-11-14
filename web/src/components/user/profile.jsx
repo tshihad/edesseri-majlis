@@ -31,7 +31,7 @@ border: 1px solid #556b2f;
 border-radius: .15em;
 &:hover{
     font-weight: 600;
-    background-color: white;
+    background-color: transparent;
     color: #556b2f;
 }
 `;
@@ -66,11 +66,12 @@ function Profile(props) {
                 alert("Authentication Failed")
             })
         }
+        setLoading(true)
+
         axios.get(API_BASE_URL + '/majlis/member',
             {
                 headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') }
             }).then((response) => {
-                alert(JSON.stringify(response.data.result))
                 setUserField(response.data.result)
             }).catch((error) => {
                 console.log(error);
@@ -91,12 +92,10 @@ function Profile(props) {
                         </Grid>
                         <Grid container spacing={0}>
                             <Grid item xs={3}>
-                                <Paper style={{ width: "15vw" }}>
                                     <img className={classes.image} src={member}></img>
-                                </Paper>
                             </Grid>
                             <Grid item xs={9}>
-                                <Paper style={{ padding: ".5em 2em" }}>
+                                <Paper style={{ marginTop: "1em", padding: ".5em 2em" }}>
                                     <Grid container spacing={0}>
                                         <SubHead>
                                             Personal Details
@@ -112,7 +111,7 @@ function Profile(props) {
                                     <KeyValuePair head="Email" value={userFields.email} />
                                     <KeyValuePair head="Blood Group" value={userFields.blood_group} />
                                 </Paper>
-                                <Paper style={{ padding: ".5em 2em" }}>
+                                <Paper style={{ marginTop: "1em",padding: ".5em 2em" }}>
                                     <Grid container spacing={0}>
                                         <SubHead>
                                             Personal Identification
@@ -120,20 +119,20 @@ function Profile(props) {
                                     </Grid>
                                     <KeyValuePair head="Passport Number" value={userFields.passport_number} />
                                     <KeyValuePair head="Date Of Birth" value={userFields.dob} />
-                                </Paper><Paper style={{ padding: ".5em 2em" }}>
+                                </Paper><Paper style={{ marginTop: "1em",padding: ".5em 2em" }}>
                                     <Grid container spacing={0}>
                                         <SubHead>
                                             Company Information
                             </SubHead>
                                     </Grid>
                                     <KeyValuePair head="Job" value={userFields.job} />
-                                    <KeyValuePair head="Company Name" value={userFields.comapny_name} />
+                                    <KeyValuePair head="Company Name" value={userFields.company_name} />
                                     <KeyValuePair head="Post Code" value={userFields.company_post_code} />
-                                    <KeyValuePair head="Area" value={userFields.comapny_area} />
-                                    <KeyValuePair head="Emirates" value={userFields.comapny_emirates} />
-                                    <KeyValuePair head="Institution" value={userFields.comapny_institution} />
+                                    <KeyValuePair head="Area" value={userFields.company_area} />
+                                    <KeyValuePair head="State" value={userFields.company_emirates} />
+                                    <KeyValuePair head="Institution" value={userFields.company_institution} />
                                 </Paper>
-                                <Paper style={{ padding: ".5em 2em" }}>
+                                <Paper style={{ marginTop: "1em",padding: ".5em 2em" }}>
                                     <Grid container spacing={0}>
                                         <SubHead>
                                             Educational Details
@@ -143,7 +142,7 @@ function Profile(props) {
                                     <KeyValuePair head="Job/Tech Qualification Name" value={userFields.job_qualification} />
                                     <KeyValuePair head="Licence (UAE)" value={userFields.uae_licence_type} />
                                 </Paper>
-                                <Paper style={{ padding: ".5em 2em" }}>
+                                <Paper style={{ marginTop: "1em",padding: ".5em 2em" }}>
                                     <Grid container spacing={0}>
                                         <SubHead>
                                             Resedential Details
@@ -158,7 +157,7 @@ function Profile(props) {
                                     <KeyValuePair head="Relationship" value={userFields.uae_relationship} />
                                     <KeyValuePair head="Contact Number" value={userFields.uae_relative_ph} />
                                 </Paper>
-                                <Paper style={{ padding: ".5em 2em" }}>
+                                <Paper style={{ marginTop: "1em",padding: ".5em 2em" }}>
                                     <Grid container spacing={0}>
                                         <SubHead>
                                             Resedential Details (Home)
@@ -191,7 +190,7 @@ padding: .5em;
 font-weight: 500;
 `;
 
-function KeyValuePair(props) {
+export function KeyValuePair(props) {
     return (
         <Grid container spacing={0}>
             <Grid item xs={5}>

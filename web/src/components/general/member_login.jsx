@@ -87,9 +87,11 @@ function MemberLogin(props) {
           localStorage.setItem('EdasseryMajlisToken', response.data.result.token)
           localStorage.setItem('VerifiedUser', true)
           localStorage.setItem('Username', response.data.result.name)
+          localStorage.setItem('Email', response.data.result.email)
+          localStorage.setItem('Phone', response.data.result.phone)
           localStorage.setItem('MemberId', response.data.result.member_id)
           localStorage.setItem('UserImageURL', response.data.result.image_url)
-          props.history.push('/User/UserOptions/Subscriptions')
+          props.history.push('/User/UserOptions')
         } else {
           alert("Incorrect Username or Password")
         }
