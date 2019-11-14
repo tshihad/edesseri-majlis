@@ -52,7 +52,7 @@ const MatrixHead = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep
 
 export default function Subscription(props) {
   const [rows, setrows] = React.useState([Rows])
-  const [columns, setcolumns] = React.useState(Columns)
+  const [columns, setColumns] = React.useState(Columns)
   const [canLoad, setLoading] = React.useState(false)
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -88,8 +88,8 @@ export default function Subscription(props) {
           })
           subscriptions.push(subscription)
         })
+        setColumns(subscriptions)
         setrows(years)
-        setcolumns(subscriptions)
       }).catch((err) => {
         console.log(err)
       })
