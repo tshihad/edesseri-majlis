@@ -7,6 +7,7 @@ import NavBar from './sub_components/navbar';
 import Home from './general/home';
 import WhatweDo from './general/what_we_do';
 import WhoLeadUs from './general/who_lead_us';
+import OurHeros from './general/honorable_heros'
 import EventGallery from './general/event_gallery';
 import JoinMajlis from './general/join_majlis';
 import MemberLogin from './general/member_login';
@@ -30,9 +31,10 @@ import UserOptions from './user/user_options';
 import Profile from './user/profile';
 import UserDownloads from './user/downloads';
 import UserContactMajlis from './user/contact_majlis';
-import EventCalendar from './admin/event_calendar';
+import EventCalendar from './general/event_calendar';
 import LogoutIcon from '@material-ui/icons/Person';
 import Button from '@material-ui/core/Button';
+import AdminLogin from './general/admin_login'
 import axios from 'axios';
 import '../styles/navbar.css';
 import '../styles/header.css';
@@ -157,19 +159,16 @@ export default function Header() {
               , borderRadius: '2px', padding: '0%', border: 'solid 1px #556b2f', paddingBottom: "1em"
             }}>
             <div style={{ padding: "1em 0", color: "#1d4219" }}>
-              <b>NAME</b>
+              <b>{localStorage.getItem('Username')}</b>
             </div>
-            <a className="logout-item" style={{ display: 'block', padding: '5% 5%' }}>
-              View Profile
-                </a>
-            <a className="logout-item" onClick={handleLogout} style={{ display: 'block', padding: '5% 5%' }}>
+            <button className="logout-item" onClick={handleLogout} style={{ display: 'block', padding: '5% 5%' }}>
               Log Out
-                </a>
+                </button>
           </div>
         </div>}
       <Router>
         <Head>
-          <Heading style={{ maxHeight: "100%", overflowX: "hidden" }}>
+          <Heading style={{ maxHeight: "100%", overflowX: "hidden", borderBottom: user === "none" && "0px" }}>
             <div style={{ display: "inline-flex" }}>
               <img src={logo} alt="logo" style={{ width: "3.5vw", height: "3.5vw", display: "inline-block" }} />
               <div style={{ margin: "1.5vw 0 0 .8vw", color: "#556b2f", display: "inline-block", fontFamily: "Aroma", fontSize: "1.4vw" }}><Span>E</Span>DASSERY <Span>M</Span>AJLIS <Span>G</Span>ROUP</div>
@@ -195,7 +194,7 @@ export default function Header() {
                 {/* <Link to="/WhatWeDo/Projects">Projects</Link> */}
               </div>
             </Link>
-            <Link to="/WhoLeadUs" class="dropdown">
+            <Link to="/WhoLeadUs/Current" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("WhoLeadUs")} style={{
                   backgroundColor: isButtonActive === "WhoLeadUs" && " #556b2f",
@@ -203,7 +202,7 @@ export default function Header() {
                 }}>Who Lead Us</button>
               <div class="dropdown-content" onClick={() => buttonClick("WhoLeadUs")}>
                 <Link to="/WhoLeadUs/Current">Current</Link>
-                <Link to="/WhoLeadUs/OurHeros">Our Heros</Link>
+                <Link to="/WhoLeadUs/OurHeros">Honorable Heros</Link>
 
               </div>
             </Link>
@@ -333,7 +332,7 @@ export default function Header() {
                 {/* <Link to="/WhatWeDo/Projects">Projects</Link> */}
               </div>
             </Link>
-            <Link to="/User/WhoLeadUs" class="dropdown">
+            <Link to="/User/WhoLeadUs/Current" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("WhoLeadUs")} style={{
                   backgroundColor: isButtonActive === "WhoLeadUs" && " #556b2f",
@@ -341,7 +340,7 @@ export default function Header() {
                 }}>Who Lead Us</button>
               <div class="dropdown-content" onClick={() => buttonClick("WhoLeadUs")}>
                 <Link to="/WhoLeadUs/Current">Current</Link>
-                <Link to="/WhoLeadUs/OurHeros">Our Heros</Link>
+                <Link to="/WhoLeadUs/OurHeros">Honorable Heros</Link>
                 {/* <Link to="/WhoLeadUs/Term1">Term-1</Link>
                 <Link to="/WhoLeadUs/Term2">Term-2</Link>
                 <Link to="/WhoLeadUs/Term3">Term-3</Link> */}
@@ -376,7 +375,7 @@ export default function Header() {
                   color: isButtonActive === "ContactMajlis" && "white"
                 }}>Contact Majlis</button>
             </Link>
-            <Link to="/User/UserOptions/Subscriptions" class="dropdown">
+            <Link to="/User/UserOptions" class="dropdown">
               <button class="dropbtn"
                 onClick={() => buttonClick("UserOptions")} style={{
                   backgroundColor: isButtonActive === "UserOptions" && " #556b2f",
@@ -402,7 +401,8 @@ export default function Header() {
             <Redirect exact from="/" to="/Home" />
             <Route path="/Home" ><Home setState={buttonClick} setLanButton={setButton} language={language} setUser={setThisUser} /></Route>
             <Route path="/WhatweDo" ><WhatweDo setState={buttonClick} setLanButton={setButton} setuser={setThisUser} language={language} /></Route>
-            <Route path="/WhoLeadUs"><WhoLeadUs setState={buttonClick} setLanButton={setButton} setuser={setThisUser} /></Route>
+            <Route path="/WhoLeadUs/Current"><WhoLeadUs setState={buttonClick} setLanButton={setButton} setuser={setThisUser} /></Route>
+            <Route path="/WhoLeadUs/OurHeros"><OurHeros setState={buttonClick} setLanButton={setButton} setuser={setThisUser} /></Route>
             <Redirect exact path="/EventGallery" to="/EventGallery/Milad" />
             <Route path="/EventGallery/Milad" ><EventGallery category="milad" setState={buttonClick} setLanButton={setButton} setuser={setThisUser} /></Route>
             <Route path="/EventGallery/Eid" ><EventGallery category="eid" setState={buttonClick} setLanButton={setButton} setuser={setThisUser} /></Route>
@@ -416,7 +416,8 @@ export default function Header() {
             <Route path="/ContactMajlis" ><ContactMajlis setState={buttonClick} setLanButton={setButton} setuser={setThisUser} /></Route>
             <Router path="/EventCalender"><EventCalendar setState={buttonClick} setLanButton={setButton} setuser={setThisUser} /></Router>
 
-            <Redirect exact from="/Admin" to="/Admin/Members" />
+            <Redirect exact from="/Admin" to="/Admin/Login" />
+            <Route path="/Admin/Login" ><AdminLogin setUser={setThisUser}></AdminLogin></Route>
             <Route path="/Admin/Members" ><Members setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/AddMember" ><AddMember setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/Subscriptions" ><Subscription setState={buttonClick} setUser={setThisUser} /></Route>
@@ -430,7 +431,8 @@ export default function Header() {
             <Redirect exact from="/User" to="/User/Home" />
             <Route path="/User/Home" ><UserHome setState={buttonClick} setLanButton={setButton} isLogged={isLoggedin} languageButton={true} language={language} setUser={setThisUser} /></Route>
             <Route path="/User/WhatweDo" ><UserWhatweDo setState={buttonClick} setLanButton={setButton} isLogged={isLoggedin} languageButton={true} language={language} setUser={setThisUser} /></Route>
-            <Route path="/User/WhoLeadUs"><UserWhoLeadUs setState={buttonClick} setLanButton={setButton} isLogged={isLoggedin} setUser={setThisUser} /></Route>
+            <Route path="/User/WhoLeadUs/Current"><UserWhoLeadUs setState={buttonClick} setLanButton={setButton} isLogged={isLoggedin} setUser={setThisUser} /></Route>
+            <Route path="/User/WhoLeadUs/OurHeros"><OurHeros setState={buttonClick} setLanButton={setButton} isLogged={isLoggedin} setUser={setThisUser} /></Route>
             <Redirect exact path="/User/EventGallery" to="/User/EventGallery/Milad" />
             <Route path="/User/EventGallery/Milad" ><UserEventGallery category="milad" setState={buttonClick} isLogged={isLoggedin} setLanButton={setButton} setUser={setThisUser} /></Route>
             <Route path="/User/EventGallery/Eid" ><UserEventGallery category="eid" setState={buttonClick} isLogged={isLoggedin} setLanButton={setButton} setUser={setThisUser} /></Route>
@@ -440,6 +442,7 @@ export default function Header() {
             <Route path="/User/EventGallery/Other" ><UserEventGallery category="other" setState={buttonClick} isLogged={isLoggedin} setLanButton={setButton} setUser={setThisUser} /></Route>
             <Route path="/User/Downloads" ><UserDownloads setState={buttonClick} setLanButton={setButton} isLogged={isLoggedin} setUser={setThisUser} /></Route>
             <Route path="/User/ContactMajlis" ><UserContactMajlis setState={buttonClick} setLanButton={setButton} isLogged={isLoggedin} setUser={setThisUser} /></Route>
+            <Route exact path="/User/UserOptions" ><UserOptions component="default" setState={buttonClick} isLogged={isLoggedin} setLanButton={setButton} setUser={setThisUser} /></Route>
             <Route path="/User/UserOptions/Subscriptions" ><UserOptions component="subscription" setState={buttonClick} isLogged={isLoggedin} setLanButton={setButton} setUser={setThisUser} /></Route>
             <Route path="/User/UserOptions/Loans" ><UserOptions component="loans" setState={buttonClick} isLogged={isLoggedin} setLanButton={setButton} setUser={setThisUser} /></Route>
             <Route path="/User/UserOptions/FamilyWelfare" ><UserOptions component="familywelfare" setState={buttonClick} isLogged={isLoggedin} setLanButton={setButton} setUser={setThisUser} /></Route>

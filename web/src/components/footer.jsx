@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import Grid from '@material-ui/core/Grid'
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
+
 
 const Footer = styled.div`
 bottom: 0;
@@ -35,7 +38,7 @@ export default function MainFooter() {
                 <Grid item xs={3}>
                     <Head>Contact Us</Head>
                     <Content>Email: admin@edasserymajlis.com</Content>
-                    <Content>phone: +91 987 978 9786</Content>
+                    <Content>&nbsp; </Content>
                     <Links>
                         <A href="#">facebook</A>
                         <A href="#">instagram</A>
@@ -44,13 +47,27 @@ export default function MainFooter() {
                 </Grid>
                 <Grid item xs={3}>
                     <Head>Visit Us</Head>
-                    <Content>Room No 321</Content>
-                    <Content>Edassery, Trissur</Content>
+                    <Content>www.edasserymajlis.com</Content>
+                    <Content>&nbsp;</Content>
                     <Links>
-                        <A href="#">Get Google Map Direction</A>
+                        <Copyright/>
                     </Links>
                 </Grid>
             </Grid>
         </Footer>
     )
 }
+
+function Copyright() {
+
+    return (
+      <Typography variant="body2" color="textSecondary" align="center" style={{color:"#f1c37d"}}>
+        {'Copyright © '}
+        <Link style={{color:"#f1c37d"}}  href="http://www.edasserymajlis.com">
+          sketechi
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    );
+  }

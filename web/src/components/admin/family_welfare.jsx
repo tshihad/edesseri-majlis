@@ -4,7 +4,9 @@ import * as Yup from 'yup';
 import styled from 'styled-components';
 import axios from 'axios';
 import '../../styles/contact.css';
-import { API_BASE_URL } from '../constants'
+import { API_BASE_URL } from '../constants';
+import Loading from '../sub_components/loading'
+
 
 
 const Welfare = styled.div`
@@ -12,11 +14,27 @@ const Welfare = styled.div`
 `;
 
 export default function FamilyWelfare(props) {
-  useEffect(() => {
+  const [canLoad, setLoading] = React.useState(false)
+    useEffect(() => {
+      window.scrollTo(0, 0)
+
+            axios.get(API_BASE_URL + '/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+              repsonse => {
+                if (repsonse.status != 200) {
+                  window.location = "/Admin/Login"
+                }
+              }
+            ).catch(error => {
+              window.location = "/Admin/Login"
+              alert("Authentication Failed")
+            })
+          
     props.setUser("admin")
     props.setState("FamilyWelfare")
   })
   return (
+    <div>
+      {canLoad === true ?
     <Welfare>
       <Formik
         initialValues={{ member_id: '', welfare_date: '', title: '', description: '', amount: '', currency: '' }}
@@ -210,6 +228,6 @@ export default function FamilyWelfare(props) {
         }}
       </Formik>
     </Welfare>
-
+: <Loading />}</div>
   )
 }

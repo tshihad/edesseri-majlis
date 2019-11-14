@@ -10,6 +10,8 @@ export default function EventGallery(props) {
   useEffect(() => {
     props.setLanButton(false)
     props.setState("EventGallery")
+    window.scrollTo(0, 0)
+
   }, [props])
   return (
     <EventGalleryCard>

@@ -15,6 +15,7 @@ margin: 5vh 10vw 0 10vw;
 export default function EventGallery(props) {
   const [canLoad, setLoading] = React.useState(false)
   useEffect(() => {
+    window.scrollTo(0, 0)
     if (localStorage.getItem('VerifiedUser')) {
       setLoading(true)
     } else {
@@ -29,6 +30,7 @@ export default function EventGallery(props) {
         alert("Authentication Failed")
       })
     }
+    setLoading(true)
     props.setLanButton(false)
     props.setUser("user")
     props.setState("EventGallery")

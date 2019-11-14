@@ -52,7 +52,8 @@ export default function EventCalendar(props) {
     }
     const [canLoad, setLoading] = React.useState(false)
     useEffect(() => {
-        if (localStorage.getItem('VerifiedUser')) {
+    window.scrollTo(0, 0)
+    if (localStorage.getItem('VerifiedUser')) {
             setLoading(true)
         } else {
             axios.get(API_BASE_URL + '/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
@@ -66,6 +67,7 @@ export default function EventCalendar(props) {
                 alert("Authentication Failed")
             })
         }
+        setLoading(true)
         axios.get(API_BASE_URL+"/majlis/member/family-welfare",
             { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } })
             .then(({ data }) => {

@@ -11,15 +11,16 @@ const useStyles = makeStyles(theme => ({
     root: {
         backgroundColor:"#f8faf8",
         marginTop: "1em",
-        padding: "1em .5em"
+        padding: "1em .5em",
+        width:225
     },
     avatar: {
         margin: 10,
-        width: 200,
+        width: 190,
         height: 200,
     },
     headings: {
-        fontSize: "1.5em",
+        fontSize: "1.4em",
         color:"#1d4219",
         textAlign: 'center',
     },
@@ -41,12 +42,12 @@ export function MemberCard(props) {
                 image={props.image}
             />
             <Typography variant="h5" component="h3" className={classes.headings} 
-            style={{ fontSize: props.len === "large" ? "1.3em" : "1.5em" }}>
+            style={{ fontSize: props.len === "large" ? "1.2em" : "1.4em" }}>
                 {props.name}
             </Typography>
-            <Typography component="p" className={classes.from}>
+            {props.date && <Typography component="p" className={classes.from}>
                 From {props.date}
-            </Typography>
+            </Typography>}
         </Paper>
     )
 }

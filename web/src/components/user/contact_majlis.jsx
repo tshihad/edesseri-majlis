@@ -3,11 +3,11 @@ import React, { useEffect } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
-import axios from 'axios';
 import PhoneInput from '../sub_components/phone_number_input';
 import { Grid } from '@material-ui/core';
 import '../../styles/contact.css';
 import { API_BASE_URL } from '../constants';
+import axios from 'axios';
 import Loading from '../sub_components/loading'
 
 var FormReset
@@ -36,6 +36,8 @@ export default function Contactmajlis(props) {
         alert("Authentication Failed")
       })
     }
+    setLoading(true)
+    window.scrollTo(0, 0)
     props.setLanButton(false)
     props.setUser("user")
     props.setState("ContactMajlis")

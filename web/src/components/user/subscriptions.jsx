@@ -55,6 +55,7 @@ export default function Subscription(props) {
   const [columns, setcolumns] = React.useState(Columns)
   const [canLoad, setLoading] = React.useState(false)
   useEffect(() => {
+    window.scrollTo(0, 0)
     if (localStorage.getItem('VerifiedUser')) {
       setLoading(true)
     } else {
@@ -69,6 +70,7 @@ export default function Subscription(props) {
         alert("Authentication Failed")
       })
     }
+    setLoading(true)
     axios.get(API_BASE_URL + '/majlis/member/subscription',
       { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } })
       .then((response) => {

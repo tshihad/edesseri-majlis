@@ -61,6 +61,7 @@ export default function Downloads(props) {
   const [documents, setDocuments] = React.useState([])
   const [canLoad, setLoading] = React.useState(false)
   useEffect(() => {
+    window.scrollTo(0, 0)
     if (localStorage.getItem('VerifiedUser')) {
       setLoading(true)
     } else {
@@ -75,6 +76,8 @@ export default function Downloads(props) {
         alert("Authentication Failed")
       })
     }
+    setLoading(true)
+
     props.setLanButton(false)
     props.setUser("user")
     props.setState("Downloads")
