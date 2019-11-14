@@ -84,6 +84,7 @@ function MemberLogin(props) {
             .then((response) => {
                 if (response.status === 200) {
                     // props.setLoggedIn(true)
+                    alert(response.data.result)
                     localStorage.setItem('EdasseryMajlisToken', response.data.result)
 
                     // localStorage.setItem('EdasseryMajlisToken', response.data.result.token)

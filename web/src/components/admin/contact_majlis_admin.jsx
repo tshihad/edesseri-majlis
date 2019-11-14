@@ -19,6 +19,7 @@ export default function ContactMajlisAdmin(props) {
                 window.location = "/Admin/Login"
                 alert("Authentication Failed")
             })
+            setLoading(true)
         
         props.setUser("admin")
         props.setState("ContactMajlisAdmin")

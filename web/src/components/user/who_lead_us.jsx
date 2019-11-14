@@ -13,8 +13,7 @@ import member3 from '../../images/members/Current/member3.jpg';
 import member4 from '../../images/members/Current/member4.jpg';
 import member5 from '../../images/members/Current/member5.jpg';
 import member6 from '../../images/members/Current/member6.jpg';
-
-import img from '../../images/member.jpg'
+import avatar from '../../images/members/avatar.jpeg'
 
 
 const WhoLeadUsDiv = styled.div`
@@ -76,10 +75,10 @@ export default function WhoLeadUs(props) {
           <MemberCard position="Member" image={member6} name="Ameer" date="01/01/2019" />
         </Grid>
         <Grid item xs={3}>
-          <MemberCard position="Advicory" image="" name="Shajeer P S" date="01/01/2019" />
+          <MemberCard position="Advicory" image={avatar} name="Shajeer P S" date="01/01/2019" />
         </Grid>
         <Grid item xs={3}>
-          <MemberCard position="Advicory" image="" name="Noushad" date="01/01/2019" />
+          <MemberCard position="Advicory" image={avatar} name="Noushad" date="01/01/2019" />
         </Grid>
       </Grid>
     </WhoLeadUsDiv>

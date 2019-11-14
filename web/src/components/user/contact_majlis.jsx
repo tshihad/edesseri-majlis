@@ -54,7 +54,7 @@ export default function Contactmajlis(props) {
 
             onSubmit={(values, { setSubmitting, setErrors, handleReset }) => {
               if (!values.phone.match(phoneRegExp)) {
-                setErrors({ phone: 'Invalid Phone ' });
+                setErrors({ phone: 'Invalid Phone Number' });
                 setSubmitting(false);
                 return;
               }

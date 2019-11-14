@@ -88,8 +88,6 @@ export default function JoinMajlis(props) {
     const [canLoad, setLoading] = React.useState(false)
     useEffect(() => {
         window.scrollTo(0, 0)
-
-
             axios.get(API_BASE_URL + '/majlis/auth/admin', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
                 repsonse => {
                     if (repsonse.status != 200) {
@@ -100,7 +98,7 @@ export default function JoinMajlis(props) {
                 window.location = "/Admin/Login"
                 alert("Authentication Failed")
             })
-        
+        setLoading(true)
         props.setUser("admin")
         props.setState("AddMember")
     }, [props])

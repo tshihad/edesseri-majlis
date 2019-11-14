@@ -50,7 +50,7 @@ margin: 3vh 10vw 0 10vw `;
 function Profile(props) {
     const classes = useStyles()
     const [canLoad, setLoading] = React.useState(false)
-    const [userFields,setUserField] = React.useState({})
+    const [userFields,setUserField] = React.useState()
     useEffect(() => {
     window.scrollTo(0, 0)
     if (localStorage.getItem('VerifiedUser')) {
@@ -68,7 +68,6 @@ function Profile(props) {
             })
         }
         setLoading(true)
-
         axios.get(API_BASE_URL + '/majlis/member',
             {
                 headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') }
@@ -77,6 +76,7 @@ function Profile(props) {
             }).catch((error) => {
                 console.log(error);
             })
+            setLoading(true)
         props.setLanButton(false)
         props.setUser("user")
         props.setState("Profile")

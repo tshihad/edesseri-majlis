@@ -21,8 +21,8 @@ font-family: 'Comfortaa', cursive;
 export default function Loans(props) {
     const [canLoad, setLoading] = React.useState(false)
     useEffect(() => {
-    window.scrollTo(0, 0)
-    if (localStorage.getItem('VerifiedUser')) {
+        window.scrollTo(0, 0)
+        if (localStorage.getItem('VerifiedUser')) {
             setLoading(true)
         } else {
             axios.get(API_BASE_URL + '/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
@@ -37,8 +37,9 @@ export default function Loans(props) {
             })
         }
         setLoading(true)
-
     }, [])
+    const phoneRegExp = /^\+?[0-9]{10,14}$/;
+
     return (
         <div>
             {canLoad === true ?
@@ -47,7 +48,12 @@ export default function Loans(props) {
                     <Formik
                         initialValues={{ request_amount: '', phone: '', installment: '', purpose: '', membership_id: '' }}
 
-                        onSubmit={(values, { setSubmitting }) => {
+                        onSubmit={(values, { setSubmitting, setErrors }) => {
+                            if (!values.phone.match(phoneRegExp)) {
+                                setErrors({ phone: 'Invalid Phone Number' });
+                                setSubmitting(false);
+                                return;
+                            }
                             axios.post(API_BASE_URL + '/majlis/member/loan', {
                                 request_amount: values.request_amount,
                                 installment: values.installment,
@@ -182,8 +188,21 @@ export default function Loans(props) {
                                                 <label htmlFor="phone" style={{ display: "inline-block", width: "200px", paddingRight: "2em" }}>
                                                     Phone
                                     </label>
-                                                <PhoneInput type="number " id="phone" value={values.phone}
+                                                <input
+                                                    id="phone"
+                                                    name="phone"
+                                                    placeholder="Enter your Phone Number"
+                                                    type="text"
+                                                    value={values.phone}
+                                                    onChange={handleChange}
+                                                    onBlur={handleBlur}
+                                                    className={
+                                                        errors.phone && touched.phone ? 'inputs text-input error' : 'inputs text-input'
+                                                    }
                                                 />
+                                                {errors.phone && touched.phone ? (
+                                                    <div className="input-feedback">{errors.phone}</div>)
+                                                    : <div className="input-feedback">&nbsp;</div>}
                                             </div>
                                         </div>
                                     </div>
