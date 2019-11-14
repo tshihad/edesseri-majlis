@@ -40,7 +40,7 @@ type EgallerRepo interface {
 type SubscriptionRepo interface {
 	CreateSubscription(models.Subscription) (models.Subscription, error)
 	GetSubscription(memberID string) ([]models.Subscription, error)
-	DeleteSubscriton(id uint) error
+	DeleteSubscriton(id int) error
 	GetSubscriptions(models.SubsAdminTableReq) ([]models.Subscription, error)
 }
 
