@@ -38,7 +38,6 @@ export default function MainFooter() {
                 <Grid item xs={3}>
                     <Head>Contact Us</Head>
                     <Content>Email: admin@edasserymajlis.com</Content>
-                    <Content>&nbsp; </Content>
                     <Links>
                         <A href="#">facebook</A>
                         <A href="#">instagram</A>
@@ -48,11 +47,11 @@ export default function MainFooter() {
                 <Grid item xs={3}>
                     <Head>Visit Us</Head>
                     <Content>www.edasserymajlis.com</Content>
-                    <Content>&nbsp;</Content>
                     <Links>
                         <Copyright/>
                     </Links>
                 </Grid>
+
             </Grid>
         </Footer>
     )
