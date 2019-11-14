@@ -69,7 +69,7 @@ export default function Downloads(props) {
   }, [props])
   return (
     <DownloadMainCard>
-      {documents.length === 0 ? <NoDownloads>--No Downloadable Fies--</NoDownloads> :
+      {documents.length === 0 ? <NoDownloads>--No Downloadable Files--</NoDownloads> :
         documents.map((document) => (
           <DownloadCard title={document.Title} description={document.Description} updatedAt={document.UpdatedAt} downloadLink={document.Location} />
         ))}

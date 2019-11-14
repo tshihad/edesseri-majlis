@@ -13,7 +13,7 @@ import JoinMajlis from './general/join_majlis';
 import MemberLogin from './general/member_login';
 import Downloads from './general/downloads';
 import ContactMajlis from './general/contact_majlis';
-import AdminEventCalendar from './user/even_calendar';
+import AdminEventCalendar from './admin/event_calendar';
 import Footer from './footer';
 import AddMember from './admin/addMember';
 import Members from './admin/members';
@@ -425,8 +425,8 @@ export default function Header() {
             <Route path="/Admin/Loans" ><Loans setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/FamlilyWelfare" ><FamilyWelfare setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/UploadForms" ><UploadForms setState={buttonClick} setUser={setThisUser} /></Route>
-            <Route path="/Admin/ContactMajlisAdmin" ><ContactMajlisAdmin setState={buttonClick} setUser={setThisUser} /></Route>
-            <Route path="/Admin/EventCalendarAdmin" ><AdminEventCalendar setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/ContactMajlis" ><ContactMajlisAdmin setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/EventCalendar" ><AdminEventCalendar setState={buttonClick} setUser={setThisUser} /></Route>
 
             <Redirect exact from="/User" to="/User/Home" />
             <Route path="/User/Home" ><UserHome setState={buttonClick} setLanButton={setButton} isLogged={isLoggedin} languageButton={true} language={language} setUser={setThisUser} /></Route>

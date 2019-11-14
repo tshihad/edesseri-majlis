@@ -14,7 +14,7 @@ export default function MembersList(props) {
     useEffect(() => {
         window.scrollTo(0, 0)
 
-        axios.get(API_BASE_URL + '/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+        axios.get(API_BASE_URL + '/majlis/auth/admin', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
             repsonse => {
                 if (repsonse.status != 200) {
                     window.location = "/Admin/Login"
@@ -24,6 +24,7 @@ export default function MembersList(props) {
             window.location = "/Admin/Login"
             alert("Authentication Failed")
         })
+        setLoading(true)
 
         props.setUser("admin")
         props.setState("Members")
