@@ -52,7 +52,8 @@ function Profile(props) {
     const [canLoad, setLoading] = React.useState(false)
     const [userFields,setUserField] = React.useState({})
     useEffect(() => {
-        if (localStorage.getItem('VerifiedUser')) {
+    window.scrollTo(0, 0)
+    if (localStorage.getItem('VerifiedUser')) {
             setLoading(true)
         } else {
             axios.get(API_BASE_URL + '/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(

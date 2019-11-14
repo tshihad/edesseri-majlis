@@ -32,7 +32,8 @@ font-size: 1.1em;
 `;
 export default function WhoLeadUs(props) {
     useEffect(() => {
-        setLoading(true)
+    window.scrollTo(0, 0)
+    setLoading(true)
         props.setLanButton(false)
         props.setState("WhoLeadUs")
     }, [props])

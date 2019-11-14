@@ -37,6 +37,7 @@ export default function Contactmajlis(props) {
       })
     }
     setLoading(true)
+    window.scrollTo(0, 0)
     props.setLanButton(false)
     props.setUser("user")
     props.setState("ContactMajlis")

@@ -27,6 +27,7 @@ font-family: 'Comfortaa', cursive;
 export default function Contactmajlis(props) {
   useEffect(() => {
     props.setLanButton(false)
+    window.scrollTo(0, 0)
     props.setState("ContactMajlis")
   })
   const [phone, setState] = React.useState()

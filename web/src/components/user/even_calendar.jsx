@@ -48,7 +48,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function EventCalendar(props) {
     useEffect(() => {
-        props.setState("EventCalendar")
+    window.scrollTo(0, 0)
+    props.setState("EventCalendar")
     }, [props])
     const [selectedDate, setSelectedDate] = React.useState(new Date());
     const handleDateChange = date => {

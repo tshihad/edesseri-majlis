@@ -87,6 +87,8 @@ const yesnoOptions = [
 export default function JoinMajlis(props) {
     const [canLoad, setLoading] = React.useState(false)
     useEffect(() => {
+        window.scrollTo(0, 0)
+
 
             axios.get(API_BASE_URL + '/majlis/auth/admin', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
                 repsonse => {

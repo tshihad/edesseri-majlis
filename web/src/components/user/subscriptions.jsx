@@ -55,6 +55,7 @@ export default function Subscription(props) {
   const [columns, setcolumns] = React.useState(Columns)
   const [canLoad, setLoading] = React.useState(false)
   useEffect(() => {
+    window.scrollTo(0, 0)
     if (localStorage.getItem('VerifiedUser')) {
       setLoading(true)
     } else {

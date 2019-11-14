@@ -103,6 +103,8 @@ function MemberLogin(props) {
     }
     useEffect(() => {
         props.setUser("none")
+        window.scrollTo(0, 0)
+
     }, [props])
     const classes = useStyles();
     return (

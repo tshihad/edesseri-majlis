@@ -35,7 +35,7 @@ export default function MainFooter() {
                 <Grid item xs={3}>
                     <Head>Contact Us</Head>
                     <Content>Email: admin@edasserymajlis.com</Content>
-                    <Content>phone: +91 987 978 9786</Content>
+                    <Content>phone: </Content>
                     <Links>
                         <A href="#">facebook</A>
                         <A href="#">instagram</A>
@@ -44,8 +44,8 @@ export default function MainFooter() {
                 </Grid>
                 <Grid item xs={3}>
                     <Head>Visit Us</Head>
-                    <Content>Room No 321</Content>
-                    <Content>Edassery, Trissur</Content>
+                    <Content>&nbsp;</Content>
+                    <Content>&nbsp;</Content>
                     <Links>
                         <A href="#">Get Google Map Direction</A>
                     </Links>

@@ -89,6 +89,7 @@ const MajlisStandsForContents = {
 export default function WhatWeDo(props) {
   const [canLoad, setLoading] = React.useState(false)
   useEffect(() => {
+    window.scrollTo(0, 0)
     if (localStorage.getItem('VerifiedUser')) {
       setLoading(true)
     } else {

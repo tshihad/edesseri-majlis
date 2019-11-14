@@ -38,6 +38,7 @@ export default function EventCalendar(props) {
     return day + "-" + month + "-" + year
   }
   useEffect(() => {
+    window.scrollTo(0, 0)
     props.setState("Home")
     axios.get(API_BASE_URL + "/majlis/event-calendar")
       .then(({ data }) => {

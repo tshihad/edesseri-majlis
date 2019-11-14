@@ -16,6 +16,7 @@ const Welfare = styled.div`
 export default function FamilyWelfare(props) {
   const [canLoad, setLoading] = React.useState(false)
     useEffect(() => {
+      window.scrollTo(0, 0)
 
             axios.get(API_BASE_URL + '/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
               repsonse => {

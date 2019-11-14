@@ -23,7 +23,8 @@ margin: 0 10vw;
 export default function UserOptions(props) {
     const [canLoad, setLoading] = React.useState(false)
     useEffect(() => {
-        if (localStorage.getItem('VerifiedUser')) {
+    window.scrollTo(0, 0)
+    if (localStorage.getItem('VerifiedUser')) {
             setLoading(true)
         } else {
             axios.get(API_BASE_URL + '/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(

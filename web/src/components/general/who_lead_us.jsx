@@ -23,6 +23,7 @@ export default function WhoLeadUs(props) {
   useEffect(() => {
     props.setLanButton(false)
     props.setState("WhoLeadUs")
+    window.scrollTo(0, 0)
   }, [props])
   return (
     <WhoLeadUsDiv>

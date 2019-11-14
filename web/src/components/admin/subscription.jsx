@@ -17,6 +17,7 @@ font-family: 'Comfortaa', cursive;
 export default function Subscriptions(props) {
     const [canLoad, setLoading] = React.useState(false)
     useEffect(() => {
+        window.scrollTo(0, 0)
 
         axios.get(API_BASE_URL + '/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
             repsonse => {

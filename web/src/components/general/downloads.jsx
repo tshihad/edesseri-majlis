@@ -57,6 +57,7 @@ export default function Downloads(props) {
   const [documents, setDocuments] = React.useState([])
   useEffect(() => {
     props.setLanButton(false)
+    window.scrollTo(0, 0)
     props.setState("Downloads")
     axios.get(API_BASE_URL+"/majlis/downloads")
       .then(({ data }) => {

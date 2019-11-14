@@ -68,6 +68,8 @@ export default function Home(props){
   props.setLanButton(true)
   props.setUser("general")
   props.setState("Home")
+  window.scrollTo(0, 0)
+
   },[props])
 return(
   <div>

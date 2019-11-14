@@ -81,6 +81,7 @@ const MajlisStandsForContents = {
 
 export default function WhatWeDo(props) {
   useEffect(() => {
+    window.scrollTo(0, 0)
     props.setLanButton(true)
     props.setState("WhatWeDo")
   }, [props])

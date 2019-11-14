@@ -85,6 +85,8 @@ const yesnoOptions = [
 ];
 export default function JoinMajlis(props) {
   useEffect(() => {
+    window.scrollTo(0, 0)
+
     props.setLanButton(false)
     props.setState("JoinMajlis")
   }, [props])

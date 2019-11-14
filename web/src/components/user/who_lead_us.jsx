@@ -24,6 +24,7 @@ padding-bottom: 5vh;
 `;
 export default function WhoLeadUs(props) {
   useEffect(() => {
+    window.scrollTo(0, 0)
     props.setLanButton(false)
     props.setUser("user")
     props.setState("WhoLeadUs")
