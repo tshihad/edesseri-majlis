@@ -64,10 +64,12 @@ type MemberSignIn struct {
 }
 
 type MemberSignInRes struct {
-	Name     string `json:"name"`
-	MemberID string `json:"member_id"`
-	ImageURL string `json:"image_url"`
-	Token    string `json:"token"`
+	Name        string `json:"name"`
+	MemberID    string `json:"member_id"`
+	ImageURL    string `json:"image_url"`
+	PhoneNumber string
+	Email       string
+	Token       string `json:"token"`
 }
 
 type MemberShortResp struct {

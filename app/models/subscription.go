@@ -12,6 +12,7 @@ type Subscription struct {
 	MemberID     string
 	SubYear      int
 	SubMonth     int
+	Period       int
 	SubAmount    int
 	SubStatus    int
 	PaymentDate  time.Time
@@ -28,4 +29,9 @@ type SubsTableResponse struct {
 // SubsTableRow in SubsTableResponse
 type SubsTableRow struct {
 	Amount string
+}
+
+type SubsAdminTableReq struct {
+	StartDate time.Time `json:start_date`
+	EndDate   time.Time `json:end_date`
 }

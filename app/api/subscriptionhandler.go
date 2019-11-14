@@ -27,6 +27,12 @@ func (a *App) handlePostSubscription(w http.ResponseWriter, r *http.Request) {
 
 // TODO update with filtering
 func (a *App) handleGetSubscription(w http.ResponseWriter, r *http.Request) {
+	defer func() {
+		if r := recover(); r != nil {
+			a.Fail(w, http.StatusNonAuthoritativeInfo, "Subscription panics", nil)
+			a.Error(r)
+		}
+	}()
 	memberID := r.Context().Value("member_id").(string)
 	subs, err := a.GetSubscription(memberID)
 	if err != nil && err != gorm.ErrRecordNotFound {
@@ -65,4 +71,18 @@ func (a *App) handleDeleteSubscription(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	w.WriteHeader(http.StatusOK)
+}
+
+func (a *App) handleGetsubscriptions(w http.ResponseWriter, r *http.Request) {
+	var req models.SubsAdminTableReq
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to parse string", err)
+		return
+	}
+	resp,err:=a.GetSubscriptions(req)
+	if err!=nil{
+		a.Fail(w,http.StatusNonAuthoritativeInfo,"Failed to get subsciption",err)
+		return
+	}
+	a.Success(w,http.StatusOK,resp)
 }

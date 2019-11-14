@@ -5,7 +5,7 @@ const MEMBER_PREFIX = "E"
 const GALLERY_LOCATION = "public/gallery"
 const PROFILE_LOCATION = "private/profile"
 const PUBLIC_DOWNLOAD_LOCATION = "public/downloads"
-const PRIVATE_DOWNLOAD_LOCATION = "public/downloads"
+const PRIVATE_DOWNLOAD_LOCATION = "private/downloads"
 const DOWNLOAD_TAG = "upload_file"
 
 var CATEGORIES = []string{"milad", "eid", "iftar", "sports", "meet_and_greet", "other"}

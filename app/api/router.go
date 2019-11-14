@@ -38,11 +38,11 @@ func (a *App) Router() http.Handler {
 			r.Route("/event-gallery/"+categoryRegex, func(r chi.Router) {
 				r.Get("/", a.handleGetEGallerys)
 				r.Post("/", a.handlePostEGallery)
-				r.Delete("/{id}", a.handleDeleteEGallery)
+				r.Delete("/{id:^[0-9]+$}", a.handleDeleteEGallery)
 			})
 			r.Route("/subscription", func(r chi.Router) {
-				r.Post("/", a.handlePostSubscription)
-				r.Get("/", a.handleGetSubscription)
+				r.Post("/add", a.handlePostSubscription)
+				r.Post("/", a.handleGetsubscriptions)
 				r.Delete("/{id}", a.handleDeleteSubscription)
 			})
 			r.Route("/member", func(r chi.Router) {
@@ -60,6 +60,7 @@ func (a *App) Router() http.Handler {
 
 		r.Get("/downloads", a.handleGetPublicDownloads)
 		r.Get("/auth", a.handleVerifyAuth)
+		r.Get("/auth/admin", a.handleVerifyAdminAuth)
 		r.Post("/signin/admin", a.handleAdminSignIn)
 	})
 	return r
