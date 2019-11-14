@@ -24,6 +24,7 @@ border-radius: 4vw;
 export default function Slider() {
   return (
     <Carousel dragging={true}
+      style={{zIndex:0}}
       speed={1500}
       autoplay={true}
       autoplayInterval={3000}

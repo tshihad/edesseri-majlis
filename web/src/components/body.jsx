@@ -45,7 +45,7 @@ import { API_BASE_URL } from './constants'
 
 const Head = styled.div`
 width: 100%;
-// z-index:2;
+z-index:1;
 background-color: #e5eee5;
 color: #bab86c;
 padding: 1.5vh 10vw 0 10vw;
@@ -65,7 +65,7 @@ border-bottom: 1px #556b2f solid;
 `;
 const Body = styled.div`
 width: 100%;
-padding: 9.8vw 0 0 0;
+margin: 9.8vw 0 0 0;
 min-height: 90vh;
 background-color: #f2f7f2;
 font-family: 'Comfortaa', cursive;
