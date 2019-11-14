@@ -11,6 +11,11 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import { API_BASE_URL } from '../constants';
+import { Grid } from '@material-ui/core';
+import '../../styles/contact.css';
+import { Formik } from 'formik'
+import * as Yup from 'yup';
+
 
 const EventCalendarCard = styled.div`
 margin: 2vh 10vw 0 10vw;
@@ -114,6 +119,23 @@ const useStyles = makeStyles({
     },
 });
 
+const MainButton = styled.button`
+border:0;
+outline: 0;
+margin-top:1em;
+background-color: #556b2f;
+color: white;
+width:80%;
+padding: .4em 1em;
+font-size: 1.1em;
+border: 1px solid #556b2f;
+border-radius: .15em;
+&:hover{
+    font-weight: 600;
+    background-color: transparent;
+    color: #556b2f;
+}
+`;
 export function EventTable(props) {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
@@ -133,6 +155,111 @@ export function EventTable(props) {
             <div>
                 <div className={classes.heading}>{props.tablename}</div>
             </div>
+            <Formik
+                initialValues={{ member_id: '', event_date: '', title: '', description: '', amount: '', currency: '' }}
+                onSubmit={(values, { setSubmitting }) => {
+
+                    axios.post(API_BASE_URL + '/majlis/familywelfare', {
+                        member_id: values.member_id,
+                        event_date: values.event_date,
+                        title: values.title,
+                        purpose: values.purpose,
+                        amount: values.amount
+                    })
+                        .then((response) => {
+                            alert("Information Recorded Successfully");
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
+                    setSubmitting(false);
+
+                }}
+                validationSchema={Yup.object().shape({
+                    member_id: Yup.number()
+                        .required('Required'),
+                    title: Yup.string()
+                        .required('Required'),
+                    description: Yup.string()
+                        .required('Required'),
+                    amount: Yup.number()
+                        .required('Required'),
+                    event_date: Yup.string()
+                        .required('Required')
+                })}
+            >
+                {props => {
+                    const {
+                        values,
+                        touched,
+                        errors,
+                        dirty,
+                        isSubmitting,
+                        handleChange,
+                        handleBlur,
+                        handleSubmit,
+                        handleReset,
+                    } = props;
+                    return (
+                        <form onSubmit={handleSubmit}>
+                            <Grid container spacing={0}>
+                                <Grid item xs={3}>
+                                    <input
+                                        id="event_date"
+                                        placeholder="Enter event Date here"
+                                        type="date"
+                                        value={values.event_date}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        style={{ padding: ".4em" }}
+                                        className={
+                                            errors.event_date && touched.event_date ? 'inputs text-input error' : 'inputs text-input'}
+                                    />
+                                    {errors.event_date && touched.event_date ? (
+                                        <div className="input-feedback" style={{ marginLeft: "200px" }}>{errors.event_date}</div>
+                                    ) : <div className="input-feedback">&nbsp;</div>}
+                                </Grid>
+                                <Grid item xs={3}>
+                                    <input
+                                        id="title"
+                                        placeholder="Enter Event Title"
+                                        type="text  "
+                                        value={values.title}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        className={
+                                            errors.title && touched.title ? 'inputs text-input error' : 'inputs text-input'}
+                                    />
+                                    {errors.title && touched.title ? (
+                                        <div className="input-feedback" style={{ marginLeft: "200px" }}>{errors.title}</div>
+                                    ) : <div className="input-feedback">&nbsp;</div>}
+                                </Grid>
+                                <Grid item xs={4}>
+                                    <textarea
+                                        id="description"
+                                        type="textArea"
+                                        rows="3"
+                                        placeholder="Type description Here"
+                                        value={values.content}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        className={
+                                            errors.content && touched.content ? 'text-input error' : 'text-input'
+                                        }
+                                        style={{ width: "80%" }}
+                                    />
+                                    {errors.content && touched.content ? (
+                                        <div className="input-feedback">{errors.content}</div>)
+                                        : <div className="input-feedback">&nbsp;</div>}
+                                </Grid>
+                                <Grid itrm xs={1}>
+                                    <button type="submit" className="buttons" disabled={isSubmitting}>
+                                        Submit
+                      </button>
+                                </Grid>
+                            </Grid></form>)
+                }}</Formik>
+
             <div className={classes.tableWrapper}>
                 <Table stickyHeader>
                     <TableHead style={{ zIndex: "-1" }}>
