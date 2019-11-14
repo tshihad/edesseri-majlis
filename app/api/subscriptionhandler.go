@@ -27,6 +27,12 @@ func (a *App) handlePostSubscription(w http.ResponseWriter, r *http.Request) {
 
 // TODO update with filtering
 func (a *App) handleGetSubscription(w http.ResponseWriter, r *http.Request) {
+	defer func() {
+		if r := recover(); r != nil {
+			a.Fail(w, http.StatusNonAuthoritativeInfo, "Subscription panics", nil)
+			a.Error(r)
+		}
+	}()
 	memberID := r.Context().Value("member_id").(string)
 	subs, err := a.GetSubscription(memberID)
 	if err != nil && err != gorm.ErrRecordNotFound {
