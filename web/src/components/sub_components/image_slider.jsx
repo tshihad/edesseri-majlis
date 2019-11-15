@@ -8,6 +8,8 @@ import img2 from '../../images/slider/slider2.jpg'
 import img3 from '../../images/slider/slider3.jpg'
 import img4 from '../../images/slider/slider4.jpg'
 import img5 from '../../images/slider/slider5.jpg'
+import img6 from '../../images/slider/slider6.jpg'
+
 
 // green color for arrow
 // color: #033d19;
@@ -48,6 +50,7 @@ export default function Slider() {
       <img src={img3} alt="img3" />
       <img src={img4} alt="img4" />
       <img src={img5} alt="img5" />
+      <img src={img6} alt="img6" />
     </Carousel>
   )
 }

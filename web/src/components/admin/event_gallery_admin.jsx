@@ -47,10 +47,10 @@ export default function ContactMajlisAdmin(props) {
   const handleImageChange = file => {
     var bodyFormData = new FormData();
     bodyFormData.append('upload_file', ...file);
-    axios.post('http://10.4.5.22:8081' + '/majlis/admin/event-gallery/' + props.category, bodyFormData,
+    axios.post(API_BASE_URL + '/majlis/admin/event-gallery/' + props.category, bodyFormData,
       {
         headers: {
-          'Authorization': 'fc0f348a55cd4f499ca5fa40d515a993',
+          'Authorization': localStorage.getItem('EdasseryMajlisToken'),
           'Content-Type': 'multipart/form-data',
           'accept': 'application/json',
         }
