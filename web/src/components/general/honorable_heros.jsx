@@ -30,6 +30,7 @@ font-family: 'Comfortaa', cursive;
 const P = styled.p`
 padding-left: 2vw;
 color: #1d4219;
+font-weight: bold;
 font-size: 1.1em;
 `;
 export default function WhoLeadUs(props) {
@@ -77,19 +78,19 @@ export default function WhoLeadUs(props) {
                     <MemberCard position="Member" image={member3} name="A.V Abdul Rahiman" />
                 </Grid>
                 <Grid item xs={3}>
-                    <MemberCard position="Member" image={member6} name="A.M Jamal" />
+                <MemberCard position="Member" image={member4} name="P.K Ismail" />
                 </Grid>
             </Grid>
             <Grid container spacing={0}>
                 <Grid item xs={1}></Grid>
                 <Grid item xs={3}>
-                    <MemberCard position="Member" image={member4} name="P.K Ismail" />
+                <MemberCard position="Member" image={member5} name="A.V Hussain" />
                 </Grid>
                 <Grid item xs={3}>
-                    <MemberCard position="Member" image={member5} name="A.V Hussain" />
+                <MemberCard position="&nbsp;" image={member6} name="A M Jamal" />
                 </Grid>
                 <Grid item xs={3}>
-                <MemberCard position="Member" image={member7} name="Moosar K" />
+                <MemberCard position="&nbsp;" image={member7} name="R K Moosa" />
 
                 </Grid>
                 <Grid item xs={2}></Grid>
