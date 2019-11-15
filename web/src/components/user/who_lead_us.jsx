@@ -68,18 +68,21 @@ export default function WhoLeadUs(props) {
         </Grid>
       </Grid>
       <Grid container spacing={0}>
+        <Grid item xs={3}></Grid>
         <Grid item xs={3}>
           <MemberCard position="Member" image={member5} name="Sudheer P s" date="01/10/2019" />
         </Grid>
         <Grid item xs={3}>
           <MemberCard position="Member" image={member6} name="Ameer" date="01/10/2019" />
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={3}></Grid>
+
+        {/* <Grid item xs={3}>
           <MemberCard position="Advicory" image={avatar} name="Shajeer P S" date="10/01/2019" />
         </Grid>
         <Grid item xs={3}>
           <MemberCard position="Advicory" image={avatar} name="Noushad" date="10/01/2019" />
-        </Grid>
+        </Grid> */}
       </Grid>
     </WhoLeadUsDiv>
   )
