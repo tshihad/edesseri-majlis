@@ -11,7 +11,9 @@ import member1 from '../../images/members/HonorableHeros/P.M.Sathar.jpg';
 import member2 from '../../images/members/HonorableHeros/PareedP.M.jpg';
 import member3 from '../../images/members/HonorableHeros/AbdulRahimanAV.jpg';
 import member4 from '../../images/members/avatar.jpeg';
-import member5 from '../../images/members/avatar.jpeg';
+import member5 from '../../images/members/HonorableHeros/A.VHussain.jpeg';
+import member6 from '../../images/members/HonorableHeros/A.MJamal.jpeg'
+import member7 from '../../images/members/HonorableHeros/MOOSAR.K.jpeg'
 
 
 const WhoLeadUsDiv = styled.div`
@@ -65,7 +67,6 @@ export default function WhoLeadUs(props) {
                 <Grid item xs={2}></Grid>
             </Grid>
             <Grid container spacing={0}>
-                <Grid item xs={1}></Grid>
                 <Grid item xs={3}>
                     <MemberCard position="Member" image={member1} name="P.M Saththar" />
                 </Grid>
@@ -75,15 +76,21 @@ export default function WhoLeadUs(props) {
                 <Grid item xs={3}>
                     <MemberCard position="Member" image={member3} name="A.V Abdul Rahiman" />
                 </Grid>
-                <Grid item xs={2}></Grid>
+                <Grid item xs={3}>
+                    <MemberCard position="Member" image={member6} name="A.M Jamal" />
+                </Grid>
             </Grid>
             <Grid container spacing={0}>
-                <Grid item xs={2}></Grid>
-                <Grid item xs={4}>
+                <Grid item xs={1}></Grid>
+                <Grid item xs={3}>
                     <MemberCard position="Member" image={member4} name="P.K Ismail" />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={3}>
                     <MemberCard position="Member" image={member5} name="A.V Hussain" />
+                </Grid>
+                <Grid item xs={3}>
+                <MemberCard position="Member" image={member7} name="Moosar K" />
+
                 </Grid>
                 <Grid item xs={2}></Grid>
             </Grid>

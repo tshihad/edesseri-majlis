@@ -27,7 +27,7 @@ export default function ContactMajlisAdmin(props) {
       window.location = "/Admin/Login"
       alert("Authentication Failed")
     })
-    axios.get(API_BASE_URL + '/majlis/admin/event-gallery/' + props.category, 
+    axios.get(API_BASE_URL + '/majlis/admin/event-gallery/' + props.category,
       { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } })
       .then(response => { console.log(response); setImgData(response.data.result) })
       .catch(err => console.log("network error", err));
@@ -38,12 +38,9 @@ export default function ContactMajlisAdmin(props) {
   }, [props, deleted])
 
   const deleteImg = (id) => {
-    axios.delete(API_BASE_URL + '/majlis/admin/event-gallery/' + props.category + '/' + id, {
-      headers: {
-        'Authorization': 'fc0f348a55cd4f499ca5fa40d515a993',
-      }
-    })
-      .then(response => { console.log("deleted successfully"); setDeleted(!deleted) })
+    axios.delete(API_BASE_URL + '/majlis/admin/event-gallery/' + props.category + '/' + id,
+      { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } })
+      .then(response => { alert("deleted successfully"); setDeleted(!deleted) })
       .catch(err => { console.log("network error", err) });
   }
 
