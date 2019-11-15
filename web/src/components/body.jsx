@@ -279,6 +279,14 @@ export default function Header() {
                   backgroundColor: isButtonActive === "EventGalleryAdmin" && " #556b2f",
                   color: isButtonActive === "EventGalleryAdmin" && "white"
                 }}>Event Gallery</button>
+              <div class="dropdown-content" onClick={() => buttonClick("EventGallery")}>
+                <Link to="/Admin/EventGallery/Milad">Milad</Link>
+                <Link to="/Admin/EventGallery/Eid">Eid</Link>
+                <Link to="/Admin/EventGallery/Iftar">Iftar</Link>
+                <Link to="/Admin/EventGallery/Sports">Sports</Link>
+                <Link to="/Admin/EventGallery/MeetandGreet">Meet and Greet</Link>
+                <Link to="/Admin/EventGallery/Other">Other</Link>
+              </div>
             </Link>
             <Link to="/Admin/Loans" class="dropdown">
               <button class="dropbtn"
@@ -300,6 +308,7 @@ export default function Header() {
                   backgroundColor: isButtonActive === "EventCalendar" && " #556b2f",
                   color: isButtonActive === "EventCalendar" && "white"
                 }}>Event Calendar</button>
+
             </Link>
             <Link to="/Admin/UploadForms" class="dropdown">
               <button class="dropbtn"
@@ -421,7 +430,13 @@ export default function Header() {
             <Route path="/Admin/Members" ><Members setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/AddMember" ><AddMember setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/Subscriptions" ><Subscription setState={buttonClick} setUser={setThisUser} /></Route>
-            <Route path="/Admin/EventGallery" ><EventGalleryAdmin setState={buttonClick} setUser={setThisUser} /></Route>
+            <Redirect exact from="/Admin/EventGallery" to ="/Admin/EventGallery/Milad"/>
+            <Route path="/Admin/EventGallery/Milad" ><EventGalleryAdmin category="majlis" setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/EventGallery/Eid" ><EventGalleryAdmin category="eid" setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/EventGallery/Iftar" ><EventGalleryAdmin category="iftar" setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/EventGallery/Sports" ><EventGalleryAdmin category="sports" setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/EventGallery/MeetandGreet" ><EventGalleryAdmin category="meetanfgreet" setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/EventGallery/Other" ><EventGalleryAdmin category="other" setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/Loans" ><Loans setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/FamlilyWelfare" ><FamilyWelfare setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/UploadForms" ><UploadForms setState={buttonClick} setUser={setThisUser} /></Route>
