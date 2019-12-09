@@ -71,9 +71,9 @@ export default function ContactMajlisAdmin(props) {
         setLoading(true)
         axios.get(API_BASE_URL + '/majlis/admin/contactmajlis',{ headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } })
             .then(({ data }) => {
-                data.result.map((row) => {
-                    return row
-                })
+                // data.result.map((row) => {
+                //     return row
+                // })
                 setrows(data.result)
             }).catch((err) => {
                 alert(err)

@@ -17,9 +17,9 @@ import member7 from '../../images/members/HonorableHeros/MOOSAR.K.jpeg'
 
 
 const WhoLeadUsDiv = styled.div`
-margin: 5vh 10vw;
+margin: 5vh 10vw 0vh 10vw;
 padding-left: 5vw;
-padding-bottem: 200px;
+padding-bottom: 5vh;
 `;
 const Headline = styled.h3`
 color:#1d4219;
@@ -81,19 +81,25 @@ export default function WhoLeadUs(props) {
                 <MemberCard position="Member" image={member4} name="P.K Ismail" />
                 </Grid>
             </Grid>
-            <Grid container spacing={0}>
-                <Grid item xs={1}></Grid>
+            <Grid container spacing={0} justify="center">
                 <Grid item xs={3}>
                 <MemberCard position="Member" image={member5} name="A.V Hussain" />
                 </Grid>
+            </Grid>
+            <hr
+        style={{
+            color: "rgb(126, 173, 43)",
+            backgroundColor: "rgb(126, 173, 43)",
+            height: 3
+        }}
+    />
+    <Grid container spacing={0} justify="center">
                 <Grid item xs={3}>
                 <MemberCard position="&nbsp;" image={member6} name="A M Jamal" />
                 </Grid>
                 <Grid item xs={3}>
                 <MemberCard position="&nbsp;" image={member7} name="R K Moosa" />
-
                 </Grid>
-                <Grid item xs={2}></Grid>
             </Grid>
         </WhoLeadUsDiv>
     )

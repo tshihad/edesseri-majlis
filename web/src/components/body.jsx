@@ -33,7 +33,6 @@ import UserDownloads from './user/downloads';
 import UserContactMajlis from './user/contact_majlis';
 import EventCalendar from './general/event_calendar';
 import LogoutIcon from '@material-ui/icons/Person';
-import Button from '@material-ui/core/Button';
 import AdminLogin from './general/admin_login'
 import axios from 'axios';
 import '../styles/navbar.css';
@@ -431,11 +430,11 @@ export default function Header() {
             <Route path="/Admin/AddMember" ><AddMember setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/Subscriptions" ><Subscription setState={buttonClick} setUser={setThisUser} /></Route>
             <Redirect exact from="/Admin/EventGallery" to ="/Admin/EventGallery/Milad"/>
-            <Route path="/Admin/EventGallery/Milad" ><EventGalleryAdmin category="majlis" setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/EventGallery/Milad" ><EventGalleryAdmin category="milad" setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/EventGallery/Eid" ><EventGalleryAdmin category="eid" setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/EventGallery/Iftar" ><EventGalleryAdmin category="iftar" setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/EventGallery/Sports" ><EventGalleryAdmin category="sports" setState={buttonClick} setUser={setThisUser} /></Route>
-            <Route path="/Admin/EventGallery/MeetandGreet" ><EventGalleryAdmin category="meetanfgreet" setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/EventGallery/MeetandGreet" ><EventGalleryAdmin category="meetandgreet" setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/EventGallery/Other" ><EventGalleryAdmin category="other" setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/Loans" ><Loans setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/FamlilyWelfare" ><FamilyWelfare setState={buttonClick} setUser={setThisUser} /></Route>

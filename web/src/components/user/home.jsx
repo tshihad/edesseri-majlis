@@ -127,12 +127,13 @@ language= {props.language === "മലയാളം" ?"malayalam" :"english"} bull
 const Card = styled.div`
 width:100%;
 padding: 5vh 20vw;
-text-align:center;
+text-align: justify
 `;
 const Headline = styled.h3`
 color:#1d4219;
 font-size: 2em;
 font-family: 'Comfortaa', cursive;
+text-align:center;
 `;
 const Content = styled.p`
 line-height: 1.4em;
