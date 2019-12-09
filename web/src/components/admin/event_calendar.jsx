@@ -12,7 +12,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import { API_BASE_URL } from '../constants';
 import { Grid } from '@material-ui/core';
-import '../../styles/contact.css';
+import '../../styles/calendar.css';
 import { Formik } from 'formik'
 import * as Yup from 'yup';
 
@@ -156,36 +156,30 @@ export function EventTable(props) {
                 <div className={classes.heading}>{props.tablename}</div>
             </div>
             <Formik
-                initialValues={{ member_id: '', event_date: '', title: '', description: '', amount: '', currency: '' }}
-                onSubmit={(values, { setSubmitting }) => {
-
-                    axios.post(API_BASE_URL + '/majlis/familywelfare', {
-                        member_id: values.member_id,
+                initialValues={{ event_date: '', title: '', description: '' }}
+                onSubmit={(values, { setSubmitting, setErrors }) => {
+                    axios.post(API_BASE_URL + '/admin/majlis/eventcalendar', {
                         event_date: values.event_date,
                         title: values.title,
-                        purpose: values.purpose,
-                        amount: values.amount
+                        description: values.description,
                     })
                         .then((response) => {
-                            alert("Information Recorded Successfully");
+                            alert("Subscription Added");
                         })
                         .catch(function (error) {
-                            console.log(error);
+                            alert(error)
+                            console.log(error);;
                         });
                     setSubmitting(false);
 
                 }}
                 validationSchema={Yup.object().shape({
-                    member_id: Yup.number()
+                    event_date: Yup.string()
                         .required('Required'),
                     title: Yup.string()
                         .required('Required'),
                     description: Yup.string()
                         .required('Required'),
-                    amount: Yup.number()
-                        .required('Required'),
-                    event_date: Yup.string()
-                        .required('Required')
                 })}
             >
                 {props => {
@@ -202,7 +196,7 @@ export function EventTable(props) {
                     } = props;
                     return (
                         <form onSubmit={handleSubmit}>
-                            <Grid container spacing={0}>
+                            <Grid container spacing={0} justify="center">
                                 <Grid item xs={3}>
                                     <input
                                         id="event_date"
@@ -213,10 +207,10 @@ export function EventTable(props) {
                                         onBlur={handleBlur}
                                         style={{ padding: ".4em" }}
                                         className={
-                                            errors.event_date && touched.event_date ? 'inputs text-input error' : 'inputs text-input'}
+                                            errors.event_date && touched.event_date ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                     />
                                     {errors.event_date && touched.event_date ? (
-                                        <div className="input-feedback" style={{ marginLeft: "200px" }}>{errors.event_date}</div>
+                                        <div className="input-feedback" >{errors.event_date}</div>
                                     ) : <div className="input-feedback">&nbsp;</div>}
                                 </Grid>
                                 <Grid item xs={3}>
@@ -228,17 +222,16 @@ export function EventTable(props) {
                                         onChange={handleChange}
                                         onBlur={handleBlur}
                                         className={
-                                            errors.title && touched.title ? 'inputs text-input error' : 'inputs text-input'}
+                                            errors.title && touched.title ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                     />
                                     {errors.title && touched.title ? (
-                                        <div className="input-feedback" style={{ marginLeft: "200px" }}>{errors.title}</div>
+                                        <div className="input-feedback" >{errors.title}</div>
                                     ) : <div className="input-feedback">&nbsp;</div>}
                                 </Grid>
                                 <Grid item xs={4}>
                                     <textarea
                                         id="description"
                                         type="textArea"
-                                        rows="3"
                                         placeholder="Type description Here"
                                         value={values.content}
                                         onChange={handleChange}
@@ -246,16 +239,15 @@ export function EventTable(props) {
                                         className={
                                             errors.content && touched.content ? 'text-input error' : 'text-input'
                                         }
-                                        style={{ width: "80%" }}
                                     />
-                                    {errors.content && touched.content ? (
-                                        <div className="input-feedback">{errors.content}</div>)
+                                    {errors.description && touched.description ? (
+                                        <div className="input-feedback">{errors.description}</div>)
                                         : <div className="input-feedback">&nbsp;</div>}
                                 </Grid>
-                                <Grid itrm xs={1}>
-                                    <button type="submit" className="buttons" disabled={isSubmitting}>
-                                        Submit
-                      </button>
+                                <Grid item xs={2} style={{ textAlign: "center" }}>
+                                    <button type="submit" className="buttons" disabled={isSubmitting} style={{ margin: "0" }}>
+                                        ADD
+                                    </button>
                                 </Grid>
                             </Grid></form>)
                 }}</Formik>

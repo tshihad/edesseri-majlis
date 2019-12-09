@@ -47,7 +47,7 @@ export default function ContactMajlisAdmin(props) {
   const handleImageChange = file => {
     var bodyFormData = new FormData();
     bodyFormData.append('upload_file', ...file);
-    axios.post('http://10.4.5.22:8081' + '/majlis/admin/event-gallery/' + props.category, bodyFormData,
+    axios.post(API_BASE_URL + '/majlis/admin/event-gallery/' + props.category, bodyFormData,
       {
         headers: {
           'Authorization': 'fc0f348a55cd4f499ca5fa40d515a993',
@@ -59,10 +59,32 @@ export default function ContactMajlisAdmin(props) {
       .then(response => { console.log("img added", response) })
       .catch(err => { console.log("network error", err) })
   }
+  const Headline = styled.h1`
+color:#1d4219;
+font-size: 1.7em;
+font-family: 'Comfortaa', cursive;
+`;
+  const getHeading = (category) => {
+    switch (category) {
+      case "milad":
+        return "Milad"
+        case "eid":
+        return "Eid"
+        case "iftar":
+        return "Iftar"
+        case "sports":
+        return "Sports"
+        case "meetandgreet":
+        return "Meet And Greet"
+        case "other":
+        return "Other"
+    }
+  }
   return (
     <div>
       {canLoad === true ?
         <AdminGallery>
+          <Headline>{getHeading(props.category)}</Headline>
           <Grid container spacing={0} justify="center">
             <DropzoneArea id="file" onChange={handleImageChange} showPreviewsInDropzone={false} />
           </Grid>

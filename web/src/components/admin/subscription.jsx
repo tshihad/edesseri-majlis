@@ -49,7 +49,7 @@ export default function Subscriptions(props) {
                                 setSubmitting(false);
                                 return;
                             }
-                            axios.post('http://localhost:8080/majlis/admin/subscription', {
+                            axios.post(API_BASE_URL+'/majlis/admin/subscription', {
                                 member_id: values.member_id,
                                 sub_year: values.sub_year,
                                 sub_month: values.sub_month,
@@ -64,6 +64,7 @@ export default function Subscriptions(props) {
                                     FormReset()
                                 })
                                 .catch(function (error) {
+                                    alert(error)
                                     console.log(error);;
                                 });
                             setSubmitting(false);
@@ -139,7 +140,7 @@ export default function Subscriptions(props) {
                                                     <input
                                                         id="sub_year"
                                                         placeholder="Enter Subscription Year"
-                                                        type="number"
+                                                        type="text"
                                                         value={values.firstname}
                                                         onChange={handleChange}
                                                         onBlur={handleBlur}

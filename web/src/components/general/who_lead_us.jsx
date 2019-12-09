@@ -18,7 +18,7 @@ import avatar from '../../images/members/avatar.jpeg'
 const WhoLeadUsDiv = styled.div`
 margin: 0vh 10vw;
 padding-left: 5vw;
-padding-bottem: 200px;
+padding-bottom: 5vh;
 `;
 export default function WhoLeadUs(props) {
   useEffect(() => {
