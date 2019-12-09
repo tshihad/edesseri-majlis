@@ -50,7 +50,7 @@ export default function ContactMajlisAdmin(props) {
     axios.post(API_BASE_URL + '/majlis/admin/event-gallery/' + props.category, bodyFormData,
       {
         headers: {
-          'Authorization': 'fc0f348a55cd4f499ca5fa40d515a993',
+          'Authorization': localStorage.getItem('EdasseryMajlisToken'),
           'Content-Type': 'multipart/form-data',
           'accept': 'application/json',
         }
