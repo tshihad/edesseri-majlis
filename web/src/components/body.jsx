@@ -33,7 +33,8 @@ import UserDownloads from './user/downloads';
 import UserContactMajlis from './user/contact_majlis';
 import EventCalendar from './general/event_calendar';
 import LogoutIcon from '@material-ui/icons/Person';
-import AdminLogin from './general/admin_login'
+import AdminLogin from './general/admin_login';
+import ViewProfile from './admin/profile'
 import axios from 'axios';
 import '../styles/navbar.css';
 import '../styles/header.css';
@@ -427,6 +428,7 @@ export default function Header() {
             <Redirect exact from="/Admin" to="/Admin/Login" />
             <Route path="/Admin/Login" ><AdminLogin setUser={setThisUser}></AdminLogin></Route>
             <Route path="/Admin/Members" ><Members setState={buttonClick} setUser={setThisUser} /></Route>
+            <Route path="/Admin/View/Member/:memberid" ><ViewProfile setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/AddMember" ><AddMember setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/Subscriptions" ><Subscription setState={buttonClick} setUser={setThisUser} /></Route>
             <Redirect exact from="/Admin/EventGallery" to ="/Admin/EventGallery/Milad"/>

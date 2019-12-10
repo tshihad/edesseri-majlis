@@ -47,7 +47,9 @@ font-family: 'Comfortaa', cursive;
 `;
 const ProfileCard = styled.div`
 margin: 3vh 10vw 0 10vw `;
+
 function Profile(props) {
+    const memberID = window.location.pathname.split("/")[4]
     const classes = useStyles()
     const [canLoad, setLoading] = React.useState(false)
     const [userFields,setUserField] = React.useState({})
@@ -56,19 +58,19 @@ function Profile(props) {
     if (localStorage.getItem('VerifiedUser')) {
             setLoading(true)
         } else {
-            axios.get(API_BASE_URL + '/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+            axios.get(API_BASE_URL + '/majlis/auth/admin', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
                 repsonse => {
                     if (repsonse.status != 200) {
-                        window.location = "/MemberLogin"
+                        window.location = "/Admin"
                     }
                 }
             ).catch(error => {
-                window.location = "/MemberLogin"
+                window.location = "/Admin"
                 alert("Authentication Failed")
             })
         }
         setLoading(true)
-        axios.get(API_BASE_URL + '/majlis/member',
+        axios.get(API_BASE_URL + '/majlis/admin/member'+memberID,
             {
                 headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') }
             }).then((response) => {
@@ -77,17 +79,17 @@ function Profile(props) {
                 console.log(error);
             })
             setLoading(true)
-        props.setLanButton(false)
         props.setUser("admin")
         props.setState("members")
     }, [props])
+    
     return (
         <div>
             {canLoad === true ?
                 <ProfileCard>
                     <Paper style={{ padding: "1em 5em" }}>
                         <Grid container spacing={0}>
-                            <Grid item xs={2}> <Headline>My Profile</Headline></Grid>
+                            <Grid item xs={2}> <Headline>Member Profile</Headline></Grid>
                             <Grid item xs={8}></Grid>
                             <Grid item xs={2} justify={"center"}><Button>Edit</Button></Grid>
                         </Grid>
