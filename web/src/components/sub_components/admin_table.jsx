@@ -109,7 +109,7 @@ export default function CommonTable(props) {
                                         const value = row[column];
                                         return (
                                             <TableCell title="Go to user Details">
-                                                {column === 'MemberID' ? <a href={'user/profile?MemberID=' + value}>{value}</a> : value}
+                                                {column === 'MemberID' ? <Link to={"/Admin/View/Member/" + value}>{value}</Link> : value}
                                             </TableCell>
                                         );
                                     })}

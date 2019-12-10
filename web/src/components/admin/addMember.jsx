@@ -1278,9 +1278,6 @@ export default function JoinMajlis(props) {
                                                         <DropzoneArea id="file"
                                                             onChange={handleImageChange}
                                                         />
-                                                        {errors.mahal_phone && touched.mahal_phone ? (
-                                                            <div className="input-feedback">{errors.mahal_phone}</div>
-                                                        ) : <div className="input-feedback">&nbsp;</div>}
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
