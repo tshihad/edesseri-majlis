@@ -53,6 +53,7 @@ type LoanRepo interface {
 // ContactRepo for contact informations
 type ContactRepo interface {
 	CreateContact(models.Contact) error
+	GetContact() ([]models.Contact, error)
 }
 
 // DownloadRepo for downloadn repo
@@ -71,6 +72,8 @@ type Cache interface {
 type CalendarRepo interface {
 	GetCalendarEvents() ([]models.EventCalendar, error)
 	GetUpcomingEvents(int) ([]models.EventCalendar, error)
+	DeleteEvent(string) error
+	CreateEvent(models.EventCalendar) error
 }
 
 // WelfareRepo wraps welfare functions

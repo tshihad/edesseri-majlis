@@ -18,3 +18,12 @@ func (a *App) handlePostcontact(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusCreated)
 }
+
+func (a *App) handleGetContact(w http.ResponseWriter, r *http.Request) {
+	c, err := a.GetContact()
+	if err != nil {
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to get contact", err)
+		return
+	}
+	a.Success(w, http.StatusOK, c)
+}
