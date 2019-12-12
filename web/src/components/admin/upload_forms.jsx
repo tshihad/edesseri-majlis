@@ -29,7 +29,7 @@ export default function UploadForms(props) {
 
         props.setUser("admin")
         props.setState("UploadForms")
-    }, [props])
+    }, [ ])
     const Uploads = styled.div`
     margin: 5vh 10vw 0 10vw;
     padding-bottem: 200px;`;
@@ -39,10 +39,10 @@ export default function UploadForms(props) {
     font-family: 'Comfortaa', cursive;
     `;
     const tab = {
-        fontSize: "1.5em",
+        fontSize: "1.3em",
         color: "#1d4219",
         padding: ".5em 1.5em",
-        fontWeight: 600
+        fontWeight: 600,
     }
     const content = {
 

@@ -23,7 +23,7 @@ export default function Loans(props) {
 
     props.setState("Loans")
     props.setUser("admin")
-  }, [props])
+  }, [ ])
   const Loans = styledc.div`
   margin: 5vh 10vw 0 10vw; 
   text-align: center;

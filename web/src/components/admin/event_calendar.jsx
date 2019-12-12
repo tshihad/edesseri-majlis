@@ -42,6 +42,7 @@ const EventColumns = [
     }]
 export default function EventCalendar(props) {
     const [rows, setrows] = React.useState([])
+    const [reload, setreload] = React.useState([])
     const toStdDate = (date) => {
         var year = date.slice(0, 4)
         var month = date.slice(5, 7)
@@ -67,28 +68,31 @@ export default function EventCalendar(props) {
         axios.get(API_BASE_URL + "/majlis/event-calendar")
             .then(({ data }) => {
                 data.result.map((row) => {
-                    row.EventDate = toStdDate(row.EventDate)
+                    row.EventDate = toStdDate(row.event_date)
                 })
                 setrows(data.result)
             }).catch((err) => {
                 alert(err)
             })
-    }, []);
+    }, [reload]);
 
     const deleteEvent = (eventId) => {
-        axios.delete(API_BASE_URL + '/majlis/admin/' + eventId, {
+        axios.delete(API_BASE_URL + '/majlis/admin/event-calendar/' + eventId, {
             headers: {
-                'Authorization': 'token'
+                'Authorization': localStorage.getItem('EdasseryMajlisToken')
             }
         })
-            .then(response => { console.log("deleted", response) })
+            .then(response => {
+                console.log("deleted", response)
+                window.location.reload()
+            })
             .catch(err => console.log("Netwoek Error", err));
     }
 
     return (
         <EventCalendarCard>
             <EventTable tablename='Event List' columns={EventColumns} rows={rows}
-                tablename={"Event Calender"} deleteEvent={deleteEvent} />
+                tablename={"Event Calender"} deleteEvent={deleteEvent} setreload={setreload} />
         </EventCalendarCard>
     )
 }
@@ -149,7 +153,12 @@ export function EventTable(props) {
         setRowsPerPage(+event.target.value);
         setPage(0);
     }
-
+    const toStdDate = (date) => {
+        var year = date.slice(0, 4)
+        var month = date.slice(5, 7)
+        var day = date.slice(8, 10)
+        return day + "-" + month + "-" + year
+    }
     return (
         <Paper className={classes.root}>
             <div>
@@ -158,17 +167,24 @@ export function EventTable(props) {
             <Formik
                 initialValues={{ event_date: '', title: '', description: '' }}
                 onSubmit={(values, { setSubmitting, setErrors }) => {
-                    axios.post(API_BASE_URL + '/admin/majlis/eventcalendar', {
+                    axios.post(API_BASE_URL + '/majlis/admin/event-calendar', {
                         event_date: values.event_date,
                         title: values.title,
                         description: values.description,
+                    }, {
+                        headers: {
+                            'Authorization': localStorage.getItem('EdasseryMajlisToken')
+                        }
                     })
                         .then((response) => {
-                            alert("Subscription Added");
+                            if (response.data.status === 200) {
+                                alert("event Added");
+                            }
+                            window.location.reload()
                         })
                         .catch(function (error) {
                             alert(error)
-                            console.log(error);;
+                            console.log(error);
                         });
                     setSubmitting(false);
 
@@ -282,7 +298,7 @@ export function EventTable(props) {
                                     })}
 
                                     <TableCell >
-                                        <Button variant="contained" color="secondary" onClick={() => props.deleteEvent(row.title)} >
+                                        <Button variant="contained" color="secondary" onClick={() => props.deleteEvent(row.ID)} >
                                             Delete
                                         </Button>
                                     </TableCell>

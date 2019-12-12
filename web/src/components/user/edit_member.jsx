@@ -22,7 +22,6 @@ import Loading from '../sub_components/loading'
 
 
 const JoinMajlisCard = styled.div`
-margin: 5vh 10vw 0 10vw;
 `;
 const Heading = styled.h1`
 color:#1d4219;
@@ -88,77 +87,68 @@ export default function JoinMajlis(props) {
     const [canLoad, setLoading] = React.useState(false)
     useEffect(() => {
         window.scrollTo(0, 0)
-        axios.get(API_BASE_URL + '/majlis/auth/admin', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
+        axios.get(API_BASE_URL + '/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
             repsonse => {
                 if (repsonse.status != 200) {
-                    window.location = "/Admin/Login"
+                    window.location = "/MemberLogin"
                 }
             }
         ).catch(error => {
-            window.location = "/Admin/Login"
+            window.location = "/MemberLogin"
             alert("Authentication Failed")
         })
         setLoading(true)
-        props.setUser("admin")
-        if (props.userFields != null) {
-            props.setState("Members")
-        } else {
-            props.setState("AddMember")
-
-        }
-
-    }, [ ])
+    }, [])
     var FormReset
     return (
         <div>
             {canLoad === true ?
                 <JoinMajlisCard>
-                    <Heading>Add Member Form</Heading>
                     <Paper>
                         <Formik
                             initialValues={{
-                                email: props.email || '',
-                                name: props.name || '',
-                                housename: props.housename || '',
-                                fathername: props.fathername || '',
-                                place: props.place || '',
-                                country: props.country || '',
-                                content: props.content || '',
-                                phone_number_1: props.phone_number_1 || '',
-                                phone_number_2: props.phone_number_2 || '',
-                                office_phone_number: props.office_phone_number || '',
-                                home_phone_number: props.home_phone_number || '',
-                                bloodgroup: props.bloodgroup || '',
-                                passport: props.passport || '',
-                                dob: props.dob || '',
-                                job: props.job || '',
-                                company_name: props.company_name || '',
-                                postcode: props.postcode || '',
-                                area: props.area || '',
-                                emirates: props.emirates || '',
-                                education: props.education || '',
-                                jobqualification: props.jobqualification || '',
-                                residential: props.residential || '',
-                                area: props.area || '',
-                                building: props.building || '',
-                                flat: props.flat || '',
-                                emirates_residential: props.emirates_residential || '',
-                                marriage_status: props.marriage_status || '',
-                                family_status: props.family_status || '',
-                                no_of_boys: props.no_of_boys || '',
-                                no_of_girls: props.no_of_girls || '',
-                                closest_relative: props.closest_relative || '',
-                                relative_phone: props.relative_phone || '',
-                                address: props.address || '',
-                                place_home: props.place_home || '',
-                                person_to_contact: props.person_to_contact || '',
-                                person_to_contact_relation: props.person_to_contact_relation || '',
-                                phone_home: props.phone_home || '',
-                                mahal_phone: props.mahal_phone || '',
-                                file: props.file || ''
+                                email: props.userFields.email || '',
+                                name: props.userFields.name || '',
+                                housename: props.userFields.house_name || '',
+                                fathername: props.userFields.father_name || '',
+                                place: props.userFields.place || '',
+                                country: props.userFields.country || '',
+                                content: props.userFields.content || '',
+                                phone_number_1: props.userFields.ph_number_1 || '',
+                                phone_number_2: props.userFields.ph_number_2 || '',
+                                office_phone_number: props.userFields.office_ph_number || '',
+                                home_phone_number: props.userFields.home_ph_number || '',
+                                bloodgroup: props.userFields.blood_group || '',
+                                passport: props.userFields.passport_number || '',
+                                dob: props.userFields.dob || '',
+                                job: props.userFields.job || '',
+                                company_name: props.userFields.company_name || '',
+                                postcode: props.userFields.comaany_post_code || '',
+                                area: props.userFields.company_area || '',
+                                emirates: props.userFields.company_emirates || '',
+                                education: props.userFields.education || '',
+                                jobqualification: props.userFields.job_qualification || '',
+                                residential: props.userFields.uae_residential || '',
+                                area: props.userFields.uae_area || '',
+                                building: props.userFields.uae_building || '',
+                                flat: props.userFields.uae_flatno || '',
+                                emirates_residential: props.userFields.uae_emirates || '',
+                                marriage_status: props.userFields.is_married || '',
+                                family_status: props.userFields.family_status || '',
+                                no_of_boys: props.userFields.no_boys_children || '',
+                                no_of_girls: props.userFields.no_girls_children || '',
+                                closest_relative: props.userFields.uae_relationship || '',
+                                relative_phone: props.userFields.uae_relative_ph || '',
+                                address: props.userFields.home_address || '',
+                                place_home: props.userFields.home_place || '',
+                                person_to_contact: props.userFields.person_to_contact || '',
+                                person_to_contact_relation: props.userFields.person_to_contact_relationship || '',
+                                phone_home: props.userFields.home_number || '',
+                                mahal_phone: props.userFields.mahal_phone || '',
+                                file: props.userFields.file || ''
                             }}
                             onSubmit={(values, { setSubmitting }) => {
-                                axios.post(API_BASE_URL + '/majlis/add/member', {
+                                axios.put(API_BASE_URL + '/majlis/add/member', {
                                     email: values.email,
                                     name: values.name,
                                     housename: values.housename,
@@ -342,7 +332,7 @@ export default function JoinMajlis(props) {
                                                     <Grid item xs={4}>
                                                         <label htmlFor="name">
                                                             First Name
-                                                        </label>
+                        </label>
                                                     </Grid>
                                                     <Grid item xs={8}>
                                                         <input
@@ -353,7 +343,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.name && touched.name ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.name && touched.name ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.name && touched.name ? (
                                                             <div className="input-feedback">{errors.name}</div>
@@ -377,7 +367,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.housename && touched.housename ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.housename && touched.housename ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.housename && touched.housename ? (
                                                             <div className="input-feedback">{errors.housename}</div>
@@ -401,7 +391,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.fathername && touched.fathername ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.fathername && touched.fathername ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.fathername && touched.fathername ? (
                                                             <div className="input-feedback">{errors.fathername}</div>
@@ -426,7 +416,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.phone_number_1 && touched.phone_number_1 ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.phone_number_1 && touched.phone_number_1 ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.phone_number_1 && touched.phone_number_1 ? (
                                                             <div className="input-feedback">{errors.name}</div>
@@ -450,7 +440,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.phone_number_2 && touched.phone_number_2 ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.phone_number_2 && touched.phone_number_2 ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.phone_number_2 && touched.phone_number_2 ? (
                                                             <div className="input-feedback">{errors.phone_number_2}</div>
@@ -475,7 +465,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.office_phone_number && touched.office_phone_number ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.office_phone_number && touched.office_phone_number ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.office_phone_number && touched.office_phone_number ? (
                                                             <div className="input-feedback">{errors.office_phone_number}</div>
@@ -500,7 +490,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.home_phone_number && touched.home_phone_number ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.home_phone_number && touched.home_phone_number ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.home_phone_number && touched.home_phone_number ? (
                                                             <div className="input-feedback">{errors.home_phone_number}</div>
@@ -525,7 +515,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.email && touched.email ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.email && touched.email ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.email && touched.email ? (
                                                             <div className="input-feedback">{errors.email}</div>
@@ -550,7 +540,7 @@ export default function JoinMajlis(props) {
                                                             onChange={onChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.bloodgroup && touched.bloodgroup ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.bloodgroup && touched.bloodgroup ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.bloodgroup && touched.bloodgroup ? (
                                                             <div className="input-feedback">{errors.bloodgroup}</div>
@@ -576,7 +566,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.passport && touched.passport ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.passport && touched.passport ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.passport && touched.passport ? (
                                                             <div className="input-feedback">{errors.passport}</div>
@@ -601,7 +591,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.dob && touched.dob ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.dob && touched.dob ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.dob && touched.dob ? (
                                                             <div className="input-feedback">{errors.dob}</div>
@@ -627,7 +617,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.job && touched.job ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.job && touched.job ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.job && touched.job ? (
                                                             <div className="input-feedback">{errors.job}</div>
@@ -652,7 +642,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.company_name && touched.company_name ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.company_name && touched.company_name ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.company_name && touched.company_name ? (
                                                             <div className="input-feedback">{errors.company_name}</div>
@@ -677,7 +667,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.postcode && touched.postcode ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.postcode && touched.postcode ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.postcode && touched.postcode ? (
                                                             <div className="input-feedback">{errors.postcode}</div>
@@ -702,7 +692,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.area && touched.area ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.area && touched.area ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.area && touched.area ? (
                                                             <div className="input-feedback">{errors.area}</div>
@@ -727,7 +717,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.emirates && touched.emirates ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.emirates && touched.emirates ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.emirates && touched.emirates ? (
                                                             <div className="input-feedback">{errors.emirates}</div>
@@ -751,7 +741,7 @@ export default function JoinMajlis(props) {
                                                             onChange={onInstitutionChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.institution && touched.institution ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.institution && touched.institution ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.institution && touched.institution ? (
                                                             <div className="input-feedback">{errors.institution}</div>
@@ -776,7 +766,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.education && touched.education ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.education && touched.education ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.education && touched.education ? (
                                                             <div className="input-feedback">{errors.education}</div>
@@ -800,7 +790,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.jobqualification && touched.jobqualification ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.jobqualification && touched.jobqualification ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.jobqualification && touched.jobqualification ? (
                                                             <div className="input-feedback">{errors.jobqualification}</div>
@@ -824,7 +814,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.licence && touched.licence ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.licence && touched.licence ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.licence && touched.licence ? (
                                                             <div className="input-feedback">{errors.licence}</div>
@@ -849,7 +839,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.residential && touched.residential ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.residential && touched.residential ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.residential && touched.residential ? (
                                                             <div className="input-feedback">{errors.residential}</div>
@@ -873,7 +863,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.area && touched.area ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.area && touched.area ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.area && touched.area ? (
                                                             <div className="input-feedback">{errors.area}</div>
@@ -897,7 +887,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.building && touched.building ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.building && touched.building ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.building && touched.building ? (
                                                             <div className="input-feedback">{errors.building}</div>
@@ -921,7 +911,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.flat && touched.flat ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.flat && touched.flat ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.flat && touched.flat ? (
                                                             <div className="input-feedback">{errors.flat}</div>
@@ -945,7 +935,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.emirates_residential && touched.emirates_residential ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.emirates_residential && touched.emirates_residential ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.emirates_residential && touched.emirates_residential ? (
                                                             <div className="input-feedback">{errors.emirates_residential}</div>
@@ -970,7 +960,7 @@ export default function JoinMajlis(props) {
                                                             onChange={onMarriageChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.marriage_status && touched.marriage_status ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.marriage_status && touched.marriage_status ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.marriage_status && touched.marriage_status ? (
                                                             <div className="input-feedback">{errors.marriage_status}</div>
@@ -995,7 +985,7 @@ export default function JoinMajlis(props) {
                                                             onChange={onFamilyStatusChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.family_status && touched.family_status ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.family_status && touched.family_status ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.family_status && touched.family_status ? (
                                                             <div className="input-feedback">{errors.family_status}</div>
@@ -1020,7 +1010,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.no_of_boys && touched.no_of_boys ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.no_of_boys && touched.no_of_boys ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.no_of_boys && touched.no_of_boys ? (
                                                             <div className="input-feedback">{errors.no_of_boys}</div>
@@ -1045,7 +1035,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.no_of_girls && touched.no_of_girls ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.no_of_girls && touched.no_of_girls ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.no_of_girls && touched.no_of_girls ? (
                                                             <div className="input-feedback">{errors.no_of_girls}</div>
@@ -1069,7 +1059,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.closest_relative && touched.closest_relative ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.closest_relative && touched.closest_relative ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.closest_relative && touched.closest_relative ? (
                                                             <div className="input-feedback">{errors.closest_relative}</div>
@@ -1094,7 +1084,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.relative_phone && touched.relative_phone ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.relative_phone && touched.relative_phone ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.relative_phone && touched.relative_phone ? (
                                                             <div className="input-feedback">{errors.relative_phone}</div>
@@ -1119,7 +1109,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.relation && touched.relation ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.relation && touched.relation ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.relation && touched.relation ? (
                                                             <div className="input-feedback">{errors.relation}</div>
@@ -1144,7 +1134,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.address && touched.address ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.address && touched.address ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.address && touched.address ? (
                                                             <div className="input-feedback">{errors.address}</div>
@@ -1168,7 +1158,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.place_home && touched.place_home ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.place_home && touched.place_home ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.place_home && touched.place_home ? (
                                                             <div className="input-feedback">{errors.place_home}</div>
@@ -1192,7 +1182,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.person_to_contact && touched.person_to_contact ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.person_to_contact && touched.person_to_contact ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.person_to_contact && touched.person_to_contact ? (
                                                             <div className="input-feedback">{errors.person_to_contact}</div>
@@ -1216,7 +1206,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.person_to_contact_relation && touched.person_to_contact_relation ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.person_to_contact_relation && touched.person_to_contact_relation ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.person_to_contact_relation && touched.person_to_contact_relation ? (
                                                             <div className="input-feedback">{errors.person_to_contact_relation}</div>
@@ -1240,7 +1230,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.phone_home && touched.phone_home ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.phone_home && touched.phone_home ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.phone_home && touched.phone_home ? (
                                                             <div className="input-feedback">{errors.phone_home}</div>
@@ -1264,7 +1254,7 @@ export default function JoinMajlis(props) {
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.mahal_phone && touched.mahal_phone ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.mahal_phone && touched.mahal_phone ? 'cal-inputs text-input error' : 'cal-inputs text-input'}
                                                         />
                                                         {errors.mahal_phone && touched.mahal_phone ? (
                                                             <div className="input-feedback">{errors.mahal_phone}</div>

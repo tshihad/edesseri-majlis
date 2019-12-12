@@ -83,9 +83,9 @@ export default function CommonTable(props) {
     const columns = ['MemberID', 'Name', 'Phone Number', 'Email']
     return (
         <Paper className={classes.root}>
-            <div>
+            {props.subscription ? <div></div> : <div>
                 <div className={classes.heading}>{props.tablename}</div>
-            </div>
+            </div>}
             <div className={classes.tableWrapper}>
                 <Table stickyHeader>
                     <TableHead style={{ zIndex: "-1" }}>
@@ -108,6 +108,11 @@ export default function CommonTable(props) {
                                     {Idcolumns.map(column => {
                                         const value = row[column];
                                         return (
+                                            props.subscription ?
+                                            <TableCell title="Subscriptions Info">
+                                                {column === 'MemberID' ? <Link to={"/Admin/View/Subscription/" + value}>{value}</Link> : value}
+                                            </TableCell>
+                                            :
                                             <TableCell title="Go to user Details">
                                                 {column === 'MemberID' ? <Link to={"/Admin/View/Member/" + value}>{value}</Link> : value}
                                             </TableCell>

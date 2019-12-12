@@ -96,7 +96,7 @@ function MemberLogin(props) {
           alert("Incorrect Username or Password")
         }
       }).catch((err) => {
-        alert("Server Error")
+        alert("Server Error"+err)
       })
 
   }

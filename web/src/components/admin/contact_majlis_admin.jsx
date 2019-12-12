@@ -28,7 +28,7 @@ const EventColumns = [
         minWidth: 50
     },
     {
-        id: 'phone_number',
+        id: 'phone',
         label: 'Phone Number',
         align: 'center',
         minWidth: 50
@@ -69,24 +69,25 @@ export default function ContactMajlisAdmin(props) {
             alert("Authentication Failed")
         })
         setLoading(true)
-        axios.get(API_BASE_URL + '/majlis/admin/contactmajlis',{ headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } })
+        axios.get(API_BASE_URL + '/majlis/admin/contact-majlis', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } })
             .then(({ data }) => {
-                // data.result.map((row) => {
-                //     return row
-                // })
+                data.result.map((row) => {
+                    return row
+                })
+                alert(JSON.stringify(data.result))
                 setrows(data.result)
             }).catch((err) => {
-                alert(err)
+                alert("server Error")
             })
         props.setUser("admin")
         props.setState("ContactMajlisAdmin")
-    }, [props])
+    }, [])
     return (
         <div>
             {canLoad === true ?
-            <ConatctmajlisCard>
-                <Table tablename='Contact Majlis' columns={EventColumns} rows={rows} />
-            </ConatctmajlisCard>
+                <ConatctmajlisCard>
+                    <Table tablename='Contact Majlis' columns={EventColumns} rows={rows} />
+                </ConatctmajlisCard>
                 : <Loading />}</div>
     )
 }
