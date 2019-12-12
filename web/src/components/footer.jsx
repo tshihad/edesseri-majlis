@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
+import MediaQuery from 'react-responsive'
+
 
 
 const Footer = styled.div`
@@ -33,7 +35,8 @@ padding-top: 5%`;
 export default function MainFooter() {
     return (
         <Footer>
-            <Grid container spacing={3}>
+            <MediaQuery minDeviceWidth={1224}>
+            <Grid container >
                 <Grid item xs={6}></Grid>
                 <Grid item xs={3}>
                     <Head>Contact Us</Head>
@@ -48,25 +51,34 @@ export default function MainFooter() {
                     <Head>Visit Us</Head>
                     <Content>www.edasserymajlis.com</Content>
                     <Links>
-                        <Copyright/>
+                        <Copyright />
                     </Links>
                 </Grid>
-
             </Grid>
-        </Footer>
+            </MediaQuery>
+            <MediaQuery maxDeviceWidth={1224}>
+            <Grid container >
+                <Grid item xs={12}>
+                    <Links>
+                        <Copyright />
+                    </Links>
+                </Grid>
+            </Grid>
+            </MediaQuery>
+        </Footer >
     )
 }
 
 function Copyright() {
 
     return (
-      <Typography variant="body2" color="textSecondary" align="center" style={{color:"#f1c37d"}}>
-        {'Copyright © '}
-        <Link style={{color:"#f1c37d"}}  href="http://www.edasserymajlis.com">
-          sketechi
+        <Typography variant="body2" color="textSecondary" align="center" style={{ color: "#f1c37d" }}>
+            {'Copyright © '}
+            <Link style={{ color: "#f1c37d" }} href="http://www.edasserymajlis.com">
+                sketechi
         </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
+            {new Date().getFullYear()}
+            {'.'}
+        </Typography>
     );
-  }
+}

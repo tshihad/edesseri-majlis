@@ -66,7 +66,7 @@ export default function Downloads(props) {
         })
         setDocuments(data.result)
       })
-  }, [props])
+  }, [ ])
   return (
     <DownloadMainCard>
       {documents.length === 0 ? <NoDownloads>--No Downloadable Files--</NoDownloads> :

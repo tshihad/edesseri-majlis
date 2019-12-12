@@ -104,7 +104,7 @@ language= {props.language === "മലയാളം" ?"malayalam" :"english"} bull
 const Card = styled.div`
 width:100%;
 padding: 5vh 15vw;
-text-align: justify
+text-align: justify;
 `;
 const Headline = styled.h3`
 color:#1d4219;
@@ -198,7 +198,6 @@ color: #556b2f;
 
 
 function Events(props){
-
   const toStdDate = (date)=>{
     var year = date.slice(0,4)
     var month = date.slice(5,7)
@@ -211,7 +210,7 @@ function Events(props){
       <Event>
         <EventNoteIcon style={{fontSize:"6vh"}}/>
         <Item>
-          <Date>{toStdDate(event.EventDate)}</Date>
+          <Date>{toStdDate(event.event_date)}</Date>
           <div>{event.Title.slice(0,50)}</div>
           </Item>
       </Event>
