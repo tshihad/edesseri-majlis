@@ -84,6 +84,25 @@ const yesnoOptions = [
         value: 'no'
     }
 ];
+
+const institutionOptions = [
+    {
+        label: 'government',
+        value: 'government'
+    },
+    {
+        label: 'semi-govt',
+        value: 'semi-govt'
+    },
+    {
+        label: 'private',
+        value: 'private'
+    },
+    {
+        label: 'other',
+        value: 'other'
+    }
+];
 export default function JoinMajlis(props) {
     const [canLoad, setLoading] = React.useState(false)
     useEffect(() => {
@@ -746,6 +765,7 @@ export default function JoinMajlis(props) {
                                                     <Grid item xs={8}>
                                                         <Select
                                                             id="institution"
+                                                            options={institutionOptions}
                                                             placeholder="Institution"
                                                             value={values.institution}
                                                             onChange={onInstitutionChange}
@@ -1113,7 +1133,6 @@ export default function JoinMajlis(props) {
                                                     <Grid item xs={8}>
                                                         <input
                                                             id="relation"
-                                                            type="number"
                                                             placeholder="Relationship"
                                                             value={values.relation}
                                                             onChange={handleChange}
@@ -1235,6 +1254,7 @@ export default function JoinMajlis(props) {
                                                     <Grid item xs={8}>
                                                         <input
                                                             id="phone_home"
+                                                            type="number"
                                                             placeholder="Phone Number"
                                                             value={values.phone_home}
                                                             onChange={handleChange}
