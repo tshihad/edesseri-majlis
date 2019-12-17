@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
+import Select from 'react-select';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Grid } from '@material-ui/core';
@@ -13,7 +14,14 @@ padding-bottem: 200px;`;
 export default function ContactMajlisAdmin(props) {
   const [canLoad, setLoading] = React.useState(false)
   const [imgdata, setImgData] = React.useState([]);
+  const [subcategory, setOptions] = React.useState('');
   const [deleted, setDeleted] = React.useState(false);
+  const [miladOptions, setMiladOptions] = React.useState([2019,2020]);
+  const [eidOptions, setEidOptions] = React.useState([]);
+  const [iftarOptions, setIftarOptions] = React.useState([]);
+  const [sportsOptions, setSportsOptions] = React.useState([]);
+  const [meetandgreetOptions, setMeetAndGreetOptions] = React.useState([]);
+  
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -37,6 +45,18 @@ export default function ContactMajlisAdmin(props) {
     props.setState("EventGalleryAdmin")
   }, [props, deleted])
 
+  useEffect(()=>{
+    axios.get(API_BASE_URL + '/majlis/admin/event-gallery/getOptions',
+    { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } })
+    .then(response =>{
+      setMiladOptions(response.milad);
+      setEidOptions(response.eid);
+      setIftarOptions(response.iftar);
+      setSportsOptions(response.sports);
+      setMeetAndGreetOptions(response.meetandgreet)
+    })
+  },[])
+
   const deleteImg = (id) => {
     axios.delete(API_BASE_URL + '/majlis/admin/event-gallery/' + props.category + '/' + id,
       { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } })
@@ -47,7 +67,7 @@ export default function ContactMajlisAdmin(props) {
   const handleImageChange = file => {
     var bodyFormData = new FormData();
     bodyFormData.append('upload_file', ...file);
-    axios.post(API_BASE_URL + '/majlis/admin/event-gallery/' + props.category, bodyFormData,
+    axios.post(API_BASE_URL + '/majlis/admin/event-gallery/' + props.category+'/'+subcategory.value, bodyFormData,
       {
         headers: {
           'Authorization': localStorage.getItem('EdasseryMajlisToken'),
@@ -80,11 +100,31 @@ font-family: 'Comfortaa', cursive;
         return "Other"
     }
   }
+
+  const getOptions = (category) => {
+    switch (category) {
+      case "milad":
+        return miladOptions.map(item =>({label:`${item}`,value:`${item}`}))
+        case "eid":
+        return eidOptions.map(item =>({label:`${item}`,value:`${item}`}))
+        case "iftar":
+        return iftarOptions.map(item =>({label:`${item}`,value:`${item}`}))
+        case "sports":
+        return sportsOptions.map(item =>({label:`${item}`,value:`${item}`}))
+        case "meetandgreet":
+        return meetandgreetOptions.map(item =>({label:`${item}`,value:`${item}`}))
+        case "other":
+        return "Other"
+    }
+  }
   return (
     <div>
       {canLoad === true ?
         <AdminGallery>
           <Headline>{getHeading(props.category)}</Headline>
+            <span><Select options={getOptions(props.category)} 
+            onChange={(e)=>setOptions(e)} value={subcategory}
+            defaultValue={getOptions(props.category)[0]}/></span>
           <Grid container spacing={0} justify="center">
             <DropzoneArea id="file" onChange={handleImageChange} showPreviewsInDropzone={false} />
           </Grid>
