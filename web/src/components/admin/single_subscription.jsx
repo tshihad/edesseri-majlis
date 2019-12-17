@@ -73,23 +73,24 @@ export default function Subscription(props) {
         if (localStorage.getItem('VerifiedUser')) {
             setLoading(true)
         } else {
-            axios.get(API_BASE_URL + '/majlis/auth/admin', 
-            { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }
+            axios.get(API_BASE_URL + '/majlis/auth/admin',
+                { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }
             ).then(
                 repsonse => {
                     if (repsonse.status != 200) {
-                        window.location = "/MemberLogin"
+                        window.location = "/Admin"
                     }
                 }
             ).catch(error => {
-                window.location = "/MemberLogin"
+                window.location = "/Admin"
                 alert("Authentication Failed")
             })
         }
         setLoading(true)
-        axios.get(API_BASE_URL + '/Admin/subscription/' + memberID,
+        axios.get(API_BASE_URL + '/admin/subscription/member/' + memberID,
             { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } })
             .then((response) => {
+                alert(JSON.stringify(response))
                 var years = []
                 var subscriptions = []
                 response.data.result.map((row) => {
@@ -108,6 +109,7 @@ export default function Subscription(props) {
                 setrows(years)
             }).catch((err) => {
                 console.log(err)
+                alert(err)
             })
     }, [])
     return (

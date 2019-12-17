@@ -10,6 +10,8 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import styled from 'styled-components';
 import axios from 'axios';
+import SearchIcon from '@material-ui/icons/Search';
+
 
 const useStyles = makeStyles({
     root: {
@@ -71,6 +73,7 @@ export default function CommonTable(props) {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [searchkey, setSearchKey] = React.useState('')
     function handleChangePage(event, newPage) {
         setPage(newPage);
     }
@@ -79,12 +82,33 @@ export default function CommonTable(props) {
         setRowsPerPage(+event.target.value);
         setPage(0);
     }
-    const Idcolumns = ['MemberID', 'Name', 'ph_number_1', 'Email'];
-    const columns = ['MemberID', 'Name', 'Phone Number', 'Email']
+    const handleKeyChange = (e) => {
+        setSearchKey(e.target.value)
+        props.onSearchChange(searchkey)
+    }
+    const Idcolumns = ['MemberID', 'Name', 'ph_number_1', 'Email', 'Status'];
+    const columns = ['MemberID', 'Name', 'Phone Number', 'Email', 'Status']
     return (
         <Paper className={classes.root}>
-            {props.subscription ? <div></div> : <div>
+            {props.subscription ? <div><div className={classes.heading}>Subscriptoins</div>
+                <input type="text"
+                    className="inputs"
+                    placeholder="enter member id or name"
+                    value={searchkey}
+                    style={{ float: "right", margin: "3vh 1vw 0 0" }}
+                    onChange={handleKeyChange}
+                />
+                <SearchIcon style={{ float: "right", margin: "3.5vh 0 0 0",fontSize: '2em' }}/>
+            </div> : <div>
                 <div className={classes.heading}>{props.tablename}</div>
+                <input type="text"
+                    className="inputs"
+                    placeholder="enter member id or name"
+                    value={searchkey}
+                    style={{ float: "right", margin: "3vh 1vw 0 0" }}
+                    onChange={handleKeyChange}
+                />
+                <SearchIcon style={{ float: "right", margin: "3.5vh 0 0 0",fontSize: '2em' }}/>
             </div>}
             <div className={classes.tableWrapper}>
                 <Table stickyHeader>
@@ -109,13 +133,13 @@ export default function CommonTable(props) {
                                         const value = row[column];
                                         return (
                                             props.subscription ?
-                                            <TableCell title="Subscriptions Info">
-                                                {column === 'MemberID' ? <Link to={"/Admin/View/Subscription/" + value}>{value}</Link> : value}
-                                            </TableCell>
-                                            :
-                                            <TableCell title="Go to user Details">
-                                                {column === 'MemberID' ? <Link to={"/Admin/View/Member/" + value}>{value}</Link> : value}
-                                            </TableCell>
+                                                <TableCell title="Subscriptions Info">
+                                                    {column === 'MemberID' ? <Link to={"/Admin/View/Subscription/" + value}>{value}</Link> : value}
+                                                </TableCell>
+                                                :
+                                                <TableCell title="Go to user Details">
+                                                    {column === 'MemberID' ? <Link to={"/Admin/View/Member/" + value}>{value}</Link> : value}
+                                                </TableCell>
                                         );
                                     })}
                                 </TableRow>

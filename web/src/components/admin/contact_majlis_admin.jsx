@@ -74,7 +74,6 @@ export default function ContactMajlisAdmin(props) {
                 data.result.map((row) => {
                     return row
                 })
-                alert(JSON.stringify(data.result))
                 setrows(data.result)
             }).catch((err) => {
                 alert("server Error")

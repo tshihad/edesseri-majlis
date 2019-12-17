@@ -1,27 +1,56 @@
 import React, { useEffect } from 'react';
-import { Formik } from 'formik';
-import { Grid } from '@material-ui/core';
 import styled from 'styled-components';
-import * as Yup from 'yup';
+import axios from 'axios'
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
 import { API_BASE_URL } from '../constants';
-import axios from 'axios';
-import Loading from '../sub_components/loading';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import "react-tabs/style/react-tabs.css";
-import Members from './sub_members'
+import { Grid } from '@material-ui/core';
+import '../../styles/calendar.css';
+import { Formik } from 'formik'
+import * as Yup from 'yup';
 
-const SubscriptionCard = styled.div`
-margin: 5vh 10vw 0 10vw;`;
-const Headline = styled.h1`
-color:#1d4219;
-font-size: 1.7em;
-font-family: 'Comfortaa', cursive;
+
+const EventCalendarCard = styled.div`
 `;
-export default function Subscriptions(props) {
+
+const EventColumns = [
+    {
+        id: 'EventDate',
+        label: 'Event Date',
+        align: 'center',
+        minWidth: 90
+    },
+    {
+        id: 'Title',
+        label: 'Event Title',
+        align: 'center',
+        minWidth: 120
+    },
+    {
+        id: 'Description',
+        label: 'Description',
+        align: 'center',
+        minWidth: 200
+    }]
+export default function EventCalendar(props) {
+    const [rows, setrows] = React.useState([])
+    const [reload, setreload] = React.useState([])
+    const toStdDate = (date) => {
+        var year = date.slice(0, 4)
+        var month = date.slice(5, 7)
+        var day = date.slice(8, 10)
+        return day + "-" + month + "-" + year
+    }
     const [canLoad, setLoading] = React.useState(false)
     useEffect(() => {
         window.scrollTo(0, 0)
-
         axios.get(API_BASE_URL + '/majlis/auth/admin', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
             repsonse => {
                 if (repsonse.status != 200) {
@@ -34,33 +63,109 @@ export default function Subscriptions(props) {
         })
         setLoading(true)
 
-        props.setUser("admin")
-        props.setState("Subscriptions")
-    })
-    const onSearchchange = ()=>{
+        axios.get(API_BASE_URL + "/majlis/event-calendar")
+            .then(({ data }) => {
+                data.result.map((row) => {
+                    row.EventDate = toStdDate(row.event_date)
+                })
+                setrows(data.result)
+            }).catch((err) => {
+                alert(err)
+            })
+    }, [reload]);
 
+    const deleteEvent = (eventId) => {
+        axios.delete(API_BASE_URL + '/majlis/admin/event-calendar/' + eventId, {
+            headers: {
+                'Authorization': localStorage.getItem('EdasseryMajlisToken')
+            }
+        })
+            .then(response => {
+                console.log("deleted", response)
+                window.location.reload()
+            })
+            .catch(err => console.log("Netwoek Error", err));
+    }
+
+    return (
+        <EventCalendarCard>
+            <EventTable  columns={EventColumns} rows={rows}
+                tablename="Event Calendar" deleteEvent={deleteEvent} setreload={setreload} />
+        </EventCalendarCard>
+    )
+}
+
+const useStyles = makeStyles({
+    root: {
+        width: '100%',
+        backgroundColor: "#e5eee5"
+    },
+    tableWrapper: {
+        maxHeight: '70vh',
+        overflow: 'auto',
+        padding: '0 .5vw'
+    },
+    heading: {
+        display: "inline-block",
+        padding: '1em',
+        color: '#1d4219',
+        minHeight: '4vw',
+        fontSize: '1.7em',
+        fontWeight: '600',
+    },
+    cell: {
+        padding: "1vw .5vw",
+        fontSize: ".9vw",
+        zIndex: "0",
+        fontSize: "1em",
+    },
+});
+
+const MainButton = styled.button`
+border:0;
+outline: 0;
+margin-top:1em;
+background-color: #556b2f;
+color: white;
+width:80%;
+padding: .4em 1em;
+font-size: 1.1em;
+border: 1px solid #556b2f;
+border-radius: .15em;
+&:hover{
+    font-weight: 600;
+    background-color: transparent;
+    color: #556b2f;
+}
+`;
+export function EventTable(props) {
+    const classes = useStyles();
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+    function handleChangePage(event, newPage) {
+        setPage(newPage);
+    }
+
+    function handleChangeRowsPerPage(event) {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
     }
     const YearRegExp = /^[0-9]{4}$/;
     var FormReset
-    const tab = {
-        fontSize: "1.3em",
-        color: "#1d4219",
-        padding: ".5em 1.5em",
-        fontWeight: 600,
+    const toStdDate = (date) => {
+        var year = date.slice(0, 4)
+        var month = date.slice(5, 7)
+        var day = date.slice(8, 10)
+        return day + "-" + month + "-" + year
     }
     return (
-        <div>
-            {canLoad === true ?
-                <SubscriptionCard>
-                    <Tabs>
-                        <TabList>
-                            <Tab style={tab}>Add Subscription</Tab>
-                            <Tab style={tab}>View Subscription</Tab>
-                        </TabList>
-
-                        <TabPanel>
-                            <Formik
-                                initialValues={{ member_id: '', sub_year: '', sub_month: '', sub_amount: '', sub_type: '', payment_date: '', payment_event: '', created_by: '' }}
+        <Paper className={classes.root}>
+            <div>
+                <div className={classes.heading}>{props.tablename}</div>
+            </div>
+            <Formik
+                                initialValues={{ campaign_code: '', welfare_code: '', fiscal_period: '', start_date: '', end_date: '', campaign_note: '', status: '' }}
                                 onSubmit={(values, { setSubmitting, setErrors }) => {
                                     if (!values.sub_year.match(YearRegExp)) {
                                         setErrors({ sub_year: 'Invalid Year' });
@@ -68,14 +173,13 @@ export default function Subscriptions(props) {
                                         return;
                                     }
                                     axios.post(API_BASE_URL + '/majlis/admin/subscription', {
-                                        member_id: values.member_id,
-                                        sub_year: values.sub_year,
-                                        sub_month: values.sub_month,
-                                        sub_amount: values.sub_amount,
-                                        sub_type: values.sub_type,
-                                        payment_date: values.country,
-                                        payment_event: values.payment_event,
-                                        created_by: values.created_by
+                                        campaign_code: values.campaign_code,
+                                        welfare_code: values.welfare_code,
+                                        fiscal_period: values.fiscal_period,
+                                        start_date: values.start_date,
+                                        end_date: values.end_date,
+                                        campaign_note: values.campaign_note,
+                                        status: values.status,
                                     })
                                         .then((response) => {
                                             alert("Subscription Added");
@@ -89,21 +193,19 @@ export default function Subscriptions(props) {
 
                                 }}
                                 validationSchema={Yup.object().shape({
-                                    member_id: Yup.string()
+                                    campaign_code: Yup.string()
                                         .required('Required'),
-                                    sub_year: Yup.string()
+                                    welfare_code: Yup.string()
                                         .required('Required'),
-                                    sub_month: Yup.string()
+                                    fiscal_period: Yup.string()
                                         .required('Required'),
-                                    sub_amount: Yup.string()
+                                    start_date: Yup.string()
                                         .required('Required'),
-                                    sub_type: Yup.string()
+                                    end_date: Yup.string()
                                         .required('Required'),
-                                    payment_date: Yup.string()
+                                    campaign_note: Yup.string()
                                         .required('Required'),
-                                    payment_event: Yup.string()
-                                        .required('Required'),
-                                    created_by: Yup.string()
+                                    status: Yup.string()
                                         .required('Required'),
                                 })}
                             >
@@ -126,23 +228,23 @@ export default function Subscriptions(props) {
                                                 <Grid item xs={6}>
                                                     <Grid container spacing={0}>
                                                         <Grid item xs={4} >
-                                                            <label htmlFor="firstname">
-                                                                Member ID
+                                                            <label htmlFor="campaign_code">
+                                                                Campaign Code
                                             </label>
                                                         </Grid>
                                                         <Grid item xs={6}>
                                                             <input
-                                                                id="member_id"
+                                                                id="campaign_code"
                                                                 placeholder="Enter Member ID"
                                                                 type="text"
-                                                                value={values.member_id}
+                                                                value={values.campaign_code}
                                                                 onChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 className={
-                                                                    errors.member_id && touched.member_id ? 'inputs text-input error' : 'inputs text-input'}
+                                                                    errors.campaign_code && touched.campaign_code ? 'inputs text-input error' : 'inputs text-input'}
                                                             />
-                                                            {errors.member_id && touched.member_id ? (
-                                                                <div className="input-feedback">{errors.member_id}</div>
+                                                            {errors.campaign_code && touched.campaign_code ? (
+                                                                <div className="input-feedback">{errors.campaign_code}</div>
                                                             ) : <div className="input-feedback">&nbsp;</div>}
                                                         </Grid>
                                                     </Grid>
@@ -150,23 +252,23 @@ export default function Subscriptions(props) {
                                                 <Grid item xs={6}>
                                                     <Grid container spacing={0}>
                                                         <Grid item xs={4} >
-                                                            <label htmlFor="firstname">
-                                                                Subscription Year
+                                                            <label htmlFor="welfare_code">
+                                                                Welfare Code
                                             </label>
                                                         </Grid>
                                                         <Grid item xs={6}>
                                                             <input
-                                                                id="sub_year"
+                                                                id="welfare_code"
                                                                 placeholder="Enter Subscription Year"
                                                                 type="text"
-                                                                value={values.sub_year}
+                                                                value={values.welfare_code}
                                                                 onChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 className={
-                                                                    errors.sub_year && touched.sub_year ? 'inputs text-input error' : 'inputs text-input'}
+                                                                    errors.welfare_code && touched.welfare_code ? 'inputs text-input error' : 'inputs text-input'}
                                                             />
-                                                            {errors.sub_year && touched.sub_year ? (
-                                                                <div className="input-feedback">{errors.sub_year}</div>
+                                                            {errors.welfare_code && touched.welfare_code ? (
+                                                                <div className="input-feedback">{errors.welfare_code}</div>
                                                             ) : <div className="input-feedback">&nbsp;</div>}
                                                         </Grid>
                                                     </Grid>
@@ -174,18 +276,18 @@ export default function Subscriptions(props) {
                                                 <Grid item xs={6}>
                                                     <Grid container spacing={0}>
                                                         <Grid item xs={4} >
-                                                            <label htmlFor="firstname">
-                                                                Subscription Month
+                                                            <label htmlFor="fiscal_period">
+                                                                Fiscal Period
                                             </label>
                                                         </Grid>
                                                         <Grid item xs={6}>
-                                                            <select id="sub_month"
+                                                            <select id="fiscal_period"
                                                                 type="text"
-                                                                value={values.sub_month}
+                                                                value={values.fiscal_period}
                                                                 onChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 className={
-                                                                    errors.sub_month && touched.sub_month ? 'inputs text-input error' : 'inputs text-input'}>
+                                                                    errors.fiscal_period && touched.fiscal_period ? 'inputs text-input error' : 'inputs text-input'}>
                                                                 <option >Month</option>
                                                                 <option value="0">January</option>
                                                                 <option value="1">February</option>
@@ -201,8 +303,8 @@ export default function Subscriptions(props) {
                                                                 <option value="11">December</option>
 
                                                             </select>
-                                                            {errors.sub_month && touched.sub_month ? (
-                                                                <div className="input-feedback">{errors.sub_month}</div>
+                                                            {errors.fiscal_period && touched.fiscal_period ? (
+                                                                <div className="input-feedback">{errors.fiscal_period}</div>
                                                             ) : <div className="input-feedback">&nbsp;</div>}
                                                         </Grid>
                                                     </Grid>
@@ -210,23 +312,23 @@ export default function Subscriptions(props) {
                                                 <Grid item xs={6}>
                                                     <Grid container spacing={0}>
                                                         <Grid item xs={4} >
-                                                            <label htmlFor="firstname">
-                                                                Subscription Amount
+                                                            <label htmlFor="start_date">
+                                                                Start Date
                                             </label>
                                                         </Grid>
                                                         <Grid item xs={6}>
                                                             <input
-                                                                id="sub_amount"
+                                                                id="start_date"
                                                                 placeholder="Enter Subscription Amount"
                                                                 type="number"
-                                                                value={values.sub_amount}
+                                                                value={values.start_date}
                                                                 onChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 className={
-                                                                    errors.sub_amount && touched.sub_amount ? 'inputs text-input error' : 'inputs text-input'}
+                                                                    errors.start_date && touched.start_date ? 'inputs text-input error' : 'inputs text-input'}
                                                             />
-                                                            {errors.sub_amount && touched.sub_amount ? (
-                                                                <div className="input-feedback">{errors.sub_amount}</div>
+                                                            {errors.start_date && touched.start_date ? (
+                                                                <div className="input-feedback">{errors.start_date}</div>
                                                             ) : <div className="input-feedback">&nbsp;</div>}
                                                         </Grid>
                                                     </Grid>
@@ -234,24 +336,24 @@ export default function Subscriptions(props) {
                                                 <Grid item xs={6}>
                                                     <Grid container spacing={0}>
                                                         <Grid item xs={4} >
-                                                            <label htmlFor="firstname">
-                                                                Subscription type
+                                                            <label htmlFor="end_date">
+                                                                End Date
                                             </label>
                                                         </Grid>
                                                         <Grid item xs={6}>
-                                                            <select id="sub_type"
+                                                            <select id="end_date"
                                                                 type="text"
-                                                                value={values.sub_type}
+                                                                value={values.end_date}
                                                                 onChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 className={
-                                                                    errors.sub_type && touched.sub_type ? 'inputs text-input error' : 'inputs text-input'}>
+                                                                    errors.end_date && touched.end_date ? 'inputs text-input error' : 'inputs text-input'}>
                                                                 <option >type</option>
                                                                 <option value="0">Normal</option>
                                                                 <option value="1">Concession</option>
                                                             </select>
-                                                            {errors.sub_type && touched.sub_type ? (
-                                                                <div className="input-feedback">{errors.sub_type}</div>
+                                                            {errors.end_date && touched.end_date ? (
+                                                                <div className="input-feedback">{errors.end_date}</div>
                                                             ) : <div className="input-feedback">&nbsp;</div>}
                                                         </Grid>
                                                     </Grid>
@@ -259,24 +361,24 @@ export default function Subscriptions(props) {
                                                 <Grid item xs={6}>
                                                     <Grid container spacing={0}>
                                                         <Grid item xs={4} >
-                                                            <label htmlFor="firstname">
-                                                                Payment Date
+                                                            <label htmlFor="campaign_note">
+                                                                Campaign Note
                                             </label>
                                                         </Grid>
                                                         <Grid item xs={6}>
                                                             <input
-                                                                id="payment_date"
+                                                                id="campaign_note"
                                                                 placeholder="Enter Payment Date"
                                                                 type="date"
-                                                                value={values.payment_date}
+                                                                value={values.campaign_note}
                                                                 onChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 style={{ padding: ".4em" }}
                                                                 className={
-                                                                    errors.payment_date && touched.payment_date ? 'inputs text-input error' : 'inputs text-input'}
+                                                                    errors.campaign_note && touched.campaign_note ? 'inputs text-input error' : 'inputs text-input'}
                                                             />
-                                                            {errors.payment_date && touched.payment_date ? (
-                                                                <div className="input-feedback">{errors.payment_date}</div>
+                                                            {errors.campaign_note && touched.campaign_note ? (
+                                                                <div className="input-feedback">{errors.campaign_note}</div>
                                                             ) : <div className="input-feedback">&nbsp;</div>}
                                                         </Grid>
                                                     </Grid>
@@ -284,51 +386,28 @@ export default function Subscriptions(props) {
                                                 <Grid item xs={6}>
                                                     <Grid container spacing={0}>
                                                         <Grid item xs={4} >
-                                                            <label htmlFor="firstname">
-                                                                Payment Event
+                                                            <label htmlFor="status">
+                                                                Status
                                             </label>
                                                         </Grid>
                                                         <Grid item xs={6}>
                                                             <input
-                                                                id="payment_event"
+                                                                id="status"
                                                                 placeholder="Enter Payment Event"
                                                                 type="text"
-                                                                value={values.payment_event}
+                                                                value={values.status}
                                                                 onChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 className={
-                                                                    errors.payment_event && touched.payment_event ? 'inputs text-input error' : 'inputs text-input'}
+                                                                    errors.status && touched.status ? 'inputs text-input error' : 'inputs text-input'}
                                                             />
-                                                            {errors.payment_event && touched.payment_event ? (
-                                                                <div className="input-feedback">{errors.payment_event}</div>
+                                                            {errors.status && touched.status ? (
+                                                                <div className="input-feedback">{errors.status}</div>
                                                             ) : <div className="input-feedback">&nbsp;</div>}
                                                         </Grid>
                                                     </Grid>
                                                 </Grid>
-                                                <Grid item xs={6}>
-                                                    <Grid container spacing={0}>
-                                                        <Grid item xs={4} >
-                                                            <label htmlFor="firstname">
-                                                                Created By
-                                            </label>
-                                                        </Grid>
-                                                        <Grid item xs={6}>
-                                                            <input
-                                                                id="created_by"
-                                                                placeholder="Enter Created By"
-                                                                type="text"
-                                                                value={values.created_by}
-                                                                onChange={handleChange}
-                                                                onBlur={handleBlur}
-                                                                className={
-                                                                    errors.created_by && touched.created_by ? 'inputs text-input error' : 'inputs text-input'}
-                                                            />
-                                                            {errors.created_by && touched.created_by ? (
-                                                                <div className="input-feedback">{errors.created_by}</div>
-                                                            ) : <div className="input-feedback">&nbsp;</div>}
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
+                                                <Grid item xs={6}></Grid>
                                                 <Grid item xs={4}></Grid>
                                                 <Grid item xs={2} style={{ display: "inline-block" }}>
                                                     <button
@@ -353,13 +432,65 @@ export default function Subscriptions(props) {
                                     );
                                 }}
                             </Formik>
-                        </TabPanel>
-                        <TabPanel>
-                            <Members />
-                        </TabPanel>
-                    </Tabs>
 
-                </SubscriptionCard>
-                : <Loading />}</div>
-    )
+            <div className={classes.tableWrapper}>
+                <Table stickyHeader>
+                    <TableHead style={{ zIndex: "-1" }}>
+                        <TableRow >
+                            {props.columns.map(column => (
+                                <TableCell className={classes.cell}
+                                    key={column.id}
+                                    align={column.align}
+                                    style={{ minWidth: column.minWidth, fontSize: "1.1em", color: '#f1f1f1', backgroundColor: "rgb(85, 107, 47)" }}
+                                >
+                                    {column.label}
+                                </TableCell>
+                            ))}
+                            <TableCell style={{ fontSize: "1.1em", color: '#f1f1f1', backgroundColor: "rgb(85, 107, 47)" }} />
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {props.rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
+                            return (
+                                <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                                    {props.columns.map(column => {
+                                        const value = row[column.id];
+                                        return (
+                                            <TableCell className={classes.cell} key={column.id} align={column.align}>
+                                                {column.format && typeof value === 'number' ? column.format(value) : value}
+                                            </TableCell>
+                                        );
+                                    })}
+
+                                    <TableCell >
+                                        <Button variant="contained" color="secondary" onClick={() => props.deleteEvent(row.ID)} >
+                                            Delete
+                                        </Button>
+                                    </TableCell>
+
+                                </TableRow>
+                            );
+                        })}
+                    </TableBody>
+                </Table>
+            </div>
+            <div style={{ fontSize: '0px' }}>
+                <TablePagination
+                    rowsPerPageOptions={[10, 25, 50, 100]}
+                    component="div"
+                    count={props.rows.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    backIconButtonProps={{
+                        'aria-label': 'previous page',
+                    }}
+                    nextIconButtonProps={{
+                        'aria-label': 'next page',
+                    }}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                /></div>
+        </Paper>
+
+    );
 }

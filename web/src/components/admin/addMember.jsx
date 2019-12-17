@@ -537,7 +537,7 @@ export default function JoinMajlis(props) {
                                             <Grid item xs={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
-                                                        <label htmlFor="bloodgroup" style={{ color: 'black', fontSize: '16px' }}>
+                                                        <label htmlFor="bloodgroup">
                                                             Blood Group
                         </label>
                                                     </Grid>
