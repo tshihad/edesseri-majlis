@@ -121,7 +121,7 @@ export default function JoinMajlis(props) {
             education: props.education || '',
             jobqualification: props.jobqualification || '',
             residential: props.residential || '',
-            area: props.area || '',
+            company_area: props.company_area || '',
             building: props.building || '',
             flat: props.flat || '',
             emirates_residential: props.emirates_residential || '',
@@ -164,7 +164,7 @@ export default function JoinMajlis(props) {
               education: values.education,
               jobqualification: values.jobqualification,
               residential: values.residential,
-              area: values.area,
+              company_area: values.company_area,
               building: values.building,
               flat: values.flat,
               emirates_residential: values.emirates_residential,
@@ -250,7 +250,7 @@ export default function JoinMajlis(props) {
             residential: Yup.string()
             // .required('Required'),
             ,
-            area: Yup.string(),
+            company_area: Yup.string(),
             building: Yup.string(),
             flat: Yup.string(),
             emirates_residential: Yup.string(),
@@ -674,23 +674,23 @@ export default function JoinMajlis(props) {
                   <Grid item xs={6}>
                     <Grid container spacing={0} className="field">
                       <Grid item xs={4}>
-                        <label htmlFor="area">
-                          Area
+                        <label htmlFor="company_area">
+                          Company Area
                         </label>
                       </Grid>
                       <Grid item xs={8}>
                         <input
-                          id="area"
+                          id="company_area"
                           placeholder="Area"
                           type="text"
-                          value={values.area}
+                          value={values.company_area}
                           onChange={handleChange}
                           onBlur={handleBlur}
                           className={
-                            errors.area && touched.area ? 'inputs text-input error' : 'inputs text-input'}
+                            errors.company_area && touched.company_area ? 'inputs text-input error' : 'inputs text-input'}
                         />
-                        {errors.area && touched.area ? (
-                          <div className="input-feedback">{errors.area}</div>
+                        {errors.company_area && touched.company_area ? (
+                          <div className="input-feedback">{errors.company_area}</div>
                         ) : <div className="input-feedback">&nbsp;</div>}
                       </Grid>
                     </Grid>
