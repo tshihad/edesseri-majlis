@@ -285,7 +285,7 @@ export default function JoinMajlis(props) {
                                 phone_home: Yup.number()
                                 // .required('Required')
                                 ,
-                                mahal_phone: Yup.number()
+                                mahal_phone: Yup.string()
                                 // .required('Required')
                                 ,
                                 file: Yup.mixed()
