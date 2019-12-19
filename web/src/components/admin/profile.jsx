@@ -113,7 +113,9 @@ function Profile(props) {
                             <TabPanel>
                                 <Grid container spacing={0}>
                                     <Grid item xs={3}>
-                                        <img className={classes.image} src={localStorage.getItem('UserImageURL')}></img>
+                                        <Grid container spacing={0}>
+                                            <img className={classes.image} src={userFields.image_location}></img>
+                                        </Grid>
                                         <Grid container spacing={0}>
                                             <Grid item xs={3}>
                                                 <Key>Status</Key>
@@ -132,7 +134,7 @@ function Profile(props) {
                                             <Grid container spacing={0}>
                                                 <SubHead>
                                                     Personal Details
-                            </SubHead>
+                                                </SubHead>
                                             </Grid>
                                             <KeyValuePair head="Name" value={userFields.name} />
                                             <KeyValuePair head="House Name" value={userFields.housename} />

@@ -9,6 +9,8 @@ import Loading from '../sub_components/loading';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import "react-tabs/style/react-tabs.css";
 import Members from './sub_members'
+import Actions from './sub_actions'
+
 
 const SubscriptionCard = styled.div`
 margin: 5vh 10vw 0 10vw;`;
@@ -37,7 +39,10 @@ export default function Subscriptions(props) {
         props.setUser("admin")
         props.setState("Subscriptions")
     })
-    const YearRegExp = /^[1-9]{4}$/;
+    const onSearchchange = () => {
+
+    }
+    const YearRegExp = /^[0-9]{4}$/;
     var FormReset
     const tab = {
         fontSize: "1.3em",
@@ -52,7 +57,8 @@ export default function Subscriptions(props) {
                     <Tabs>
                         <TabList>
                             <Tab style={tab}>Add Subscription</Tab>
-                            <Tab style={tab}>View Subscription</Tab>
+                            <Tab style={tab}>Subscription By Member</Tab>
+                            <Tab style={tab}>All Actions</Tab>
                         </TabList>
 
                         <TabPanel>
@@ -132,7 +138,7 @@ export default function Subscriptions(props) {
                                                                 id="member_id"
                                                                 placeholder="Enter Member ID"
                                                                 type="text"
-                                                                value={values.firstname}
+                                                                value={values.member_id}
                                                                 onChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 className={
@@ -156,7 +162,7 @@ export default function Subscriptions(props) {
                                                                 id="sub_year"
                                                                 placeholder="Enter Subscription Year"
                                                                 type="text"
-                                                                value={values.firstname}
+                                                                value={values.sub_year}
                                                                 onChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 className={
@@ -216,7 +222,7 @@ export default function Subscriptions(props) {
                                                                 id="sub_amount"
                                                                 placeholder="Enter Subscription Amount"
                                                                 type="number"
-                                                                value={values.firstname}
+                                                                value={values.sub_amount}
                                                                 onChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 className={
@@ -265,7 +271,7 @@ export default function Subscriptions(props) {
                                                                 id="payment_date"
                                                                 placeholder="Enter Payment Date"
                                                                 type="date"
-                                                                value={values.firstname}
+                                                                value={values.payment_date}
                                                                 onChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 style={{ padding: ".4em" }}
@@ -290,7 +296,7 @@ export default function Subscriptions(props) {
                                                                 id="payment_event"
                                                                 placeholder="Enter Payment Event"
                                                                 type="text"
-                                                                value={values.firstname}
+                                                                value={values.payment_event}
                                                                 onChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 className={
@@ -314,7 +320,7 @@ export default function Subscriptions(props) {
                                                                 id="created_by"
                                                                 placeholder="Enter Created By"
                                                                 type="text"
-                                                                value={values.firstname}
+                                                                value={values.created_by}
                                                                 onChange={handleChange}
                                                                 onBlur={handleBlur}
                                                                 className={
@@ -349,10 +355,36 @@ export default function Subscriptions(props) {
                                         </form>
                                     );
                                 }}
+                                {/* <FieldArray
+                                    name="friends"
+                                    render={arrayHelpers => (
+                                        <div>
+                                            {values.friends.map((friend, index) => (
+                                                <div key={index}>
+                                                    <Field name={`friends[${index}].name`} />
+                                                    <Field name={`friends.${index}.age`} /> // both these conventions do
+                                                    the same
+                                                        <button type="button" onClick={() => arrayHelpers.remove(index)}>
+                                                        -
+                                                     </button>
+                                                </div>
+                                            ))}
+                                            <button
+                                                type="button"
+                                                onClick={() => arrayHelpers.push({ name: '', age: '' })}
+                                            >
+                                                +
+                                            </button>
+                                        </div>
+                                    )}
+                                /> */}
                             </Formik>
                         </TabPanel>
                         <TabPanel>
-                            <Members/>
+                            <Members />
+                        </TabPanel>
+                        <TabPanel>
+                            <Actions />
                         </TabPanel>
                     </Tabs>
 

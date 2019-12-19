@@ -61,9 +61,8 @@ export default function Subscription(props) {
     const [rows, setrows] = React.useState([Rows])
     const [columns, setColumns] = React.useState(Columns)
     const [canLoad, setLoading] = React.useState(false)
-    const [memberID, setMemberID] = React.useState('EXXXX')
-    const [name, setName] = React.useState('XXXXXXXX XXXXXXX')
-    const [email, setEmail] = React.useState('XXXXXX@XXX.XXX')
+
+    const [userField, setUserField] = React.useState()
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -73,21 +72,31 @@ export default function Subscription(props) {
         if (localStorage.getItem('VerifiedUser')) {
             setLoading(true)
         } else {
-            axios.get(API_BASE_URL + '/majlis/auth/admin', 
-            { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }
+            axios.get(API_BASE_URL + '/majlis/auth/admin',
+                { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }
             ).then(
                 repsonse => {
                     if (repsonse.status != 200) {
-                        window.location = "/MemberLogin"
+                        window.location = "/Admin"
                     }
                 }
             ).catch(error => {
-                window.location = "/MemberLogin"
+                window.location = "/Admin"
                 alert("Authentication Failed")
             })
         }
         setLoading(true)
-        axios.get(API_BASE_URL + '/Admin/subscription/' + memberID,
+        axios.get(API_BASE_URL + '/majlis/admin/member/' + memberID,
+            {
+                headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') }
+            }).then((response) => {
+                alert(JSON.stringify(response.data.result))
+                setUserField(response.data.result)
+            }).catch((error) => {
+                alert(memberID+error)
+                console.log(error);
+            })
+        axios.get(API_BASE_URL + '/majlis/admin/subscription/member/' + memberID,
             { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } })
             .then((response) => {
                 var years = []
@@ -108,7 +117,9 @@ export default function Subscription(props) {
                 setrows(years)
             }).catch((err) => {
                 console.log(err)
+                alert(err)
             })
+
     }, [])
     return (
         <div>
@@ -118,10 +129,10 @@ export default function Subscription(props) {
                     <Matrix>
                         <Grid container justify="center">
                             <Grid item xs={1}></Grid>
-                            <Grid item xs={2}><Info>{memberID}</Info></Grid>
-                            <Grid item xs={4}><Info>{name}</Info></Grid>
+                            <Grid item xs={2}><Info>fgh</Info></Grid>
+                            <Grid item xs={4}><Info>hfg</Info></Grid>
                             <Grid item xs={1}></Grid>
-                            <Grid item xs={4}><Info>{email}</Info></Grid>
+                            <Grid item xs={4}><Info>hfg</Info></Grid>
                         </Grid>
                         <Grid container spacing={0}>
                             <Grid item xs={2} style={{ border: "solid 1px #556b2f" }}></Grid>

@@ -427,7 +427,7 @@ export default function Header() {
             <Router path="/EventCalender"><EventCalendar setState={buttonClick} setLanButton={setButton} setuser={setThisUser} /></Router>
 
             <Redirect exact from="/Admin" to="/Admin/Login" />
-            <Route path="/Admin/Login" ><AdminLogin setUser={setThisUser}></AdminLogin></Route>
+            <Route path="/Admin/Login" ><AdminLogin setUser={setThisUser} setLoggedIn={setLogIn} ></AdminLogin></Route>
             <Route path="/Admin/Members" ><Members setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/View/Member/:memberid" ><ViewProfile setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/View/Subscription/:memberid" ><ViewSubscription setState={buttonClick} setUser={setThisUser} /></Route>

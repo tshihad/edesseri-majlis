@@ -74,8 +74,7 @@ function Profile(props) {
             {
                 headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') }
             }).then((response) => {
-                alert(JSON.stringify(response.data.result))
-                setUserField(response.data.result)
+                setUserField(response.data.result)  
             }).catch((error) => {
                 console.log(error);
             })
