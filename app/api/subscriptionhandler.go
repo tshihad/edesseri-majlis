@@ -74,12 +74,7 @@ func (a *App) handleDeleteSubscription(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *App) handleGetsubscriptions(w http.ResponseWriter, r *http.Request) {
-	var req models.SubsAdminTableReq
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to parse string", err)
-		return
-	}
-	resp, err := a.GetSubscriptions(req)
+	resp, err := a.GetSubscriptions()
 	if err != nil {
 		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to get subsciption", err)
 		return

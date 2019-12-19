@@ -14,3 +14,7 @@ type Dimension struct {
 	Height int
 	Width  int
 }
+
+type ECategoryReq struct {
+	Name string `json:"name"`
+}

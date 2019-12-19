@@ -37,3 +37,12 @@ func (a *App) handlePostLoan(w http.ResponseWriter, r *http.Request) {
 	}
 	w.WriteHeader(http.StatusCreated)
 }
+
+func (a *App) handleGetLoans(w http.ResponseWriter, r *http.Request) {
+	loans, err := a.GetLoans()
+	if err != nil {
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to fetch", err)
+		return
+	}
+	a.Success(w, http.StatusOK, loans)
+}

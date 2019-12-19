@@ -21,12 +21,13 @@ type Repo interface {
 
 // MemberRepo for user repo
 type MemberRepo interface {
-	GetMember(string) (models.Member, error)
+	GetMember(string, string) (models.Member, error)
 	CreateMember(models.Member) error
 	UpdateMember(string, models.Member) (models.Member, error)
 	DeleteMember(string) error
 	CreateNewMemberID() (string, error)
 	GetMembers() ([]models.MemberShortResp, error)
+	GetSearchMember(data string) ([]models.MemberShortResp, error)
 }
 
 // EgallerRepo for egallery functions
@@ -41,12 +42,13 @@ type SubscriptionRepo interface {
 	CreateSubscription(models.Subscription) (models.Subscription, error)
 	GetSubscription(memberID string) ([]models.Subscription, error)
 	DeleteSubscriton(id int) error
-	GetSubscriptions(models.SubsAdminTableReq) ([]models.Subscription, error)
+	GetSubscriptions() ([]models.Subscription, error)
 }
 
 // LoanRepo for loans
 type LoanRepo interface {
 	GetLoan(string) ([]models.Loan, error)
+	GetLoans() ([]models.Loan, error)
 	CreateLoan(models.Loan) error
 }
 
@@ -78,8 +80,10 @@ type CalendarRepo interface {
 
 // WelfareRepo wraps welfare functions
 type WelfareRepo interface {
-	CreateWelfare(models.Welfare) error
-	GetWelfare(string) ([]models.Welfare, error)
+	CreateWelfareScheme(models.WelfareScheme) error
+	GetWelfareScheme() ([]models.WelfareScheme, error)
+	CreateWelfareCampaign(models.WelfareCampaign) error
+	GetWelfareCampaign() ([]models.WelfareCampaign, error)
 }
 
 type AdminRepo interface {
