@@ -117,20 +117,23 @@ function Profile(props) {
                                     </Grid>
                                     <Grid item xs={9}>
                                         <Paper style={{ margin: ".5em", padding: ".5em 2em" }}>
+                                        <Grid container spacing={0}>
+                                            <KeyValuePair head="member_status" value={userFields.status} />    
+                                        </Grid>
                                             <Grid container spacing={0}>
                                                 <SubHead>
                                                     Personal Details
                             </SubHead>
                                             </Grid>
                                             <KeyValuePair head="Name" value={userFields.name} />
-                                            <KeyValuePair head="House Name" value={userFields.house_name} />
-                                            <KeyValuePair head="Father's Name" value={userFields.father_name} />
-                                            <KeyValuePair head="Phone Number 1" value={userFields.ph_number_1} />
-                                            <KeyValuePair head="Phone Numder 2" value={userFields.ph_number_2} />
+                                            <KeyValuePair head="House Name" value={userFields.housename} />
+                                            <KeyValuePair head="Father's Name" value={userFields.fathername} />
+                                            <KeyValuePair head="Phone Number 1" value={userFields.phone_number_1} />
+                                            <KeyValuePair head="Phone Number 2" value={userFields.phone_number_2} />
                                             <KeyValuePair head="Office Phone Number" value={userFields.office_ph_number} />
-                                            <KeyValuePair head="Home Phone Numder (UAE)" value={userFields.uae_home_ph_number} />
+                                            <KeyValuePair head="Home Phone Number (UAE)" value={userFields.uae_home_ph_number} />
                                             <KeyValuePair head="Email" value={userFields.email} />
-                                            <KeyValuePair head="Blood Group" value={userFields.blood_group} />
+                                            <KeyValuePair head="Blood Group" value={userFields.bloodgroup} />
                                         </Paper>
                                         <Paper style={{ margin: ".5em", padding: ".5em 2em" }}>
                                             <Grid container spacing={0}>
@@ -138,7 +141,7 @@ function Profile(props) {
                                                     Personal Identification
                                 </SubHead>
                                             </Grid>
-                                            <KeyValuePair head="Passport Number" value={userFields.passport_number} />
+                                            <KeyValuePair head="Passport Number" value={userFields.passport} />
                                             <KeyValuePair head="Date Of Birth" value={userFields.dob} />
                                         </Paper><Paper style={{ margin: ".5em", padding: ".5em 2em" }}>
                                             <Grid container spacing={0}>
@@ -169,12 +172,12 @@ function Profile(props) {
                                                     Resedential Details
                             </SubHead>
                                             </Grid>
-                                            <KeyValuePair head="Residential Address" value={userFields.uae_residential} />
+                                            <KeyValuePair head="Residential Address" value={userFields.uae_area} />
                                             <KeyValuePair head="Marital Status" value={userFields.is_married} />
                                             <KeyValuePair head="Family Living With You" value={userFields.is_family_near} />
                                             <KeyValuePair head="Number Of Childern (Boy)" value={userFields.no_boys_children} />
                                             <KeyValuePair head="Number Of Childern (Girl)" value={userFields.no_girls_children} />
-                                            <KeyValuePair head="Closest Relative In UAE" value={userFields.uae_relative} />
+                                            <KeyValuePair head="Closest Relative In UAE" value={userFields.relative_phone} />
                                             <KeyValuePair head="Relationship" value={userFields.uae_relationship} />
                                             <KeyValuePair head="Contact Number" value={userFields.uae_relative_ph} />
                                         </Paper>
@@ -184,11 +187,11 @@ function Profile(props) {
                                                     Resedential Details (Home)
                             </SubHead>
                                             </Grid>
-                                            <KeyValuePair head="Address" value={userFields.home_addres} />
+                                            <KeyValuePair head="Address" value={userFields.place_home} />
                                             <KeyValuePair head="Person To Contact" value={userFields.person_to_contact} />
                                             <KeyValuePair head="Relationship" value={userFields.person_to_contact_relationship} />
                                             <KeyValuePair head="Phone Numder" value={userFields.home_number} />
-                                            <KeyValuePair head="Mahal Number" value={userFields.mahal_number} />
+                                            <KeyValuePair head="Mahal Number" value={userFields.mahal_phone} />
                                         </Paper>
                                     </Grid>
                                 </Grid>

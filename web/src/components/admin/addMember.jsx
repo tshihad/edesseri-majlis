@@ -750,7 +750,7 @@ export default function JoinMajlis(props) {
                                             <Grid item xs={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
-                                                        <label htmlFor="area">
+                                                        <label htmlFor="company_area">
                                                             Company Area
                         </label>
                                                     </Grid>
