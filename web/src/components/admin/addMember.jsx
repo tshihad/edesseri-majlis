@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { withRouter } from 'react-router-dom';
 import Select from 'react-select';
 import { DropzoneArea } from 'material-ui-dropzone';
 import styled from 'styled-components'
@@ -84,7 +85,41 @@ const yesnoOptions = [
         value: 'no'
     }
 ];
-export default function JoinMajlis(props) {
+
+const memberStatusOptions = [
+    {
+        label: 'Active',
+        value: 'ACTIVE'
+    },
+    {
+        label: 'Inactive',
+        value: 'INACTIVE'
+    },
+    {
+        label: 'Closed',
+        value: 'CLOSED'
+    }
+];
+
+const institutionOptions = [
+    {
+        label: 'government',
+        value: 'government'
+    },
+    {
+        label: 'semi-govt',
+        value: 'semi-govt'
+    },
+    {
+        label: 'private',
+        value: 'private'
+    },
+    {
+        label: 'other',
+        value: 'other'
+    }
+];
+function AddMember(props) {
     const [canLoad, setLoading] = React.useState(false)
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -107,7 +142,7 @@ export default function JoinMajlis(props) {
 
         }
 
-    }, [ ])
+    }, [])
     var FormReset
     return (
         <div>
@@ -118,12 +153,12 @@ export default function JoinMajlis(props) {
                         <Formik
                             initialValues={{
                                 email: props.email || '',
+                                password: props.password,
                                 name: props.name || '',
                                 housename: props.housename || '',
                                 fathername: props.fathername || '',
-                                place: props.place || '',
                                 country: props.country || '',
-                                content: props.content || '',
+                                institution: props.institution || '',
                                 phone_number_1: props.phone_number_1 || '',
                                 phone_number_2: props.phone_number_2 || '',
                                 office_phone_number: props.office_phone_number || '',
@@ -131,81 +166,111 @@ export default function JoinMajlis(props) {
                                 bloodgroup: props.bloodgroup || '',
                                 passport: props.passport || '',
                                 dob: props.dob || '',
+                                date_of_joining: props.date_of_joining || '',
                                 job: props.job || '',
                                 company_name: props.company_name || '',
-                                postcode: props.postcode || '',
+                                postcode: props.postcode,
                                 area: props.area || '',
+                                member_status: props.member_status || '',
+                                company_area: props.company_area || '',
                                 emirates: props.emirates || '',
                                 education: props.education || '',
                                 jobqualification: props.jobqualification || '',
                                 residential: props.residential || '',
-                                area: props.area || '',
                                 building: props.building || '',
                                 flat: props.flat || '',
                                 emirates_residential: props.emirates_residential || '',
                                 marriage_status: props.marriage_status || '',
                                 family_status: props.family_status || '',
-                                no_of_boys: props.no_of_boys || '',
-                                no_of_girls: props.no_of_girls || '',
+                                no_of_boys: props.no_of_boys,
+                                no_of_girls: props.no_of_girls,
                                 closest_relative: props.closest_relative || '',
                                 relative_phone: props.relative_phone || '',
                                 address: props.address || '',
                                 place_home: props.place_home || '',
                                 person_to_contact: props.person_to_contact || '',
                                 person_to_contact_relation: props.person_to_contact_relation || '',
+                                uae_relationship: props.uae_relationship || '',
                                 phone_home: props.phone_home || '',
                                 mahal_phone: props.mahal_phone || '',
                                 file: props.file || ''
                             }}
                             onSubmit={(values, { setSubmitting }) => {
-                                axios.post(API_BASE_URL + '/majlis/add/member', {
-                                    email: values.email,
-                                    name: values.name,
-                                    housename: values.housename,
-                                    fathername: values.fathername,
-                                    place: values.place,
-                                    country: values.country,
-                                    content: values.content,
-                                    phone_number_1: values.phone_number_1,
-                                    phone_number_2: values.phone_number_2,
-                                    office_phone_number: values.office_phone_number,
-                                    home_phone_number: values.home_phone_number,
-                                    bloodgroup: values.bloodgroup,
-                                    passport: values.passport,
-                                    dob: values.dob,
-                                    job: values.job,
-                                    company_name: values.company_name,
-                                    postcode: values.postcode,
-                                    area: values.area,
-                                    emirates: values.emirates,
-                                    education: values.education,
-                                    jobqualification: values.jobqualification,
-                                    residential: values.residential,
-                                    area: values.area,
-                                    building: values.building,
-                                    flat: values.flat,
-                                    emirates_residential: values.emirates_residential,
-                                    marriage_status: values.marriage_status,
-                                    family_status: values.family_status,
-                                    no_of_boys: values.no_of_boys,
-                                    no_of_girls: values.no_of_girls,
-                                    closest_relative: values.closest_relative,
-                                    relative_phone: values.relative_phone,
-                                    address: values.address,
-                                    place_home: values.place_home,
-                                    person_to_contact: values.person_to_contact,
-                                    person_to_contact_relation: values.person_to_contact_relation,
-                                    phone_home: values.phone_home,
-                                    mahal_phone: values.mahal_phone,
-                                    file: values.file
-                                })
-                                    .then((response) => {
-                                        alert("Information Recorderd for Admin Verification");
-                                        FormReset()
+                                var bodyFormData = new FormData();
+                                const { file } = values;
+                                bodyFormData.append('profileImage', file);
+                                axios.post(API_BASE_URL + '/majlis/admin/member/image', bodyFormData,
+                                    {
+                                        headers: {
+                                            "Authorization": localStorage.getItem('EdasseryMajlisToken'),
+                                            'Content-Type': 'multipart/form-data',
+                                            'accept': 'application/json',
+                                        }
                                     })
-                                    .catch(function (error) {
-                                        console.log(error);
-                                    });
+                                    .then((response) => {
+                                        const { image_location } = response.data.result;
+                                        var memberData = {
+                                            email: values.email,
+                                            password: values.password,
+                                            name: values.name,
+                                            housename: values.housename,
+                                            fathername: values.fathername,
+                                            country: values.country,
+                                            phone_number_1: (values.phone_number_1).toString(),
+                                            phone_number_2: values.phone_number_2.toString(),
+                                            office_phone_number: values.office_phone_number.toString(),
+                                            home_phone_number: values.home_phone_number.toString(),
+                                            bloodgroup: values.bloodgroup&&values.bloodgroup.value || '',
+                                            passport: values.passport,
+                                            dob: values.dob,
+                                            job: values.job,
+                                            date_of_joining: values.date_of_joining,
+                                            company_name: values.company_name,
+                                            area: values.area,
+                                            institution: values.institution&&values.institution.value || '',
+                                            member_status: values.member_status&&values.member_status.value || '',
+                                            emirates: values.emirates,
+                                            education: values.education,
+                                            jobqualification: values.jobqualification,
+                                            residential: values.residential,
+                                            company_area: values.company_area,
+                                            building: values.building,
+                                            flat: values.flat,
+                                            emirates_residential: values.emirates_residential,
+                                            marriage_status: values.marriage_status&&values.marriage_status.value || '',
+                                            family_status: values.family_status&&values.family_status.value || '',
+                                            closest_relative: values.closest_relative,
+                                            relative_phone: values.relative_phone.toString(),
+                                            address: values.address,
+                                            place_home: values.place_home,
+                                            person_to_contact: values.person_to_contact,
+                                            person_to_contact_relation: values.person_to_contact_relation,
+                                            uae_relationship: values.uae_relationship,
+                                            phone_home: values.phone_home.toString(),
+                                            mahal_phone: values.mahal_phone,
+                                            image_location: image_location
+                                        }
+                                        if (values.postcode)
+                                            memberData.postcode = values.postcode
+                                        if (values.no_of_boys)
+                                            memberData.no_of_boys = values.no_of_boys
+                                        if (values.no_of_girls)
+                                            memberData.no_of_girls = values.no_of_girls
+                                        axios.post(API_BASE_URL + '/majlis/add/member', memberData,
+                                            { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } })
+                                            .then((response) => {
+                                                console.log("Information Recorderd for Admin Verification", response);
+                                                FormReset()
+                                                console.log('/Admin/View/Member/'+response.data.result)
+                                                props.history.push('/Admin/View/Member/'+response.data.result)
+                                            })
+                                            .catch(function (error) {
+                                                console.log(error);
+                                            });
+                                    })
+                                    .catch(err => {
+                                        console.log(err)
+                                    })
                                 setSubmitting(false);
 
                             }}
@@ -214,6 +279,8 @@ export default function JoinMajlis(props) {
                                     .email()
                                     .required('Required')
                                 ,
+                                password: Yup.string()
+                                    .required(),
                                 name: Yup.string()
                                     .required('Required')
                                 ,
@@ -225,18 +292,15 @@ export default function JoinMajlis(props) {
                                 ,
                                 lastname: Yup.string()
                                 // .required('Required')
-                                ,
-                                place: Yup.string()
+                                // ,
+                                // place: Yup.string()
                                 // .required('Required')
                                 ,
                                 country: Yup.string()
                                 // .required('Required')
                                 ,
-                                content: Yup.string()
-                                // .required('Required')
-                                ,
                                 phone_number_1: Yup.number()
-                                // .required('Required')
+                                    .required('Required')
                                 ,
                                 phone_number_2: Yup.number(),
                                 office_phone_number: Yup.number(),
@@ -248,6 +312,7 @@ export default function JoinMajlis(props) {
                                 dob: Yup.date()
                                 // .required('Required')
                                 ,
+                                date_of_joining: Yup.date(),
                                 job: Yup.string()
                                 // .required('Required')
                                 ,
@@ -256,6 +321,7 @@ export default function JoinMajlis(props) {
                                 ,
                                 postcode: Yup.number(),
                                 area: Yup.string(),
+                                institution: Yup.object(),
                                 emirates: Yup.string(),
                                 education: Yup.string()
                                 // .required('Required')
@@ -266,13 +332,13 @@ export default function JoinMajlis(props) {
                                 residential: Yup.string()
                                 // .required('Required')
                                 ,
-                                area: Yup.string(),
+                                company_area: Yup.string(),
                                 building: Yup.string(),
                                 flat: Yup.string(),
                                 emirates_residential: Yup.string(),
-                                marriage_status: Yup.object()
-                                // .required('Required')
-                                ,
+                                marriage_status: Yup.object(),
+                                member_status: Yup.object()
+                                    .required('Required'),
                                 family_status: Yup.object()
                                 // .required('Required')
                                 ,
@@ -292,6 +358,7 @@ export default function JoinMajlis(props) {
                                 person_to_contact_relation: Yup.string()
                                 // .required('Required')
                                 ,
+                                uae_relationship: Yup.string(),
                                 phone_home: Yup.number()
                                 // .required('Required')
                                 ,
@@ -299,7 +366,7 @@ export default function JoinMajlis(props) {
                                 // .required('Required')
                                 ,
                                 file: Yup.mixed()
-                                // .required('Required')
+                                    .required('Required')
                                 ,
                             })}
                         >
@@ -318,8 +385,10 @@ export default function JoinMajlis(props) {
                                 } = props;
                                 FormReset = handleReset
                                 const onChange = value => {
-                                    console.log(values);
                                     setFieldValue("bloodgroup", value);
+                                }
+                                const onMemberStatusChange = value => {
+                                    setFieldValue("member_status", value);
                                 }
                                 const onInstitutionChange = value => {
                                     setFieldValue("institution", value);
@@ -335,6 +404,32 @@ export default function JoinMajlis(props) {
                                 }
                                 return (
                                     <form onSubmit={handleSubmit} className="form">
+                                        <Grid container spacing={0}>
+                                            <Grid item xs={6}>
+                                                <Grid container spacing={0} className="field">
+                                                    <Grid item xs={4}>
+                                                        <label htmlFor="member_status" >
+                                                            Member Status
+                                                        </label>
+                                                    </Grid>
+                                                    <Grid item xs={8}>
+                                                        <Select
+                                                            id="member_status"
+                                                            options={memberStatusOptions}
+                                                            value={values.member_status}
+                                                            onChange={onMemberStatusChange}
+                                                            onBlur={handleBlur}
+                                                            className={
+                                                                errors.member_status && touched.member_status ? 'inputs text-input error' : 'inputs text-input'}
+                                                        />
+                                                        {errors.member_status && touched.member_status ? (
+                                                            <div className="input-feedback">{errors.member_status}</div>
+                                                        ) : <div className="input-feedback">&nbsp;</div>}
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+
                                         <Grid container spacing={0}>
                                             <Grid item xs={12}><Headline>Personal Details</Headline></Grid>
                                             <Grid item xs={6}>
@@ -420,7 +515,7 @@ export default function JoinMajlis(props) {
                                                     <Grid item xs={8}>
                                                         <input
                                                             id="phone_number_1"
-                                                            placeholder="Enter Your Name"
+                                                            placeholder="Phone Number"
                                                             type="number"
                                                             value={values.phone_number_1}
                                                             onChange={handleChange}
@@ -534,10 +629,35 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
+
                                             <Grid item xs={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
-                                                        <label htmlFor="bloodgroup" style={{ color: 'black', fontSize: '16px' }}>
+                                                        <label htmlFor="housename">
+                                                            Password
+                        </label>
+                                                    </Grid>
+                                                    <Grid item xs={8}>
+                                                        <input
+                                                            id="password"
+                                                            placeholder="password"
+                                                            type="password"
+                                                            value={values.password}
+                                                            onChange={handleChange}
+                                                            onBlur={handleBlur}
+                                                            className={
+                                                                errors.password && touched.password ? 'inputs text-input error' : 'inputs text-input'}
+                                                        />
+                                                        {errors.password && touched.password ? (
+                                                            <div className="input-feedback">{errors.password}</div>
+                                                        ) : <div className="input-feedback">&nbsp;</div>}
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <Grid container spacing={0} className="field">
+                                                    <Grid item xs={4}>
+                                                        <label htmlFor="bloodgroup" >
                                                             Blood Group
                         </label>
                                                     </Grid>
@@ -554,6 +674,32 @@ export default function JoinMajlis(props) {
                                                         />
                                                         {errors.bloodgroup && touched.bloodgroup ? (
                                                             <div className="input-feedback">{errors.bloodgroup}</div>
+                                                        ) : <div className="input-feedback">&nbsp;</div>}
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+
+
+                                            <Grid item xs={6}>
+                                                <Grid container spacing={0} className="field">
+                                                    <Grid item xs={4}>
+                                                        <label htmlFor="date_of_joining">
+                                                            Date of Joining
+                        </label>
+                                                    </Grid>
+                                                    <Grid item xs={8}>
+                                                        <input
+                                                            id="date_of_joining"
+                                                            placeholder="date of joining"
+                                                            type="date"
+                                                            value={values.date_of_joining}
+                                                            onChange={handleChange}
+                                                            onBlur={handleBlur}
+                                                            className={
+                                                                errors.date_of_joining && touched.date_of_joining ? 'inputs text-input error' : 'inputs text-input'}
+                                                        />
+                                                        {errors.date_of_joining && touched.date_of_joining ? (
+                                                            <div className="input-feedback">{errors.date_of_joining}</div>
                                                         ) : <div className="input-feedback">&nbsp;</div>}
                                                     </Grid>
                                                 </Grid>
@@ -689,23 +835,23 @@ export default function JoinMajlis(props) {
                                             <Grid item xs={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
-                                                        <label htmlFor="area">
-                                                            Area
+                                                        <label htmlFor="company_area">
+                                                            Company Area
                         </label>
                                                     </Grid>
                                                     <Grid item xs={8}>
                                                         <input
-                                                            id="area"
+                                                            id="company_area"
                                                             placeholder="Area"
                                                             type="text"
-                                                            value={values.area}
+                                                            value={values.company_area}
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.area && touched.area ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.company_area && touched.company_area ? 'inputs text-input error' : 'inputs text-input'}
                                                         />
-                                                        {errors.area && touched.area ? (
-                                                            <div className="input-feedback">{errors.area}</div>
+                                                        {errors.company_area && touched.company_area ? (
+                                                            <div className="input-feedback">{errors.company_area}</div>
                                                         ) : <div className="input-feedback">&nbsp;</div>}
                                                     </Grid>
                                                 </Grid>
@@ -746,6 +892,7 @@ export default function JoinMajlis(props) {
                                                     <Grid item xs={8}>
                                                         <Select
                                                             id="institution"
+                                                            options={institutionOptions}
                                                             placeholder="Institution"
                                                             value={values.institution}
                                                             onChange={onInstitutionChange}
@@ -1106,23 +1253,22 @@ export default function JoinMajlis(props) {
                                             <Grid item xs={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
-                                                        <label htmlFor="relation">
+                                                        <label htmlFor="uae_relationship">
                                                             Relationship
                         </label>
                                                     </Grid>
                                                     <Grid item xs={8}>
                                                         <input
-                                                            id="relation"
-                                                            type="number"
+                                                            id="uae_relationship"
                                                             placeholder="Relationship"
-                                                            value={values.relation}
+                                                            value={values.uae_relationship}
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.relation && touched.relation ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.uae_relationship && touched.uae_relationship ? 'inputs text-input error' : 'inputs text-input'}
                                                         />
-                                                        {errors.relation && touched.relation ? (
-                                                            <div className="input-feedback">{errors.relation}</div>
+                                                        {errors.uae_relationship && touched.uae_relationship ? (
+                                                            <div className="input-feedback">{errors.uae_relationship}</div>
                                                         ) : <div className="input-feedback">&nbsp;</div>}
                                                     </Grid>
                                                 </Grid>
@@ -1235,6 +1381,7 @@ export default function JoinMajlis(props) {
                                                     <Grid item xs={8}>
                                                         <input
                                                             id="phone_home"
+                                                            type="number"
                                                             placeholder="Phone Number"
                                                             value={values.phone_home}
                                                             onChange={handleChange}
@@ -1276,7 +1423,7 @@ export default function JoinMajlis(props) {
                                             <Grid item xs={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
-                                                        <label htmlFor="mahal_phone">
+                                                        <label htmlFor="file">
                                                             Profile Image
                         </label>
                                                     </Grid>
@@ -1284,6 +1431,9 @@ export default function JoinMajlis(props) {
                                                         <DropzoneArea id="file"
                                                             onChange={handleImageChange}
                                                         />
+                                                        {errors.file && touched.file ? (
+                                                            <div className="input-feedback">{errors.file}</div>
+                                                        ) : <div className="input-feedback">&nbsp;</div>}
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
@@ -1319,3 +1469,4 @@ export default function JoinMajlis(props) {
 
     )
 }
+export default withRouter(AddMember);

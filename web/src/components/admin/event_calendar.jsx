@@ -92,7 +92,7 @@ export default function EventCalendar(props) {
     return (
         <EventCalendarCard>
             <EventTable tablename='Event List' columns={EventColumns} rows={rows}
-                tablename={"Event Calender"} deleteEvent={deleteEvent} setreload={setreload} />
+                tablename={"Event Calendar"} deleteEvent={deleteEvent} setreload={setreload} />
         </EventCalendarCard>
     )
 }
