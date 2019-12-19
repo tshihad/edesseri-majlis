@@ -85,6 +85,17 @@ const yesnoOptions = [
     }
 ];
 
+const memberStatusOptions = [
+    {
+        label: 'active',
+        value: 'active'
+    },
+    {
+        label: 'inactive',
+        value: 'inactive'
+    }
+];
+
 const institutionOptions = [
     {
         label: 'government',
@@ -140,9 +151,9 @@ export default function JoinMajlis(props) {
                                 name: props.name || '',
                                 housename: props.housename || '',
                                 fathername: props.fathername || '',
-                                place: props.place || '',
                                 country: props.country || '',
                                 content: props.content || '',
+                                institution: props.institution || '',
                                 phone_number_1: props.phone_number_1 || '',
                                 phone_number_2: props.phone_number_2 || '',
                                 office_phone_number: props.office_phone_number || '',
@@ -154,11 +165,12 @@ export default function JoinMajlis(props) {
                                 company_name: props.company_name || '',
                                 postcode: props.postcode || '',
                                 area: props.area || '',
+                                member_status: props.member_status || '',
+                                company_area: props.company_area || '',
                                 emirates: props.emirates || '',
                                 education: props.education || '',
                                 jobqualification: props.jobqualification || '',
                                 residential: props.residential || '',
-                                area: props.area || '',
                                 building: props.building || '',
                                 flat: props.flat || '',
                                 emirates_residential: props.emirates_residential || '',
@@ -182,7 +194,6 @@ export default function JoinMajlis(props) {
                                     name: values.name,
                                     housename: values.housename,
                                     fathername: values.fathername,
-                                    place: values.place,
                                     country: values.country,
                                     content: values.content,
                                     phone_number_1: values.phone_number_1,
@@ -196,11 +207,13 @@ export default function JoinMajlis(props) {
                                     company_name: values.company_name,
                                     postcode: values.postcode,
                                     area: values.area,
+                                    institution: values.institution,
+                                    member_status: values.member_status,
                                     emirates: values.emirates,
                                     education: values.education,
                                     jobqualification: values.jobqualification,
                                     residential: values.residential,
-                                    area: values.area,
+                                    company_area: values.company_area,
                                     building: values.building,
                                     flat: values.flat,
                                     emirates_residential: values.emirates_residential,
@@ -219,7 +232,7 @@ export default function JoinMajlis(props) {
                                     file: values.file
                                 })
                                     .then((response) => {
-                                        alert("Information Recorderd for Admin Verification");
+                                        console.log("Information Recorderd for Admin Verification");
                                         FormReset()
                                     })
                                     .catch(function (error) {
@@ -244,8 +257,8 @@ export default function JoinMajlis(props) {
                                 ,
                                 lastname: Yup.string()
                                 // .required('Required')
-                                ,
-                                place: Yup.string()
+                                // ,
+                                // place: Yup.string()
                                 // .required('Required')
                                 ,
                                 country: Yup.string()
@@ -275,6 +288,7 @@ export default function JoinMajlis(props) {
                                 ,
                                 postcode: Yup.number(),
                                 area: Yup.string(),
+                                institution: Yup.object(),
                                 emirates: Yup.string(),
                                 education: Yup.string()
                                 // .required('Required')
@@ -285,13 +299,13 @@ export default function JoinMajlis(props) {
                                 residential: Yup.string()
                                 // .required('Required')
                                 ,
-                                area: Yup.string(),
+                                company_area: Yup.string(),
                                 building: Yup.string(),
                                 flat: Yup.string(),
                                 emirates_residential: Yup.string(),
-                                marriage_status: Yup.object()
-                                // .required('Required')
-                                ,
+                                marriage_status: Yup.object(),
+                                member_status: Yup.object()
+                                .required('Required'),
                                 family_status: Yup.object()
                                 // .required('Required')
                                 ,
@@ -337,9 +351,11 @@ export default function JoinMajlis(props) {
                                 } = props;
                                 FormReset = handleReset
                                 const onChange = value => {
-                                    console.log(values);
                                     setFieldValue("bloodgroup", value);
                                 }
+                                const onMemberStatusChange = value => {
+                                    setFieldValue("member_status", value);
+                                }        
                                 const onInstitutionChange = value => {
                                     setFieldValue("institution", value);
                                 }
@@ -354,6 +370,32 @@ export default function JoinMajlis(props) {
                                 }
                                 return (
                                     <form onSubmit={handleSubmit} className="form">
+                                        <Grid container spacing={0}>
+                                        <Grid item xs={6}>
+                                                <Grid container spacing={0} className="field">
+                                                    <Grid item xs={4}>
+                                                        <label htmlFor="member_status" >
+                                                            Member Status
+                                                        </label>
+                                                    </Grid>
+                                                    <Grid item xs={8}>
+                                                        <Select
+                                                            id="member_status"
+                                                            options={memberStatusOptions}
+                                                            value={values.member_status}
+                                                            onChange={onMemberStatusChange}
+                                                            onBlur={handleBlur}
+                                                            className={
+                                                                errors.member_status && touched.member_status ? 'inputs text-input error' : 'inputs text-input'}
+                                                        />
+                                                        {errors.member_status && touched.member_status ? (
+                                                            <div className="input-feedback">{errors.member_status}</div>
+                                                        ) : <div className="input-feedback">&nbsp;</div>}
+                                                    </Grid>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+
                                         <Grid container spacing={0}>
                                             <Grid item xs={12}><Headline>Personal Details</Headline></Grid>
                                             <Grid item xs={6}>
@@ -556,7 +598,7 @@ export default function JoinMajlis(props) {
                                             <Grid item xs={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
-                                                        <label htmlFor="bloodgroup" style={{ color: 'black', fontSize: '16px' }}>
+                                                        <label htmlFor="bloodgroup" >
                                                             Blood Group
                         </label>
                                                     </Grid>
@@ -709,22 +751,22 @@ export default function JoinMajlis(props) {
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="area">
-                                                            Area
+                                                            Company Area
                         </label>
                                                     </Grid>
                                                     <Grid item xs={8}>
                                                         <input
-                                                            id="area"
+                                                            id="company_area"
                                                             placeholder="Area"
                                                             type="text"
-                                                            value={values.area}
+                                                            value={values.company_area}
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.area && touched.area ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.company_area && touched.company_area ? 'inputs text-input error' : 'inputs text-input'}
                                                         />
-                                                        {errors.area && touched.area ? (
-                                                            <div className="input-feedback">{errors.area}</div>
+                                                        {errors.company_area && touched.company_area ? (
+                                                            <div className="input-feedback">{errors.company_area}</div>
                                                         ) : <div className="input-feedback">&nbsp;</div>}
                                                     </Grid>
                                                 </Grid>
