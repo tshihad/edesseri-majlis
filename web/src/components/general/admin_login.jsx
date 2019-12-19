@@ -83,11 +83,11 @@ function MemberLogin(props) {
         })
             .then((response) => {
                 if (response.status === 200) {
-                    // props.setLoggedIn(true)
+                    props.setLoggedIn(true)
                     localStorage.setItem('EdasseryMajlisToken', response.data.result)
 
                     // localStorage.setItem('EdasseryMajlisToken', response.data.result.token)
-                    // localStorage.setItem('Username', response.data.result.name)
+                    localStorage.setItem('Username', 'Admin')
                     // localStorage.setItem('Email', response.data.result.email)
                     // localStorage.setItem('Phone', response.data.result.phone)
                     // localStorage.setItem('MemberId', response.data.result.member_id)

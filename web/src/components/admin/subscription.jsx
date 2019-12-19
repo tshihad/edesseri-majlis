@@ -9,6 +9,8 @@ import Loading from '../sub_components/loading';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import "react-tabs/style/react-tabs.css";
 import Members from './sub_members'
+import Actions from './sub_actions'
+
 
 const SubscriptionCard = styled.div`
 margin: 5vh 10vw 0 10vw;`;
@@ -37,7 +39,7 @@ export default function Subscriptions(props) {
         props.setUser("admin")
         props.setState("Subscriptions")
     })
-    const onSearchchange = ()=>{
+    const onSearchchange = () => {
 
     }
     const YearRegExp = /^[0-9]{4}$/;
@@ -55,7 +57,8 @@ export default function Subscriptions(props) {
                     <Tabs>
                         <TabList>
                             <Tab style={tab}>Add Subscription</Tab>
-                            <Tab style={tab}>View Subscription</Tab>
+                            <Tab style={tab}>Subscription By Member</Tab>
+                            <Tab style={tab}>All Actions</Tab>
                         </TabList>
 
                         <TabPanel>
@@ -352,10 +355,36 @@ export default function Subscriptions(props) {
                                         </form>
                                     );
                                 }}
+                                {/* <FieldArray
+                                    name="friends"
+                                    render={arrayHelpers => (
+                                        <div>
+                                            {values.friends.map((friend, index) => (
+                                                <div key={index}>
+                                                    <Field name={`friends[${index}].name`} />
+                                                    <Field name={`friends.${index}.age`} /> // both these conventions do
+                                                    the same
+                                                        <button type="button" onClick={() => arrayHelpers.remove(index)}>
+                                                        -
+                                                     </button>
+                                                </div>
+                                            ))}
+                                            <button
+                                                type="button"
+                                                onClick={() => arrayHelpers.push({ name: '', age: '' })}
+                                            >
+                                                +
+                                            </button>
+                                        </div>
+                                    )}
+                                /> */}
                             </Formik>
                         </TabPanel>
                         <TabPanel>
                             <Members />
+                        </TabPanel>
+                        <TabPanel>
+                            <Actions />
                         </TabPanel>
                     </Tabs>
 

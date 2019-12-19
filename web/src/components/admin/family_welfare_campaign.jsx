@@ -118,7 +118,7 @@ export default function EventCalendar(props) {
     return (
         <EventCalendarCard>
             <EventTable columns={EventColumns} rows={rows}
-                tablename="Welfare Collections" deleteEvent={deleteEvent} setreload={setreload} />
+                tablename="Welfare Campaigns" deleteEvent={deleteEvent} setreload={setreload} />
         </EventCalendarCard>
     )
 }

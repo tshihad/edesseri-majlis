@@ -81,19 +81,23 @@ export default function EventCalendar(props) {
         })
         setLoading(true)
 
-        axios.get(API_BASE_URL + "/majlis/event-calendar")
-            .then(({ data }) => {
-                data.result.map((row) => {
-                    row.EventDate = toStdDate(row.event_date)
-                })
-                setrows(data.result)
+        axios.get(API_BASE_URL + "/majlis/admin/welfare/scheme",
+            {
+                headers: {
+                    'Authorization': localStorage.getItem('EdasseryMajlisToken')
+                }
+            })
+            .then((response) => {
+                if (response.data.result.length > 0) {
+                    setrows(response.data.result)
+                }
             }).catch((err) => {
-                alert(err)
+                console.log(err)
             })
     }, [reload]);
 
     const deleteEvent = (eventId) => {
-        axios.delete(API_BASE_URL + '/majlis/admin/event-calendar/' + eventId, {
+        axios.delete(API_BASE_URL + '/majlis/admin/welfare/scheme' + eventId, {
             headers: {
                 'Authorization': localStorage.getItem('EdasseryMajlisToken')
             }
@@ -108,7 +112,7 @@ export default function EventCalendar(props) {
     return (
         <EventCalendarCard>
             <EventTable tablename='Welfare Schema' columns={EventColumns} rows={rows}
-                 deleteEvent={deleteEvent} setreload={setreload} />
+                deleteEvent={deleteEvent} setreload={setreload} />
         </EventCalendarCard>
     )
 }
@@ -183,233 +187,237 @@ export function EventTable(props) {
                 <div className={classes.heading}>{props.tablename}</div>
             </div>
             <Formik
-                                initialValues={{ code: '', description: '', nature: '', type: '', status: '', mode: ''}}
-                                onSubmit={(values, { setSubmitting, setErrors }) => {
-                                    axios.post(API_BASE_URL + '/majlis/admin/subscription', {
-                                        code: values.code,
-                                        description: values.description,
-                                        nature: values.nature,
-                                        type: values.type,
-                                        status: values.status,
-                                        mode: values.mode,
-                                    })
-                                        .then((response) => {
-                                            alert("Subscription Added");
-                                            FormReset()
-                                        })
-                                        .catch(function (error) {
-                                            alert(error)
-                                            console.log(error);;
-                                        });
-                                    setSubmitting(false);
+                initialValues={{ code: '', description: '', nature: '', type: '', status: '', mode: '' }}
+                onSubmit={(values, { setSubmitting, setErrors }) => {
+                    axios.post(API_BASE_URL + '/majlis/admin/welfare/scheme', {
+                        code: values.code,
+                        description: values.description,
+                        nature: values.nature,
+                        type: values.type,
+                        status: values.status,
+                        mode: values.mode,
+                    },
+                        {
+                            headers: {
+                                'Authorization': localStorage.getItem('EdasseryMajlisToken')
+                            }
+                        })
+                        .then((response) => {
+                            alert("welfare Schema Added");
+                            window.location.reload()
+                        })
+                        .catch(function (error) {
+                            console.log(error);;
+                        });
+                    setSubmitting(false);
 
-                                }}
-                                validationSchema={Yup.object().shape({
-                                    code: Yup.string()
-                                        .required('Required'),
-                                    description: Yup.string()
-                                        .required('Required'),
-                                    nature: Yup.string()
-                                        .required('Required'),
-                                    type: Yup.string()
-                                        .required('Required'),
-                                    status: Yup.string()
-                                        .required('Required'),
-                                    mode: Yup.string()
-                                        .required('Required'),
-                                })}
-                            >
-                                {props => {
-                                    const {
-                                        values,
-                                        touched,
-                                        errors,
-                                        dirty,
-                                        isSubmitting,
-                                        handleChange,
-                                        handleBlur,
-                                        handleSubmit,
-                                        handleReset,
-                                    } = props;
-                                    FormReset = handleReset
-                                    return (
-                                        <form onSubmit={handleSubmit} className="form">
-                                            <Grid container spacing={0}>
-                                                <Grid item xs={6}>
-                                                    <Grid container spacing={0}>
-                                                        <Grid item xs={4} >
-                                                            <label htmlFor="code">
-                                                                Code
+                }}
+                validationSchema={Yup.object().shape({
+                    code: Yup.string()
+                        .required('Required'),
+                    description: Yup.string()
+                        .required('Required'),
+                    nature: Yup.string()
+                        .required('Required'),
+                    type: Yup.string()
+                        .required('Required'),
+                    status: Yup.string()
+                        .required('Required'),
+                    mode: Yup.string()
+                        .required('Required'),
+                })}
+            >
+                {props => {
+                    const {
+                        values,
+                        touched,
+                        errors,
+                        dirty,
+                        isSubmitting,
+                        handleChange,
+                        handleBlur,
+                        handleSubmit,
+                        handleReset,
+                    } = props;
+                    FormReset = handleReset
+                    return (
+                        <form onSubmit={handleSubmit} className="form">
+                            <Grid container spacing={0}>
+                                <Grid item xs={6}>
+                                    <Grid container spacing={0}>
+                                        <Grid item xs={4} >
+                                            <label htmlFor="code">
+                                                Code
                                             </label>
-                                                        </Grid>
-                                                        <Grid item xs={6}>
-                                                            <input
-                                                                id="code"
-                                                                placeholder="Enter Code"
-                                                                type="text"
-                                                                value={values.code}
-                                                                onChange={handleChange}
-                                                                onBlur={handleBlur}
-                                                                className={
-                                                                    errors.code && touched.code ? 'inputs text-input error' : 'inputs text-input'}
-                                                            />
-                                                            {errors.code && touched.code ? (
-                                                                <div className="input-feedback">{errors.code}</div>
-                                                            ) : <div className="input-feedback">&nbsp;</div>}
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
-                                                <Grid item xs={6}>
-                                                    <Grid container spacing={0}>
-                                                        <Grid item xs={4} >
-                                                            <label htmlFor="description">
-                                                                Description
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <input
+                                                id="code"
+                                                placeholder="Enter Code"
+                                                type="text"
+                                                value={values.code}
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                className={
+                                                    errors.code && touched.code ? 'inputs text-input error' : 'inputs text-input'}
+                                            />
+                                            {errors.code && touched.code ? (
+                                                <div className="input-feedback">{errors.code}</div>
+                                            ) : <div className="input-feedback">&nbsp;</div>}
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Grid container spacing={0}>
+                                        <Grid item xs={4} >
+                                            <label htmlFor="description">
+                                                Description
                                             </label>
-                                                        </Grid>
-                                                        <Grid item xs={6}>
-                                                            <input
-                                                                id="description"
-                                                                placeholder="Enter Description"
-                                                                type="text"
-                                                                value={values.description}
-                                                                onChange={handleChange}
-                                                                onBlur={handleBlur}
-                                                                className={
-                                                                    errors.description && touched.description ? 'inputs text-input error' : 'inputs text-input'}
-                                                            />
-                                                            {errors.description && touched.description ? (
-                                                                <div className="input-feedback">{errors.description}</div>
-                                                            ) : <div className="input-feedback">&nbsp;</div>}
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
-                                                <Grid item xs={6}>
-                                                    <Grid container spacing={0}>
-                                                        <Grid item xs={4} >
-                                                            <label htmlFor="nature">
-                                                                Nature
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <input
+                                                id="description"
+                                                placeholder="Enter Description"
+                                                type="text"
+                                                value={values.description}
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                className={
+                                                    errors.description && touched.description ? 'inputs text-input error' : 'inputs text-input'}
+                                            />
+                                            {errors.description && touched.description ? (
+                                                <div className="input-feedback">{errors.description}</div>
+                                            ) : <div className="input-feedback">&nbsp;</div>}
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Grid container spacing={0}>
+                                        <Grid item xs={4} >
+                                            <label htmlFor="nature">
+                                                Nature
                                             </label>
-                                                        </Grid>
-                                                        <Grid item xs={6}>
-                                                            <select id="nature"
-                                                                type="text"
-                                                                value={values.nature}
-                                                                onChange={handleChange}
-                                                                onBlur={handleBlur}
-                                                                className={
-                                                                    errors.nature && touched.nature ? 'inputs text-input error' : 'inputs text-input'}>
-                                                                <option >nature</option>
-                                                                <option value="welfare">Welfare</option>
-                                                                <option value="operation">Operation</option>
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <select id="nature"
+                                                type="text"
+                                                value={values.nature}
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                className={
+                                                    errors.nature && touched.nature ? 'inputs text-input error' : 'inputs text-input'}>
+                                                <option >nature</option>
+                                                <option value="welfare">Welfare</option>
+                                                <option value="operation">Operation</option>
 
-                                                            </select>
-                                                            {errors.nature && touched.nature ? (
-                                                                <div className="input-feedback">{errors.nature}</div>
-                                                            ) : <div className="input-feedback">&nbsp;</div>}
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
-                                                <Grid item xs={6}>
-                                                    <Grid container spacing={0}>
-                                                        <Grid item xs={4} >
-                                                            <label htmlFor="type">
-                                                                Type
+                                            </select>
+                                            {errors.nature && touched.nature ? (
+                                                <div className="input-feedback">{errors.nature}</div>
+                                            ) : <div className="input-feedback">&nbsp;</div>}
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Grid container spacing={0}>
+                                        <Grid item xs={4} >
+                                            <label htmlFor="type">
+                                                Type
                                             </label>
-                                                        </Grid>
-                                                        <Grid item xs={6}>
-                                                            <select id="type"
-                                                                type="text"
-                                                                value={values.type}
-                                                                onChange={handleChange}
-                                                                onBlur={handleBlur}
-                                                                className={
-                                                                    errors.type && touched.type ? 'inputs text-input error' : 'inputs text-input'}>
-                                                                <option >type</option>
-                                                                <option value="collection">Collection</option>
-                                                                <option value="payment">Payment</option>
-                                                            </select>
-                                                            {errors.type && touched.type ? (
-                                                                <div className="input-feedback">{errors.type}</div>
-                                                            ) : <div className="input-feedback">&nbsp;</div>}
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
-                                                <Grid item xs={6}>
-                                                    <Grid container spacing={0}>
-                                                        <Grid item xs={4} >
-                                                            <label htmlFor="mode">
-                                                                Mode
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <select id="type"
+                                                type="text"
+                                                value={values.type}
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                className={
+                                                    errors.type && touched.type ? 'inputs text-input error' : 'inputs text-input'}>
+                                                <option >type</option>
+                                                <option value="collection">Collection</option>
+                                                <option value="payment">Payment</option>
+                                            </select>
+                                            {errors.type && touched.type ? (
+                                                <div className="input-feedback">{errors.type}</div>
+                                            ) : <div className="input-feedback">&nbsp;</div>}
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Grid container spacing={0}>
+                                        <Grid item xs={4} >
+                                            <label htmlFor="mode">
+                                                Mode
                                             </label>
-                                                        </Grid>
-                                                        <Grid item xs={6}>
-                                                        <select id="mode"
-                                                                type="text"
-                                                                value={values.mode}
-                                                                onChange={handleChange}
-                                                                onBlur={handleBlur}
-                                                                className={
-                                                                    errors.mode && touched.mode ? 'inputs text-input error' : 'inputs text-input'}>
-                                                                <option >mode</option>
-                                                                <option value="normal">Normal</option>
-                                                                <option value="recurring">Recurring</option>
-                                                            </select>
-                                                            {errors.mode && touched.mode ? (
-                                                                <div className="input-feedback">{errors.mode}</div>
-                                                            ) : <div className="input-feedback">&nbsp;</div>}
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
-                                                <Grid item xs={6}>
-                                                    <Grid container spacing={0}>
-                                                        <Grid item xs={4} >
-                                                            <label htmlFor="status">
-                                                                Status
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <select id="mode"
+                                                type="text"
+                                                value={values.mode}
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                className={
+                                                    errors.mode && touched.mode ? 'inputs text-input error' : 'inputs text-input'}>
+                                                <option >mode</option>
+                                                <option value="normal">Normal</option>
+                                                <option value="recurring">Recurring</option>
+                                            </select>
+                                            {errors.mode && touched.mode ? (
+                                                <div className="input-feedback">{errors.mode}</div>
+                                            ) : <div className="input-feedback">&nbsp;</div>}
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Grid container spacing={0}>
+                                        <Grid item xs={4} >
+                                            <label htmlFor="status">
+                                                Status
                                             </label>
-                                                        </Grid>
-                                                        <Grid item xs={6}>
-                                                            <select id="status"
-                                                                type="text"
-                                                                value={values.status}
-                                                                onChange={handleChange}
-                                                                onBlur={handleBlur}
-                                                                className={
-                                                                    errors.status && touched.status ? 'inputs text-input error' : 'inputs text-input'}>
-                                                                <option >status</option>
-                                                                <option value="Active">Active</option>
-                                                                <option value="Inactive">Inactive</option>
-                                                            </select>
-                                                            {errors.status && touched.status ? (
-                                                                <div className="input-feedback">{errors.status}</div>
-                                                            ) : <div className="input-feedback">&nbsp;</div>}
-                                                        </Grid>
-                                                    </Grid>
-                                                </Grid>
-                                                
-                                                
-                                                <Grid item xs={4}></Grid>
-                                                <Grid item xs={2} style={{ display: "inline-block" }}>
-                                                    <button
-                                                        type="button"
-                                                        className="buttons outline"
-                                                        onClick={handleReset}
-                                                        disabled={!dirty || isSubmitting}
-                                                    >
-                                                        Reset
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <select id="status"
+                                                type="text"
+                                                value={values.status}
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                className={
+                                                    errors.status && touched.status ? 'inputs text-input error' : 'inputs text-input'}>
+                                                <option >status</option>
+                                                <option value="Active">Active</option>
+                                                <option value="Inactive">Inactive</option>
+                                            </select>
+                                            {errors.status && touched.status ? (
+                                                <div className="input-feedback">{errors.status}</div>
+                                            ) : <div className="input-feedback">&nbsp;</div>}
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+
+
+                                <Grid item xs={4}></Grid>
+                                <Grid item xs={2} style={{ display: "inline-block" }}>
+                                    <button
+                                        type="button"
+                                        className="buttons outline"
+                                        onClick={handleReset}
+                                        disabled={!dirty || isSubmitting}
+                                    >
+                                        Reset
                                                 </button>
-                                                </Grid>
-                                                <Grid item xs={2} style={{ display: "inline-block" }}>
-                                                    <button type="submit" className="buttons" disabled={isSubmitting}>
-                                                        Submit
+                                </Grid>
+                                <Grid item xs={2} style={{ display: "inline-block" }}>
+                                    <button type="submit" className="buttons" disabled={isSubmitting}>
+                                        Add Schema
                                                 </button>
-                                                </Grid>
-                                                <Grid item xs={4}></Grid>
+                                </Grid>
+                                <Grid item xs={4}></Grid>
 
-                                            </Grid>
+                            </Grid>
 
-                                        </form>
-                                    );
-                                }}
-                            </Formik>
+                        </form>
+                    );
+                }}
+            </Formik>
 
             <div className={classes.tableWrapper}>
                 <Table stickyHeader>

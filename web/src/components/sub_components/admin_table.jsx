@@ -84,7 +84,7 @@ export default function CommonTable(props) {
     }
     const handleKeyChange = (e) => {
         setSearchKey(e.target.value)
-        props.onSearchChange(searchkey)
+        props.onSearchChange(e.target.value)
     }
     const Idcolumns = ['MemberID', 'Name', 'ph_number_1', 'Email', 'Status'];
     const columns = ['MemberID', 'Name', 'Phone Number', 'Email', 'Status']

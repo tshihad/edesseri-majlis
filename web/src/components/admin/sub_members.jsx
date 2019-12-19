@@ -7,6 +7,8 @@ import { API_BASE_URL } from '../constants';
 const Members = styled.div`
 margin: 0vh 1vw;
 `;
+
+
 export default function MembersList(props) {
     const [memberLIst, setmemberLIst] = React.useState();
     const [searchkey, setsearchkey] = React.useState('');
@@ -22,8 +24,23 @@ export default function MembersList(props) {
             })
             .catch(err => alert(err))
     }, [props])
-    const onSearchchange = (value) => {
-        setsearchkey(value)
+    const onSearchchange = (key) => {
+        setsearchkey(key)
+        let URL
+        if (key === '') {
+            URL = '/majlis/admin/member'
+        } else {
+            URL = '/majlis/admin/member/search/'
+        }
+        axios.get(API_BASE_URL + URL + key, {
+            headers: {
+                "Authorization": localStorage.getItem('EdasseryMajlisToken')
+            }
+        })
+            .then(response => {
+                setmemberLIst(response.data.result)
+            })
+            .catch(err => alert(err))
     }
     return (
         <Members>

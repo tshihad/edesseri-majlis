@@ -85,9 +85,9 @@ function Profile(props) {
             })
         setLoading(true)
 
-    }, [ ])
+    }, [])
 
-    
+
     const tab = {
         fontSize: "1.3em",
         color: "#1d4219",
@@ -113,14 +113,19 @@ function Profile(props) {
                             <TabPanel>
                                 <Grid container spacing={0}>
                                     <Grid item xs={3}>
-                                        <img className={classes.image} src={localStorage.getItem('UserImageURL')}></img>
+                                        <Grid container spacing={0}>
+                                            <img className={classes.image} src={userFields.image_location}></img>
+                                        </Grid>
+                                        <Grid container spacing={0} justify="center">
+                                            <div>Status: <span>{userFields.status}</span></div>
+                                        </Grid>
                                     </Grid>
                                     <Grid item xs={9}>
                                         <Paper style={{ margin: ".5em", padding: ".5em 2em" }}>
                                             <Grid container spacing={0}>
                                                 <SubHead>
                                                     Personal Details
-                            </SubHead>
+                                                </SubHead>
                                             </Grid>
                                             <KeyValuePair head="Name" value={userFields.name} />
                                             <KeyValuePair head="House Name" value={userFields.house_name} />

@@ -9,6 +9,7 @@ import Loading from '../sub_components/loading';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import "react-tabs/style/react-tabs.css";
 import Schema from './family_welfare_schema';
+import Campaign from './family_welfare_campaign' 
 import Collection from './family_welfare_collection' 
 
 const SubscriptionCard = styled.div`
@@ -56,11 +57,15 @@ export default function Subscriptions(props) {
                     <Tabs>
                         <TabList>
                             <Tab style={tab}>Schema</Tab>
+                            <Tab style={tab}>Campaign</Tab>
                             <Tab style={tab}>Collection</Tab>
                         </TabList>
 
                         <TabPanel>
                             <Schema/>
+                        </TabPanel>
+                        <TabPanel>
+                           <Campaign/>
                         </TabPanel>
                         <TabPanel>
                            <Collection/>
