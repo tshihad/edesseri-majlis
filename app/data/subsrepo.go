@@ -1,7 +1,6 @@
 package data
 
 import (
-	"fmt"
 	"majlis/app/models"
 )
 
@@ -26,12 +25,8 @@ func (r *RepoImp) DeleteSubscriton(id int) error {
 	}).Error
 }
 
-func (r *RepoImp) GetSubscriptions(req models.SubsAdminTableReq) ([]models.Subscription, error) {
+func (r *RepoImp) GetSubscriptions() ([]models.Subscription, error) {
 	var s []models.Subscription
-	startDate := req.StartDate.Year()*100 + int(req.StartDate.Month()) - 1
-	endDate := req.EndDate.Year()*100 + int(req.EndDate.Month()) - 1
-	err := r.db.Model(models.Subscription{}).Where(
-		fmt.Sprintf("period > %d AND period < %d", startDate, endDate),
-	).Scan(&s).Error
+	err := r.db.Model(models.Subscription{}).Scan(&s).Error
 	return s, err
 }

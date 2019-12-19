@@ -2,34 +2,49 @@ package api
 
 import (
 	"encoding/json"
-	"majlis/app/core"
 	"majlis/app/models"
 	"net/http"
-
-	"github.com/jinzhu/gorm"
 )
 
-func (a *App) handleGetWelfare(w http.ResponseWriter, r *http.Request) {
-	memberID := r.Context().Value(core.MEMBERID_TAG).(string)
-	welfares, err := a.GetWelfare(memberID)
-	if err != nil && err != gorm.ErrRecordNotFound {
-		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to get welfare", err)
+func (a *App) handlePostWelfareScheme(w http.ResponseWriter, r *http.Request) {
+	var ws models.WelfareScheme
+	if err := json.NewDecoder(r.Body).Decode(&ws); err != nil {
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to parse", err)
 		return
 	}
-	a.Success(w, http.StatusOK, welfares)
+	if err := a.CreateWelfareScheme(ws); err != nil {
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to create", err)
+		return
+	}
+	w.WriteHeader(http.StatusOK)
 }
 
-func (a *App) handlePostWelfare(w http.ResponseWriter, r *http.Request) {
-	memberID := r.Context().Value(core.MEMBERID_TAG).(string)
-	var welfare models.Welfare
-	if err := json.NewDecoder(r.Body).Decode(&welfare); err != nil {
-		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to parse request", err)
+func (a *App) handleGetWelfareScheme(w http.ResponseWriter, r *http.Request) {
+	ws, err := a.GetWelfareScheme()
+	if err != nil {
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to fetch", err)
 		return
 	}
-	welfare.MemberID = memberID
-	err := a.CreateWelfare(welfare)
+	a.Success(w, http.StatusOK, ws)
+}
+
+func (a *App) handleGetWelfareCampaign(w http.ResponseWriter, r *http.Request) {
+	wc, err := a.GetWelfareCampaign()
 	if err != nil {
-		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to create welfare record", err)
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to fetch", err)
+		return
+	}
+	a.Success(w, http.StatusOK, wc)
+}
+
+func (a *App) handlePostWelfareCampaign(w http.ResponseWriter, r *http.Request) {
+	var wc models.WelfareCampaign
+	if err := json.NewDecoder(r.Body).Decode(&wc); err != nil {
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to parse", err)
+		return
+	}
+	if err := a.CreateWelfareCampaign(wc); err != nil {
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to create", err)
 		return
 	}
 	w.WriteHeader(http.StatusOK)

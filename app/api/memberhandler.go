@@ -8,13 +8,15 @@ import (
 	"majlis/app/models"
 	"net/http"
 
+	"github.com/jinzhu/gorm"
+
 	"github.com/go-chi/chi"
 )
 
 // retrieve member handler
 func (a *App) handleGetMember(w http.ResponseWriter, r *http.Request) {
 	memberID := r.Context().Value(core.MEMBERID_TAG).(string)
-	member, err := a.GetMember(memberID)
+	member, err := a.GetMember(memberID, "")
 	if err != nil {
 		a.Fail(w, http.StatusInternalServerError, "Failed to fetch user", err)
 		return
@@ -29,7 +31,7 @@ func (a *App) handlePostProfileImage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	imLocation := models.Profile{
-		ImageLocation: location,
+		ImageLocation: core.GetStaticHost() + location,
 	}
 	a.Success(w, http.StatusCreated, imLocation)
 }
@@ -38,7 +40,7 @@ func (a *App) handlePostProfileImage(w http.ResponseWriter, r *http.Request) {
 func (a *App) handlePostMember(w http.ResponseWriter, r *http.Request) {
 	var member models.Member
 	if err := json.NewDecoder(r.Body).Decode(&member); err != nil {
-		a.Fail(w, http.StatusNonAuthoritativeInfo, "Invalid request", err)
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to parse", err)
 		return
 	}
 	memberID, err := a.CreateNewMemberID()
@@ -55,7 +57,7 @@ func (a *App) handlePostMember(w http.ResponseWriter, r *http.Request) {
 		a.Fail(w, http.StatusInternalServerError, "Failed to create user", err)
 		return
 	}
-	a.Success(w, http.StatusCreated, member)
+	a.Success(w, http.StatusCreated, memberID)
 }
 
 // update member handler
@@ -102,7 +104,7 @@ func (a *App) handleSignin(w http.ResponseWriter, r *http.Request) {
 		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to parse sign in form", err)
 		return
 	}
-	member, err := a.GetMember(signin.MemberID)
+	member, err := a.GetMember(signin.MemberID, "ACTIVE")
 	if err != nil || member.MemberID == "" {
 		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to authenticate", err)
 		return
@@ -126,4 +128,18 @@ func (a *App) handleSignin(w http.ResponseWriter, r *http.Request) {
 	resp.PhoneNumber = member.PhNumber1
 
 	a.Success(w, http.StatusOK, resp)
+}
+
+func (a *App) handleGetSearchMember(w http.ResponseWriter, r *http.Request) {
+	data := chi.URLParam(r, "data")
+	m, err := a.GetSearchMember(data)
+	if err != nil && err != gorm.ErrRecordNotFound {
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to search", err)
+		return
+	}
+	a.Success(w, http.StatusOK, m)
+}
+
+func (a *App) handleGetMemberID(w http.ResponseWriter, r *http.Request) {
+	a.Success(w, http.StatusOK, "E9999")
 }
