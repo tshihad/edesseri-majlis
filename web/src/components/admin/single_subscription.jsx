@@ -90,10 +90,8 @@ export default function Subscription(props) {
             {
                 headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') }
             }).then((response) => {
-                alert(JSON.stringify(response.data.result))
                 setUserField(response.data.result)
             }).catch((error) => {
-                alert(memberID+error)
                 console.log(error);
             })
         axios.get(API_BASE_URL + '/majlis/admin/subscription/member/' + memberID,
@@ -117,7 +115,6 @@ export default function Subscription(props) {
                 setrows(years)
             }).catch((err) => {
                 console.log(err)
-                alert(err)
             })
 
     }, [])
@@ -129,10 +126,10 @@ export default function Subscription(props) {
                     <Matrix>
                         <Grid container justify="center">
                             <Grid item xs={1}></Grid>
-                            <Grid item xs={2}><Info>fgh</Info></Grid>
-                            <Grid item xs={4}><Info>hfg</Info></Grid>
+                            <Grid item xs={2}><Info>{userField.member_id}</Info></Grid>
+                            <Grid item xs={4}><Info>{userField.name}</Info></Grid>
                             <Grid item xs={1}></Grid>
-                            <Grid item xs={4}><Info>hfg</Info></Grid>
+                            <Grid item xs={4}><Info>{userField.email}</Info></Grid>
                         </Grid>
                         <Grid container spacing={0}>
                             <Grid item xs={2} style={{ border: "solid 1px #556b2f" }}></Grid>
