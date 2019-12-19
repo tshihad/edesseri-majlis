@@ -62,13 +62,13 @@ export default function Subscription(props) {
     const [columns, setColumns] = React.useState(Columns)
     const [canLoad, setLoading] = React.useState(false)
 
-    const [userField, setUserField] = React.useState()
-
+    const [userField, setUserField] = React.useState({})
+    let memberID
     useEffect(() => {
         window.scrollTo(0, 0)
         props.setUser("admin")
         props.setState("Subscriptions")
-        const memberID = window.location.pathname.split("/")[4]
+        memberID = window.location.pathname.split("/")[4]
         if (localStorage.getItem('VerifiedUser')) {
             setLoading(true)
         } else {
@@ -126,7 +126,7 @@ export default function Subscription(props) {
                     <Matrix>
                         <Grid container justify="center">
                             <Grid item xs={1}></Grid>
-                            <Grid item xs={2}><Info>{userField.member_id}</Info></Grid>
+                            <Grid item xs={2}><Info>{memberID}</Info></Grid>
                             <Grid item xs={4}><Info>{userField.name}</Info></Grid>
                             <Grid item xs={1}></Grid>
                             <Grid item xs={4}><Info>{userField.email}</Info></Grid>
