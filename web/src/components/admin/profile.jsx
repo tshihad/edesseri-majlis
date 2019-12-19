@@ -124,7 +124,7 @@ function Profile(props) {
                                                 <Key>:</Key>
                                             </Grid>
                                             <Grid item xs={7}>
-                                                <Value >{userFields.status}</Value>
+                                                <Value >{userFields.member_status}</Value>
                                             </Grid>
                                         </Grid>
                                     </Grid>

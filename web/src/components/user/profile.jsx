@@ -118,7 +118,7 @@ function ViewProfile(props) {
                         <Key>:</Key>
                     </Grid>
                     <Grid item xs={7}>
-                        <Value >{props.userFields.status}</Value>
+                        <Value >{props.userFields.member_status}</Value>
                     </Grid>
                 </Grid>
 
