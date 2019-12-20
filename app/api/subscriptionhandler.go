@@ -66,7 +66,7 @@ func (a *App) handleDeleteSubscription(w http.ResponseWriter, r *http.Request) {
 		a.Fail(w, http.StatusNonAuthoritativeInfo, "Invalid request", err)
 		return
 	}
-	if err := a.DeleteSubscriton(uint(id)); err != nil {
+	if err := a.DeleteSubscriton(id); err != nil {
 		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to delete subscription", err)
 		return
 	}
@@ -79,10 +79,10 @@ func (a *App) handleGetsubscriptions(w http.ResponseWriter, r *http.Request) {
 		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to parse string", err)
 		return
 	}
-	resp,err:=a.GetSubscriptions(req)
-	if err!=nil{
-		a.Fail(w,http.StatusNonAuthoritativeInfo,"Failed to get subsciption",err)
+	resp, err := a.GetSubscriptions(req)
+	if err != nil {
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to get subsciption", err)
 		return
 	}
-	a.Success(w,http.StatusOK,resp)
+	a.Success(w, http.StatusOK, resp)
 }

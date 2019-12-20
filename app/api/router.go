@@ -42,14 +42,24 @@ func (a *App) Router() http.Handler {
 			})
 			r.Route("/subscription", func(r chi.Router) {
 				r.Post("/add", a.handlePostSubscription)
-				r.Post("/", a.handleGetsubscriptions)
+				r.Get("/", a.handleGetsubscriptions)
 				r.Delete("/{id}", a.handleDeleteSubscription)
+				r.With(a.setMemeberID()).Get("/{"+core.MEMBERID_TAG+"}", a.handleGetSubscription)
 			})
 			r.Route("/member", func(r chi.Router) {
 				r.Get("/", a.handleGetMembers)
 				r.With(a.setMemeberID()).Get("/{member_id}", a.handleGetMember)
 				r.Post("/", a.handlePostMember)
 				r.Post("/image", a.handlePostProfileImage)
+				r.With(a.setMemeberID()).Put("/{"+core.MEMBERID_TAG+"}", a.handlePutMember)
+			})
+			r.Route("/event-calendar", func(r chi.Router) {
+				r.Get("/", a.handleGetEvents)
+				r.Post("/", a.handlePostEvent)
+				r.Delete("/{id}", a.handleDeleteEvents)
+			})
+			r.Route("/contact-majlis", func(r chi.Router) {
+				r.Get("/", a.handleGetContact)
 			})
 
 			r.Post("/downloads", a.handlePostDownload)

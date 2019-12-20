@@ -3,8 +3,6 @@ package data
 import (
 	"fmt"
 	"majlis/app/models"
-
-	"github.com/jinzhu/gorm"
 )
 
 // CreateSubscription Create new subscription
@@ -22,9 +20,9 @@ func (r *RepoImp) GetSubscription(memberID string) ([]models.Subscription, error
 }
 
 // DeleteSubscriton delete subscription
-func (r *RepoImp) DeleteSubscriton(id uint) error {
+func (r *RepoImp) DeleteSubscriton(id int) error {
 	return r.db.Delete(models.Subscription{
-		Model: gorm.Model{ID: id},
+		ID: id,
 	}).Error
 }
 
