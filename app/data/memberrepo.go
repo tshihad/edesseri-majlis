@@ -4,6 +4,7 @@ import (
 	"majlis/app/core"
 	"majlis/app/models"
 	"strconv"
+	"time"
 
 	"github.com/jinzhu/gorm"
 
@@ -20,6 +21,9 @@ func (r *RepoImp) GetMember(memberID string, status string) (models.Member, erro
 		MemberID: memberID,
 		Status:   status,
 	}).First(&member).Error
+	member.DateOfJoint, _ = parseTime(member.DateOfJoint)
+	member.Dob, _ = parseTime(member.Dob)
+	member.EndDate, _ = parseTime(member.EndDate)
 	return member, err
 }
 
@@ -78,4 +82,13 @@ func (r *RepoImp) GetSearchMember(data string) ([]models.MemberShortResp, error)
 	qry := "member_id ILIKE '%" + data + "%' OR name ILIKE '%" + data + "%'"
 	err := r.db.Model(models.Member{}).Where(qry).Scan(&m).Error
 	return m, err
+}
+
+func parseTime(ts string) (string, error) {
+	t, err := time.Parse("2/Jan/2006", ts)
+	if err != nil {
+		return "", err
+	}
+	return t.Format("2006-01-02"), nil
+
 }

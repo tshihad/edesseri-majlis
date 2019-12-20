@@ -23,7 +23,16 @@ type WelfareCampaign struct {
 }
 
 type WelfareCollection struct {
-	ID       int    `gorm:"primary_key"`
-	MemberID string `json:"member_id" gorm:"column:member_id"`
-	Amount   int    `json:"amount"`
+	ID           int    `gorm:"primary_key"`
+	MemberID     string `json:"member_id" gorm:"column:member_id"`
+	CampaignCode string `json:"campaign_code" gorm:"column:campaign_code"`
+	Amount       int    `json:"amount"`
+}
+
+type WelfareCollectionResp struct {
+	Code         string
+	Description  string
+	CampaignCode string `gorm:"column:campaign_code"`
+	MemberID     string `gorm:"column:member_id"`
+	Amount       int
 }
