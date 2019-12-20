@@ -22,42 +22,48 @@ const EventCalendarCard = styled.div`
 
 const EventColumns = [
     {
-        id: 'code',
-        label: 'Code',
+        id: 'campaign_code',
+        label: 'Campaign Code',
         align: 'center',
-        minWidth: 50
+        minWidth: 60
     },
     {
-        id: 'description',
-        label: 'Description',
+        id: 'welfare_code',
+        label: 'Welfare Code',
         align: 'center',
-        minWidth: 200
+        minWidth: 60
     },
     {
-        id: 'nature',
-        label: 'Nature',
+        id: 'fiscal_period',
+        label: 'Fiscal Period',
         align: 'center',
-        minWidth: 70
+        minWidth: 60
     },
     {
-        id: 'type',
-        label: 'Type',
+        id: 'start_date',
+        label: 'Start Date',
         align: 'center',
-        minWidth: 70
+        minWidth: 60
     },
     {
-        id: 'mode',
-        label: 'Mode',
+        id: 'end_date',
+        label: 'End Date',
         align: 'center',
-        minWidth: 70
+        minWidth: 60
+    },
+    {
+        id: 'campaign_note',
+        label: 'Campaign Note',
+        align: 'center',
+        minWidth: 60
     },
     {
         id: 'status',
         label: 'Status',
         align: 'center',
-        minWidth: 70
+        minWidth: 60
     }]
-export default function EventCalendar(props) {
+export default function Campaign(props) {
     const [rows, setrows] = React.useState([])
     const [reload, setreload] = React.useState([])
     const toStdDate = (date) => {
@@ -80,8 +86,7 @@ export default function EventCalendar(props) {
             alert("Authentication Failed")
         })
         setLoading(true)
-
-        axios.get(API_BASE_URL + "/majlis/admin/welfare/scheme",
+        axios.get(API_BASE_URL + "/majlis/admin/welfare/campaign",
             {
                 headers: {
                     'Authorization': localStorage.getItem('EdasseryMajlisToken')
@@ -97,7 +102,7 @@ export default function EventCalendar(props) {
     }, [reload]);
 
     const deleteEvent = (eventId) => {
-        axios.delete(API_BASE_URL + '/majlis/admin/welfare/scheme' + eventId, {
+        axios.delete(API_BASE_URL + '/majlis/admin/event-calendar/' + eventId, {
             headers: {
                 'Authorization': localStorage.getItem('EdasseryMajlisToken')
             }
@@ -111,8 +116,8 @@ export default function EventCalendar(props) {
 
     return (
         <EventCalendarCard>
-            <EventTable tablename='Welfare Schema' columns={EventColumns} rows={rows}
-                deleteEvent={deleteEvent} setreload={setreload} />
+            <EventTable columns={EventColumns} rows={rows}
+                tablename="Welfare Campaigns" deleteEvent={deleteEvent} setreload={setreload} />
         </EventCalendarCard>
     )
 }
@@ -173,7 +178,6 @@ export function EventTable(props) {
         setRowsPerPage(+event.target.value);
         setPage(0);
     }
-    const YearRegExp = /^[0-9]{4}$/;
     var FormReset
     const toStdDate = (date) => {
         var year = date.slice(0, 4)
@@ -187,48 +191,51 @@ export function EventTable(props) {
                 <div className={classes.heading}>{props.tablename}</div>
             </div>
             <Formik
-                initialValues={{ code: '', description: '', nature: '', type: '', status: '', mode: '' }}
-                onSubmit={(values, { setSubmitting, setErrors }) => {
-                    axios.post(API_BASE_URL + '/majlis/admin/welfare/scheme', {
-                        code: values.code,
-                        description: values.description,
-                        nature: values.nature,
-                        type: values.type,
+                initialValues={{ campaign_code: '', welfare_code: '', fiscal_period: '', amount: '', start_date: '', end_date: '', campaign_note: '', status: '' }}
+                onSubmit={(values, { setSubmitting }) => {
+                    alert("fdskbg")
+                    alert(JSON.stringify(values))
+                    axios.post(API_BASE_URL + '/majlis/admin/welfare/campaign', {
+                        campaign_code: values.campaign_code,
+                        welfare_code: values.welfare_code,
+                        fiscal_period: values.fiscal_period,
+                        amount: values.amount,
+                        start_date: values.start_date,
+                        end_date: values.end_date,
+                        campaign_note: values.campaign_note,
                         status: values.status,
-                        mode: values.mode,
-                    },
-                        {
-                            headers: {
-                                'Authorization': localStorage.getItem('EdasseryMajlisToken')
-                            }
-                        })
+                    }, {
+                        headers: {
+                            'Authorization': localStorage.getItem('EdasseryMajlisToken')
+                        }
+                    })
                         .then((response) => {
-                            if (response.status === 200) {
-                                alert("welfare Schema Added");
-                                props.setreload(Math.random())
-                                FormReset()
-                            } else {
-                                alert("Invalid Data")
-                            }
+                            alert("Subscription Added");
+                            FormReset()
                         })
                         .catch(function (error) {
-                            console.log(error);;
+                            alert(error)
+                            console.log(error);
                         });
                     setSubmitting(false);
 
                 }}
                 validationSchema={Yup.object().shape({
-                    code: Yup.string()
+                    campaign_code: Yup.string()
                         .required('Required'),
-                    description: Yup.string()
+                    welfare_code: Yup.string()
                         .required('Required'),
-                    nature: Yup.string()
+                    fiscal_period: Yup.string()
                         .required('Required'),
-                    type: Yup.string()
+                    amount: Yup.string()
+                        .required('Required'),
+                    start_date: Yup.string()
+                        .required('Required'),
+                    end_date: Yup.string()
+                        .required('Required'),
+                    campaign_note: Yup.string()
                         .required('Required'),
                     status: Yup.string()
-                        .required('Required'),
-                    mode: Yup.string()
                         .required('Required'),
                 })}
             >
@@ -251,23 +258,23 @@ export function EventTable(props) {
                                 <Grid item xs={6}>
                                     <Grid container spacing={0}>
                                         <Grid item xs={4} >
-                                            <label htmlFor="code">
-                                                Code
+                                            <label htmlFor="campaign_code">
+                                                Campaign Code
                                             </label>
                                         </Grid>
                                         <Grid item xs={6}>
                                             <input
-                                                id="code"
-                                                placeholder="Enter Code"
+                                                id="campaign_code"
+                                                placeholder="Enter Campaign code"
                                                 type="text"
-                                                value={values.code}
+                                                value={values.campaign_code}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 className={
-                                                    errors.code && touched.code ? 'inputs text-input error' : 'inputs text-input'}
+                                                    errors.campaign_code && touched.campaign_code ? 'inputs text-input error' : 'inputs text-input'}
                                             />
-                                            {errors.code && touched.code ? (
-                                                <div className="input-feedback">{errors.code}</div>
+                                            {errors.campaign_code && touched.campaign_code ? (
+                                                <div className="input-feedback">{errors.campaign_code}</div>
                                             ) : <div className="input-feedback">&nbsp;</div>}
                                         </Grid>
                                     </Grid>
@@ -275,23 +282,23 @@ export function EventTable(props) {
                                 <Grid item xs={6}>
                                     <Grid container spacing={0}>
                                         <Grid item xs={4} >
-                                            <label htmlFor="description">
-                                                Description
+                                            <label htmlFor="welfare_code">
+                                                Welfare Code
                                             </label>
                                         </Grid>
                                         <Grid item xs={6}>
                                             <input
-                                                id="description"
-                                                placeholder="Enter Description"
+                                                id="welfare_code"
+                                                placeholder="Enter Welfare Code"
                                                 type="text"
-                                                value={values.description}
+                                                value={values.welfare_code}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 className={
-                                                    errors.description && touched.description ? 'inputs text-input error' : 'inputs text-input'}
+                                                    errors.welfare_code && touched.welfare_code ? 'inputs text-input error' : 'inputs text-input'}
                                             />
-                                            {errors.description && touched.description ? (
-                                                <div className="input-feedback">{errors.description}</div>
+                                            {errors.welfare_code && touched.welfare_code ? (
+                                                <div className="input-feedback">{errors.welfare_code}</div>
                                             ) : <div className="input-feedback">&nbsp;</div>}
                                         </Grid>
                                     </Grid>
@@ -299,25 +306,22 @@ export function EventTable(props) {
                                 <Grid item xs={6}>
                                     <Grid container spacing={0}>
                                         <Grid item xs={4} >
-                                            <label htmlFor="nature">
-                                                Nature
+                                            <label htmlFor="fiscal_period">
+                                                Fiscal Period
                                             </label>
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <select id="nature"
-                                                type="text"
-                                                value={values.nature}
+                                            <input id="fiscal_period"
+                                                type="number"
+                                                value={values.fiscal_period}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 className={
-                                                    errors.nature && touched.nature ? 'inputs text-input error' : 'inputs text-input'}>
-                                                <option >nature</option>
-                                                <option value="welfare">Welfare</option>
-                                                <option value="operation">Operation</option>
+                                                    errors.fiscal_period && touched.fiscal_period ? 'inputs text-input error' : 'inputs text-input'}
+                                            />
 
-                                            </select>
-                                            {errors.nature && touched.nature ? (
-                                                <div className="input-feedback">{errors.nature}</div>
+                                            {errors.fiscal_period && touched.fiscal_period ? (
+                                                <div className="input-feedback">{errors.fiscal_period}</div>
                                             ) : <div className="input-feedback">&nbsp;</div>}
                                         </Grid>
                                     </Grid>
@@ -325,24 +329,22 @@ export function EventTable(props) {
                                 <Grid item xs={6}>
                                     <Grid container spacing={0}>
                                         <Grid item xs={4} >
-                                            <label htmlFor="type">
-                                                Type
+                                            <label htmlFor="start_date">
+                                                Start Date
                                             </label>
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <select id="type"
-                                                type="text"
-                                                value={values.type}
+                                            <input
+                                                id="start_date"
+                                                type="date"
+                                                value={values.start_date}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 className={
-                                                    errors.type && touched.type ? 'inputs text-input error' : 'inputs text-input'}>
-                                                <option >type</option>
-                                                <option value="collection">Collection</option>
-                                                <option value="payment">Payment</option>
-                                            </select>
-                                            {errors.type && touched.type ? (
-                                                <div className="input-feedback">{errors.type}</div>
+                                                    errors.start_date && touched.start_date ? 'inputs text-input error' : 'inputs text-input'}
+                                            />
+                                            {errors.start_date && touched.start_date ? (
+                                                <div className="input-feedback">{errors.start_date}</div>
                                             ) : <div className="input-feedback">&nbsp;</div>}
                                         </Grid>
                                     </Grid>
@@ -350,24 +352,44 @@ export function EventTable(props) {
                                 <Grid item xs={6}>
                                     <Grid container spacing={0}>
                                         <Grid item xs={4} >
-                                            <label htmlFor="mode">
-                                                Mode
+                                            <label htmlFor="end_date">
+                                                End Date
                                             </label>
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <select id="mode"
-                                                type="text"
-                                                value={values.mode}
+                                            <input id="end_date"
+                                                type="date"
+                                                value={values.end_date}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 className={
-                                                    errors.mode && touched.mode ? 'inputs text-input error' : 'inputs text-input'}>
-                                                <option >mode</option>
-                                                <option value="normal">Normal</option>
-                                                <option value="recurring">Recurring</option>
-                                            </select>
-                                            {errors.mode && touched.mode ? (
-                                                <div className="input-feedback">{errors.mode}</div>
+                                                    errors.end_date && touched.end_date ? 'inputs text-input error' : 'inputs text-input'} />
+                                            {errors.end_date && touched.end_date ? (
+                                                <div className="input-feedback">{errors.end_date}</div>
+                                            ) : <div className="input-feedback">&nbsp;</div>}
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Grid container spacing={0}>
+                                        <Grid item xs={4} >
+                                            <label htmlFor="campaign_note">
+                                                Campaign Note
+                                            </label>
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <input
+                                                id="campaign_note"
+                                                type="text"
+                                                value={values.campaign_note}
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                style={{ padding: ".4em" }}
+                                                className={
+                                                    errors.campaign_note && touched.campaign_note ? 'inputs text-input error' : 'inputs text-input'}
+                                            />
+                                            {errors.campaign_note && touched.campaign_note ? (
+                                                <div className="input-feedback">{errors.campaign_note}</div>
                                             ) : <div className="input-feedback">&nbsp;</div>}
                                         </Grid>
                                     </Grid>
@@ -397,11 +419,10 @@ export function EventTable(props) {
                                         </Grid>
                                     </Grid>
                                 </Grid>
-
-
+                                <Grid item xs={6}></Grid>
                                 <Grid item xs={4}></Grid>
                                 <Grid item xs={2} style={{ display: "inline-block" }}>
-                                    <button
+                                <button
                                         type="button"
                                         className="buttons outline"
                                         onClick={handleReset}
@@ -412,7 +433,7 @@ export function EventTable(props) {
                                 </Grid>
                                 <Grid item xs={2} style={{ display: "inline-block" }}>
                                     <button type="submit" className="buttons" disabled={isSubmitting}>
-                                        Add Schema
+                                        ADD
                                                 </button>
                                 </Grid>
                                 <Grid item xs={4}></Grid>
@@ -455,7 +476,7 @@ export function EventTable(props) {
 
                                     {/* <TableCell >
                                         <Button variant="contained" color="secondary" onClick={() => props.deleteEvent(row.ID)} >
-                                            Edit
+                                            Delete
                                         </Button>
                                     </TableCell> */}
 
