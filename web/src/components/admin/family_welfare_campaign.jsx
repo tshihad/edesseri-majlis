@@ -95,6 +95,10 @@ export default function EventCalendar(props) {
             })
             .then((response) => {
                 if (response.data.result.length > 0) {
+                    response.data.result.map((row, key) => {
+                        response.data.result[key].start_date = toStdDate(response.data.result[key].start_date)
+                        response.data.result[key].end_date = toStdDate(response.data.result[key].end_date)
+                    })
                     setrows(response.data.result)
                 }
             }).catch((err) => {
@@ -194,30 +198,35 @@ export function EventTable(props) {
             </div>
             <Formik
                 initialValues={{ campaign_code: '', welfare_code: '', fiscal_period: '', start_date: '', end_date: '', campaign_note: '', status: '' }}
-                onSubmit={(values, { setSubmitting }) => {
-                    alert("fdskbg")
+                onSubmit={(values, { setSubmitting, setErrors }) => {
                     alert(JSON.stringify(values))
                     axios.post(API_BASE_URL + '/majlis/admin/welfare/campaign', {
                         campaign_code: values.campaign_code,
                         welfare_code: values.welfare_code,
                         fiscal_period: values.fiscal_period,
-                        amount: values.amount,
                         start_date: values.start_date,
                         end_date: values.end_date,
                         campaign_note: values.campaign_note,
                         status: values.status,
-                    }, {
-                        headers: {
-                            'Authorization': localStorage.getItem('EdasseryMajlisToken')
-                        }
-                    })
+                    },
+                        {
+                            headers: {
+                                'Authorization': localStorage.getItem('EdasseryMajlisToken')
+                            }
+                        })
                         .then((response) => {
-                            alert("Subscription Added");
-                            FormReset()
+                            alert(JSON.stringify(response))
+                            if (response.status === 200) {
+                                alert("welfare Campaign Added");
+                                props.setreload(Math.random())
+                                FormReset()
+                            } else {
+                                alert("Invalid Data")
+                            }
                         })
                         .catch(function (error) {
                             alert(error)
-                            console.log(error);
+                            console.log(error);;
                         });
                     setSubmitting(false);
 
@@ -227,9 +236,7 @@ export function EventTable(props) {
                         .required('Required'),
                     welfare_code: Yup.string()
                         .required('Required'),
-                    fiscal_period: Yup.string()
-                        .required('Required'),
-                    amount: Yup.string()
+                    fiscal_period: Yup.number()
                         .required('Required'),
                     start_date: Yup.string()
                         .required('Required'),
@@ -267,7 +274,7 @@ export function EventTable(props) {
                                         <Grid item xs={6}>
                                             <input
                                                 id="campaign_code"
-                                                placeholder="Enter Campaign code"
+                                                placeholder="Enter New Campaign Code"
                                                 type="text"
                                                 value={values.campaign_code}
                                                 onChange={handleChange}
@@ -291,7 +298,7 @@ export function EventTable(props) {
                                         <Grid item xs={6}>
                                             <input
                                                 id="welfare_code"
-                                                placeholder="Enter Welfare Code"
+                                                placeholder="Enter welfare Code"
                                                 type="text"
                                                 value={values.welfare_code}
                                                 onChange={handleChange}
@@ -313,7 +320,9 @@ export function EventTable(props) {
                                             </label>
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <input id="fiscal_period"
+                                            <input
+                                                id="fiscal_period"
+                                                placeholder="Enter Fiscal Period"
                                                 type="number"
                                                 value={values.fiscal_period}
                                                 onChange={handleChange}
@@ -321,7 +330,6 @@ export function EventTable(props) {
                                                 className={
                                                     errors.fiscal_period && touched.fiscal_period ? 'inputs text-input error' : 'inputs text-input'}
                                             />
-
                                             {errors.fiscal_period && touched.fiscal_period ? (
                                                 <div className="input-feedback">{errors.fiscal_period}</div>
                                             ) : <div className="input-feedback">&nbsp;</div>}
@@ -422,9 +430,10 @@ export function EventTable(props) {
                                     </Grid>
                                 </Grid>
                                 <Grid item xs={6}></Grid>
+
                                 <Grid item xs={4}></Grid>
                                 <Grid item xs={2} style={{ display: "inline-block" }}>
-                                <button
+                                    <button
                                         type="button"
                                         className="buttons outline"
                                         onClick={handleReset}
@@ -435,7 +444,7 @@ export function EventTable(props) {
                                 </Grid>
                                 <Grid item xs={2} style={{ display: "inline-block" }}>
                                     <button type="submit" className="buttons" disabled={isSubmitting}>
-                                        ADD
+                                        Add
                                                 </button>
                                 </Grid>
                                 <Grid item xs={4}></Grid>
