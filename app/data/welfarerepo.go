@@ -20,6 +20,16 @@ func (r *RepoImp) CreateWelfareCampaign(wc models.WelfareCampaign) error {
 
 func (r *RepoImp) GetWelfareCampaign() ([]models.WelfareCampaign, error) {
 	var wc []models.WelfareCampaign
-	err := r.db.Model(models.WelfareCampaign{}).Scan(wc).Error
+	err := r.db.Model(models.WelfareCampaign{}).Scan(&wc).Error
+	return wc, err
+}
+
+func (r *RepoImp) CreateWelfareCollection(wc models.WelfareCollection) error {
+	return r.db.Create(&wc).Error
+}
+
+func (r *RepoImp) GetWelfareCollection() ([]models.WelfareCollection, error) {
+	var wc []models.WelfareCollection
+	err := r.db.Model(models.WelfareCollection{}).Scan(&wc).Error
 	return wc, err
 }

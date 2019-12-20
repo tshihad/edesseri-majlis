@@ -49,3 +49,26 @@ func (a *App) handlePostWelfareCampaign(w http.ResponseWriter, r *http.Request) 
 	}
 	w.WriteHeader(http.StatusOK)
 }
+
+func (a *App) handlePostWelfareCollection(w http.ResponseWriter, r *http.Request) {
+	var wc models.WelfareCollection
+	if err := json.NewDecoder(r.Body).Decode(&wc); err != nil {
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to parse", err)
+		return
+	}
+	if err := a.CreateWelfareCollection(wc); err != nil {
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to fetch", err)
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+
+}
+
+func (a *App) handleGetWelfareCollection(w http.ResponseWriter, r *http.Request) {
+	wc, err := a.GetWelfareCollection()
+	if err != nil {
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to fetch", err)
+		return
+	}
+	a.Success(w, http.StatusOK, wc)
+}

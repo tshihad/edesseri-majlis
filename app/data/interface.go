@@ -84,6 +84,8 @@ type WelfareRepo interface {
 	GetWelfareScheme() ([]models.WelfareScheme, error)
 	CreateWelfareCampaign(models.WelfareCampaign) error
 	GetWelfareCampaign() ([]models.WelfareCampaign, error)
+	CreateWelfareCollection(models.WelfareCollection) error
+	GetWelfareCollection() ([]models.WelfareCollection, error)
 }
 
 type AdminRepo interface {

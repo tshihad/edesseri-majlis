@@ -73,6 +73,8 @@ func (a *App) Router() http.Handler {
 				r.Get("/scheme", a.handleGetWelfareScheme)
 				r.Post("/campaign", a.handlePostWelfareCampaign)
 				r.Get("/campaign", a.handleGetWelfareCampaign)
+				r.Get("/collection", a.handleGetWelfareCollection)
+				r.Post("/collection", a.handlePostWelfareCollection)
 			})
 			r.Post("/downloads", a.handlePostDownload)
 		})
