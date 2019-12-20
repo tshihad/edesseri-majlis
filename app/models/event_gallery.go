@@ -16,5 +16,6 @@ type Dimension struct {
 }
 
 type ECategoryReq struct {
-	Name string `json:"name"`
+	Name     string `json:"name"`
+	Category string
 }
