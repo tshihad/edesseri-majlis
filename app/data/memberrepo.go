@@ -87,7 +87,7 @@ func (r *RepoImp) GetSearchMember(data string) ([]models.MemberShortResp, error)
 func parseTime(ts string) (string, error) {
 	t, err := time.Parse("2/Jan/2006", ts)
 	if err != nil {
-		return "", err
+		return ts, err
 	}
 	return t.Format("2006-01-02"), nil
 

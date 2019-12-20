@@ -16,7 +16,7 @@ type WelfareCampaign struct {
 	CampaignCode string `json:"campaign_code"`
 	WelfareCode  string `json:"welfare_code"`
 	FiscalPeriod string `json:"fiscal_period"`
-	Startate     string `json:"start_date"`
+	StartDate    string `json:"start_date"`
 	EndDate      string `json:"end_date"`
 	State        string `json:"status"`
 	CampaignNote string `json:"campaign_note"`
