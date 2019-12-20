@@ -1,7 +1,7 @@
 {
     "db": {
         "name": "majlis",
-        "pass": "sjrty12m43",
+        "pass": "mypass",
         "host": "localhost",
         "user": "postgres"
     },

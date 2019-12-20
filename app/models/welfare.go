@@ -18,6 +18,21 @@ type WelfareCampaign struct {
 	FiscalPeriod string `json:"fiscal_period"`
 	Startate     string `json:"start_date"`
 	EndDate      string `json:"end_date"`
-	State        string `json:"state"`
+	State        string `json:"status"`
 	CampaignNote string `json:"campaign_note"`
+}
+
+type WelfareCollection struct {
+	ID           int    `gorm:"primary_key"`
+	MemberID     string `json:"member_id" gorm:"column:member_id"`
+	CampaignCode string `json:"campaign_code" gorm:"column:campaign_code"`
+	Amount       int    `json:"amount"`
+}
+
+type WelfareCollectionResp struct {
+	Code         string
+	Description  string
+	CampaignCode string `gorm:"column:campaign_code"`
+	MemberID     string `gorm:"column:member_id"`
+	Amount       int
 }

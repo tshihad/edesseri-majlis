@@ -51,6 +51,7 @@ func (a *App) Router() http.Handler {
 			r.Route("/member", func(r chi.Router) {
 				r.Get("/", a.handleGetMembers)
 				r.Get("/member_id", a.handleGetMemberID)
+				r.With(a.setMemeberID()).Put("/{member_id}", a.handlePutMember)
 				r.With(a.setMemeberID()).Get("/{member_id}", a.handleGetMember)
 				r.Post("/", a.handlePostMember)
 				r.Post("/image", a.handlePostProfileImage)
@@ -73,6 +74,8 @@ func (a *App) Router() http.Handler {
 				r.Get("/scheme", a.handleGetWelfareScheme)
 				r.Post("/campaign", a.handlePostWelfareCampaign)
 				r.Get("/campaign", a.handleGetWelfareCampaign)
+				r.Get("/collection", a.handleGetWelfareCollection)
+				r.Post("/collection", a.handlePostWelfareCollection)
 			})
 			r.Post("/downloads", a.handlePostDownload)
 		})

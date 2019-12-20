@@ -12,8 +12,8 @@ CREATE TABLE welfare_scheme (
 
 CREATE TABLE welfare_campaign (
     id SERIAL PRIMARY KEY,
-    campaign_code VARCHAR(50) REFERENCES welfare_scheme(code) NOT NULL,
-    welfare_code VARCHAR(50) NOT NULL,
+    welfare_code VARCHAR(50) REFERENCES welfare_scheme(code) NOT NULL,
+    campaign_code VARCHAR(50) UNIQUE NOT NULL,
     fiscal_period INTEGER NOT NULL,
     start_date DATE,
     end_date DATE,
@@ -24,10 +24,11 @@ CREATE TABLE welfare_campaign (
 CREATE TABLE welfare_collection (
     id SERIAL PRIMARY KEY,
     member_id VARCHAR(200) REFERENCES member(member_id) NOT NULL,
+    campaign_code VARCHAR(50) REFERENCES welfare_campaign(campaign_code) NOT NULL,
     amount INTEGER NOT NULL
 );
 -- +goose Down
 -- SQL section 'Down' is executed when this migration is rolled back
 DROP TABLE welfare_scheme CASCADE;
-DROP TABLE welfare CASCADE;
+DROP TABLE welfare_campaign CASCADE;
 DROP TABLE welfare_collection CASCADE;
