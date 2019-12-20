@@ -103,7 +103,7 @@ export default function EventCalendar(props) {
     }, [reload]);
 
     const deleteEvent = (eventId) => {
-        axios.delete(API_BASE_URL + '/majlis/admin/event-calendar/' + eventId, {
+        axios.delete(API_BASE_URL + '/majlis/admin/welfare/scheme' + eventId, {
             headers: {
                 'Authorization': localStorage.getItem('EdasseryMajlisToken')
             }
@@ -117,8 +117,8 @@ export default function EventCalendar(props) {
 
     return (
         <EventCalendarCard>
-            <EventTable columns={EventColumns} rows={rows}
-                tablename="Welfare Campaigns" deleteEvent={deleteEvent} setreload={setreload} />
+            <EventTable tablename='Welfare Campaign' columns={EventColumns} rows={rows}
+                deleteEvent={deleteEvent} setreload={setreload} />
         </EventCalendarCard>
     )
 }
@@ -193,14 +193,11 @@ export function EventTable(props) {
                 <div className={classes.heading}>{props.tablename}</div>
             </div>
             <Formik
-                initialValues={{ campaign_code: '', welfare_code: '', fiscal_period: '',amount:'', start_date: '', end_date: '', campaign_note: '', status: '' }}
-                onSubmit={(values, { setSubmitting, setErrors }) => {
-                    if (!values.sub_year.match(YearRegExp)) {
-                        setErrors({ sub_year: 'Invalid Year' });
-                        setSubmitting(false);
-                        return;
-                    }
-                    axios.post(API_BASE_URL + '/majlis/admin/subscription', {
+                initialValues={{ campaign_code: '', welfare_code: '', fiscal_period: '', start_date: '', end_date: '', campaign_note: '', status: '' }}
+                onSubmit={(values, { setSubmitting }) => {
+                    alert("fdskbg")
+                    alert(JSON.stringify(values))
+                    axios.post(API_BASE_URL + '/majlis/admin/welfare/campaign', {
                         campaign_code: values.campaign_code,
                         welfare_code: values.welfare_code,
                         fiscal_period: values.fiscal_period,
@@ -209,6 +206,10 @@ export function EventTable(props) {
                         end_date: values.end_date,
                         campaign_note: values.campaign_note,
                         status: values.status,
+                    }, {
+                        headers: {
+                            'Authorization': localStorage.getItem('EdasseryMajlisToken')
+                        }
                     })
                         .then((response) => {
                             alert("Subscription Added");
@@ -216,7 +217,7 @@ export function EventTable(props) {
                         })
                         .catch(function (error) {
                             alert(error)
-                            console.log(error);;
+                            console.log(error);
                         });
                     setSubmitting(false);
 
@@ -403,16 +404,17 @@ export function EventTable(props) {
                                             </label>
                                         </Grid>
                                         <Grid item xs={6}>
-                                            <input
-                                                id="status"
-                                                placeholder="Enter Payment Event"
+                                            <select id="status"
                                                 type="text"
                                                 value={values.status}
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 className={
-                                                    errors.status && touched.status ? 'inputs text-input error' : 'inputs text-input'}
-                                            />
+                                                    errors.status && touched.status ? 'inputs text-input error' : 'inputs text-input'}>
+                                                <option >status</option>
+                                                <option value="Active">Active</option>
+                                                <option value="Inactive">Inactive</option>
+                                            </select>
                                             {errors.status && touched.status ? (
                                                 <div className="input-feedback">{errors.status}</div>
                                             ) : <div className="input-feedback">&nbsp;</div>}
@@ -422,7 +424,7 @@ export function EventTable(props) {
                                 <Grid item xs={6}></Grid>
                                 <Grid item xs={4}></Grid>
                                 <Grid item xs={2} style={{ display: "inline-block" }}>
-                                    <button
+                                <button
                                         type="button"
                                         className="buttons outline"
                                         onClick={handleReset}
@@ -433,7 +435,7 @@ export function EventTable(props) {
                                 </Grid>
                                 <Grid item xs={2} style={{ display: "inline-block" }}>
                                     <button type="submit" className="buttons" disabled={isSubmitting}>
-                                        Submit
+                                        ADD
                                                 </button>
                                 </Grid>
                                 <Grid item xs={4}></Grid>
@@ -503,6 +505,5 @@ export function EventTable(props) {
                     onChangeRowsPerPage={handleChangeRowsPerPage}
                 /></div>
         </Paper>
-
     );
 }
