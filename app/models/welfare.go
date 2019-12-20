@@ -15,7 +15,7 @@ type WelfareCampaign struct {
 	ID           int    `gorm:"primary_key"`
 	CampaignCode string `json:"campaign_code"`
 	WelfareCode  string `json:"welfare_code"`
-	FiscalPeriod string `json:"fiscal_period"`
+	FiscalPeriod int    `json:"fiscal_period"`
 	StartDate    string `json:"start_date"`
 	EndDate      string `json:"end_date"`
 	State        string `json:"status"`
