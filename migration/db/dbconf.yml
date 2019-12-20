@@ -1,6 +1,6 @@
 local:
     driver: postgres
-    open: host='localhost' port='5432' user='postgres' password='sjrty12m43' dbname='majlis' sslmode=disable
+    open: host='localhost' port='5432' user='postgres' password='mypass' dbname='majlis' sslmode=disable
     dbversion: 
 development:
     driver: postgres

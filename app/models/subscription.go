@@ -2,22 +2,22 @@ package models
 
 import (
 	"time"
-
-	"github.com/jinzhu/gorm"
 )
 
 // Subscription model
 type Subscription struct {
-	gorm.Model
+	ID           int `gorm:"primary_key"`
 	MemberID     string
 	SubYear      int
 	SubMonth     int
 	Period       int
 	SubAmount    int
-	SubStatus    int
-	PaymentDate  time.Time
+	SubStatus    string
+	PaymentDate  string
 	PaymentEvent string
 	CreatedBy    string
+	UpdatedAt    time.Time
+	DeletedAt    time.Time
 }
 
 // SubsTableResponse for formatted subscription data for subscription table

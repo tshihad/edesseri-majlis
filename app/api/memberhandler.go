@@ -48,7 +48,7 @@ func (a *App) handlePostMember(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	m := md5.New()
-	m.Write([]byte(member.Password))
+	m.Write([]byte(member.PasswordHash))
 	member.PasswordHash = hex.EncodeToString(m.Sum(nil))
 	err = a.CreateMember(member)
 	if err != nil {
@@ -103,7 +103,7 @@ func (a *App) handleSignin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	member, err := a.GetMember(signin.MemberID)
-	if err != nil || member.MemberID == "" || member.PasswordHash == "" {
+	if err != nil || member.MemberID == "" {
 		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to authenticate", err)
 		return
 	}

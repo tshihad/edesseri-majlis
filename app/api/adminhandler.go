@@ -32,6 +32,10 @@ func (a *App) handleAdminSignIn(w http.ResponseWriter, r *http.Request) {
 
 func (a *App) handleVerifyAdminAuth(w http.ResponseWriter, r *http.Request) {
 	token := r.Header.Get("Authorization")
+	if token == "" {
+		w.WriteHeader(http.StatusNonAuthoritativeInfo)
+		return
+	}
 	err := a.VerifyAdmin(token)
 	if err != nil {
 		w.WriteHeader(http.StatusNonAuthoritativeInfo)
