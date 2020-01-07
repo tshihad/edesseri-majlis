@@ -6,8 +6,6 @@ import styled from 'styled-components';
 import axios from 'axios';
 // import PhoneInput from '../sub_components/phone_number_input';
 import { Grid } from '@material-ui/core';
-import PhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/dist/style.css'
 import '../../styles/contact.css';
 import { API_BASE_URL } from '../constants'
 
