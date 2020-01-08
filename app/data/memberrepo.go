@@ -47,7 +47,7 @@ func (r *RepoImp) DeleteMember(memberID string) error {
 // GetMembers returns members in given range( according to memberid)
 func (r *RepoImp) GetMembers() ([]models.MemberShortResp, error) {
 	var members []models.MemberShortResp
-	err := r.db.Model(models.Member{}).Select("member_id,name,ph_number_1,email,image_location").Order("member_id").Scan(&members).Error
+	err := r.db.Model(models.Member{}).Select("member_id,name,ph_number_1,email,image_location,status").Order("member_id").Scan(&members).Error
 	return members, err
 }
 

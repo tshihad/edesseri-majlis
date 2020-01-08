@@ -74,5 +74,5 @@ type MemberShortResp struct {
 	PhNumber1     string `json:"ph_number_1" gorm:"column:ph_number_1"`
 	Email         string
 	ImageLocation string `json:"image_location" gorm:"column:image_location"`
-	Status        string
+	Status        string `json:"Status" gorm:"column:status"`
 }
