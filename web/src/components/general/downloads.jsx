@@ -13,6 +13,8 @@ import {
 import { green } from '@material-ui/core/colors';
 import pdfImage from '../../images/icons/pdf-icon.png'
 import styled from 'styled-components';
+import MediaQuery from 'react-responsive'
+
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -79,6 +81,9 @@ export default function Downloads(props) {
 
 const Card = styled.div`
 margin-bottom: 1.5%
+@media (max-width:700px){
+  text-align: center;
+}
 `;
 export function DownloadCard(props) {
   const classes = useStyles()
@@ -86,46 +91,80 @@ export function DownloadCard(props) {
     axios.get(downloadLink)
   }
   return (
-    <Card>
-      <Paper style={{ backgroundColor: "#f2f7f1e0" }}>
-        <Grid container spacing={3} >
-          <Grid item xs={1} alignItems="center" justify="center">
-            <CardMedia
+    <div>
+      <MediaQuery minDeviceWidth={700}>
+        <Card>
+          <Paper style={{ backgroundColor: "#f2f7f1e0" }}>
+            <Grid container spacing={3} >
+              <Grid item xs={1} alignItems="center" justify="center">
+                <CardMedia
+                  className={classes.avatar}
+                  image={pdfImage}
+                  style={{ verticalAlign: "center" }}
+                />
+              </Grid>
+              <Grid item xs={11} alignItems="center">
+                <Grid container spacing={0}>
+                  <Grid xs={10} style={{ marginLeft: '3%' }}>
+                    <p style={{ fontSize: "1.2em" }}>
+                      <b>
+                        {props.title}
+                      </b>
+                    </p>
+                    <p>
+                      {props.description}
+                      <div style={{ fontSize: ".7em", lineHeight: "2em", fontWeight: "600" }}>
+                        uploaded date: {props.updatedAt}
+                      </div>
+                    </p>
+
+                  </Grid>
+                  <Grid item xs={1} >
+                    <div style={{ marginTop: "35px" }}>
+                      <a href={props.downloadLink}
+                        target="_blank" rel="noopener noreferrer" title="Get Document" className={classes.link}>
+                        <Button variant="outlined" size="medium" color="primary" className={classes.margin}
+                          id="download" style={{ backgroundColor: "#556b2f", color: "white" }}>
+                          Download</Button></a>
+                    </div>
+                  </Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+          </Paper>
+        </Card>
+      </MediaQuery>
+      <MediaQuery maxDeviceWidth={700}>
+        <Card style={{marginTop:"20px"}}>
+          <Paper style={{ backgroundColor: "#f2f7f1e0" }}>
+            {/* <CardMedia
               className={classes.avatar}
               image={pdfImage}
               style={{ verticalAlign: "center" }}
-            />
-          </Grid>
-          <Grid item xs={11} alignItems="center">
-            <Grid container spacing={0}>
-              <Grid xs={10} style={{ marginLeft: '3%' }}>
-                <p style={{ fontSize: "1.2em" }}>
-                  <b>
-                    {props.title}
-                  </b>
-                </p>
-                <p>
-                  {props.description}
-                  <div style={{ fontSize: ".7em", lineHeight: "2em", fontWeight: "600" }}>
-                    uploaded date: {props.updatedAt}
-                  </div>
-                </p>
+            /> */}
+            <img src={pdfImage} alt="pdf" style={{width:"50px"}}/>
+            <p style={{ fontSize: "1.2em" }}>
+              <b>
+                {props.title}
+              </b>
+            </p>
+            <p>
+              {props.description}
+              <div style={{ fontSize: ".7em", lineHeight: "2em", fontWeight: "600" }}>
+                uploaded date: {props.updatedAt}
+              </div>
+            </p>
 
-              </Grid>
-              <Grid item xs={1} >
-                <div style={{ marginTop: "35px" }}>
-                  <a href={props.downloadLink}
-                    target="_blank" rel="noopener noreferrer" title="Get Document" className={classes.link}>
-                       <Button variant="outlined" size="medium" color="primary" className={classes.margin}
-                      id="download" style={{ backgroundColor: "#556b2f", color: "white" }}>
-                      Download</Button></a>
-
-                </div>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Paper>
-    </Card>
+            <div style={{ marginTop: "15px" }}>
+              <a href={props.downloadLink}
+                target="_blank" rel="noopener noreferrer" title="Get Document" className={classes.link}>
+                <Button variant="outlined" size="medium" color="primary" className={classes.margin}
+                  id="download" style={{ backgroundColor: "#556b2f", color: "white" }}>
+                  Download</Button></a>
+            </div>
+          </Paper>
+        </Card>
+      </MediaQuery>
+    </div>
   )
 }

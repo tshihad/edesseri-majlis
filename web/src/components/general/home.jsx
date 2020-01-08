@@ -105,18 +105,28 @@ const Card = styled.div`
 width:100%;
 padding: 5vh 15vw;
 text-align: justify;
+@media (max-width:700px){
+  padding: 0vh 5vw;
+  text-align: center;
+}
 `;
 const Headline = styled.h3`
 color:#1d4219;
 font-size: 2em;
 text-align: center
 font-family: 'Comfortaa', cursive;
+@media (max-width:700px){
+  font-size: 1.5em;
+}
 `;
 const Content = styled.p`
 line-height: 1.4em;
 font-size: 1.3em;
 font-family: 'Comfortaa', cursive;
 color: #000f05;
+@media (max-width:700px){
+  font-size: 1.2em;
+}
 `;
 export function Topic(props){
   return(
@@ -134,6 +144,10 @@ color:#556b2f;
 background-color: #e5eee5;
 border-top: 1.5px #7ead2b solid;
 border-bottom: 1.5px #7ead2b solid;
+@media(max-width:700px){
+  margin: 0 0vw;
+
+}
 `;
 const Heading = styled.div`
 text-decoration: none;
@@ -181,6 +195,9 @@ font-weight: 400;
 font-size: 1.2vw;
 vertical-align: top
 display: inline-block;
+@media (max-width:700px){
+  width: 98%;
+}
 `;
 
 const Date = styled.span`
@@ -224,6 +241,9 @@ display: inline-block;
 margin: 0 10vw;
 padding: 5vh 5vw;
 background-color:#e9e9dfbe ;
+@media(max-width:700px){
+  margin: 0 0vw;
+}
 `;
 
 const Pic = styled.img`
@@ -232,6 +252,10 @@ height: 10%;
 padding: 1.5%
 display: inline-block;
 vertical-align: top;
+@media (max-width:700px){
+  width: 15%;
+  height: 15%;
+}
 `;
 const MiniCard = styled.div`
 width: 50%;
@@ -239,18 +263,27 @@ font-weight: 400;
 font-size: 1.2vw;
 vertical-align: top;
 display: inline-block;
+@media (max-width:700px){
+  width: 98%;
+}
 `;
 const Main = styled.div`
 font-size: 1vw;
 width:90%;
 padding-top: 3%
 display: inline-block;
+@media (max-width:700px){
+  width: 85%;
+}
 `;
 
 const Head = styled.div`
 font-size: 1.4vw;
 font-weight: 600;
 color: #495f24;
+@media (max-width:700px){
+  font-size:5em;
+}
 `;
 
 const P = styled.p`
@@ -259,6 +292,9 @@ line-height: 1.3em;
 font-family: 'Roboto', sans-serif;
 font-color: #02802c;
 font-weight: 400;
+@media (max-width:700px){
+  font-size: 4em;
+}
 `;
 export function SubCard(props){
   return(
