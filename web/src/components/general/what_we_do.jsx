@@ -3,6 +3,9 @@ import styled from 'styled-components'
 
 const WhatWeDoDiv = styled.div`
 margin: 0vh 10vw;
+@media(max-width:700px){
+  margin: 0vh 0vw;
+}
 `;
 
 const WelfareProgramsContents = {
@@ -87,16 +90,15 @@ export default function WhatWeDo(props) {
   }, [props])
   return (
     <WhatWeDoDiv>
-      <WhatWeDoCard headline="Welfare Programs" contents={WelfareProgramsContents} language={props.language === "മലയാളം" ?"malayalam" :"english"} colorcode="1" />
-      <WhatWeDoCard headline="Services To The Society" contents={ServiceSocietyContents} language={props.language === "മലയാളം" ?"malayalam" :"english"} colorcode="2" />
-      <WhatWeDoCard headline="Help Own Members" contents={HelpMembersContents} language={props.language === "മലയാളം" ?"malayalam" :"english"} colorcode="1" />
-      <WhatWeDoCard headline="Majlis Stands For" contents={MajlisStandsForContents} language={props.language === "മലയാളം" ?"malayalam" :"english"} colorcode="2" />
+      <WhatWeDoCard headline="Welfare Programs" contents={WelfareProgramsContents} language={props.language === "മലയാളം" ? "malayalam" : "english"} colorcode="1" />
+      <WhatWeDoCard headline="Services To The Society" contents={ServiceSocietyContents} language={props.language === "മലയാളം" ? "malayalam" : "english"} colorcode="2" />
+      <WhatWeDoCard headline="Help Own Members" contents={HelpMembersContents} language={props.language === "മലയാളം" ? "malayalam" : "english"} colorcode="1" />
+      <WhatWeDoCard headline="Majlis Stands For" contents={MajlisStandsForContents} language={props.language === "മലയാളം" ? "malayalam" : "english"} colorcode="2" />
     </WhatWeDoDiv>
   )
 }
 
 const Card = styled.div`
-width: 100%;
 display: block;
 min-height: 30vh;
 padding: 5% 0%;
@@ -106,17 +108,33 @@ width: 30%;
 display:inline-block;
 text-align: right;
 vertical-align: top;
+@media(max-width:700px){
+  text-align: center;
+  vertical-align: middle;
+  width: 100%;
+}
 `;
 const Headline = styled.h3`
 color:#1d4219;
 margin-top: 5%;
 font-size: 1.5em;
-font-family: 'Comfortaa', cursive;`;
+font-family: 'Comfortaa', cursive;
+@media(max-width:700px){
+  margin: 3% 0 0 0 ;
+  font-size: 1.3em;
+}`;
+
 const Content = styled.div`
 width: 60%;
 font-size: 1.2em;
 padding-left: 5%;
 display:inline-block;
+@media(max-width:700px){
+  width: 100%;
+  padding: 0 5vw;
+  text-align:center;
+  font-size: 1em;
+}
 `;
 export function WhatWeDoCard(props) {
   return (

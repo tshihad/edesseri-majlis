@@ -13,7 +13,9 @@ import member3 from '../../images/members/HonorableHeros/AbdulRahimanAV.jpg';
 import member4 from '../../images/members/avatar.jpeg';
 import member5 from '../../images/members/HonorableHeros/A.VHussain.jpeg';
 import member6 from '../../images/members/HonorableHeros/A.MJamal.jpeg'
-import member7 from '../../images/members/HonorableHeros/MOOSAR.K.jpeg'
+import member7 from '../../images/members/HonorableHeros/MOOSAR.K.jpeg';
+import MediaQuery from 'react-responsive'
+
 
 
 const WhoLeadUsDiv = styled.div`
@@ -41,66 +43,238 @@ export default function WhoLeadUs(props) {
         props.setState("WhoLeadUs")
     }, [props])
     return (
+        <div>
+            <MediaQuery minDeviceWidth={800}>
+                <WhoLeadUsDiv>
+                    <Headline>Our Honorable Heros</Headline>
+                    <P>Expat Committee in the UAE as of December 12, 1972. This is the oldest expat committee in Minutes available.</P>
+                    <Grid container spacing={0}>
+                        <Grid item xs={1}></Grid>
+                        <Grid item xs={3}>
+                            <MemberCard position="President" image={president} name="R.M Aboobacker" />
+                        </Grid>
+                        <Grid item xs={3}>
+                            <MemberCard position="Secretary" image={secretary} name="P.H Mohammedali" />
+                        </Grid>
+                        <Grid item xs={3}>
+                            <MemberCard position="Cashier" image={treasurer} name="R.A Adimakkutty" len="large" />
+                        </Grid>
+                        <Grid item xs={2}></Grid>
+                    </Grid>
+                    <Grid container spacing={0}>
+                        <Grid item xs={2}></Grid>
+                        <Grid item xs={4}>
+                            <MemberCard position="Vice President" image={vicepresident} name="A.A Muhammad" />
+                        </Grid>
+                        <Grid item xs={4}>
+                            <MemberCard position="Joint Secretary" image={jointsecretary} name="P.M Ibrahim Kutty" />
+                        </Grid>
+                        <Grid item xs={2}></Grid>
+                    </Grid>
+                    <Grid container spacing={0}>
+                        <Grid item xs={3}>
+                            <MemberCard position="Member" image={member1} name="P.M Saththar" />
+                        </Grid>
+                        <Grid item xs={3}>
+                            <MemberCard position="Member" image={member2} name="P.M Pareed" />
+                        </Grid>
+                        <Grid item xs={3}>
+                            <MemberCard position="Member" image={member3} name="A.V Abdul Rahiman" />
+                        </Grid>
+                        <Grid item xs={3}>
+                            <MemberCard position="Member" image={member4} name="P.K Ismail" />
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={0} justify="center">
+                        <Grid item xs={3}>
+                            <MemberCard position="Member" image={member5} name="A.V Hussain" />
+                        </Grid>
+                    </Grid>
+                    <hr
+                        style={{
+                            color: "rgb(126, 173, 43)",
+                            backgroundColor: "rgb(126, 173, 43)",
+                            height: 3
+                        }}
+                    />
+                    <Grid container spacing={0} justify="center">
+                        <Grid item xs={3}>
+                            <MemberCard position="&nbsp;" image={member6} name="A M Jamal" />
+                        </Grid>
+                        <Grid item xs={3}>
+                            <MemberCard position="&nbsp;" image={member7} name="R K Moosa" />
+                        </Grid>
+                    </Grid>
+                </WhoLeadUsDiv>
+            </MediaQuery>
+            <MediaQuery minDeviceWidth={500}>
+                <WhoLeadUsDiv>
+                    <Headline>Our Honorable Heros</Headline>
+                    <P>Expat Committee in the UAE as of December 12, 1972. This is the oldest expat committee in Minutes available.</P>
+                    <Grid container spacing={0}>
+                        <Grid item xs={6}>
+                            <MemberCard position="President" image={president} name="R.M Aboobacker" />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <MemberCard position="Secretary" image={secretary} name="P.H Mohammedali" />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <MemberCard position="Cashier" image={treasurer} name="R.A Adimakkutty" len="large" />
+                        </Grid>
+
+                        <Grid item xs={6}>
+                            <MemberCard position="Vice President" image={vicepresident} name="A.A Muhammad" />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <MemberCard position="Joint Secretary" image={jointsecretary} name="P.M Ibrahim Kutty" />
+                        </Grid>
+
+                        <Grid item xs={6}>
+                            <MemberCard position="Member" image={member1} name="P.M Saththar" />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <MemberCard position="Member" image={member2} name="P.M Pareed" />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <MemberCard position="Member" image={member3} name="A.V Abdul Rahiman" />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <MemberCard position="Member" image={member4} name="P.K Ismail" />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <MemberCard position="Member" image={member5} name="A.V Hussain" />
+                        </Grid>
+                    </Grid>
+                    <hr
+                        style={{
+                            color: "rgb(126, 173, 43)",
+                            backgroundColor: "rgb(126, 173, 43)",
+                            height: 2
+                        }}
+                    />
+                    <Grid container spacing={0} justify="center">
+                        <Grid item xs={6}>
+                            <MemberCard position="&nbsp;" image={member6} name="A M Jamal" />
+                        </Grid>
+                        <Grid item xs={6}>
+                            <MemberCard position="&nbsp;" image={member7} name="R K Moosa" />
+                        </Grid>
+                    </Grid>
+                </WhoLeadUsDiv>
+            </MediaQuery>
+            <MediaQuery maxDeviceWidth={500}>
+                <WhoLeadUsDiv>
+                    <Headline>Our Honorable Heros</Headline>
+                    <P>Expat Committee in the UAE as of December 12, 1972. This is the oldest expat committee in Minutes available.</P>
+                    <Grid container spacing={0}>
+                        <Grid item xs={12}>
+                            <MemberCard position="President" image={president} name="R.M Aboobacker" />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <MemberCard position="Secretary" image={secretary} name="P.H Mohammedali" />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <MemberCard position="Cashier" image={treasurer} name="R.A Adimakkutty" len="large" />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <MemberCard position="Vice President" image={vicepresident} name="A.A Muhammad" />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <MemberCard position="Joint Secretary" image={jointsecretary} name="P.M Ibrahim Kutty" />
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <MemberCard position="Member" image={member1} name="P.M Saththar" />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <MemberCard position="Member" image={member2} name="P.M Pareed" />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <MemberCard position="Member" image={member3} name="A.V Abdul Rahiman" />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <MemberCard position="Member" image={member4} name="P.K Ismail" />
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <MemberCard position="Member" image={member5} name="A.V Hussain" />
+                        </Grid>
+                    </Grid>
+                    <hr
+                        style={{
+                            color: "rgb(126, 173, 43)",
+                            backgroundColor: "rgb(126, 173, 43)",
+                            height: 1
+                        }}
+                    />
+                    <Grid container spacing={0} justify="center">
+                        <Grid item xs={12}>
+                            <MemberCard position="&nbsp;" image={member6} name="A M Jamal" />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <MemberCard position="&nbsp;" image={member7} name="R K Moosa" />
+                        </Grid>
+                    </Grid>
+                </WhoLeadUsDiv>
+            </MediaQuery>
+        </div>
+    )
+}
+
+export function Mobile(){
+    return(
         <WhoLeadUsDiv>
-            <Headline>Our Honorable Heros</Headline>
-            <P>Expat Committee in the UAE as of December 12, 1972. This is the oldest expat committee in Minutes available.</P>
-            <Grid container spacing={0}>
-                <Grid item xs={1}></Grid>
-                <Grid item xs={3}>
-                    <MemberCard position="President" image={president} name="R.M Aboobacker" />
-                </Grid>
-                <Grid item xs={3}>
-                    <MemberCard position="Secretary" image={secretary} name="P.H Mohammedali" />
-                </Grid>
-                <Grid item xs={3}>
-                    <MemberCard position="Cashier" image={treasurer} name="R.A Adimakkutty" len="large"/>
-                </Grid>
-                <Grid item xs={2}></Grid>
-            </Grid>
-            <Grid container spacing={0}>
-                <Grid item xs={2}></Grid>
-                <Grid item xs={4}>
-                    <MemberCard position="Vice President" image={vicepresident} name="A.A Muhammad" />
-                </Grid>
-                <Grid item xs={4}>
-                    <MemberCard position="Joint Secretary" image={jointsecretary} name="P.M Ibrahim Kutty" />
-                </Grid>
-                <Grid item xs={2}></Grid>
-            </Grid>
-            <Grid container spacing={0}>
-                <Grid item xs={3}>
-                    <MemberCard position="Member" image={member1} name="P.M Saththar" />
-                </Grid>
-                <Grid item xs={3}>
-                    <MemberCard position="Member" image={member2} name="P.M Pareed" />
-                </Grid>
-                <Grid item xs={3}>
-                    <MemberCard position="Member" image={member3} name="A.V Abdul Rahiman" />
-                </Grid>
-                <Grid item xs={3}>
-                <MemberCard position="Member" image={member4} name="P.K Ismail" />
-                </Grid>
-            </Grid>
-            <Grid container spacing={0} justify="center">
-                <Grid item xs={3}>
-                <MemberCard position="Member" image={member5} name="A.V Hussain" />
-                </Grid>
-            </Grid>
-            <hr
-        style={{
-            color: "rgb(126, 173, 43)",
-            backgroundColor: "rgb(126, 173, 43)",
-            height: 3
-        }}
-    />
-    <Grid container spacing={0} justify="center">
-                <Grid item xs={3}>
-                <MemberCard position="&nbsp;" image={member6} name="A M Jamal" />
-                </Grid>
-                <Grid item xs={3}>
-                <MemberCard position="&nbsp;" image={member7} name="R K Moosa" />
-                </Grid>
-            </Grid>
-        </WhoLeadUsDiv>
+                    <Headline>Our Honorable Heros</Headline>
+                    <P>Expat Committee in the UAE as of December 12, 1972. This is the oldest expat committee in Minutes available.</P>
+                    <Grid container spacing={0}>
+                        <Grid item xs={12}>
+                            <MemberCard position="President" image={president} name="R.M Aboobacker" />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <MemberCard position="Secretary" image={secretary} name="P.H Mohammedali" />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <MemberCard position="Cashier" image={treasurer} name="R.A Adimakkutty" len="large" />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <MemberCard position="Vice President" image={vicepresident} name="A.A Muhammad" />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <MemberCard position="Joint Secretary" image={jointsecretary} name="P.M Ibrahim Kutty" />
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <MemberCard position="Member" image={member1} name="P.M Saththar" />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <MemberCard position="Member" image={member2} name="P.M Pareed" />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <MemberCard position="Member" image={member3} name="A.V Abdul Rahiman" />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <MemberCard position="Member" image={member4} name="P.K Ismail" />
+                        </Grid>
+
+                        <Grid item xs={12}>
+                            <MemberCard position="Member" image={member5} name="A.V Hussain" />
+                        </Grid>
+                    </Grid>
+                    <hr
+                        style={{
+                            color: "rgb(126, 173, 43)",
+                            backgroundColor: "rgb(126, 173, 43)",
+                            height: 1
+                        }}
+                    />
+                    <Grid container spacing={0} justify="center">
+                        <Grid item xs={12}>
+                            <MemberCard position="&nbsp;" image={member6} name="A M Jamal" />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <MemberCard position="&nbsp;" image={member7} name="R K Moosa" />
+                        </Grid>
+                    </Grid>
+                </WhoLeadUsDiv>
     )
 }

@@ -1,16 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import Loading from './loading'
 
-export default function LogoutButton() {
+export default function EventGallery(props) {
+    useEffect(() => {
+        props.setLanButton(false)
+        props.setState("Home")
+        localStorage.clear()
+        window.location = "/Home"
+    }, [props])
     return (
-        <div class="logout">
-            <button class="dropbtn"
-                >Logout</button>
-            <div class="logout-content" onClick={() => buttonClick("WhoLeadUs")}>
-                <div to="#">Current</div>
-                <div to="#">Term-1</div>
-                <div to="#">Term-2</div>
-                <div to="#">Term-3</div>
-            </div>
-        </div>
+        <Loading />
     )
 }

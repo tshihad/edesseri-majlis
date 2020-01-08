@@ -1,15 +1,11 @@
 import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import { Redirect } from 'react-router-dom'
-import axios from 'axios';
-import { API_BASE_URL } from '../constants';
-import Loading from '../sub_components/loading'
-
-
-
 
 const WhatWeDoDiv = styled.div`
 margin: 0vh 10vw;
+@media(max-width:700px){
+  margin: 0vh 0vw;
+}
 `;
 
 const WelfareProgramsContents = {
@@ -87,45 +83,22 @@ const MajlisStandsForContents = {
 }
 
 export default function WhatWeDo(props) {
-  const [canLoad, setLoading] = React.useState(false)
   useEffect(() => {
     window.scrollTo(0, 0)
-    if (localStorage.getItem('VerifiedUser')) {
-      setLoading(true)
-    } else {
-      axios.get(API_BASE_URL + '/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
-        repsonse => {
-          if (repsonse.status != 200) {
-            window.location = "/MemberLogin"
-          }
-        }
-      ).catch(error => {
-        window.location = "/MemberLogin"
-        alert("Authentication Failed")
-      })
-    }
-    setLoading(true)
-
     props.setLanButton(true)
-    props.setUser("user")
     props.setState("WhatWeDo")
   }, [props])
   return (
-    <div>
-      {canLoad === true ?
-        <WhatWeDoDiv>
-          <WhatWeDoCard headline="Welfare Programs" contents={WelfareProgramsContents} language={props.language === "മലയാളം" ? "malayalam" : "english"} colorcode="1" />
-          <WhatWeDoCard headline="Services To The Society" contents={ServiceSocietyContents} language={props.language === "മലയാളം" ? "malayalam" : "english"} colorcode="2" />
-          <WhatWeDoCard headline="Help Own Members" contents={HelpMembersContents} language={props.language === "മലയാളം" ? "malayalam" : "english"} colorcode="1" />
-          <WhatWeDoCard headline="Majlis Stands For" contents={MajlisStandsForContents} language={props.language === "മലയാളം" ? "malayalam" : "english"} colorcode="2" />
-        </WhatWeDoDiv>
-        : <Loading />}
-    </div>
+    <WhatWeDoDiv>
+      <WhatWeDoCard headline="Welfare Programs" contents={WelfareProgramsContents} language={props.language === "മലയാളം" ? "malayalam" : "english"} colorcode="1" />
+      <WhatWeDoCard headline="Services To The Society" contents={ServiceSocietyContents} language={props.language === "മലയാളം" ? "malayalam" : "english"} colorcode="2" />
+      <WhatWeDoCard headline="Help Own Members" contents={HelpMembersContents} language={props.language === "മലയാളം" ? "malayalam" : "english"} colorcode="1" />
+      <WhatWeDoCard headline="Majlis Stands For" contents={MajlisStandsForContents} language={props.language === "മലയാളം" ? "malayalam" : "english"} colorcode="2" />
+    </WhatWeDoDiv>
   )
 }
 
 const Card = styled.div`
-width: 100%;
 display: block;
 min-height: 30vh;
 padding: 5% 0%;
@@ -135,17 +108,33 @@ width: 30%;
 display:inline-block;
 text-align: right;
 vertical-align: top;
+@media(max-width:700px){
+  text-align: center;
+  vertical-align: middle;
+  width: 100%;
+}
 `;
 const Headline = styled.h3`
 color:#1d4219;
 margin-top: 5%;
 font-size: 1.5em;
-font-family: 'Comfortaa', cursive;`;
+font-family: 'Comfortaa', cursive;
+@media(max-width:700px){
+  margin: 3% 0 0 0 ;
+  font-size: 1.3em;
+}`;
+
 const Content = styled.div`
 width: 60%;
-padding-left: 5%;
 font-size: 1.2em;
+padding-left: 5%;
 display:inline-block;
+@media(max-width:700px){
+  width: 100%;
+  padding: 0 5vw;
+  text-align:center;
+  font-size: 1em;
+}
 `;
 export function WhatWeDoCard(props) {
   return (

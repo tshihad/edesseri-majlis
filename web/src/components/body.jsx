@@ -36,6 +36,10 @@ import LogoutIcon from '@material-ui/icons/Person';
 import AdminLogin from './general/admin_login';
 import ViewProfile from './admin/profile';
 import ViewSubscription from './admin/single_subscription';
+import MediaQuery from 'react-responsive'
+import MobileHeader from './mobile_header';
+import LogoutAction from './sub_components/logout'
+
 import axios from 'axios';
 import '../styles/navbar.css';
 import '../styles/header.css';
@@ -70,6 +74,9 @@ padding: 9.8vw 0 0 0;
 min-height: 90vh;
 background-color: #f2f7f2;
 font-family: 'Comfortaa', cursive;
+@media(max-width: 700px){
+  padding: 50px 0 0 0;
+}
 `;
 
 const Language = styled.button`
@@ -105,6 +112,111 @@ const Span = styled.span`
 font-size: 2vw;
 `;
 
+const HomeMenu = [
+  {
+    text: "Home",
+    url: "/Home",
+  },
+  {
+    text: "What We Do",
+    url: "/WhatWeDo",
+  },
+  {
+    text: "Who Lead Us",
+    url: "/WhoLeadUs/Current",
+  },
+  {
+    text: "Event Gallery",
+    url: "/EventGallery/Milad",
+  },
+  {
+    text: "Downloads",
+    url: "/Downloads",
+  },
+  {
+    text: "Contact Majlis",
+    url: "/ContactMajlis",
+  },
+  {
+    text: "Join Majlis",
+    url: "/JoinMajlis",
+  }, {
+    text: "Member Login",
+    url: "/MemberLogin",
+  },
+]
+
+const UserMenu = [
+  {
+    text: "Home",
+    url: "/User/Home",
+  },
+  {
+    text: "What We Do",
+    url: "/User/WhatWeDo",
+  },
+  {
+    text: "Who Lead Us",
+    url: "/User/WhoLeadUs/Current",
+  },
+  {
+    text: "Event Gallery",
+    url: "/User/EventGallery/Milad",
+  },
+  {
+    text: "Downloads",
+    url: "/User/Downloads",
+  },
+  {
+    text: "Contact Majlis",
+    url: "/User/ContactMajlis",
+  },
+  {
+    text: "User Options",
+    url: "/User/UserOptions",
+  }, {
+    text: "Profile",
+    url: "/User/Profile",
+  }, {
+    text: "Logout",
+    url: "/Logout",
+  },
+]
+
+const AdminMenu = [
+  {
+    text: "Home",
+    url: "/Home",
+  },
+  {
+    text: "What We Do",
+    url: "/WhatWeDo",
+  },
+  {
+    text: "Who Lead Us",
+    url: "/WhoLeadUs/Current",
+  },
+  {
+    text: "Event Gallery",
+    url: "/EventGallery/Milad",
+  },
+  {
+    text: "Downloads",
+    url: "/Downloads",
+  },
+  {
+    text: "Contact Majlis",
+    url: "/ContactMajlis",
+  },
+  {
+    text: "Join Majlis",
+    url: "/JoinMajlis",
+  }, {
+    text: "Member Login",
+    url: "/MemberLogin",
+  },
+
+]
 export default function Header() {
   const [isButtonActive, setActive] = React.useState("Home")
   const [language, setLanguage] = React.useState("മലയാളം")
@@ -168,244 +280,252 @@ export default function Header() {
           </div>
         </div>}
       <Router>
-        <Head>
-          <Heading style={{ maxHeight: "100%", overflowX: "hidden", borderBottom: user === "none" && "0px" }}>
-            <div style={{ display: "inline-flex" }}>
-              <img src={logo} alt="logo" style={{ width: "3.5vw", height: "3.5vw", display: "inline-block" }} />
-              <div style={{ margin: "1.5vw 0 0 .8vw", color: "#556b2f", display: "inline-block", fontFamily: "Aroma", fontSize: "1.4vw" }}><Span>E</Span>DASSERY <Span>M</Span>AJLIS <Span>G</Span>ROUP</div>
+        <MediaQuery minDeviceWidth={700}>
+          <Head>
+            <Heading style={{ maxHeight: "100%", overflowX: "hidden", borderBottom: user === "none" && "0px" }}>
+              <div style={{ display: "inline-flex" }}>
+                <img src={logo} alt="logo" style={{ width: "3.5vw", height: "3.5vw", display: "inline-block" }} />
+                <div style={{ margin: "1.5vw 0 0 .8vw", color: "#556b2f", display: "inline-block", fontFamily: "Aroma", fontSize: "1.4vw" }}><Span>E</Span>DASSERY <Span>M</Span>AJLIS <Span>G</Span>ROUP</div>
+              </div>
+              {isLoggedin === true && user != "general" && <Logout title="Logout" onMouseOver={openLogout} ><LogoutIcon style={{ fontSize: "3em" }} /></Logout>}
+              {isLanguageOption && <Language title="Change Language" style={{ display: "inline-block", fontSize: language === "English" ? "1.1vw" : "1.5vw" }} onClick={changeLanguage}>{language}</Language>}
+            </Heading>
+            <div class="navbar" style={{ display: user === "general" ? "block" : "none" }}>
+              <Link to="/Home" class="dropdown">
+                <button class="dropbtn"
+                  onClick={() => buttonClick("Home")} style={{
+                    backgroundColor: isButtonActive === "Home" && " #556b2f",
+                    color: isButtonActive === "Home" && "white"
+                  }}>Home</button>
+              </Link>
+              <Link to="/WhatWeDo" class="dropdown">
+                <button class="dropbtn"
+                  onClick={() => buttonClick("WhatWeDo")} style={{
+                    backgroundColor: isButtonActive === "WhatWeDo" && " #556b2f",
+                    color: isButtonActive === "WhatWeDo" && "white"
+                  }}>What We Do</button>
+                <div class="dropdown-content" onClick={() => buttonClick("WhatWeDo")}>
+                  {/* <Link to="/WhatWeDo/Projects">Projects</Link> */}
+                </div>
+              </Link>
+              <Link to="/WhoLeadUs/Current" class="dropdown">
+                <button class="dropbtn"
+                  onClick={() => buttonClick("WhoLeadUs")} style={{
+                    backgroundColor: isButtonActive === "WhoLeadUs" && " #556b2f",
+                    color: isButtonActive === "WhoLeadUs" && "white"
+                  }}>Who Lead Us</button>
+                <div class="dropdown-content" onClick={() => buttonClick("WhoLeadUs")}>
+                  <Link to="/WhoLeadUs/Current">Current</Link>
+                  <Link to="/WhoLeadUs/OurHeros">Honorable Heros</Link>
+
+                </div>
+              </Link>
+              <Link to="/EventGallery" class="dropdown">
+                <button class="dropbtn"
+                  onClick={() => buttonClick("EventGallery")} style={{
+                    backgroundColor: isButtonActive === "EventGallery" && " #556b2f",
+                    color: isButtonActive === "EventGallery" && "white"
+                  }}>Event Gallery</button>
+                <div class="dropdown-content" onClick={() => buttonClick("EventGallery")}>
+                  <Link to="/EventGallery/Milad">Milad</Link>
+                  <Link to="/EventGallery/Eid">Eid</Link>
+                  <Link to="/EventGallery/Iftar">Iftar</Link>
+                  <Link to="/EventGallery/Sports">Sports</Link>
+                  <Link to="/EventGallery/MeetandGreet">Meet and Greet</Link>
+                  <Link to="/EventGallery/Other">Other</Link>
+                </div>
+              </Link>
+              <Link to="/Downloads" class="dropdown">
+                <button class="dropbtn"
+                  onClick={() => buttonClick("Downloads")} style={{
+                    backgroundColor: isButtonActive === "Downloads" && " #556b2f",
+                    color: isButtonActive === "Downloads" && "white"
+                  }}>Downloads</button>
+              </Link>
+              <Link to="/ContactMajlis" class="dropdown">
+                <button class="dropbtn"
+                  onClick={() => buttonClick("ContactMajlis")} style={{
+                    backgroundColor: isButtonActive === "ContactMajlis" && " #556b2f",
+                    color: isButtonActive === "ContactMajlis" && "white"
+                  }}>Contact Majlis</button>
+              </Link>
+              <Link to="/JoinMajlis" class="dropdown">
+                <button class="dropbtn"
+                  onClick={() => buttonClick("JoinMajlis")} style={{
+                    backgroundColor: isButtonActive === "JoinMajlis" && " #556b2f",
+                    color: isButtonActive === "JoinMajlis" && "white"
+                  }}>Join Majlis</button>
+              </Link>
+              <Link to="/MemberLogin" class="dropdown">
+                <button class="dropbtn"
+                  onClick={() => buttonClick("MemberLogin")} style={{
+                    backgroundColor: isButtonActive === "MemberLogin" && " #556b2f",
+                    color: isButtonActive === "MemberLogin" && "white"
+                  }}>Member Login</button>
+              </Link>
             </div>
-            {isLoggedin === true && user != "general" && <Logout title="Logout" onMouseOver={openLogout} ><LogoutIcon style={{ fontSize: "3em" }} /></Logout>}
-            {isLanguageOption && <Language title="Change Language" style={{ display: "inline-block", fontSize: language === "English" ? "1.1vw" : "1.5vw" }} onClick={changeLanguage}>{language}</Language>}
-          </Heading>
-          <div class="navbar" style={{ display: user === "general" ? "block" : "none" }}>
-            <Link to="/Home" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("Home")} style={{
-                  backgroundColor: isButtonActive === "Home" && " #556b2f",
-                  color: isButtonActive === "Home" && "white"
-                }}>Home</button>
-            </Link>
-            <Link to="/WhatWeDo" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("WhatWeDo")} style={{
-                  backgroundColor: isButtonActive === "WhatWeDo" && " #556b2f",
-                  color: isButtonActive === "WhatWeDo" && "white"
-                }}>What We Do</button>
-              <div class="dropdown-content" onClick={() => buttonClick("WhatWeDo")}>
-                {/* <Link to="/WhatWeDo/Projects">Projects</Link> */}
-              </div>
-            </Link>
-            <Link to="/WhoLeadUs/Current" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("WhoLeadUs")} style={{
-                  backgroundColor: isButtonActive === "WhoLeadUs" && " #556b2f",
-                  color: isButtonActive === "WhoLeadUs" && "white"
-                }}>Who Lead Us</button>
-              <div class="dropdown-content" onClick={() => buttonClick("WhoLeadUs")}>
-                <Link to="/WhoLeadUs/Current">Current</Link>
-                <Link to="/WhoLeadUs/OurHeros">Honorable Heros</Link>
+            {/* NAVBAR for Admin user */}
+            <div class="navbar" style={{ display: user === "admin" ? "block" : "none" }}>
+              <Link to="/Admin/Members" class="dropdown">
+                <button class="dropbtn"
+                  onClick={() => buttonClick("Members")} style={{
+                    backgroundColor: isButtonActive === "Members" && " #556b2f",
+                    color: isButtonActive === "Members" && "white"
+                  }}>Members</button>
+              </Link>
+              <Link to="/Admin/AddMember" class="dropdown">
+                <button class="dropbtn"
+                  onClick={() => buttonClick("AddMember")} style={{
+                    backgroundColor: isButtonActive === "AddMember" && " #556b2f",
+                    color: isButtonActive === "AddMember" && "white"
+                  }}>Add Member</button>
+              </Link>
+              <Link to="/Admin/Subscriptions" class="dropdown">
+                <button class="dropbtn"
+                  onClick={() => buttonClick("Subscriptions")} style={{
+                    backgroundColor: isButtonActive === "Subscriptions" && " #556b2f",
+                    color: isButtonActive === "Subscriptions" && "white"
+                  }}>Subscriptions</button>
+              </Link>
+              <Link to="/Admin/EventGallery" class="dropdown">
+                <button class="dropbtn"
+                  onClick={() => buttonClick("EventGalleryAdmin")} style={{
+                    backgroundColor: isButtonActive === "EventGalleryAdmin" && " #556b2f",
+                    color: isButtonActive === "EventGalleryAdmin" && "white"
+                  }}>Event Gallery</button>
+                <div class="dropdown-content" onClick={() => buttonClick("EventGallery")}>
+                  <Link to="/Admin/EventGallery/Milad">Milad</Link>
+                  <Link to="/Admin/EventGallery/Eid">Eid</Link>
+                  <Link to="/Admin/EventGallery/Iftar">Iftar</Link>
+                  <Link to="/Admin/EventGallery/Sports">Sports</Link>
+                  <Link to="/Admin/EventGallery/MeetandGreet">Meet and Greet</Link>
+                  <Link to="/Admin/EventGallery/Other">Other</Link>
+                </div>
+              </Link>
+              <Link to="/Admin/Loans" class="dropdown">
+                <button class="dropbtn"
+                  onClick={() => buttonClick("Loans")} style={{
+                    backgroundColor: isButtonActive === "Loans" && " #556b2f",
+                    color: isButtonActive === "Loans" && "white"
+                  }}>Loans</button>
+              </Link>
+              <Link to="/Admin/FamlilyWelfare" class="dropdown">
+                <button class="dropbtn"
+                  onClick={() => buttonClick("FamilyWelfare")} style={{
+                    backgroundColor: isButtonActive === "FamilyWelfare" && " #556b2f",
+                    color: isButtonActive === "FamilyWelfare" && "white"
+                  }}>Family Welfare</button>
+              </Link>
+              <Link to="/Admin/EventCalendar" class="dropdown">
+                <button class="dropbtn"
+                  onClick={() => buttonClick("EventCalendar")} style={{
+                    backgroundColor: isButtonActive === "EventCalendar" && " #556b2f",
+                    color: isButtonActive === "EventCalendar" && "white"
+                  }}>Event Calendar</button>
 
-              </div>
-            </Link>
-            <Link to="/EventGallery" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("EventGallery")} style={{
-                  backgroundColor: isButtonActive === "EventGallery" && " #556b2f",
-                  color: isButtonActive === "EventGallery" && "white"
-                }}>Event Gallery</button>
-              <div class="dropdown-content" onClick={() => buttonClick("EventGallery")}>
-                <Link to="/EventGallery/Milad">Milad</Link>
-                <Link to="/EventGallery/Eid">Eid</Link>
-                <Link to="/EventGallery/Iftar">Iftar</Link>
-                <Link to="/EventGallery/Sports">Sports</Link>
-                <Link to="/EventGallery/MeetandGreet">Meet and Greet</Link>
-                <Link to="/EventGallery/Other">Other</Link>
-              </div>
-            </Link>
-            <Link to="/Downloads" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("Downloads")} style={{
-                  backgroundColor: isButtonActive === "Downloads" && " #556b2f",
-                  color: isButtonActive === "Downloads" && "white"
-                }}>Downloads</button>
-            </Link>
-            <Link to="/ContactMajlis" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("ContactMajlis")} style={{
-                  backgroundColor: isButtonActive === "ContactMajlis" && " #556b2f",
-                  color: isButtonActive === "ContactMajlis" && "white"
-                }}>Contact Majlis</button>
-            </Link>
-            <Link to="/JoinMajlis" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("JoinMajlis")} style={{
-                  backgroundColor: isButtonActive === "JoinMajlis" && " #556b2f",
-                  color: isButtonActive === "JoinMajlis" && "white"
-                }}>Join Majlis</button>
-            </Link>
-            <Link to="/MemberLogin" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("MemberLogin")} style={{
-                  backgroundColor: isButtonActive === "MemberLogin" && " #556b2f",
-                  color: isButtonActive === "MemberLogin" && "white"
-                }}>Member Login</button>
-            </Link>
-          </div>
-          {/* NAVBAR for Admin user */}
-          <div class="navbar" style={{ display: user === "admin" ? "block" : "none" }}>
-            <Link to="/Admin/Members" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("Members")} style={{
-                  backgroundColor: isButtonActive === "Members" && " #556b2f",
-                  color: isButtonActive === "Members" && "white"
-                }}>Members</button>
-            </Link>
-            <Link to="/Admin/AddMember" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("AddMember")} style={{
-                  backgroundColor: isButtonActive === "AddMember" && " #556b2f",
-                  color: isButtonActive === "AddMember" && "white"
-                }}>Add Member</button>
-            </Link>
-            <Link to="/Admin/Subscriptions" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("Subscriptions")} style={{
-                  backgroundColor: isButtonActive === "Subscriptions" && " #556b2f",
-                  color: isButtonActive === "Subscriptions" && "white"
-                }}>Subscriptions</button>
-            </Link>
-            <Link to="/Admin/EventGallery" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("EventGalleryAdmin")} style={{
-                  backgroundColor: isButtonActive === "EventGalleryAdmin" && " #556b2f",
-                  color: isButtonActive === "EventGalleryAdmin" && "white"
-                }}>Event Gallery</button>
-              <div class="dropdown-content" onClick={() => buttonClick("EventGallery")}>
-                <Link to="/Admin/EventGallery/Milad">Milad</Link>
-                <Link to="/Admin/EventGallery/Eid">Eid</Link>
-                <Link to="/Admin/EventGallery/Iftar">Iftar</Link>
-                <Link to="/Admin/EventGallery/Sports">Sports</Link>
-                <Link to="/Admin/EventGallery/MeetandGreet">Meet and Greet</Link>
-                <Link to="/Admin/EventGallery/Other">Other</Link>
-              </div>
-            </Link>
-            <Link to="/Admin/Loans" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("Loans")} style={{
-                  backgroundColor: isButtonActive === "Loans" && " #556b2f",
-                  color: isButtonActive === "Loans" && "white"
-                }}>Loans</button>
-            </Link>
-            <Link to="/Admin/FamlilyWelfare" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("FamilyWelfare")} style={{
-                  backgroundColor: isButtonActive === "FamilyWelfare" && " #556b2f",
-                  color: isButtonActive === "FamilyWelfare" && "white"
-                }}>Family Welfare</button>
-            </Link>
-            <Link to="/Admin/EventCalendar" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("EventCalendar")} style={{
-                  backgroundColor: isButtonActive === "EventCalendar" && " #556b2f",
-                  color: isButtonActive === "EventCalendar" && "white"
-                }}>Event Calendar</button>
-
-            </Link>
-            <Link to="/Admin/UploadForms" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("UploadForms")} style={{
-                  backgroundColor: isButtonActive === "UploadForms" && " #556b2f",
-                  color: isButtonActive === "UploadForms" && "white"
-                }}>More</button>
-              <div class="dropdown-content" onClick={() => buttonClick("EventGallery")}>
-                <Link to="/Admin/UploadForms">Upload Forms</Link>
-                <Link to="/Admin/ContactMajlis">Contact Majlis</Link>
-              </div>
-            </Link>
-          </div>
-          {/* NAVBAR FOR USER */}
-          <div class="navbar" style={{ display: user === "user" ? "block" : "none" }}>
-            <Link to="/User/Home" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("Home")} style={{
-                  backgroundColor: isButtonActive === "Home" && " #556b2f",
-                  color: isButtonActive === "Home" && "white"
-                }}>Home</button>
-            </Link>
-            <Link to="/User/WhatWeDo" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("WhatWeDo")} style={{
-                  backgroundColor: isButtonActive === "WhatWeDo" && " #556b2f",
-                  color: isButtonActive === "WhatWeDo" && "white"
-                }}>What We Do</button>
-              <div class="dropdown-content" onClick={() => buttonClick("WhatWeDo")}>
-                {/* <Link to="/WhatWeDo/Projects">Projects</Link> */}
-              </div>
-            </Link>
-            <Link to="/User/WhoLeadUs/Current" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("WhoLeadUs")} style={{
-                  backgroundColor: isButtonActive === "WhoLeadUs" && " #556b2f",
-                  color: isButtonActive === "WhoLeadUs" && "white"
-                }}>Who Lead Us</button>
-              <div class="dropdown-content" onClick={() => buttonClick("WhoLeadUs")}>
-                <Link to="/WhoLeadUs/Current">Current</Link>
-                <Link to="/WhoLeadUs/OurHeros">Honorable Heros</Link>
-                {/* <Link to="/WhoLeadUs/Term1">Term-1</Link>
+              </Link>
+              <Link to="/Admin/UploadForms" class="dropdown">
+                <button class="dropbtn"
+                  onClick={() => buttonClick("UploadForms")} style={{
+                    backgroundColor: isButtonActive === "UploadForms" && " #556b2f",
+                    color: isButtonActive === "UploadForms" && "white"
+                  }}>More</button>
+                <div class="dropdown-content" onClick={() => buttonClick("EventGallery")}>
+                  <Link to="/Admin/UploadForms">Upload Forms</Link>
+                  <Link to="/Admin/ContactMajlis">Contact Majlis</Link>
+                </div>
+              </Link>
+            </div>
+            {/* NAVBAR FOR USER */}
+            <div class="navbar" style={{ display: user === "user" ? "block" : "none" }}>
+              <Link to="/User/Home" class="dropdown">
+                <button class="dropbtn"
+                  onClick={() => buttonClick("Home")} style={{
+                    backgroundColor: isButtonActive === "Home" && " #556b2f",
+                    color: isButtonActive === "Home" && "white"
+                  }}>Home</button>
+              </Link>
+              <Link to="/User/WhatWeDo" class="dropdown">
+                <button class="dropbtn"
+                  onClick={() => buttonClick("WhatWeDo")} style={{
+                    backgroundColor: isButtonActive === "WhatWeDo" && " #556b2f",
+                    color: isButtonActive === "WhatWeDo" && "white"
+                  }}>What We Do</button>
+                <div class="dropdown-content" onClick={() => buttonClick("WhatWeDo")}>
+                  {/* <Link to="/WhatWeDo/Projects">Projects</Link> */}
+                </div>
+              </Link>
+              <Link to="/User/WhoLeadUs/Current" class="dropdown">
+                <button class="dropbtn"
+                  onClick={() => buttonClick("WhoLeadUs")} style={{
+                    backgroundColor: isButtonActive === "WhoLeadUs" && " #556b2f",
+                    color: isButtonActive === "WhoLeadUs" && "white"
+                  }}>Who Lead Us</button>
+                <div class="dropdown-content" onClick={() => buttonClick("WhoLeadUs")}>
+                  <Link to="/WhoLeadUs/Current">Current</Link>
+                  <Link to="/WhoLeadUs/OurHeros">Honorable Heros</Link>
+                  {/* <Link to="/WhoLeadUs/Term1">Term-1</Link>
                 <Link to="/WhoLeadUs/Term2">Term-2</Link>
                 <Link to="/WhoLeadUs/Term3">Term-3</Link> */}
-              </div>
-            </Link>
-            <Link to="/User/EventGallery" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("EventGallery")} style={{
-                  backgroundColor: isButtonActive === "EventGallery" && " #556b2f",
-                  color: isButtonActive === "EventGallery" && "white"
-                }}>Event Gallery</button>
-              <div class="dropdown-content" onClick={() => buttonClick("EventGallery")}>
-                <Link to="/EventGallery/Milad">Milad</Link>
-                <Link to="/EventGallery/Eid">Eid</Link>
-                <Link to="/EventGallery/Iftar">Iftar</Link>
-                <Link to="/EventGallery/Sports">Sports</Link>
-                <Link to="/EventGallery/MeetandGreet">Meet and Greet</Link>
-                <Link to="/EventGallery/Other">Other</Link>
-              </div>
-            </Link>
-            <Link to="/User/Downloads" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("Downloads")} style={{
-                  backgroundColor: isButtonActive === "Downloads" && " #556b2f",
-                  color: isButtonActive === "Downloads" && "white"
-                }}>Downloads</button>
-            </Link>
-            <Link to="/User/ContactMajlis" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("ContactMajlis")} style={{
-                  backgroundColor: isButtonActive === "ContactMajlis" && " #556b2f",
-                  color: isButtonActive === "ContactMajlis" && "white"
-                }}>Contact Majlis</button>
-            </Link>
-            <Link to="/User/UserOptions" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("UserOptions")} style={{
-                  backgroundColor: isButtonActive === "UserOptions" && " #556b2f",
-                  color: isButtonActive === "UserOptions" && "white"
-                }}>User Options</button>
-              <div class="dropdown-content" onClick={() => buttonClick("UserOptions")}>
-                <Link to="/User/UserOptions/Subscriptions">Subscriptions</Link>
-                <Link to="/User/UserOptions/Loans">Loans</Link>
-                <Link to="/User/UserOptions/FamilyWelfare">Family Welfare</Link>
-              </div>
-            </Link>
-            <Link to="/User/Profile" class="dropdown">
-              <button class="dropbtn"
-                onClick={() => buttonClick("Profile")} style={{
-                  backgroundColor: isButtonActive === "Profile" && " #556b2f",
-                  color: isButtonActive === "Profile" && "white"
-                }}>Profile</button>
-            </Link>
-          </div>
-        </Head>
+                </div>
+              </Link>
+              <Link to="/User/EventGallery" class="dropdown">
+                <button class="dropbtn"
+                  onClick={() => buttonClick("EventGallery")} style={{
+                    backgroundColor: isButtonActive === "EventGallery" && " #556b2f",
+                    color: isButtonActive === "EventGallery" && "white"
+                  }}>Event Gallery</button>
+                <div class="dropdown-content" onClick={() => buttonClick("EventGallery")}>
+                  <Link to="/EventGallery/Milad">Milad</Link>
+                  <Link to="/EventGallery/Eid">Eid</Link>
+                  <Link to="/EventGallery/Iftar">Iftar</Link>
+                  <Link to="/EventGallery/Sports">Sports</Link>
+                  <Link to="/EventGallery/MeetandGreet">Meet and Greet</Link>
+                  <Link to="/EventGallery/Other">Other</Link>
+                </div>
+              </Link>
+              <Link to="/User/Downloads" class="dropdown">
+                <button class="dropbtn"
+                  onClick={() => buttonClick("Downloads")} style={{
+                    backgroundColor: isButtonActive === "Downloads" && " #556b2f",
+                    color: isButtonActive === "Downloads" && "white"
+                  }}>Downloads</button>
+              </Link>
+              <Link to="/User/ContactMajlis" class="dropdown">
+                <button class="dropbtn"
+                  onClick={() => buttonClick("ContactMajlis")} style={{
+                    backgroundColor: isButtonActive === "ContactMajlis" && " #556b2f",
+                    color: isButtonActive === "ContactMajlis" && "white"
+                  }}>Contact Majlis</button>
+              </Link>
+              <Link to="/User/UserOptions" class="dropdown">
+                <button class="dropbtn"
+                  onClick={() => buttonClick("UserOptions")} style={{
+                    backgroundColor: isButtonActive === "UserOptions" && " #556b2f",
+                    color: isButtonActive === "UserOptions" && "white"
+                  }}>User Options</button>
+                <div class="dropdown-content" onClick={() => buttonClick("UserOptions")}>
+                  <Link to="/User/UserOptions/Subscriptions">Subscriptions</Link>
+                  <Link to="/User/UserOptions/Loans">Loans</Link>
+                  <Link to="/User/UserOptions/FamilyWelfare">Family Welfare</Link>
+                </div>
+              </Link>
+              <Link to="/User/Profile" class="dropdown">
+                <button class="dropbtn"
+                  onClick={() => buttonClick("Profile")} style={{
+                    backgroundColor: isButtonActive === "Profile" && " #556b2f",
+                    color: isButtonActive === "Profile" && "white"
+                  }}>Profile</button>
+              </Link>
+            </div>
+          </Head>
+        </MediaQuery>
+        <MediaQuery maxDeviceWidth={700}>
+          {user === "none" || user === "general" && <MobileHeader menu={HomeMenu} />}
+          {user === "admin" && <MobileHeader menu={AdminMenu} />}
+          {user === "user" && <MobileHeader menu={UserMenu} />}
+
+        </MediaQuery>
         <Body>
           <Switch>
             <Redirect exact from="/" to="/Home" />
@@ -425,6 +545,8 @@ export default function Header() {
             <Route path="/Downloads" ><Downloads setState={buttonClick} setLanButton={setButton} setuser={setThisUser} /></Route>
             <Route path="/ContactMajlis" ><ContactMajlis setState={buttonClick} setLanButton={setButton} setuser={setThisUser} /></Route>
             <Router path="/EventCalender"><EventCalendar setState={buttonClick} setLanButton={setButton} setuser={setThisUser} /></Router>
+            <Route path="/Logout" ><LogoutAction setState={buttonClick} setLanButton={setButton} setuser={setThisUser} /></Route>
+
 
             <Redirect exact from="/Admin" to="/Admin/Login" />
             <Route path="/Admin/Login" ><AdminLogin setUser={setThisUser} setLoggedIn={setLogIn} ></AdminLogin></Route>
@@ -433,7 +555,7 @@ export default function Header() {
             <Route path="/Admin/View/Subscription/:memberid" ><ViewSubscription setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/AddMember" ><AddMember setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/Subscriptions" ><Subscription setState={buttonClick} setUser={setThisUser} /></Route>
-            <Redirect exact from="/Admin/EventGallery" to ="/Admin/EventGallery/Milad"/>
+            <Redirect exact from="/Admin/EventGallery" to="/Admin/EventGallery/Milad" />
             <Route path="/Admin/EventGallery/Milad" ><EventGalleryAdmin category="milad" setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/EventGallery/Eid" ><EventGalleryAdmin category="eid" setState={buttonClick} setUser={setThisUser} /></Route>
             <Route path="/Admin/EventGallery/Iftar" ><EventGalleryAdmin category="iftar" setState={buttonClick} setUser={setThisUser} /></Route>
