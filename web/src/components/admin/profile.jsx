@@ -142,7 +142,7 @@ function Profile(props) {
                                             <KeyValuePair head="Phone Number 1" value={userFields.phone_number_1} />
                                             <KeyValuePair head="Phone Number 2" value={userFields.phone_number_2} />
                                             <KeyValuePair head="Office Phone Number" value={userFields.office_phone_number} />
-                                            <KeyValuePair head="Home Phone Number (UAE)" value={userFields.uae_home_ph_number} />
+                                            <KeyValuePair head="Home Phone Number (UAE)" value={userFields.home_phone_number} />
                                             <KeyValuePair head="Email" value={userFields.email} />
                                             <KeyValuePair head="Blood Group" value={userFields.bloodgroup} />
                                             <KeyValuePair head="Date of Joining" value={userFields.date_of_join} />
@@ -163,10 +163,10 @@ function Profile(props) {
                                             </Grid>
                                             <KeyValuePair head="Job" value={userFields.job} />
                                             <KeyValuePair head="Company Name" value={userFields.company_name} />
-                                            <KeyValuePair head="Post Code" value={userFields.company_post_code} />
+                                            <KeyValuePair head="Post Code" value={userFields.postcode} />
                                             <KeyValuePair head="Area" value={userFields.company_area} />
                                             <KeyValuePair head="State" value={userFields.company_emirates} />
-                                            <KeyValuePair head="Institution" value={userFields.company_institution} />
+                                            <KeyValuePair head="Institution" value={userFields.institution} />
                                         </Paper>
                                         <Paper style={{ margin: ".5em", padding: ".5em 2em" }}>
                                             <Grid container spacing={0}>
@@ -174,9 +174,8 @@ function Profile(props) {
                                                     Educational Details
                                 </SubHead>
                                             </Grid>
-                                            <KeyValuePair head="Educational Qualification" value={userFields.qualification} />
-                                            <KeyValuePair head="Job/Tech Qualification Name" value={userFields.job_qualification} />
-                                            <KeyValuePair head="Licence (UAE)" value={userFields.uae_licence_type} />
+                                            <KeyValuePair head="Educational Qualification" value={userFields.education} />
+                                            <KeyValuePair head="Job/Tech Qualification Name" value={userFields.jobqualification} />
                                         </Paper>
                                         <Paper style={{ margin: ".5em", padding: ".5em 2em" }}>
                                             <Grid container spacing={0}>
@@ -184,12 +183,12 @@ function Profile(props) {
                                                     Resedential Details
                             </SubHead>
                                             </Grid>
-                                            <KeyValuePair head="Residential Address" value={userFields.uae_area} />
-                                            <KeyValuePair head="Marital Status" value={userFields.is_married} />
-                                            <KeyValuePair head="Family Living With You" value={userFields.is_family_near} />
-                                            <KeyValuePair head="Number Of Childern (Boy)" value={userFields.no_boys_children} />
-                                            <KeyValuePair head="Number Of Childern (Girl)" value={userFields.no_girls_children} />
-                                            <KeyValuePair head="Closest Relative In UAE" value={userFields.uae_relative} />
+                                            <KeyValuePair head="Residential Address" value={userFields.residential} />
+                                            <KeyValuePair head="Marital Status" value={userFields.marriage_status} />
+                                            <KeyValuePair head="Family Living With You" value={userFields.family_status} />
+                                            <KeyValuePair head="Number Of Childern (Boy)" value={userFields.no_of_boys} />
+                                            <KeyValuePair head="Number Of Childern (Girl)" value={userFields.no_of_girls} />
+                                            <KeyValuePair head="Closest Relative In UAE" value={userFields.closest_relative} />
                                             <KeyValuePair head="Relationship" value={userFields.uae_relationship} />
                                             <KeyValuePair head="Contact Number" value={userFields.relative_phone} />
                                         </Paper>
@@ -199,10 +198,10 @@ function Profile(props) {
                                                     Resedential Details (Home)
                             </SubHead>
                                             </Grid>
-                                            <KeyValuePair head="Address" value={userFields.place_home} />
+                                            <KeyValuePair head="Address" value={userFields.address} />
                                             <KeyValuePair head="Person To Contact" value={userFields.person_to_contact} />
                                             <KeyValuePair head="Relationship" value={userFields.person_to_contact_relationship} />
-                                            <KeyValuePair head="Phone Numder" value={userFields.home_number} />
+                                            <KeyValuePair head="Phone Numder" value={userFields.phone_home} />
                                             <KeyValuePair head="Mahal Number" value={userFields.mahal_phone} />
                                         </Paper>
                                     </Grid>

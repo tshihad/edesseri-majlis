@@ -166,7 +166,7 @@ function AddMember(props) {
                                 bloodgroup: props.bloodgroup || '',
                                 passport: props.passport || '',
                                 dob: props.dob || '',
-                                date_of_joining: props.date_of_joining || '',
+                                date_of_join: props.date_of_join || '',
                                 job: props.job || '',
                                 company_name: props.company_name || '',
                                 postcode: props.postcode,
@@ -220,15 +220,15 @@ function AddMember(props) {
                                             phone_number_2: values.phone_number_2.toString(),
                                             office_phone_number: values.office_phone_number.toString(),
                                             home_phone_number: values.home_phone_number.toString(),
-                                            bloodgroup: values.bloodgroup&&values.bloodgroup.value || '',
+                                            bloodgroup: values.bloodgroup && values.bloodgroup.value || '',
                                             passport: values.passport,
                                             dob: values.dob,
                                             job: values.job,
-                                            date_of_joining: values.date_of_joining,
+                                            date_of_join: values.date_of_join,
                                             company_name: values.company_name,
                                             area: values.area,
-                                            institution: values.institution&&values.institution.value || '',
-                                            member_status: values.member_status&&values.member_status.value || '',
+                                            institution: values.institution && values.institution.value || '',
+                                            member_status: values.member_status && values.member_status.value || '',
                                             emirates: values.emirates,
                                             education: values.education,
                                             jobqualification: values.jobqualification,
@@ -237,8 +237,8 @@ function AddMember(props) {
                                             building: values.building,
                                             flat: values.flat,
                                             emirates_residential: values.emirates_residential,
-                                            marriage_status: values.marriage_status&&values.marriage_status.value || '',
-                                            family_status: values.family_status&&values.family_status.value || '',
+                                            marriage_status: values.marriage_status && values.marriage_status.value || '',
+                                            family_status: values.family_status && values.family_status.value || '',
                                             closest_relative: values.closest_relative,
                                             relative_phone: values.relative_phone.toString(),
                                             address: values.address,
@@ -261,11 +261,14 @@ function AddMember(props) {
                                             .then((response) => {
                                                 console.log("Information Recorderd for Admin Verification", response);
                                                 FormReset()
-                                                console.log('/Admin/View/Member/'+response.data.result)
-                                                props.history.push('/Admin/View/Member/'+response.data.result)
+                                                console.log('/Admin/View/Member/' + response.data.result)
+                                                props.history.push('/Admin/View/Member/' + response.data.result)
                                             })
                                             .catch(function (error) {
                                                 console.log(error);
+                                                alert(error)
+                                                // alert(JSON.parse(response))
+
                                             });
                                     })
                                     .catch(err => {
@@ -312,7 +315,7 @@ function AddMember(props) {
                                 dob: Yup.date()
                                 // .required('Required')
                                 ,
-                                date_of_joining: Yup.date(),
+                                date_of_join: Yup.date(),
                                 job: Yup.string()
                                 // .required('Required')
                                 ,
@@ -683,23 +686,23 @@ function AddMember(props) {
                                             <Grid item xs={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
-                                                        <label htmlFor="date_of_joining">
+                                                        <label htmlFor="date_of_join">
                                                             Date of Joining
                         </label>
                                                     </Grid>
                                                     <Grid item xs={8}>
                                                         <input
-                                                            id="date_of_joining"
+                                                            id="date_of_join"
                                                             placeholder="date of joining"
                                                             type="date"
-                                                            value={values.date_of_joining}
+                                                            value={values.date_of_join}
                                                             onChange={handleChange}
                                                             onBlur={handleBlur}
                                                             className={
-                                                                errors.date_of_joining && touched.date_of_joining ? 'inputs text-input error' : 'inputs text-input'}
+                                                                errors.date_of_join && touched.date_of_join ? 'inputs text-input error' : 'inputs text-input'}
                                                         />
-                                                        {errors.date_of_joining && touched.date_of_joining ? (
-                                                            <div className="input-feedback">{errors.date_of_joining}</div>
+                                                        {errors.date_of_join && touched.date_of_join ? (
+                                                            <div className="input-feedback">{errors.date_of_join}</div>
                                                         ) : <div className="input-feedback">&nbsp;</div>}
                                                     </Grid>
                                                 </Grid>

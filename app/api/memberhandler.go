@@ -54,7 +54,7 @@ func (a *App) handlePostMember(w http.ResponseWriter, r *http.Request) {
 	member.PasswordHash = hex.EncodeToString(m.Sum(nil))
 	err = a.CreateMember(member)
 	if err != nil {
-		a.Fail(w, http.StatusInternalServerError, "Failed to create user", err)
+		a.Fail(w, http.StatusInternalServerError, "Failed to create user, "+err.Error(), err)
 		return
 	}
 	a.Success(w, http.StatusCreated, memberID)

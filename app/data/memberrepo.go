@@ -21,7 +21,7 @@ func (r *RepoImp) GetMember(memberID string, status string) (models.Member, erro
 		MemberID: memberID,
 		Status:   status,
 	}).First(&member).Error
-	member.DateOfJoint, _ = parseTime(member.DateOfJoint)
+	member.DateOfJoin, _ = parseTime(member.DateOfJoin)
 	member.Dob, _ = parseTime(member.Dob)
 	member.EndDate, _ = parseTime(member.EndDate)
 	return member, err
