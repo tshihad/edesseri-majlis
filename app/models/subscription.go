@@ -16,7 +16,6 @@ type Subscription struct {
 	PaymentDate  string `json:"payment_date" gorm:"column:payment_date"`
 	PaymentEvent string `json:"payment_event" gorm:"column:payment_event"`
 	CreatedBy    string `json:"created_by" gorm:"column:created_by"`
-	CreatedAt    *time.Time
 }
 
 // SubsTableResponse for formatted subscription data for subscription table
