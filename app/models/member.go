@@ -16,7 +16,7 @@ type Member struct {
 	Dob                         string `json:"dob" gorm:"column:dob"`
 	Job                         string `json:"job" gorm:"column:job"`
 	ComapnyName                 string `json:"company_name" gorm:"column:comapny_name"`
-	CompanyPostCode             int    `json:"postcode" gorm:"column:comaany_post_code"`
+	CompanyPostCode             string `json:"postcode" gorm:"column:comaany_post_code"`
 	ComapnyArea                 string `json:"company_area" gorm:"column:company_area"`
 	ComapnyEmirates             string `json:"company_emirates" gorm:"column:company_emirates"`
 	ComapnyInstitution          string `json:"institution" gorm:"column:company_institution"`
