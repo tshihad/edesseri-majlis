@@ -55,8 +55,8 @@ export default function Loans(props) {
                                 return;
                             }
                             axios.post(API_BASE_URL + '/majlis/member/loan', {
-                                request_amount: values.request_amount,
-                                installment: values.installment,
+                                request_amount: values.request_amount.toString(),
+                                installment: values.installment.toString(),
                                 purpose: values.purpose,
                                 g_member_id: values.membership_id,
                                 g_phone: values.phone,
