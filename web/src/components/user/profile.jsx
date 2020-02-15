@@ -5,7 +5,8 @@ import styled from 'styled-components';
 import member from '../../images/member.jpg';
 import { API_BASE_URL } from '../constants';
 import Loading from '../sub_components/loading';
-import EditProfile from './edit_member'
+import EditProfile from './edit_member';
+import MediaQuery from 'react-responsive'
 
 
 import {
@@ -40,14 +41,40 @@ const Headline = styled.h3`
 color:#1d4219;
 font-size: 1.8em;
 font-family: 'Comfortaa', cursive;
+@media(max-width: 700px){
+    font-size: 1.6em;
+}
 `;
 const SubHead = styled.h3`
 color:#1d4219;
 font-size: 1.5em;
 font-family: 'Comfortaa', cursive;
+@media(max-width: 700px){
+    padding: 0 0 0 1em;
+  }
 `;
 const ProfileCard = styled.div`
-margin: 3vh 10vw 0 10vw `;
+margin: 3vh 10vw 0 10vw ;
+@media(max-width: 700px){
+    margin: 3vh 5vw 0 5vw;
+}
+@media(max-width: 500px){
+    margin: 0;
+}
+  `;
+const Card = styled.div`
+  padding: 1em 3em;
+  background-color: #ffffff;
+@media(max-width: 500px){
+  margin: 0;
+  padding: 1em 1em;
+  background-color: #f1f8f1;
+}
+@media(max-width: 700px){
+    padding: 1em 1em;
+    background-color: #f1f8f1;
+  }
+  `;
 function Profile(props) {
     const classes = useStyles()
     const [canLoad, setLoading] = React.useState(false)
@@ -74,7 +101,7 @@ function Profile(props) {
             {
                 headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') }
             }).then((response) => {
-                setUserField(response.data.result)  
+                setUserField(response.data.result)
             }).catch((error) => {
                 console.log(error);
             })
@@ -90,14 +117,24 @@ function Profile(props) {
         <div>
             {canLoad === true ?
                 <ProfileCard>
-                    <Paper style={{ padding: "1em 5em" }}>
-                        <Grid container spacing={0}>
-                            <Grid item xs={3}> <Headline>My Profile</Headline></Grid>
-                            <Grid item xs={7}></Grid>
-                            <Grid item xs={2} justify={"center"}><Button onClick={toggleMode}>{edit ? "View" : "Edit"}</Button></Grid>
-                        </Grid>
-                        {edit ? <EditProfile userFields={userFields} /> : <ViewProfile userFields={userFields} />}
-                    </Paper>
+                    <Card>
+                        <MediaQuery minDeviceWidth={701}>
+                            <Grid container spacing={0}>
+                                <Grid item xs={3}> <Headline>My Profile</Headline></Grid>
+                                <Grid item xs={7}></Grid>
+                                <Grid item xs={2} justify={"center"}><Button onClick={toggleMode}>{edit ? "View" : "Edit"}</Button></Grid>
+                            </Grid>
+                            {edit ? <EditProfile userFields={userFields} /> : <ViewProfile userFields={userFields} />}
+                        </MediaQuery>
+                        <MediaQuery maxDeviceWidth={700}>
+                            <Grid container spacing={0}>
+                                <Grid item xs={7}> <Headline>My Profile</Headline></Grid>
+                                <Grid item xs={2}></Grid>
+                                <Grid item xs={3} justify={"center"}><Button onClick={toggleMode}>{edit ? "View" : "Edit"}</Button></Grid>
+                            </Grid>
+                            {edit ? <EditProfile userFields={userFields} /> : <ViewProfile userFields={userFields} />}
+                        </MediaQuery>
+                    </Card>
                 </ProfileCard>
                 : <Loading />}
         </div>
@@ -107,101 +144,210 @@ function Profile(props) {
 function ViewProfile(props) {
     const classes = useStyles()
     return (
-        <Grid container spacing={0}>
-            <Grid item xs={3}>
-                <img className={classes.image} src={localStorage.getItem('UserImageURL')}></img>
+        <div>
+            <MediaQuery minDeviceWidth={501}>
                 <Grid container spacing={0}>
                     <Grid item xs={3}>
-                        <Key>Status</Key>
+                        <img className={classes.image} src={localStorage.getItem('UserImageURL')}></img>
+                        <Grid container spacing={0}>
+                            <Grid item xs={3}>
+                                <Key>Status</Key>
+                            </Grid>
+                            <Grid item xs={2}>
+                                <Key>:</Key>
+                            </Grid>
+                            <Grid item xs={7}>
+                                <Value >{props.userFields.status}</Value>
+                            </Grid>
+                        </Grid>
+
                     </Grid>
-                    <Grid item xs={2}>
-                        <Key>:</Key>
-                    </Grid>
-                    <Grid item xs={7}>
-                        <Value >{props.userFields.status}</Value>
+                    <Grid item xs={9}>
+                        <Paper style={{ margin: "1em", padding: ".5em 2em" }}>
+                            <Grid container spacing={0}>
+                                <Grid item={12}>
+                                    <SubHead>
+                                        Personal Details
+                </SubHead>
+                                </Grid>
+                                <KeyValuePair head="Name" value={props.userFields.name} />
+                                <KeyValuePair head="House Name" value={props.userFields.housename} />
+                                <KeyValuePair head="Father's Name" value={props.userFields.fathername} />
+                                <KeyValuePair head="Phone Number 1" value={props.userFields.phone_number_1} />
+                                <KeyValuePair head="Phone Numder 2" value={props.userFields.phone_number_2} />
+                                <KeyValuePair head="Office Phone Number" value={props.userFields.office_phone_number} />
+                                <KeyValuePair head="Home Phone Numder (UAE)" value={props.userFields.uae_home_ph_number} />
+                                <KeyValuePair head="Email" value={props.userFields.email} />
+                                <KeyValuePair head="Blood Group" value={props.userFields.bloodgroup} />
+                                <KeyValuePair head="Date of Joining" value={props.userFields.date_of_join} />
+                            </Grid>
+                        </Paper>
+
+                        <Paper style={{ margin: "1em", padding: ".5em 2em" }}>
+                            <Grid container spacing={0}>
+                                <SubHead>
+                                    Personal Identification
+            </SubHead>
+                            </Grid>
+                            <KeyValuePair head="Passport Number" value={props.userFields.passport} />
+                            <KeyValuePair head="Date Of Birth" value={props.userFields.dob} />
+                        </Paper><Paper style={{ margin: "1em", padding: ".5em 2em" }}>
+                            <Grid container spacing={0}>
+                                <SubHead>
+                                    Company Information
+        </SubHead>
+                            </Grid>
+                            <KeyValuePair head="Job" value={props.userFields.job} />
+                            <KeyValuePair head="Company Name" value={props.userFields.company_name} />
+                            <KeyValuePair head="Post Code" value={props.userFields.company_post_code} />
+                            <KeyValuePair head="Area" value={props.userFields.company_area} />
+                            <KeyValuePair head="State" value={props.userFields.company_emirates} />
+                            <KeyValuePair head="Institution" value={props.userFields.company_institution} />
+                        </Paper>
+                        <Paper style={{ margin: "1em", padding: ".5em 2em" }}>
+                            <Grid container spacing={0}>
+                                <SubHead>
+                                    Educational Details
+            </SubHead>
+                            </Grid>
+                            <KeyValuePair head="Educational Qualification" value={props.userFields.qualification} />
+                            <KeyValuePair head="Job/Tech Qualification Name" value={props.userFields.job_qualification} />
+                            <KeyValuePair head="Licence (UAE)" value={props.userFields.uae_licence_type} />
+                        </Paper>
+                        <Paper style={{ margin: "1em", padding: ".5em 2em" }}>
+                            <Grid container spacing={0}>
+                                <SubHead>
+                                    Resedential Details
+        </SubHead>
+                            </Grid>
+                            <KeyValuePair head="Residential Address" value={props.userFields.uae_residential} />
+                            <KeyValuePair head="Marital Status" value={props.userFields.is_married} />
+                            <KeyValuePair head="Family Living With You" value={props.userFields.is_family_near} />
+                            <KeyValuePair head="Number Of Childern (Boy)" value={props.userFields.no_boys_children} />
+                            <KeyValuePair head="Number Of Childern (Girl)" value={props.userFields.no_girls_children} />
+                            <KeyValuePair head="Closest Relative In UAE" value={props.userFields.uae_relative} />
+                            <KeyValuePair head="Relationship" value={props.userFields.uae_relationship} />
+                            <KeyValuePair head="Contact Number" value={props.userFields.relative_phone} />
+                        </Paper>
+                        <Paper style={{ margin: "1em", padding: ".5em 2em" }}>
+                            <Grid container spacing={0}>
+                                <SubHead>
+                                    Resedential Details (Home)
+        </SubHead>
+                            </Grid>
+                            <KeyValuePair head="Address" value={props.userFields.place_home} />
+                            <KeyValuePair head="Person To Contact" value={props.userFields.person_to_contact} />
+                            <KeyValuePair head="Relationship" value={props.userFields.person_to_contact_relationship} />
+                            <KeyValuePair head="Phone Numder" value={props.userFields.home_number} />
+                            <KeyValuePair head="Mahal Number" value={props.userFields.mahal_phone} />
+                        </Paper>
                     </Grid>
                 </Grid>
-
-            </Grid>
-            <Grid item xs={9}>
-                <Paper style={{ marginTop: "1em", padding: ".5em 2em" }}>
+            </MediaQuery>
+            <MediaQuery maxDeviceWidth={500}>
+                <div style={{textAlign:"center"}}>
+                <img className={classes.image} src={localStorage.getItem('UserImageURL')}></img>
+                </div>
+                <Grid container spacing={0}>
                     <Grid container spacing={0}>
-                        <SubHead>
-                            Personal Details
+                        <Grid item xs={1}></Grid>
+                        <Grid item xs={3}>
+                            <Key>Status</Key>
+                        </Grid>
+                        <Grid item xs={2}>
+                            <Key>:</Key>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Value >{props.userFields.status}</Value>
+                        </Grid>
+
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Paper style={{ margin: ".2em", padding: ".5em .5em", backgroundColor: "#f8fff6" }}>
+                            <Grid container spacing={0}>
+                                <Grid item={12}>
+                                    <SubHead>
+                                        Personal Details
                 </SubHead>
-                    </Grid>
-                    <KeyValuePair head="Name" value={props.userFields.name} />
-                    <KeyValuePair head="House Name" value={props.userFields.housename} />
-                    <KeyValuePair head="Father's Name" value={props.userFields.fathername} />
-                    <KeyValuePair head="Phone Number 1" value={props.userFields.phone_number_1} />
-                    <KeyValuePair head="Phone Numder 2" value={props.userFields.phone_number_2} />
-                    <KeyValuePair head="Office Phone Number" value={props.userFields.office_phone_number} />
-                    <KeyValuePair head="Home Phone Numder (UAE)" value={props.userFields.uae_home_ph_number} />
-                    <KeyValuePair head="Email" value={props.userFields.email} />
-                    <KeyValuePair head="Blood Group" value={props.userFields.bloodgroup} />
-                    <KeyValuePair head="Date of Joining" value={props.userFields.date_of_join} />
+                                </Grid>
+                                <KeyValuePair head="Name" value={props.userFields.name} />
+                                <KeyValuePair head="House Name" value={props.userFields.housename} />
+                                <KeyValuePair head="Father's Name" value={props.userFields.fathername} />
+                                <KeyValuePair head="Phone Number 1" value={props.userFields.phone_number_1} />
+                                <KeyValuePair head="Phone Numder 2" value={props.userFields.phone_number_2} />
+                                <KeyValuePair head="Office Phone Number" value={props.userFields.office_phone_number} />
+                                <KeyValuePair head="Home Phone Numder (UAE)" value={props.userFields.uae_home_ph_number} />
+                                <KeyValuePair head="Email" value={props.userFields.email} />
+                                <KeyValuePair head="Blood Group" value={props.userFields.bloodgroup} />
+                                <KeyValuePair head="Date of Joining" value={props.userFields.date_of_join} />
+                            </Grid>
+                        </Paper>
 
-                </Paper>
-                <Paper style={{ marginTop: "1em", padding: ".5em 2em" }}>
-                    <Grid container spacing={0}>
-                        <SubHead>
-                            Personal Identification
+                        <Paper style={{ margin: ".2em", padding: ".5em .5em", backgroundColor: "#f8fff6" }}>
+                            <Grid container spacing={0}>
+                                <SubHead>
+                                    Personal Identification
             </SubHead>
-                    </Grid>
-                    <KeyValuePair head="Passport Number" value={props.userFields.passport} />
-                    <KeyValuePair head="Date Of Birth" value={props.userFields.dob} />
-                </Paper><Paper style={{ marginTop: "1em", padding: ".5em 2em" }}>
-                    <Grid container spacing={0}>
-                        <SubHead>
-                            Company Information
+                            </Grid>
+                            <KeyValuePair head="Passport Number" value={props.userFields.passport} />
+                            <KeyValuePair head="Date Of Birth" value={props.userFields.dob} />
+                        </Paper>
+                        <Paper style={{ margin: ".2em", padding: ".5em .5em", backgroundColor: "#f8fff6" }}>
+                            <Grid container spacing={0}>
+                                <SubHead>
+                                    Company Information
         </SubHead>
-                    </Grid>
-                    <KeyValuePair head="Job" value={props.userFields.job} />
-                    <KeyValuePair head="Company Name" value={props.userFields.company_name} />
-                    <KeyValuePair head="Post Code" value={props.userFields.company_post_code} />
-                    <KeyValuePair head="Area" value={props.userFields.company_area} />
-                    <KeyValuePair head="State" value={props.userFields.company_emirates} />
-                    <KeyValuePair head="Institution" value={props.userFields.company_institution} />
-                </Paper>
-                <Paper style={{ marginTop: "1em", padding: ".5em 2em" }}>
-                    <Grid container spacing={0}>
-                        <SubHead>
-                            Educational Details
+                            </Grid>
+                            <KeyValuePair head="Job" value={props.userFields.job} />
+                            <KeyValuePair head="Company Name" value={props.userFields.company_name} />
+                            <KeyValuePair head="Post Code" value={props.userFields.company_post_code} />
+                            <KeyValuePair head="Area" value={props.userFields.company_area} />
+                            <KeyValuePair head="State" value={props.userFields.company_emirates} />
+                            <KeyValuePair head="Institution" value={props.userFields.company_institution} />
+                        </Paper>
+                        <Paper style={{ margin: ".2em", padding: ".5em .5em", backgroundColor: "#f8fff6" }}>
+                            <Grid container spacing={0}>
+                                <SubHead>
+                                    Educational Details
             </SubHead>
-                    </Grid>
-                    <KeyValuePair head="Educational Qualification" value={props.userFields.qualification} />
-                    <KeyValuePair head="Job/Tech Qualification Name" value={props.userFields.job_qualification} />
-                    <KeyValuePair head="Licence (UAE)" value={props.userFields.uae_licence_type} />
-                </Paper>
-                <Paper style={{ marginTop: "1em", padding: ".5em 2em" }}>
-                    <Grid container spacing={0}>
-                        <SubHead>
-                            Resedential Details
+                            </Grid>
+                            <KeyValuePair head="Educational Qualification" value={props.userFields.qualification} />
+                            <KeyValuePair head="Job/Tech Qualification Name" value={props.userFields.job_qualification} />
+                            <KeyValuePair head="Licence (UAE)" value={props.userFields.uae_licence_type} />
+                        </Paper>
+                        <Paper style={{ margin: ".2em", padding: ".5em .5em", backgroundColor: "#f8fff6" }}>
+                            <Grid container spacing={0}>
+                                <SubHead>
+                                    Resedential Details
         </SubHead>
-                    </Grid>
-                    <KeyValuePair head="Residential Address" value={props.userFields.uae_residential} />
-                    <KeyValuePair head="Marital Status" value={props.userFields.is_married} />
-                    <KeyValuePair head="Family Living With You" value={props.userFields.is_family_near} />
-                    <KeyValuePair head="Number Of Childern (Boy)" value={props.userFields.no_boys_children} />
-                    <KeyValuePair head="Number Of Childern (Girl)" value={props.userFields.no_girls_children} />
-                    <KeyValuePair head="Closest Relative In UAE" value={props.userFields.uae_relative} />
-                    <KeyValuePair head="Relationship" value={props.userFields.uae_relationship} />
-                    <KeyValuePair head="Contact Number" value={props.userFields.relative_phone} />
-                </Paper>
-                <Paper style={{ marginTop: "1em", padding: ".5em 2em" }}>
-                    <Grid container spacing={0}>
-                        <SubHead>
-                            Resedential Details (Home)
+                            </Grid>
+                            <KeyValuePair head="Residential Address" value={props.userFields.uae_residential} />
+                            <KeyValuePair head="Marital Status" value={props.userFields.is_married} />
+                            <KeyValuePair head="Family Living With You" value={props.userFields.is_family_near} />
+                            <KeyValuePair head="Number Of Childern (Boy)" value={props.userFields.no_boys_children} />
+                            <KeyValuePair head="Number Of Childern (Girl)" value={props.userFields.no_girls_children} />
+                            <KeyValuePair head="Closest Relative In UAE" value={props.userFields.uae_relative} />
+                            <KeyValuePair head="Relationship" value={props.userFields.uae_relationship} />
+                            <KeyValuePair head="Contact Number" value={props.userFields.relative_phone} />
+                        </Paper>
+                        <Paper style={{ margin: ".2em", padding: ".5em .5em", backgroundColor: "#f8fff6" }}>
+                            <Grid container spacing={0}>
+                                <SubHead>
+                                    Resedential Details (Home)
         </SubHead>
+                            </Grid>
+                            <KeyValuePair head="Address" value={props.userFields.place_home} />
+                            <KeyValuePair head="Person To Contact" value={props.userFields.person_to_contact} />
+                            <KeyValuePair head="Relationship" value={props.userFields.person_to_contact_relationship} />
+                            <KeyValuePair head="Phone Numder" value={props.userFields.home_number} />
+                            <KeyValuePair head="Mahal Number" value={props.userFields.mahal_phone} />
+                        </Paper>
                     </Grid>
-                    <KeyValuePair head="Address" value={props.userFields.place_home} />
-                    <KeyValuePair head="Person To Contact" value={props.userFields.person_to_contact} />
-                    <KeyValuePair head="Relationship" value={props.userFields.person_to_contact_relationship} />
-                    <KeyValuePair head="Phone Numder" value={props.userFields.home_number} />
-                    <KeyValuePair head="Mahal Number" value={props.userFields.mahal_phone} />
-                </Paper>
-            </Grid>
-        </Grid>
+                </Grid>
+            </MediaQuery>
+        </div>
+
+
     )
 
 }
@@ -219,15 +365,28 @@ font-weight: 500;
 export function KeyValuePair(props) {
     return (
         <Grid container spacing={0}>
-            <Grid item xs={5}>
-                <Key>{props.head}</Key>
-            </Grid>
-            <Grid item xs={1}>
-                <Key>:</Key>
-            </Grid>
-            <Grid item xs={6}>
-                <Value >{props.value}</Value>
-            </Grid>
+            <MediaQuery minDeviceWidth={501}>
+                <Grid item xs={5}>
+                    <Key>{props.head}</Key>
+                </Grid>
+                <Grid item xs={1}>
+                    <Key>:</Key>
+                </Grid>
+                <Grid item xs={6}>
+                    <Value >{props.value}</Value>
+                </Grid>
+            </MediaQuery>
+            <MediaQuery maxDeviceWidth={500}>
+                <Grid item xs={4}>
+                    <Key>{props.head}</Key>
+                </Grid>
+                <Grid item xs={2}>
+                    <Key>:</Key>
+                </Grid>
+                <Grid item xs={6}>
+                    <Value >{props.value}</Value>
+                </Grid>
+            </MediaQuery>
         </Grid>
     )
 }

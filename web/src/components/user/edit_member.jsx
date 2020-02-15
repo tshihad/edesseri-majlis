@@ -327,7 +327,7 @@ export default function JoinMajlis(props) {
                                     <form onSubmit={handleSubmit} className="form">
                                         <Grid container spacing={0}>
                                             <Grid item xs={12}><Headline>Personal Details</Headline></Grid>
-                                            <Grid item xs={6}>
+                                            <Grid item xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="name">
@@ -351,7 +351,7 @@ export default function JoinMajlis(props) {
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="housename">
@@ -375,7 +375,7 @@ export default function JoinMajlis(props) {
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="fathername">
@@ -400,7 +400,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="name">
@@ -424,7 +424,7 @@ export default function JoinMajlis(props) {
                                                     </Grid>
                                                 </Grid>
                                             </Grid>
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="housename">
@@ -449,7 +449,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="housename">
@@ -474,7 +474,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="housename">
@@ -499,7 +499,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="housename">
@@ -524,7 +524,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="bloodgroup" style={{ color: 'black', fontSize: '16px' }}>
@@ -550,7 +550,7 @@ export default function JoinMajlis(props) {
                                             </Grid>
 
                                             <Grid item xs={12}><Headline>Personal Identification</Headline></Grid>
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="passport">
@@ -575,7 +575,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="dob">
@@ -601,7 +601,7 @@ export default function JoinMajlis(props) {
                                             </Grid>
 
                                             <Grid item xs={12}><Headline>Company Information</Headline></Grid>
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="job">
@@ -626,7 +626,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="company_name">
@@ -651,7 +651,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="postcode">
@@ -676,7 +676,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="area">
@@ -701,7 +701,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="emirates">
@@ -726,7 +726,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="institution">
@@ -751,7 +751,7 @@ export default function JoinMajlis(props) {
                                             </Grid>
 
                                             <Grid item xs={12}><Headline>Educational Details</Headline></Grid>
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="education">
@@ -775,7 +775,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="jobqualification">
@@ -799,7 +799,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="licence">
@@ -824,7 +824,7 @@ export default function JoinMajlis(props) {
                                             </Grid>
 
                                             <Grid item xs={12}><Headline>Residential Details</Headline></Grid>
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="residential">
@@ -848,7 +848,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="area">
@@ -872,7 +872,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="building">
@@ -896,7 +896,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="Flat">
@@ -920,7 +920,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="emirates_residential">
@@ -944,7 +944,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="marriage_status">
@@ -969,7 +969,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="family_status">
@@ -994,7 +994,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="no_of_boys">
@@ -1019,7 +1019,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="no_of_girls">
@@ -1044,7 +1044,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="closest_relative">
@@ -1068,7 +1068,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="relative_phone">
@@ -1093,7 +1093,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="relation">
@@ -1119,7 +1119,7 @@ export default function JoinMajlis(props) {
                                             </Grid>
 
                                             <Grid item xs={12}><Headline>Residential Details(Home)</Headline></Grid>
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="address">
@@ -1143,7 +1143,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="place_home">
@@ -1167,7 +1167,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="person_to_contact">
@@ -1191,7 +1191,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="person_to_contact_relation">
@@ -1215,7 +1215,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="phone_home">
@@ -1239,7 +1239,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="mahal_phone">
@@ -1263,7 +1263,7 @@ export default function JoinMajlis(props) {
                                                 </Grid>
                                             </Grid>
 
-                                            <Grid item xs={6}>
+                                            <Grid xs={12} sm={6}>
                                                 <Grid container spacing={0} className="field">
                                                     <Grid item xs={4}>
                                                         <label htmlFor="mahal_phone">
@@ -1280,8 +1280,8 @@ export default function JoinMajlis(props) {
 
 
                                             <Grid container spacing={0}>
-                                                <Grid item xs={4}></Grid>
-                                                <Grid item xs={2} style={{ display: "inline-block" }}>
+                                                <Grid item xs={2} sm={4}></Grid>
+                                                <Grid item xs={4} sm={2} style={{ display: "inline-block" }}>
                                                     <button
                                                         type="button"
                                                         className="buttons outline"
@@ -1291,12 +1291,12 @@ export default function JoinMajlis(props) {
                                                         Reset
                       </button>
                                                 </Grid>
-                                                <Grid item xs={2} style={{ display: "inline-block" }}>
+                                                <Grid item xs={4} sm={2} style={{ display: "inline-block" }}>
                                                     <button type="submit" className="buttons" disabled={isSubmitting}>
                                                         Submit
                       </button>
                                                 </Grid>
-                                                <Grid item xs={4}></Grid>
+                                                <Grid item xs={2} sm={4} ></Grid>
                                             </Grid>
                                         </Grid>
                                     </form>
