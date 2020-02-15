@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Subscription from './subscriptions';
 import Loans from './loans';
 import FamilyWelfare from './family_welfare';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import axios from 'axios';
 import { API_BASE_URL } from '../constants';
 import Loading from '../sub_components/loading';
@@ -17,15 +17,20 @@ import {
     ThemeProvider,
     createMuiTheme
 } from '@material-ui/core';
+import MediaQuery from 'react-responsive'
 
 const UserOptionCard = styled.div`
 margin: 0 10vw;
+@media (max-width:700px){
+    margin: 0;
+}
+
 `;
 export default function UserOptions(props) {
     const [canLoad, setLoading] = React.useState(false)
     useEffect(() => {
-    window.scrollTo(0, 0)
-    if (localStorage.getItem('VerifiedUser')) {
+        window.scrollTo(0, 0)
+        if (localStorage.getItem('VerifiedUser')) {
             setLoading(true)
         } else {
             axios.get(API_BASE_URL + '/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
@@ -60,6 +65,9 @@ export default function UserOptions(props) {
 
 const Card = styled.div`
 margin: 2vh 0;
+@media (max-width:700px){
+    margin: 1vh 0;
+}
 `;
 const Headline = styled.h3`
 color:#1d4219;
@@ -84,43 +92,89 @@ border-radius: .15em;
     background-color: transparent;
     color: #556b2f;
 }
+@media (max-width:700px){
+    margin: 1vh ;
+}
 `;
 
 function MemberHome() {
     return (
-        <Card>
-            <Paper style={{ backgroundColor: "#e5eee5", padding: "1% 5%" }}>
-                <Headline>Edassery Majlis Group welcomes You..</Headline>
-                <Grid container spacing={0}>
-                    <Grid item xs={2}></Grid>
-                    <Grid item xs={3}>
-                        <img src={localStorage.getItem('UserImageURL')} style={{ width: "200px", height: "230px" }}></img>
-                    </Grid>
-                    <Grid item xs={7}>
-                        <Grid container spacing={0}><Grid item xs={12}></Grid>&nbsp;</Grid>
-                        <Grid container spacing={0}><Grid item xs={12}></Grid>&nbsp;</Grid>
-                        <Grid container spacing={0}><Grid item xs={12}></Grid>&nbsp;</Grid>
-                        <KeyValuePair head="Name" value={localStorage.getItem('Username')} />
-                        <KeyValuePair head="Member ID" value={localStorage.getItem('MemberId')} />
-                        <KeyValuePair head="Email" value={localStorage.getItem('Email')} />
-                        <KeyValuePair head="phone" value={localStorage.getItem('Phone')} />
-                    </Grid>
-                    <Grid item xs={1}></Grid>
-                </Grid>
-                <Grid container spacing={0}><Grid item xs={12}>&nbsp;</Grid></Grid>
-                <Grid container spacing={0}>
-                    <Grid item xs={2}></Grid>
-                    <Grid item xs={7}>
+        <div>
+            <MediaQuery minDeviceWidth={701}>
+                <Card>
+                    <Paper style={{ backgroundColor: "#e5eee5", padding: "1% 5%" }}>
+                        <Headline>Edassery Majlis Group welcomes You..</Headline>
                         <Grid container spacing={0}>
-                            <Grid item xs={4}><Link to="/User/UserOptions/Subscriptions" ><Button>Subscriptions</Button></Link></Grid>
-                            <Grid item xs={4}><Link to="/User/UserOptions/Loans"><Button>Loans</Button></Link></Grid>
-                            <Grid item xs={4}><Link to="/User/UserOptions/FamilyWelfare"><Button>Family Welfare</Button></Link></Grid>
+                            <Grid item xs={2}></Grid>
+                            <Grid item xs={3}>
+                                <img src={localStorage.getItem('UserImageURL')} style={{ width: "200px", height: "230px" }}></img>
+                            </Grid>
+                            <Grid item xs={7}>
+                                <Grid container spacing={0}><Grid item xs={12}></Grid>&nbsp;</Grid>
+                                <Grid container spacing={0}><Grid item xs={12}></Grid>&nbsp;</Grid>
+                                <Grid container spacing={0}><Grid item xs={12}></Grid>&nbsp;</Grid>
+                                <KeyValuePair head="Name" value={localStorage.getItem('Username')} />
+                                <KeyValuePair head="Member ID" value={localStorage.getItem('MemberId')} />
+                                <KeyValuePair head="Email" value={localStorage.getItem('Email')} />
+                                <KeyValuePair head="phone" value={localStorage.getItem('Phone')} />
+                            </Grid>
+                            <Grid item xs={1}></Grid>
                         </Grid>
-                    </Grid>
-                    <Grid item xs={3}></Grid>
-                </Grid>
-            </Paper>
-        </Card >
+                        <Grid container spacing={0}><Grid item xs={12}>&nbsp;</Grid></Grid>
+                        <Grid container spacing={0}>
+                            <Grid item xs={3}></Grid>
+                            <Grid item xs={7}>
+                                <Grid container spacing={0}>
+                                    <Grid item xs={4}><Link to="/User/UserOptions/Subscriptions" ><Button>Subscriptions</Button></Link></Grid>
+                                    <Grid item xs={4}><Link to="/User/UserOptions/Loans"><Button>Loans</Button></Link></Grid>
+                                    <Grid item xs={4}><Link to="/User/UserOptions/FamilyWelfare"><Button>Family Welfare</Button></Link></Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={2}></Grid>
+                        </Grid>
+                    </Paper>
+                </Card >
+            </MediaQuery>
+            <MediaQuery maxDeviceWidth={700}>
+                <Card>
+                    <Paper style={{ backgroundColor: "#e5eee5", padding: "1% 5%" }}>
+                        <Headline>Edassery Majlis Group welcomes You..</Headline>
+                        <Grid container spacing={0}>
+                            <Grid item xs={3}></Grid>
+                            <Grid item xs={6}>
+                                <img src={localStorage.getItem('UserImageURL')} style={{ width: "150px", height: "180px" }}></img>
+                            </Grid>
+                            <Grid item xs={3}></Grid>
+                            <Grid item xs={12}>
+                                <Grid container spacing={0}><Grid item xs={12}></Grid>&nbsp;</Grid>
+                                <KeyValuePair head="Name" value={localStorage.getItem('Username')} />
+                                <KeyValuePair head="Member ID" value={localStorage.getItem('MemberId')} />
+                                <KeyValuePair head="Email" value={localStorage.getItem('Email')} />
+                                <KeyValuePair head="phone" value={localStorage.getItem('Phone')} />
+                            </Grid>
+                            <Grid item xs={1}></Grid>
+                        </Grid>
+                        <Grid container spacing={0}><Grid item xs={12}>&nbsp;</Grid></Grid>
+                        <Grid container spacing={0}>
+                            <Grid item xs={2}></Grid>
+                            <Grid item xs={7}>
+                                <Grid container spacing={0}>
+                                    <Grid xs={1}></Grid>
+                                    <Grid item xs={11}><Link to="/User/UserOptions/Subscriptions" ><Button>Subscriptions</Button></Link></Grid>
+                                    <Grid xs={1}></Grid>
+                                    <Grid item xs={11}><Link to="/User/UserOptions/Loans"><Button>Loans</Button></Link></Grid>
+                                    <Grid xs={1}></Grid>
+                                    <Grid item xs={11}><Link to="/User/UserOptions/FamilyWelfare"><Button>Family Welfare</Button></Link></Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={3}></Grid>
+                        </Grid>
+                    </Paper>
+                </Card >
+            </MediaQuery>
+
+        </div>
+
     )
 }
 
@@ -141,15 +195,28 @@ font-weight: 600;
 export function KeyValuePair(props) {
     return (
         <Grid container spacing={0}>
-            <Grid item xs={3}>
-                <Key>{props.head}</Key>
-            </Grid>
-            <Grid item xs={1}>
-                <Key>:</Key>
-            </Grid>
-            <Grid item xs={8}>
-                <Value >{props.value}</Value>
-            </Grid>
+            <MediaQuery minDeviceWidth={701}>
+                <Grid item xs={3}>
+                    <Key>{props.head}</Key>
+                </Grid>
+                <Grid item xs={1}>
+                    <Key>:</Key>
+                </Grid>
+                <Grid item xs={8}>
+                    <Value >{props.value}</Value>
+                </Grid>
+            </MediaQuery>
+            <MediaQuery maxDeviceWidth={700}>
+                <Grid item xs={3}>
+                    <Key>{props.head}</Key>
+                </Grid>
+                <Grid item xs={2}>
+                    <Key>:</Key>
+                </Grid>
+                <Grid item xs={7}>
+                    <Value >{props.value}</Value>
+                </Grid>
+            </MediaQuery>
         </Grid>
     )
 }

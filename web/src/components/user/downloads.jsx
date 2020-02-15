@@ -118,7 +118,7 @@ export function DownloadCard(props) {
   }
   return (
     <div>
-      <MediaQuery minDeviceWidth={700}>
+      <MediaQuery minDeviceWidth={701}>
         <Card>
           <Paper style={{ backgroundColor: "#f2f7f1e0" }}>
             <Grid container spacing={3} >

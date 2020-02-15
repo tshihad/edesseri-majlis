@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Gallery from '../sub_components/gallery';
 import MediaQuery from 'react-responsive';
-import Select from 'react-select';
+import Dropdown from 'react-dropdown';
 
 
 const EventGalleryCard = styled.div`
@@ -10,8 +10,8 @@ margin: 5vh 10vw 0 10vw;
 `;
 
 export default function EventGallery(props) {
-    const [category, setCategory] = React.useState()
-    const [selectedOption, setOption] = React.useState()
+  const [category, setCategory] = React.useState()
+  const [selectedOption, setOption] = React.useState()
 
   useEffect(() => {
     props.setLanButton(false)
@@ -33,7 +33,7 @@ export default function EventGallery(props) {
   }
   return (
     <div>
-      <MediaQuery minDeviceWidth={700}>
+      <MediaQuery minDeviceWidth={701}>
         <EventGalleryCard>
           {props.category === "milad" && <Gallery head="Milad" category="milad" />}
           {props.category === "eid" && <Gallery head="Eid" category="eid" />}
@@ -45,13 +45,12 @@ export default function EventGallery(props) {
       </MediaQuery>
       <MediaQuery maxDeviceWidth={700}>
         <EventGalleryCard>
-          <Select
-            defaultValue="fghd"
-            value={selectedOption}
-            onChange={handleChange}
+          <Dropdown
             options={options}
-            styles={{backgroundColor:"black"}}
+            onChange={handleChange}
+            value={props.category}
           />
+
           {category === "milad" && <Gallery head="Milad" category="milad" />}
           {category === "eid" && <Gallery head="Eid" category="eid" />}
           {category === "iftar" && <Gallery head="Iftar" category="iftar" />}

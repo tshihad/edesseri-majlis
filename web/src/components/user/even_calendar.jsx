@@ -50,6 +50,7 @@ export default function EventCalendar(props) {
     useEffect(() => {
     window.scrollTo(0, 0)
     props.setState("EventCalendar")
+    props.setUser("user")
     }, [props])
     const [selectedDate, setSelectedDate] = React.useState(new Date());
     const handleDateChange = date => {

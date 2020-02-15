@@ -8,6 +8,9 @@ import Loading from '../sub_components/loading'
 
 const EventCalendarCard = styled.div`
 margin: 2vh 10vw 0 10vw;
+@media(max-width: 700px){
+  margin: 0;
+}
 `;
 
 const EventColumns = [
@@ -39,7 +42,6 @@ export default function EventCalendar(props) {
   }
   useEffect(() => {
     window.scrollTo(0, 0)
-    props.setState("Home")
     axios.get(API_BASE_URL + "/majlis/event-calendar")
       .then(({ data }) => {
         data.result.map((row) => {
