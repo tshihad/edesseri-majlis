@@ -9,7 +9,7 @@ import Loading from '../sub_components/loading'
 const EventCalendarCard = styled.div`
 margin: 2vh 10vw 0 10vw;
 @media(max-width: 700px){
-  margin: 0;
+  margin: 2vh 0 0 0;
 }
 `;
 

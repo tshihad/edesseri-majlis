@@ -59,7 +59,7 @@ margin: 3vh 10vw 0 10vw ;
     margin: 3vh 5vw 0 5vw;
 }
 @media(max-width: 500px){
-    margin: 0;
+    margin: 3vh 0 0 0;
 }
   `;
 const Card = styled.div`
