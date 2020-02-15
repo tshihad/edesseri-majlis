@@ -18,7 +18,7 @@
     float:right;
     position: relative;
     display: inline-block;
-    z-index: inherit 5;;
+    z-index: inherit 5;
   }
   
   .logout-content {
