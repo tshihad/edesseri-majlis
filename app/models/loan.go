@@ -7,7 +7,7 @@ type Loan struct {
 	RequestAmount     string `json:"request_amount" gorm:"column:request_amount"`
 	Installment       string `json:"installment" gorm:"column:installment"`
 	Purpose           string `json:"purpose" gorm:"column:purpose"`
-	RequsetDate       string `json:"requset_date" gorm:"column:requset_date"`
+	RequsetDate       string `json:"request_date" gorm:"column:requset_date"`
 	GuarenterMemberID string `json:"g_member_id" gorm:"column:g_member_id"`
 	Status            string `json:"status" gorm:"column:status"`
 	Reason            string `json:"reason" gorm:"column:reason"`

@@ -14,12 +14,12 @@ import (
 func (a *App) handlePostSubscription(w http.ResponseWriter, r *http.Request) {
 	var subs models.Subscription
 	if err := json.NewDecoder(r.Body).Decode(&subs); err != nil {
-		a.Fail(w, http.StatusNonAuthoritativeInfo, "Invalid request", err)
+		a.Fail(w, http.StatusBadRequest, "Invalid request", err)
 		return
 	}
 	subs, err := a.CreateSubscription(subs)
 	if err != nil {
-		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to create subscription", err)
+		a.Fail(w, http.StatusInternalServerError, "Failed to create subscription", err)
 		return
 	}
 	a.Success(w, http.StatusCreated, subs)
@@ -74,12 +74,7 @@ func (a *App) handleDeleteSubscription(w http.ResponseWriter, r *http.Request) {
 }
 
 func (a *App) handleGetsubscriptions(w http.ResponseWriter, r *http.Request) {
-	var req models.SubsAdminTableReq
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to parse string", err)
-		return
-	}
-	resp, err := a.GetSubscriptions(req)
+	resp, err := a.GetSubscriptions()
 	if err != nil {
 		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to get subsciption", err)
 		return

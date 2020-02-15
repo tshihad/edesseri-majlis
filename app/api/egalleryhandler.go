@@ -1,6 +1,7 @@
 package api
 
 import (
+	"encoding/json"
 	"fmt"
 	"majlis/app/core"
 	"majlis/app/models"
@@ -62,4 +63,13 @@ func (a *App) handleDeleteEGallery(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Println("this ")
 	w.WriteHeader(http.StatusOK)
+}
+
+func (a *App) handlePostEGalleryCategory(w http.ResponseWriter, r *http.Request) {
+	var ec models.ECategoryReq
+	if err := json.NewDecoder(r.Body).Decode(&ec); err != nil {
+		a.Fail(w, http.StatusNonAuthoritativeInfo, "Failed to create", err)
+		return
+	}
+	a.Success(w, http.StatusOK, ec)
 }

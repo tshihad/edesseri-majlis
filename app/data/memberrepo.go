@@ -4,6 +4,7 @@ import (
 	"majlis/app/core"
 	"majlis/app/models"
 	"strconv"
+	"time"
 
 	"github.com/jinzhu/gorm"
 
@@ -11,12 +12,18 @@ import (
 )
 
 // GetMember get user from db
-func (r *RepoImp) GetMember(memberID string) (models.Member, error) {
+func (r *RepoImp) GetMember(memberID string, status string) (models.Member, error) {
 	var member models.Member
 	if memberID == "" {
 		return member, errors.New("Empty member_id")
 	}
-	err := r.db.Where(models.Member{MemberID: memberID}).First(&member).Error
+	err := r.db.Where(models.Member{
+		MemberID: memberID,
+		Status:   status,
+	}).First(&member).Error
+	member.DateOfJoin, _ = parseTime(member.DateOfJoin)
+	member.Dob, _ = parseTime(member.Dob)
+	member.EndDate, _ = parseTime(member.EndDate)
 	return member, err
 }
 
@@ -40,7 +47,7 @@ func (r *RepoImp) DeleteMember(memberID string) error {
 // GetMembers returns members in given range( according to memberid)
 func (r *RepoImp) GetMembers() ([]models.MemberShortResp, error) {
 	var members []models.MemberShortResp
-	err := r.db.Model(models.Member{}).Select("member_id,name,ph_number_1,email,image_location").Order("member_id").Scan(&members).Error
+	err := r.db.Model(models.Member{}).Select("member_id,name,ph_number_1,email,image_location,status").Order("member_id").Scan(&members).Error
 	return members, err
 }
 
@@ -60,7 +67,7 @@ func (r *RepoImp) CreateNewMemberID() (string, error) {
 		newID = core.MEMBER_PREFIX + zeroArr[:len(zeroArr)-1] + "1"
 		return newID, nil
 	}
-	num, err := strconv.Atoi(memberID[3:])
+	num, err := strconv.Atoi(memberID[1:])
 	if err != nil {
 		return memberID, errors.Wrap(err, "failed to parse member id, may be polluted data present in db!! id = "+memberID)
 	}
@@ -68,4 +75,20 @@ func (r *RepoImp) CreateNewMemberID() (string, error) {
 	numString := strconv.Itoa(num)
 	newID = core.MEMBER_PREFIX + zeroArr[:len(zeroArr)-len(numString)] + numString
 	return newID, nil
+}
+
+func (r *RepoImp) GetSearchMember(data string) ([]models.MemberShortResp, error) {
+	var m []models.MemberShortResp
+	qry := "member_id ILIKE '%" + data + "%' OR name ILIKE '%" + data + "%'"
+	err := r.db.Model(models.Member{}).Where(qry).Scan(&m).Error
+	return m, err
+}
+
+func parseTime(ts string) (string, error) {
+	t, err := time.Parse("2/Jan/2006", ts)
+	if err != nil {
+		return ts, err
+	}
+	return t.Format("2006-01-02"), nil
+
 }

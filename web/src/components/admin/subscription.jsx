@@ -70,16 +70,18 @@ export default function Subscriptions(props) {
                                         setSubmitting(false);
                                         return;
                                     }
-                                    axios.post(API_BASE_URL + '/majlis/admin/subscription', {
+                                    axios.post(API_BASE_URL + '/majlis/admin/subscription/add', {
                                         member_id: values.member_id,
-                                        sub_year: values.sub_year,
-                                        sub_month: values.sub_month,
-                                        sub_amount: values.sub_amount,
+                                        sub_year: Number(values.sub_year),
+                                        sub_month: Number(values.sub_month),
+                                        sub_amount: Number(values.sub_amount),
                                         sub_type: values.sub_type,
                                         payment_date: values.country,
                                         payment_event: values.payment_event,
                                         created_by: values.created_by
-                                    })
+                                    }, {
+                                            headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') }
+                                        })
                                         .then((response) => {
                                             alert("Subscription Added");
                                             FormReset()
