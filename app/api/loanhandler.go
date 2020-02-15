@@ -1,6 +1,7 @@
 package api
 
 import (
+	"time"
 	"encoding/json"
 	"errors"
 	"majlis/app/core"
@@ -30,6 +31,7 @@ func (a *App) handlePostLoan(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	loan.MemberID = memberID
+	loan.RequsetDate=time.Now().String()
 	err := a.CreateLoan(loan)
 	if err != nil {
 		a.Fail(w, http.StatusInternalServerError, "Failed to insert data", err)
