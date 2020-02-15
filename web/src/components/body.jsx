@@ -280,7 +280,7 @@ export default function Header() {
           </div>
         </div>}
       <Router>
-        <MediaQuery minDeviceWidth={700}>
+        <MediaQuery minDeviceWidth={701}>
           <Head>
             <Heading style={{ maxHeight: "100%", overflowX: "hidden", borderBottom: user === "none" && "0px" }}>
               <div style={{ display: "inline-flex" }}>

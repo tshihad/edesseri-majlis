@@ -13,12 +13,18 @@ import Loading from '../sub_components/loading'
 
 
 const Contact = styled.div`
-margin: 5vh 10vw 0 10vw;`;
+margin: 5vh 10vw 0 10vw;
+@media (max-width:700px){
+  margin: 5vh 0 0 1vw;
+}`;
 
 const Headline = styled.h1`
 color:#1d4219;
 font-size: 1.8em;
 font-family: 'Comfortaa', cursive;
+@media (max-width:700px){
+  padding-left: 2vw;
+}
 `;
 
 export default function Contactmajlis(props) {
@@ -27,6 +33,7 @@ export default function Contactmajlis(props) {
     props.setLanButton(false)
     window.scrollTo(0, 0)
     props.setState("ContactMajlis")
+    props.setUser("user")
     axios.get(API_BASE_URL + '/majlis/auth', { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } }).then(
       repsonse => {
         if (repsonse.status != 200) {
@@ -45,7 +52,7 @@ export default function Contactmajlis(props) {
   return (
     <div>
       {canLoad === true ?
-        <Contact>
+        <Contact >
           <Headline>Contact Majlis</Headline>
           <Formik
             initialValues={{ email: '', phone: '', firstname: '', lastname: '', place: '', country: '', content: '' }}
@@ -531,7 +538,7 @@ export default function Contactmajlis(props) {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 className={
-                                  errors.firstname && touched.firstname ? 'inputs text-input error width' : 'inputs text-input width'}
+                                  errors.firstname && touched.firstname ? 'inputs text-input error width width-small' : 'inputs text-input width width-small'}
                               />
                               {errors.firstname && touched.firstname ? (
                                 <div className="input-feedback">{errors.firstname}</div>
@@ -676,7 +683,7 @@ export default function Contactmajlis(props) {
                               Content
                       </label>
                           </Grid>
-                          <Grid item xs={120}>
+                          <Grid item xs={12}>
                             <textarea
                               id="content"
                               type="textArea"

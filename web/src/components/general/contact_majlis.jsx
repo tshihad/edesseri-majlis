@@ -11,12 +11,18 @@ import { API_BASE_URL } from '../constants';
 import MediaQuery from 'react-responsive'
 
 const Contact = styled.div`
-margin: 5vh 10vw 0 10vw;`;
+margin: 5vh 10vw 0 10vw;
+@media (max-width:700px){
+  margin: 5vh 0 0 1vw;
+}`;
 
 const Headline = styled.h1`
 color:#1d4219;
 font-size: 1.8em;
 font-family: 'Comfortaa', cursive;
+@media (max-width:700px){
+  padding-left: 2vw;
+}
 `;
 
 export default function Contactmajlis(props) {
@@ -664,7 +670,7 @@ export default function Contactmajlis(props) {
                           Content
                       </label>
                       </Grid>
-                      <Grid item xs={120}>
+                      <Grid item xs={12}>
                         <textarea
                           id="content"
                           type="textArea"

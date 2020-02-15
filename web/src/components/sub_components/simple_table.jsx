@@ -13,7 +13,7 @@ import styled from 'styled-components';
 const useStyles = makeStyles({
     root: {
         width: '100%',
-        backgroundColor:"#e5eee5"
+        backgroundColor: "#e5eee5"
     },
     tableWrapper: {
         maxHeight: '70vh',
@@ -31,7 +31,7 @@ const useStyles = makeStyles({
     cell: {
         padding: "1vw .5vw",
         fontSize: ".9vw",
-        zIndex:"0",
+        zIndex: "0",
         fontSize: "1em",
     },
 });
@@ -61,6 +61,18 @@ border-radius:4px;
 color:white;
 padding:.5vw 1vw;
 `;
+const Heading = styled.div`
+display: inline-block;
+padding: 1em;
+color: #1d4219;
+min-height: 4vw;
+font-size: 1.7em;
+font-weight: 600;
+@media (max-width:700px){
+    font-size: 1.5em;
+    padding-left: 5vw; 
+  }
+`;
 
 
 export default function CommonTable(props) {
@@ -80,17 +92,17 @@ export default function CommonTable(props) {
     return (
         <Paper className={classes.root}>
             <div>
-                <div className={classes.heading}>{props.tablename}</div>
+                <Heading>{props.tablename}</Heading>
             </div>
             <div className={classes.tableWrapper}>
                 <Table stickyHeader>
-                    <TableHead style={{zIndex:"-1"}}>
+                    <TableHead style={{ zIndex: "-1" }}>
                         <TableRow >
                             {props.columns.map(column => (
                                 <TableCell className={classes.cell}
                                     key={column.id}
                                     align={column.align}
-                                    style={{ minWidth: column.minWidth, fontSize: "1.1em", color: '#f1f1f1',backgroundColor:"rgb(85, 107, 47)" }}
+                                    style={{ minWidth: column.minWidth, fontSize: "1.1em", color: '#f1f1f1', backgroundColor: "rgb(85, 107, 47)" }}
                                 >
                                     {column.label}
                                 </TableCell>

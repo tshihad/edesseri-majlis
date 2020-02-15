@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import Gallery from '../sub_components/gallery';
 import MediaQuery from 'react-responsive';
-import Select from 'react-select';
+import Dropdown from 'react-dropdown';
 
 
 const EventGalleryCard = styled.div`
@@ -16,6 +16,7 @@ export default function EventGallery(props) {
   useEffect(() => {
     props.setLanButton(false)
     props.setState("EventGallery")
+    props.setUser("user")
     window.scrollTo(0, 0)
     setCategory(props.category)
   }, [props, category])
@@ -33,7 +34,7 @@ export default function EventGallery(props) {
   }
   return (
     <div>
-      <MediaQuery minDeviceWidth={700}>
+      <MediaQuery minDeviceWidth={701}>
         <EventGalleryCard>
           {props.category === "milad" && <Gallery head="Milad" category="milad" />}
           {props.category === "eid" && <Gallery head="Eid" category="eid" />}
@@ -45,12 +46,10 @@ export default function EventGallery(props) {
       </MediaQuery>
       <MediaQuery maxDeviceWidth={700}>
         <EventGalleryCard>
-          <Select
-            defaultValue="fghd"
-            value={selectedOption}
-            onChange={handleChange}
+        <Dropdown
             options={options}
-            styles={{backgroundColor:"black"}}
+            onChange={handleChange}
+            value={props.category}
           />
           {category === "milad" && <Gallery head="Milad" category="milad" />}
           {category === "eid" && <Gallery head="Eid" category="eid" />}

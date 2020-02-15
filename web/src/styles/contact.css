@@ -113,3 +113,14 @@
   textarea.error {
     border-color: red;
   }
+
+.width-small{
+  width:200px
+}
+
+  @media screen and(max-width: 450px){
+    .inputs{
+      width: 200px;
+    }
+  }
+  
