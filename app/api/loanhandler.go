@@ -31,7 +31,8 @@ func (a *App) handlePostLoan(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	loan.MemberID = memberID
-	loan.RequsetDate = time.Now().String()[0:9]
+	loan.RequsetDate = time.Now()
+	loan.OfficeDate = time.Now()
 	err := a.CreateLoan(loan)
 	if err != nil {
 		a.Fail(w, http.StatusInternalServerError, "Failed to insert data", err)
