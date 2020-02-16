@@ -91,14 +91,18 @@ export default function Loans(props) {
                                         return;
                                     }
                                     axios.post(API_BASE_URL + '/majlis/member/loan', {
-                                        request_amount: values.request_amount.toString(),
-                                        installment: values.installment.toString(),
+                                        request_amount: values.request_amount,
+                                        installment: values.installment,
                                         purpose: values.purpose,
                                         g_member_id: values.membership_id,
                                         g_phone: values.phone,
                                     }, { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } })
                                         .then((response) => {
-                                            alert("Information Recorderd for Admin Verification");
+                                            if (response.status == 201) {
+                                                alert("Information Recorderd for Admin Verification");
+                                            } else if (response.status == 203) {
+                                                alert(response.statusText)
+                                            }
                                         })
                                         .catch(function (error) {
                                             console.log(error);;
@@ -274,14 +278,18 @@ export default function Loans(props) {
                                         return;
                                     }
                                     axios.post(API_BASE_URL + '/majlis/member/loan', {
-                                        request_amount: values.request_amount.toString(),
-                                        installment: values.installment.toString(),
+                                        request_amount: values.request_amount,
+                                        installment: values.installment,
                                         purpose: values.purpose,
                                         g_member_id: values.membership_id,
                                         g_phone: values.phone,
                                     }, { headers: { "Authorization": localStorage.getItem('EdasseryMajlisToken') } })
                                         .then((response) => {
-                                            alert("Information Recorderd for Admin Verification");
+                                            if (response.status == 201) {
+                                                alert("Information Recorderd for Admin Verification");
+                                            } else if (response.status == 203) {
+                                                alert(response.statusText)
+                                            }
                                         })
                                         .catch(function (error) {
                                             console.log(error);;
